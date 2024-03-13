@@ -3,18 +3,16 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final List<Widget> _tabs = [
+  final List<Widget> _navigationButtonList = [
     NavigationDestination(
-        icon: Image.asset(
-          'assets/images/Khalil2.jpeg',
-          scale: 1.9,
-        ),
+        icon: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
         label: "Home"),
     NavigationDestination(
-        icon: Image.asset(
-          'assets/images/Khalil2.jpeg',
-          scale: 0.5,
-        ),
+        icon: IconButton(
+            onPressed: () {
+              HomePage();
+            },
+            icon: const Icon(Icons.calendar_month)),
         label: "Calendar"),
     NavigationDestination(
         icon: Image.asset(
@@ -23,11 +21,8 @@ class HomePage extends StatelessWidget {
         ),
         label: "XP"),
     NavigationDestination(
-        icon: Image.asset(
-          'assets/images/Khalil2.jpeg',
-          scale: 0.1,
-        ),
-        label: "SMTH"),
+        icon: IconButton(onPressed: () {}, icon: const Icon(Icons.map)),
+        label: "Map"),
   ];
 
   @override
@@ -35,13 +30,13 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text("Hello"),
+            title: const Text("yooooo"),
           ),
           body: Container(
             child: const Center(),
           ),
           bottomNavigationBar: NavigationBar(
-            destinations: _tabs,
+            destinations: _navigationButtonList,
           )),
     );
   }
