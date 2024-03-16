@@ -1,74 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:pam_pan/data/app_bar_button_list_manager.dart';
+import 'package:pam_pan/data/nav_button_list_manager.dart';
+import 'package:pam_pan/data/nav_buttons_contents_manager.dart';
 
 class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
+  PaymentPage({super.key});
+
+  final NavButtonListManager navButtonList = NavButtonListManager();
+  final NavButtonContentsManager navButtonContents = NavButtonContentsManager();
+  final AppBarButtonListManager appBarButtonList = AppBarButtonListManager();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Payment Page'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Card Number',
+          appBar: AppBar(
+            title: const Text('Payment Page'),
+            leading: appBarButtonList.getlist()[0],
+            actions: [
+              appBarButtonList.getlist()[1],
+              appBarButtonList.getlist()[2],
+            ],
+            backgroundColor: const Color.fromARGB(255, 178, 94, 91),
+          ),
+          body: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                  "Donating to help the hungry. A worthy endevour.",
+                  textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 16.0),
-              const Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Expiration Date',
-                      ),
-                    ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  style: TextStyle(
+                    fontSize: 12,
                   ),
-                  SizedBox(width: 16.0),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'CVV',
-                      ),
-                    ),
-                  ),
-                ],
+                  "Our mission here at PamPan is to reduce food waste so there is more for everybody. That is why any donation you make through us would go straight to the United Nation's World Food Programme (WFP), which aims to distribute food to as many hungry people as possible, across the globe.",
+                  textAlign: TextAlign.justify,
+                ),
               ),
-              const SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Process payment logic goes here
-                  // Placeholder for demonstration purposes
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Payment Success'),
-                        content: const Text('Thank you for your payment!'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    const TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Card Number',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            //maybe we can make this a drop down menu like the real expiration payment pages
+                            decoration: InputDecoration(
+                              labelText: 'Expiration Date',
+                            ),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: const Text('Process Payment'),
+                        ),
+                        SizedBox(width: 16.0),
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: 'CVV',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32.0),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Process Donation'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-        ),
-      ),
+          bottomNavigationBar: NavigationBar(
+            destinations: navButtonList.getList(),
+          )),
     );
   }
 }
