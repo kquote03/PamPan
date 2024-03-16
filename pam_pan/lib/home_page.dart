@@ -1,19 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:pam_pan/payment_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final List<Widget> _navigationButtonList = [
+  @override
+  Widget build(context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Home Page'),
+            leading: _appBarButtonList[0],
+            actions: [
+              _appBarButtonList[1],
+              _appBarButtonList[2],
+            ],
+            backgroundColor: const Color.fromARGB(255, 178, 94, 91),
+          ),
+          body: _navButtonContents[0](context),
+          bottomNavigationBar: NavigationBar(
+            destinations: _navButtonList,
+          )),
+    );
+  }
+
+  final List<NavigationDestination> _navButtonList = [
     // all the icons here are defaulted from flutter, we could get iyad to
     // design some, but they have to be transparent
     NavigationDestination(
-      icon: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
+      icon: IconButton(
+          onPressed: () {
+            HomePage();
+          },
+          icon: const Icon(Icons.home)),
       label: "Home",
     ),
     NavigationDestination(
         icon: IconButton(
             onPressed: () {
-              HomePage();
+              const PaymentPage();
             },
             icon: const Icon(Icons.calendar_month)),
         label: "Calendar"),
@@ -29,70 +54,57 @@ class HomePage extends StatelessWidget {
         label: "Map"),
   ];
 
+  final List _navButtonContents = [
+    (BuildContext context) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.blueGrey,
+              ),
+              height: MediaQuery.of(context).size.height * 0.15,
+              child: const Center(
+                child: Text('Mini calendar widget - incomplete'),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.amber,
+                ),
+                child: const Center(
+                  child: Text(
+                      'Pam and buttons and the pantry - incomplete - is clickable and will take you to the full pantry page'),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+  ];
+
   final List<IconButton> _appBarButtonList = [
     // all the icons here are defaulted from flutter, we could get iyad to
     // design some, but they have to be transparent
     IconButton(
-      icon: const Icon(Icons.menu),
+      icon: const Icon(Icons.help),
       onPressed: () {},
     ),
     IconButton(
-      icon: const Icon(Icons.search),
+      icon: const Icon(Icons.notifications),
       onPressed: () {},
     ),
     IconButton(
-      icon: const Icon(Icons.settings),
+      icon: const Icon(Icons.person),
       onPressed: () {},
     ),
   ];
-
-  @override
-  Widget build(context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('My App'),
-            // leading: _appBarButtonList[0],
-            actions: [
-              _appBarButtonList[1],
-              _appBarButtonList[2],
-            ],
-            backgroundColor: const Color.fromARGB(255, 91, 115, 136),
-          ),
-          body: Column(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.5,
-                padding: const EdgeInsets.all(8),
-                child: PageView(
-                  children: <Widget>[
-                    // Pages containing different content
-                    Container(
-                      color: Colors.blue,
-                      child: const Center(
-                        child: Text('Page 1'),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.green,
-                      child: const Center(
-                        child: Text('Page 2'),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.orange,
-                      child: const Center(
-                        child: Text('Page 3'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          bottomNavigationBar: NavigationBar(
-            destinations: _navigationButtonList,
-          )),
-    );
-  }
 }
