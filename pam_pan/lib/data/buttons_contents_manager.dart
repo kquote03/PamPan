@@ -115,12 +115,17 @@ class ButtonContentsManager {
         ),
       ],
     ),
-    MapboxMap(
-      accessToken:
-          'pk.eyJ1Ijoia2hhbGlsa2siLCJhIjoiY2x1NnpjcTdzMDBpcjJrczI1b2NzM2s1biJ9.i6bmm2ETTzyM9jHLItCyxA',
-      initialCameraPosition: const CameraPosition(
-        target: LatLng(0, 0),
-      ),
-    ),
+    Scaffold(
+        body: MapboxMap(
+          accessToken:
+              'pk.eyJ1Ijoia2hhbGlsa2siLCJhIjoiY2x1NnpjcTdzMDBpcjJrczI1b2NzM2s1biJ9.i6bmm2ETTzyM9jHLItCyxA',
+          initialCameraPosition: const CameraPosition(
+            target: LatLng(0, 0),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.payment),
+        ))
   ];
 }
