@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 class ButtonContentsManager {
-  static final List<Widget> _buttonContents = [
+  static final List<Widget> buttonContents = [
     LayoutBuilder(
       builder: (context, constraints) {
         double screenHeight = constraints.maxHeight;
@@ -44,6 +45,7 @@ class ButtonContentsManager {
       firstDay: DateTime(2020, 1, 1),
       lastDay: DateTime(2222, 12, 31),
       focusedDay: DateTime.now(),
+      pageJumpingEnabled: true,
     ),
     Column(
       children: [
@@ -113,9 +115,12 @@ class ButtonContentsManager {
         ),
       ],
     ),
+    MapboxMap(
+      accessToken:
+          'pk.eyJ1Ijoia2hhbGlsa2siLCJhIjoiY2x1NnpjcTdzMDBpcjJrczI1b2NzM2s1biJ9.i6bmm2ETTzyM9jHLItCyxA',
+      initialCameraPosition: const CameraPosition(
+        target: LatLng(0, 0),
+      ),
+    ),
   ];
-
-  List getList() {
-    return _buttonContents;
-  }
 }
