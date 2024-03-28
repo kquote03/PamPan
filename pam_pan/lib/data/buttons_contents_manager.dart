@@ -93,22 +93,33 @@ class ButtonContentsManager {
                   ],
                 ),
                 const SizedBox(height: 16),
-                const Row(
+                Row(
                   children: <Widget>[
                     Expanded(
                       child: TextField(
-                        //maybe we can make this a drop down menu like the real expiration payment pages
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Expiration Date',
+                          hintText: 'MM/YY',
                         ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(5),
+                          _ExpirationDateInputFormatter(),
+                        ],
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
-                          labelText: 'CVV',
+                        decoration: const InputDecoration(
+                          labelText: 'CVC',
+                          hintText: 'XXX',
                         ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(3),
+                          _CVCInputFormatter(),
+                        ],
                       ),
                     ),
                   ],
@@ -150,6 +161,59 @@ class _CreditCardInputFormatter extends TextInputFormatter {
       }
       buffer.write(text[i]);
     }
+    return buffer.toString();
+  }
+}
+
+class _CVCInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text = newValue.text.replaceAll(RegExp(r'\D'), '');
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+}
+
+class _ExpirationDateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text =
+        newValue.text.replaceAll(RegExp(r'\D'), ''); // Remove non-digits
+    final formattedText = _getFormattedText(text);
+    return TextEditingValue(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+
+  String _getFormattedText(String text) {
+    if (text.isEmpty) return '';
+
+    final buffer = StringBuffer();
+
+    // Add the month part (MM) to the buffer
+    if (text.length >= 2) {
+      buffer.write(text.substring(0, 2));
+    } else {
+      buffer.write(text);
+    }
+
+    // Add the slash (/) separator if needed
+    if (text.length > 2) {
+      buffer.write('/');
+    }
+
+    // Add the year part (YY) to the buffer
+    if (text.length >= 4) {
+      buffer.write(text.substring(2, 4));
+    } else if (text.length > 2) {
+      buffer.write(text.substring(2));
+    }
+
     return buffer.toString();
   }
 }
