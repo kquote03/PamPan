@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ButtonContentsManager {
-  static final List<Widget> _buttonContents = [
+  static final List<Widget> buttonContents = [
     LayoutBuilder(
       builder: (context, constraints) {
         double screenHeight = constraints.maxHeight;
@@ -114,8 +114,4 @@ class ButtonContentsManager {
       ],
     ),
   ];
-
-  List getList() {
-    return _buttonContents;
-  }
 }

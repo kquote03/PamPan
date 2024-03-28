@@ -13,8 +13,6 @@ class PageSkeleton extends StatefulWidget {
 class _PageSkeleton extends State<PageSkeleton> {
   int index = 0;
 
-  final ButtonContentsManager buttonContents = ButtonContentsManager();
-
   Widget currentPage = LayoutBuilder(
     builder: (context, constraints) {
       double screenHeight = constraints.maxHeight;
@@ -55,7 +53,7 @@ class _PageSkeleton extends State<PageSkeleton> {
 
   void buttonClicked() {
     setState(() {
-      currentPage = buttonContents.getList()[index];
+      currentPage = ButtonContentsManager.buttonContents[index];
     });
   }
 
@@ -64,7 +62,7 @@ class _PageSkeleton extends State<PageSkeleton> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Home Page'),
+            title: const Text("PAM'S PANTRY!!!"),
             leading: IconButton(
               icon: const Icon(Icons.help),
               onPressed: () {},
