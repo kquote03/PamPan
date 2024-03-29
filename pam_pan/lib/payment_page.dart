@@ -1,23 +1,18 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
+  State<PaymentPage> createState() => _PaymentPage();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
-  int index = 0;
-
-  late Widget currentPage;
-
+class _PaymentPage extends State<PaymentPage> {
   @override
-  void initState() {
-    super.initState();
-    currentPage = SingleChildScrollView(
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
       child: Column(
         children: [
           const Padding(
@@ -96,8 +91,10 @@ class _PaymentPageState extends State<PaymentPage> {
                 const SizedBox(height: 32.0),
                 ElevatedButton(
                   onPressed: () {
-                    index = 3;
-                    buttonClicked();
+                    _showSimpleModalDialog(context);
+                    // Timer(const Duration(seconds: 3), () {
+                    //   _showSimpleModalDialog(context, insideModalDialogAfter);
+                    // });
                   },
                   child: const Text('Process Donation'),
                 ),
@@ -109,17 +106,88 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  void buttonClicked() {
-    setState(() {
-      currentPage = ButtonContentsManager.buttonContents[index];
-    });
-  }
+  Widget insideModalDialog = const Column(
+    children: [
+      Text('Payment Processing'),
+      Center(
+        child: CircularProgressIndicator(),
+      ),
+    ],
+  );
 
-  @override
-  Widget build(BuildContext context) {
-    return currentPage;
+  bool timerDone = false;
+  late Timer _timer;
+
+  _showSimpleModalDialog(context) {
+    _timer = Timer(const Duration(seconds: 3), () {
+      timerDone = !timerDone;
+      Navigator.of(context).pop();
+      Navigator.of(context).setState(() {
+        insideModalDialog = const Center(
+          child: Text(
+            'Your payment was successful!',
+            style: TextStyle(fontSize: 24),
+          ),
+        );
+      });
+    });
+    showDialog(
+        context: context,
+        builder: (BuildContext builderContext) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 350),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    insideModalDialog,
+                    RichText(
+                      textAlign: TextAlign.justify,
+                      text: const TextSpan(
+                          text: "ok",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Colors.black,
+                              wordSpacing: 1)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
+
+// Dialog(
+//                   shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(20.0)),
+//                   child: Container(
+//                     constraints: const BoxConstraints(maxHeight: 350),
+//                     child: Padding(
+//                       padding: const EdgeInsets.all(12.0),
+//                       child: Column(
+//                         children: [
+//                           insideModalDialogAfter,
+//                           RichText(
+//                             textAlign: TextAlign.justify,
+//                             text: const TextSpan(
+//                                 text: "ok",
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.w400,
+//                                     fontSize: 14,
+//                                     color: Colors.black,
+//                                     wordSpacing: 1)),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                 )
 
 class _CreditCardInputFormatter extends TextInputFormatter {
   @override

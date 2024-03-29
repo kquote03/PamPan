@@ -7,7 +7,7 @@ import 'package:pam_pan/payment_processing_page.dart';
 class ButtonContentsManager {
   static final List<Widget> buttonContents = [
     const HomePage(),
-    const PaymentPage(),
+    PaymentPage(),
     const CalendarPage(),
     const PaymentProcessingPage(),
   ];

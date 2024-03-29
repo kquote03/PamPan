@@ -33,17 +33,17 @@ class _PaymentProcessingPage extends State<PaymentProcessingPage> {
       ],
     );
     // Start a timer to simulate payment processing
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   // After 3 seconds, navigate to the payment success page
-    //   setState(() {
-    //     currentPage = const Center(
-    //       child: Text(
-    //         'Your payment was successful!',
-    //         style: TextStyle(fontSize: 24),
-    //       ),
-    //     );
-    //   });
-    // });
+    Future.delayed(const Duration(seconds: 3), () {
+      // After 3 seconds, navigate to the payment success page
+      setState(() {
+        currentPage = const Center(
+          child: Text(
+            'Your payment was successful!',
+            style: TextStyle(fontSize: 24),
+          ),
+        );
+      });
+    });
   }
 
   late Widget currentPage;
