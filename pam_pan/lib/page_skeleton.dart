@@ -13,43 +13,49 @@ class PageSkeleton extends StatefulWidget {
 class _PageSkeleton extends State<PageSkeleton> {
   int index = 0;
 
-  Widget currentPage = LayoutBuilder(
-    builder: (context, constraints) {
-      double screenHeight = constraints.maxHeight;
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: screenHeight * 0.15,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blueGrey,
-              ),
-              child: const Center(
-                child: Text('Mini calendar widget - incomplete'),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+  late Widget currentPage;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = LayoutBuilder(
+      builder: (context, constraints) {
+        double screenHeight = constraints.maxHeight;
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Container(
+                height: screenHeight * 0.15,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.amber,
+                  color: Colors.blueGrey,
                 ),
                 child: const Center(
-                  child: Text(
-                      'Pam and buttons and the pantry - incomplete - is clickable and will take you to the full pantry page'),
+                  child: Text('Mini calendar widget - incomplete'),
                 ),
               ),
             ),
-          ),
-        ],
-      );
-    },
-  );
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber,
+                  ),
+                  child: const Center(
+                    child: Text(
+                        'Pam and buttons and the pantry - incomplete - is clickable and will take you to the full pantry page'),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void buttonClicked() {
     setState(() {
@@ -71,7 +77,7 @@ class _PageSkeleton extends State<PageSkeleton> {
               IconButton(
                 icon: const Icon(Icons.calendar_month),
                 onPressed: () {
-                  index = 1;
+                  index = 2;
                   buttonClicked();
                 },
               ),
@@ -100,7 +106,7 @@ class _PageSkeleton extends State<PageSkeleton> {
               NavigationDestination(
                   icon: IconButton(
                     onPressed: () {
-                      index = 2;
+                      index = 1;
                       buttonClicked();
                     },
                     icon: const Icon(
