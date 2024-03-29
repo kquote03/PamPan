@@ -94,7 +94,7 @@ class _PaymentPage extends State<PaymentPage> {
                     _showSimpleModalDialog2(context);
                     _showSimpleModalDialog1(context);
                     Timer(const Duration(seconds: 3), () {
-                      Navigator.of(context).pop();
+                      Navigator.pop(context);
                     });
                   },
                   child: const Text('Process Donation'),
@@ -175,6 +175,11 @@ class _PaymentPage extends State<PaymentPage> {
                               color: Colors.black,
                               wordSpacing: 1)),
                     ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Close"))
                   ],
                 ),
               ),
@@ -241,19 +246,16 @@ class _ExpirationDateInputFormatter extends TextInputFormatter {
 
     final buffer = StringBuffer();
 
-    // Add the month part (MM) to the buffer
     if (text.length >= 2) {
       buffer.write(text.substring(0, 2));
     } else {
       buffer.write(text);
     }
 
-    // Add the slash (/) separator if needed
     if (text.length > 2) {
       buffer.write('/');
     }
 
-    // Add the year part (YY) to the buffer
     if (text.length >= 4) {
       buffer.write(text.substring(2, 4));
     } else if (text.length > 2) {
