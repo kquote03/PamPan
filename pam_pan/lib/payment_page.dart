@@ -91,10 +91,11 @@ class _PaymentPage extends State<PaymentPage> {
                 const SizedBox(height: 32.0),
                 ElevatedButton(
                   onPressed: () {
-                    _showSimpleModalDialog(context);
-                    // Timer(const Duration(seconds: 3), () {
-                    //   _showSimpleModalDialog(context, insideModalDialogAfter);
-                    // });
+                    _showSimpleModalDialog2(context);
+                    _showSimpleModalDialog1(context);
+                    Timer(const Duration(seconds: 3), () {
+                      Navigator.of(context).pop();
+                    });
                   },
                   child: const Text('Process Donation'),
                 ),
@@ -106,31 +107,7 @@ class _PaymentPage extends State<PaymentPage> {
     );
   }
 
-  Widget insideModalDialog = const Column(
-    children: [
-      Text('Payment Processing'),
-      Center(
-        child: CircularProgressIndicator(),
-      ),
-    ],
-  );
-
-  bool timerDone = false;
-  late Timer _timer;
-
-  _showSimpleModalDialog(context) {
-    _timer = Timer(const Duration(seconds: 3), () {
-      timerDone = !timerDone;
-      Navigator.of(context).pop();
-      Navigator.of(context).setState(() {
-        insideModalDialog = const Center(
-          child: Text(
-            'Your payment was successful!',
-            style: TextStyle(fontSize: 24),
-          ),
-        );
-      });
-    });
+  _showSimpleModalDialog1(context) {
     showDialog(
         context: context,
         builder: (BuildContext builderContext) {
@@ -143,7 +120,51 @@ class _PaymentPage extends State<PaymentPage> {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    insideModalDialog,
+                    const Column(
+                      children: [
+                        Text('Payment Processing'),
+                        Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    ),
+                    RichText(
+                      textAlign: TextAlign.justify,
+                      text: const TextSpan(
+                          text: "ok",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Colors.black,
+                              wordSpacing: 1)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  _showSimpleModalDialog2(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext builderContext) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 350),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Your payment was successful!',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ),
                     RichText(
                       textAlign: TextAlign.justify,
                       text: const TextSpan(
@@ -162,32 +183,6 @@ class _PaymentPage extends State<PaymentPage> {
         });
   }
 }
-
-// Dialog(
-//                   shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(20.0)),
-//                   child: Container(
-//                     constraints: const BoxConstraints(maxHeight: 350),
-//                     child: Padding(
-//                       padding: const EdgeInsets.all(12.0),
-//                       child: Column(
-//                         children: [
-//                           insideModalDialogAfter,
-//                           RichText(
-//                             textAlign: TextAlign.justify,
-//                             text: const TextSpan(
-//                                 text: "ok",
-//                                 style: TextStyle(
-//                                     fontWeight: FontWeight.w400,
-//                                     fontSize: 14,
-//                                     color: Colors.black,
-//                                     wordSpacing: 1)),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 )
 
 class _CreditCardInputFormatter extends TextInputFormatter {
   @override
