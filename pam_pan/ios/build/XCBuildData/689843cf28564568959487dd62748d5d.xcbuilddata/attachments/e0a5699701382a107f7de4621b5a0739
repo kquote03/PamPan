@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Release-iphoneos/Turf/Turf.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/Turf.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Release-iphoneos/Turf/Turf.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "Turf-Swift.h",
+      'external-contents': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/Turf.build/unextended-interface-header.h",
+    }]
+    }]
+}

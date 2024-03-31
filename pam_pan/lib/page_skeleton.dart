@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 
+const String ACCESS_TOKEN =
+    "pk.eyJ1Ijoia2hhbGlsa2siLCJhIjoiY2x1NnpjcTdzMDBpcjJrczI1b2NzM2s1biJ9.i6bmm2ETTzyM9jHLItCyxA";
+
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
 

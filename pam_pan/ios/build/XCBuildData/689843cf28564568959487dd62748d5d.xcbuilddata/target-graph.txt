@@ -1,0 +1,24 @@
+Target dependency graph (9 targets)
+Target 'Pods-RunnerTests' in project 'Pods'
+➜ Explicit dependency on target 'Pods-Runner' in project 'Pods'
+Target 'Pods-Runner' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'MapboxCommon' in project 'Pods'
+➜ Explicit dependency on target 'MapboxCoreMaps' in project 'Pods'
+➜ Explicit dependency on target 'MapboxMaps' in project 'Pods'
+➜ Explicit dependency on target 'Turf' in project 'Pods'
+➜ Explicit dependency on target 'mapbox_maps_flutter' in project 'Pods'
+Target 'mapbox_maps_flutter' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'MapboxMaps' in project 'Pods'
+Target 'MapboxMaps' in project 'Pods'
+➜ Explicit dependency on target 'MapboxCommon' in project 'Pods'
+➜ Explicit dependency on target 'MapboxCoreMaps' in project 'Pods'
+➜ Explicit dependency on target 'MapboxMaps-MapboxMapsResources' in project 'Pods'
+➜ Explicit dependency on target 'Turf' in project 'Pods'
+Target 'Turf' in project 'Pods' (no dependencies)
+Target 'MapboxMaps-MapboxMapsResources' in project 'Pods' (no dependencies)
+Target 'MapboxCoreMaps' in project 'Pods'
+➜ Explicit dependency on target 'MapboxCommon' in project 'Pods'
+Target 'MapboxCommon' in project 'Pods' (no dependencies)
+Target 'Flutter' in project 'Pods' (no dependencies)

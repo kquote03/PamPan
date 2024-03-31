@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Release-iphoneos/MapboxMaps/MapboxMaps.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/MapboxMaps.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Release-iphoneos/MapboxMaps/MapboxMaps.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "MapboxMaps-Swift.h",
+      'external-contents': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/MapboxMaps.build/unextended-interface-header.h",
+    }]
+    }]
+}

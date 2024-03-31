@@ -1,0 +1,135 @@
+{
+  "" : {
+    "const-values" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/mapbox_maps_flutter-master.swiftconstvalues",
+    "dependencies" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/mapbox_maps_flutter-master.d",
+    "diagnostics" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/mapbox_maps_flutter-master.dia",
+    "emit-module-dependencies" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/mapbox_maps_flutter-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/mapbox_maps_flutter-master-emit-module.dia",
+    "swift-dependencies" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/mapbox_maps_flutter-master.swiftdeps"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/AnimationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AnimationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AnimationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AnimationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/AnnotationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AnnotationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AnnotationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AnnotationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/AttributionController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AttributionController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AttributionController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/AttributionController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/CameraController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CameraController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CameraController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CameraController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/CircleAnnotationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CircleAnnotationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CircleAnnotationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CircleAnnotationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/CompassController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CompassController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CompassController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/CompassController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/EnumsMapping.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/EnumsMapping.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/EnumsMapping.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/EnumsMapping.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/Extensions.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/Extensions.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/Extensions.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/Extensions.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/GesturesController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/GesturesController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/GesturesController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/GesturesController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/LocationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LocationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LocationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LocationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/LoggingController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LoggingController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LoggingController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LoggingController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/LogoController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LogoController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LogoController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/LogoController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/MapboxMapController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxMapController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxMapController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxMapController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/MapboxMapFactory.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxMapFactory.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxMapFactory.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxMapFactory.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/MapboxOptionsController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxOptionsController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxOptionsController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapboxOptionsController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/MapEvents+JSON.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapEvents+JSON.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapEvents+JSON.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapEvents+JSON.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/MapInterfaceController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapInterfaceController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapInterfaceController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapInterfaceController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/MapProjectionController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapProjectionController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapProjectionController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/MapProjectionController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/PointAnnotationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PointAnnotationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PointAnnotationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PointAnnotationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/PolygonAnnotationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PolygonAnnotationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PolygonAnnotationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PolygonAnnotationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/PolylineAnnotationController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PolylineAnnotationController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PolylineAnnotationController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/PolylineAnnotationController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/ScalebarController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/ScalebarController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/ScalebarController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/ScalebarController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/StyleController.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/StyleController.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/StyleController.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/StyleController.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/StyleLights.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/StyleLights.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/StyleLights.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/StyleLights.o"
+  },
+  "/Users/kenan1099/.pub-cache/hosted/pub.dev/mapbox_maps_flutter-1.0.0/ios/Classes/SwiftMapboxMapsPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/SwiftMapboxMapsPlugin.o",
+    "llvm-bc" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/SwiftMapboxMapsPlugin.bc",
+    "object" : "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/Objects-normal/arm64/SwiftMapboxMapsPlugin.o"
+  }
+}

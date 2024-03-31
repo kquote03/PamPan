@@ -1,0 +1,10 @@
+framework module MapboxMaps {
+  umbrella header "MapboxMaps-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module MapboxMaps.__Swift {
+  exclude header "MapboxMaps-Swift.h"
+}

@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Release-iphoneos/mapbox_maps_flutter/mapbox_maps_flutter.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Release-iphoneos/mapbox_maps_flutter/mapbox_maps_flutter.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "mapbox_maps_flutter-Swift.h",
+      'external-contents': "/Users/kenan1099/Src/PamPan/pam_pan/ios/build/Pods.build/Release-iphoneos/mapbox_maps_flutter.build/unextended-interface-header.h",
+    }]
+    }]
+}
