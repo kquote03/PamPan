@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -10,6 +11,20 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPage extends State<PaymentPage> {
+  final TextEditingController _controllerCardNumber = TextEditingController();
+  final TextEditingController _controllerDate = TextEditingController();
+  final TextEditingController _controllerCVC = TextEditingController();
+  final TextEditingController _controllerAmount = TextEditingController();
+
+  @override
+  void dispose() {
+    _controllerCardNumber.dispose();
+    _controllerDate.dispose();
+    _controllerCVC.dispose();
+    _controllerAmount.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -46,6 +61,7 @@ class _PaymentPage extends State<PaymentPage> {
                   ),
                 ),
                 TextField(
+                  controller: _controllerCardNumber,
                   decoration: const InputDecoration(
                     labelText: 'Card Number',
                     hintText: 'XXXX XXXX XXXX XXXX',
@@ -61,6 +77,7 @@ class _PaymentPage extends State<PaymentPage> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
+                        controller: _controllerDate,
                         decoration: const InputDecoration(
                           labelText: 'Expiration Date',
                           hintText: 'MM/YY',
@@ -75,6 +92,7 @@ class _PaymentPage extends State<PaymentPage> {
                     const SizedBox(width: 16.0),
                     Expanded(
                       child: TextField(
+                        controller: _controllerCVC,
                         decoration: const InputDecoration(
                           labelText: 'CVC',
                           hintText: 'XXX',
@@ -88,6 +106,16 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                   ],
                 ),
+                TextField(
+                    controller: _controllerAmount,
+                    decoration: const InputDecoration(
+                      labelText: 'Amount (in Dirhams)',
+                      hintText: 'XX.XX AED',
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      _AmountInputFormatter(),
+                    ]),
                 const SizedBox(height: 32.0),
                 ElevatedButton(
                   onPressed: () {
@@ -105,6 +133,80 @@ class _PaymentPage extends State<PaymentPage> {
         ],
       ),
     );
+  }
+
+  String _creditCardChecker() {
+    bool cardNumberCorrect = false;
+    if (_controllerCardNumber.text.length == 19) {
+      cardNumberCorrect = true;
+    }
+
+    int dateMM = int.parse(_controllerDate.text[0] + _controllerDate.text[1]);
+    int dateYY = int.parse(_controllerDate.text[3] + _controllerDate.text[4]);
+    bool dateCorrect = false;
+    bool currentMonthCorrect = false;
+
+    DateTime currentDate = DateTime.now();
+    var formatterMonth = DateFormat('MM');
+    var formatterYear = DateFormat('yy');
+    String formattedMonth = formatterMonth.format(currentDate);
+    String formattedYear = formatterYear.format(currentDate);
+    int currentMonth = int.parse(formattedMonth);
+    int currentYear = int.parse(formattedYear);
+
+    if (1 <= dateMM && dateMM <= 12) {
+      dateCorrect = true;
+    }
+
+    if (dateYY < currentYear) {
+      dateCorrect = false;
+    }
+
+    if (dateYY > currentYear) {
+      dateCorrect = true;
+    }
+
+    if (dateYY == currentYear) {
+      dateCorrect = true;
+      if (dateMM < currentMonth) {
+        dateCorrect = false;
+      }
+    }
+
+    bool cvcCorrect = false;
+
+    if (_controllerCVC.text.length == 3) {
+      cvcCorrect = true;
+    }
+
+    bool amountCorrect = false;
+    if (RegExp(r'^\d+(\.\d{0,2})?$').hasMatch(_controllerAmount.text)) {
+      amountCorrect = true;
+    }
+
+    String output = "ERROR!\n";
+
+    if (!cardNumberCorrect) {
+      output += "Invalid Card Number\n";
+    }
+
+    if (!dateCorrect) {
+      output += "Invalid Expiry Date\n";
+    }
+
+    if (!cvcCorrect) {
+      output += "Invalid CVC\n";
+    }
+
+    if (!amountCorrect) {
+      output += "Invalid Amount";
+    }
+
+    if (output == "ERROR!\n") {
+      output = "Donation successful. Thank you. The hungry children thank you.";
+    }
+
+    return output;
   }
 
   _showSimpleModalDialog1(context) {
@@ -159,10 +261,10 @@ class _PaymentPage extends State<PaymentPage> {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    const Center(
+                    Center(
                       child: Text(
-                        'Your payment was successful!',
-                        style: TextStyle(fontSize: 24),
+                        _creditCardChecker(),
+                        style: const TextStyle(fontSize: 24),
                       ),
                     ),
                     RichText(
@@ -263,5 +365,18 @@ class _ExpirationDateInputFormatter extends TextInputFormatter {
     }
 
     return buffer.toString();
+  }
+}
+
+class _AmountInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text = newValue.text
+        .replaceAll(RegExp(r'[^0-9.]'), ''); // Allow only digits and .
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
   }
 }
