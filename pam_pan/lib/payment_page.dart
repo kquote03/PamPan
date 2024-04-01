@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -114,16 +115,28 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: [
-                      _AmountInputFormatter(),
+                      CurrencyTextInputFormatter(
+                        symbol: "AED",
+                        locale: "en",
+                      ),
                     ]),
                 const SizedBox(height: 32.0),
                 ElevatedButton(
                   onPressed: () {
-                    _showSimpleModalDialog2(context);
-                    _showSimpleModalDialog1(context);
-                    Timer(const Duration(seconds: 3), () {
-                      Navigator.pop(context);
-                    });
+                    if (_creditCardChecker() ==
+                        "Donation successful. Thank you. The hungry children thank you.") {
+                      _showSimpleModalDialog2(context);
+                      _showSimpleModalDialog1(context);
+                      Timer(const Duration(seconds: 3), () {
+                        Navigator.pop(context);
+                      });
+                    } else {
+                      _showErrorModalDialog(context);
+                      _showSimpleModalDialog1(context);
+                      Timer(const Duration(seconds: 3), () {
+                        Navigator.pop(context);
+                      });
+                    }
                   },
                   child: const Text('Process Donation'),
                 ),
@@ -140,11 +153,18 @@ class _PaymentPage extends State<PaymentPage> {
     if (_controllerCardNumber.text.length == 19) {
       cardNumberCorrect = true;
     }
+    int dateMM;
+    int dateYY;
 
-    int dateMM = int.parse(_controllerDate.text[0] + _controllerDate.text[1]);
-    int dateYY = int.parse(_controllerDate.text[3] + _controllerDate.text[4]);
+    if (_controllerDate.text.isNotEmpty && _controllerDate.text.length == 5) {
+      dateMM = int.parse(_controllerDate.text[0] + _controllerDate.text[1]);
+      dateYY = int.parse(_controllerDate.text[3] + _controllerDate.text[4]);
+    } else {
+      dateMM = -1;
+      dateYY = -1;
+    }
+
     bool dateCorrect = false;
-    bool currentMonthCorrect = false;
 
     DateTime currentDate = DateTime.now();
     var formatterMonth = DateFormat('MM');
@@ -154,20 +174,13 @@ class _PaymentPage extends State<PaymentPage> {
     int currentMonth = int.parse(formattedMonth);
     int currentYear = int.parse(formattedYear);
 
-    if (1 <= dateMM && dateMM <= 12) {
+    if (1 <= dateMM && dateMM <= 12 && dateYY >= currentYear) {
       dateCorrect = true;
-    }
-
-    if (dateYY < currentYear) {
+    } else {
       dateCorrect = false;
     }
 
-    if (dateYY > currentYear) {
-      dateCorrect = true;
-    }
-
     if (dateYY == currentYear) {
-      dateCorrect = true;
       if (dateMM < currentMonth) {
         dateCorrect = false;
       }
@@ -186,20 +199,9 @@ class _PaymentPage extends State<PaymentPage> {
 
     String output = "ERROR!\n";
 
-    if (!cardNumberCorrect) {
-      output += "Invalid Card Number\n";
-    }
-
-    if (!dateCorrect) {
-      output += "Invalid Expiry Date\n";
-    }
-
-    if (!cvcCorrect) {
-      output += "Invalid CVC\n";
-    }
-
-    if (!amountCorrect) {
-      output += "Invalid Amount";
+    if (!(cardNumberCorrect && dateCorrect && cvcCorrect && amountCorrect)) {
+      output =
+          "Invalid input: Errors in one (or more) text fields. Please try again.";
     }
 
     if (output == "ERROR!\n") {
@@ -207,6 +209,25 @@ class _PaymentPage extends State<PaymentPage> {
     }
 
     return output;
+  }
+
+  _showErrorModalDialog(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext builderContext) {
+          return AlertDialog(
+            title: const Text("ERROR"),
+            content: Text(_creditCardChecker()),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   _showSimpleModalDialog1(context) {
@@ -368,15 +389,15 @@ class _ExpirationDateInputFormatter extends TextInputFormatter {
   }
 }
 
-class _AmountInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final text = newValue.text
-        .replaceAll(RegExp(r'[^0-9.]'), ''); // Allow only digits and .
-    return TextEditingValue(
-      text: text,
-      selection: TextSelection.collapsed(offset: text.length),
-    );
-  }
-}
+// class _AmountInputFormatter extends TextInputFormatter {
+//   @override
+//   TextEditingValue formatEditUpdate(
+//       TextEditingValue oldValue, TextEditingValue newValue) {
+//     final text = newValue.text
+//         .replaceAll(RegExp(r'[^0-9.]'), ''); // Allow only digits and .
+//     return TextEditingValue(
+//       text: text,
+//       selection: TextSelection.collapsed(offset: text.length),
+//     );
+//   }
+// }
