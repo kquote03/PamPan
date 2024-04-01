@@ -35,25 +35,20 @@ class _PageSkeleton extends State<PageSkeleton> {
             title: const Text("PAM'S PANTRY!!!"),
             leading: IconButton(
               icon: const Icon(Icons.help),
-              onPressed: () {
-                index = 5;
-                buttonClicked();
-              },
+              onPressed: () {},
             ),
             actions: [
               IconButton(
                 icon: const Icon(Icons.calendar_month),
                 onPressed: () {
                   index = 2;
+                  // change index from 2-7 to access the diff calendar pages, look at ButtonContentsManager for more info
                   buttonClicked();
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.notifications),
-                onPressed: () {
-                  index = 6;
-                  buttonClicked();
-                },
+                onPressed: () {},
               ),
             ],
             backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -87,19 +82,13 @@ class _PageSkeleton extends State<PageSkeleton> {
                   label: 'Map'),
               NavigationDestination(
                   icon: IconButton(
-                    onPressed: () {
-                      index = 3;
-                      buttonClicked();
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.camera_alt, size: 35),
                   ),
                   label: 'Camera'),
               NavigationDestination(
                 icon: IconButton(
-                  onPressed: () {
-                    index = 4;
-                    buttonClicked();
-                  },
+                  onPressed: () {},
                   icon: const Icon(
                     Icons.person,
                     size: 35,
