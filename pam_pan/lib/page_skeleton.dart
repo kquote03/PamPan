@@ -71,7 +71,10 @@ class _PageSkeleton extends State<PageSkeleton> {
             title: const Text("PAM'S PANTRY!!!"),
             leading: IconButton(
               icon: const Icon(Icons.help),
-              onPressed: () {},
+              onPressed: () {
+                index = 5;
+                buttonClicked();
+              },
             ),
             actions: [
               IconButton(
@@ -83,7 +86,10 @@ class _PageSkeleton extends State<PageSkeleton> {
               ),
               IconButton(
                 icon: const Icon(Icons.notifications),
-                onPressed: () {},
+                onPressed: () {
+                  index = 6;
+                  buttonClicked();
+                },
               ),
             ],
             backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -117,13 +123,19 @@ class _PageSkeleton extends State<PageSkeleton> {
                   label: 'Map'),
               NavigationDestination(
                   icon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      index = 3;
+                      buttonClicked();
+                    },
                     icon: const Icon(Icons.camera_alt, size: 35),
                   ),
                   label: 'Camera'),
               NavigationDestination(
                 icon: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    index = 4;
+                    buttonClicked();
+                  },
                   icon: const Icon(
                     Icons.person,
                     size: 35,
