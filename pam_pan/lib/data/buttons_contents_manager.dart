@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/page_skeleton.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
@@ -116,12 +115,12 @@ class ButtonContentsManager {
         ),
       ],
     ),
-    Scaffold(body: FullMap())
+    const Scaffold(body: FullMap())
   ];
 }
 
 class FullMap extends StatefulWidget {
-  const FullMap();
+  const FullMap({super.key});
 
   @override
   State createState() => FullMapState();
@@ -140,7 +139,7 @@ class FullMapState extends State<FullMap> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Style loaded :), time: ${data.timeInterval}"),
       backgroundColor: Theme.of(context).primaryColor,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     ));
   }
 
@@ -207,7 +206,6 @@ class FullMapState extends State<FullMap> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               FloatingActionButton(
-                  child: Icon(Icons.swap_horiz),
                   heroTag: null,
                   onPressed: () {
                     setState(
@@ -218,13 +216,14 @@ class FullMapState extends State<FullMap> {
                     } else {
                       mapboxMap?.loadStyleURI(MapboxStyles.DARK);
                     }
-                  }),
-              SizedBox(height: 10),
+                  },
+                  child: const Icon(Icons.swap_horiz)),
+              const SizedBox(height: 10),
             ],
           ),
         ),
         body: MapWidget(
-          key: ValueKey("mapWidget"),
+          key: const ValueKey("mapWidget"),
           cameraOptions: CameraOptions(center: Map(), zoom: 3.0),
           styleUri: MapboxStyles.LIGHT,
           textureView: true,
