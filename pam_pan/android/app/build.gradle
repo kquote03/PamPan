@@ -65,5 +65,5 @@ flutter {
 }
 
 dependencies {
-    implementation("com.mapbox.maps:android:11.2.2")
+    // implementation("com.mapbox.maps:android:11.2.2")
 }

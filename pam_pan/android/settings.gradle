@@ -23,9 +23,9 @@ pluginManagement {
 
             // Use the secret token stored in gradle.properties as the password
 
-            credentials.password = providers.gradleProperty("MAPBOX_DOWNLOADS_TOKEN").get()
+            credentials.password = credentials.password = providers.gradleProperty("MAPBOX_DOWNLOADS_TOKEN").get()
 
-//            authentication.create<BasicAuthentication>("basic")
+            authentication { basic(BasicAuthentication) }
 
         }
         gradlePluginPortal()
