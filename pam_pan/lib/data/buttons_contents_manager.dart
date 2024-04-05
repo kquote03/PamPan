@@ -19,4 +19,14 @@ class ButtonContentsManager {
     const TableRangeExample(),
     const CalendarPageWeek(),
   ];
+
+  static final List<String> pageLabels = [
+    "Home",
+    "Donation",
+    "Basic Calendar Page",
+    "Table Events Cal",
+    "Table Complex Cal",
+    "Table Multi Cal",
+    "Table Range Cal"
+  ];
 }

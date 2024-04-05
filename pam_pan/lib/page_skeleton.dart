@@ -32,7 +32,7 @@ class _PageSkeleton extends State<PageSkeleton> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text("PAM'S PANTRY!!!"),
+            title: Text(ButtonContentsManager.pageLabels[index]),
             leading: IconButton(
               icon: const Icon(Icons.help),
               onPressed: () {},
