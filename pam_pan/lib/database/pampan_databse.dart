@@ -14,7 +14,7 @@ class PamPanDatabase {
       return _database!;
     }
 
-    _database = await _initDB('person.db');
+    _database = await _initDB('PamPan.db');
     return _database!;
   }
 
@@ -26,20 +26,38 @@ class PamPanDatabase {
   }
 
   Future _createDB(Database db, int version) async {
-    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    const usernameType = 'TEXT PRIMARY KEY NOT NULL';
-    const personLongType =
-        'REAL NOT NULL CHECK (${PersonFields.personLong} >= -9999999.99999 AND ${PersonFields.personLong} <= 9999999.99999)';
-    const personLatType =
-        'REAL NOT NULL CHECK (${PersonFields.personLat} >= -9999999.99999 AND ${PersonFields.personLat} <= 9999999.99999)';
-    const emailType = "NOT NULL UNIQUE CHECK (Email LIKE '%@%.%')";
+    await db.execute('''
+    CREATE TABLE Person (
+      Username TEXT NOT NULL,
+      Person_Long DECIMAL(10, 7) NOT NULL,
+      Person_Lat DECIMAL(10, 7) NOT NULL,
+      Email TEXT NOT NULL UNIQUE,
+      CONSTRAINT Email_Check CHECK (Email LIKE '%@%.%'),
+      PRIMARY KEY (Username) CONSTRAINT Person_PK
+    ); 
+        ''');
 
-    await db.execute('''CREATE TABLE $tablePerson ( 
-        ${PersonFields.id} $idType,
-        ${PersonFields.username} $usernameType,
-        ${PersonFields.personLong} $personLongType,
-        ${PersonFields.personLat} $personLatType,
-        ${PersonFields.email} $emailType,)
+    await db.execute('''
+    CREATE TABLE Person_Email (
+      Email TEXT NOT NULL UNIQUE,
+      CONSTRAINT Email_Check CHECK (Email LIKE '%@%.%'),
+      Password_Person TEXT NOT NULL,
+      CONSTRAINT Password_Check CHECK (
+        LENGTH(Password_Person) >= 6
+        AND Password_Person GLOB '*[A-Z]*'
+        AND Password_Person GLOB '*[a-z]*'
+        AND Password_Person GLOB '*[0-9]*'
+        AND Password_Person GLOB '*[!@#\$%^&*(),.?":{}|<>]*'
+      ),
+      Mobile TEXT UNIQUE,
+      CONSTRAINT Mobile_Check CHECK (Mobile LIKE '+(%__) - ___ - ____'),
+      FName TEXT NOT NULL,
+      LName TEXT NOT NULL,
+      Points INTEGER NOT NULL,
+      CONSTRAINT Points_Check CHECK (Points > 0),
+      FOREIGN KEY (Email) REFERENCES Person(Email) ON DELETE CASCADE CONSTRAINT Email_FK,
+      PRIMARY KEY (Email) CONSTRAINT PersonEmail_PK
+    );
         ''');
   }
 

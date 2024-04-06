@@ -43,6 +43,4 @@ class Person {
         PersonFields.personLat: personLat,
         PersonFields.email: email
       };
-// finish map
-//finish copy method
 }
