@@ -34,7 +34,7 @@ class PamPanDatabase {
         'REAL NOT NULL CHECK (${PersonFields.personLat} >= -9999999.99999 AND ${PersonFields.personLat} <= 9999999.99999)';
     const emailType = "NOT NULL UNIQUE CHECK (Email LIKE '%@%.%')";
 
-    await db.execute('''create table $tablePerson ( 
+    await db.execute('''CREATE TABLE $tablePerson ( 
         ${PersonFields.id} $idType,
         ${PersonFields.username} $usernameType,
         ${PersonFields.personLong} $personLongType,

@@ -22,8 +22,26 @@ class Person {
       required this.personLat,
       required this.email});
 
+  Person copy({
+    int? id,
+    String? username,
+    double? personLong,
+    double? personLat,
+    String? email,
+  }) =>
+      Person(
+          id: id ?? this.id,
+          username: username ?? this.username,
+          personLong: personLong ?? this.personLong,
+          personLat: personLat ?? this.personLat,
+          email: email ?? this.email);
+
   Map<String, Object?> toJson() => {
         PersonFields.id: id,
+        PersonFields.username: username,
+        PersonFields.personLong: personLong,
+        PersonFields.personLat: personLat,
+        PersonFields.email: email
       };
 // finish map
 //finish copy method
