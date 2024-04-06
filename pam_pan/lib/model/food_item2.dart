@@ -1,6 +1,17 @@
 const String tableFoodItem2 = "FoodItem_ItemName_ExpiryDate";
 
 class FoodItem2Fields {
+  static final List<String> values = [
+    id,
+    itemName,
+    expiryDate,
+    measurementUnit,
+    refrigeration,
+    productionDate,
+    barcode,
+    quantity
+  ];
+
   static const String id = "_id";
   static const String itemName = "Item_Name";
   static const String expiryDate = "Expiry_Date";
@@ -50,6 +61,17 @@ class FoodItem2 {
           productionDate: productionDate ?? this.productionDate,
           barcode: barcode ?? this.barcode,
           quantity: quantity ?? this.quantity);
+
+  static FoodItem2 fromJson(Map<String, Object?> json) => FoodItem2(
+      id: json[FoodItem2Fields.id] as int?,
+      itemName: json[FoodItem2Fields.itemName] as String,
+      expiryDate: DateTime.parse(json[FoodItem2Fields.expiryDate] as String),
+      measurementUnit: json[FoodItem2Fields.measurementUnit] as String,
+      refrigeration: json[FoodItem2Fields.refrigeration] == 1,
+      productionDate:
+          DateTime.parse(json[FoodItem2Fields.productionDate] as String),
+      barcode: json[FoodItem2Fields.barcode] as String,
+      quantity: json[FoodItem2Fields.quantity] as double);
 
   Map<String, Object?> toJson() => {
         FoodItem2Fields.id: id,

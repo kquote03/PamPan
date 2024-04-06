@@ -1,6 +1,14 @@
 const String tablePerson = 'Person';
 
 class PersonFields {
+  static final List<String> values = [
+    id,
+    username,
+    personLong,
+    personLat,
+    email
+  ];
+
   static const String id = '_id';
   static const String username = 'Username';
   static const String personLong = 'Person_Long';
@@ -35,6 +43,14 @@ class Person {
           personLong: personLong ?? this.personLong,
           personLat: personLat ?? this.personLat,
           email: email ?? this.email);
+
+  static Person fromJson(Map<String, Object?> json) => Person(
+        id: json[PersonFields.id] as int?,
+        username: json[PersonFields.username] as String,
+        personLong: json[PersonFields.personLong] as double,
+        personLat: json[PersonFields.personLat] as double,
+        email: json[PersonFields.email] as String,
+      );
 
   Map<String, Object?> toJson() => {
         PersonFields.id: id,

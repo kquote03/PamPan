@@ -1,6 +1,15 @@
 const String tableFoodItem = 'FoodItem';
 
 class FoodItemFields {
+  static final List<String> values = [
+    id,
+    itemName,
+    expiryDate,
+    username,
+    shelterLong,
+    shelterLat
+  ];
+
   static const String id = "_id";
   static const String itemName = "Item_Name";
   static const String expiryDate = "Expiry_Date";
@@ -41,6 +50,14 @@ class FoodItem {
         shelterLong: shelterLong ?? this.shelterLong,
         shelterLat: shelterLat ?? this.shelterLat,
       );
+
+  static FoodItem fromJson(Map<String, Object?> json) => FoodItem(
+      id: json[FoodItemFields.id] as int?,
+      itemName: json[FoodItemFields.itemName] as String,
+      expiryDate: DateTime.parse(json[FoodItemFields.expiryDate] as String),
+      username: json[FoodItemFields.username] as String,
+      shelterLong: json[FoodItemFields.shelterLong] as double,
+      shelterLat: json[FoodItemFields.shelterLat] as double);
 
   Map<String, Object?> toJson() => {
         FoodItemFields.id: id,

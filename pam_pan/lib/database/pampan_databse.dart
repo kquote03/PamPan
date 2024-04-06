@@ -68,6 +68,52 @@ class PamPanDatabase {
     return person.copy(id: id);
   }
 
+  Future<Person> readPerson(int id) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tablePerson,
+      columns: PersonFields.values,
+      where: '${PersonFields.username} = ?',
+      whereArgs: [id],
+    );
+    if (maps.isNotEmpty) {
+      return Person.fromJson(maps.first);
+    } else {
+      throw Exception("ID $id not found");
+    }
+  }
+
+  Future<List<Person>> readAllPerson() async {
+    final db = await instance.database;
+    // final orderBy = '${PersonFields.}' order by a specific field, and then write ASC for ascending, all in the same string
+
+    final result = await db.query(
+        tablePerson); //you'd have to include the orderBy field here if you do that
+    return result.map((json) => Person.fromJson(json)).toList();
+  }
+
+  Future<int> update(Person person) async {
+    final db = await instance.database;
+
+    return db.update(
+      tablePerson,
+      person.toJson(),
+      where: '${PersonFields.id} = ?',
+      whereArgs: [person.id],
+    );
+  }
+
+  Future<int> delete(int id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      tablePerson,
+      where: '${PersonFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future close() async {
     final db = await instance.database;
 

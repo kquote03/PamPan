@@ -1,6 +1,8 @@
 const String tableDonatesTo = "DonatesTo";
 
 class DonatesToFields {
+  static final List<String> values = [id, username, shelterLong, shelterLat];
+
   static const String id = "_id";
   static const String username = 'Username';
   static const String shelterLong = "Shelter_Long";
@@ -29,6 +31,12 @@ class DonatesTo {
           username: username ?? this.username,
           shelterLong: shelterLong ?? this.shelterLong,
           shelterLat: shelterLat ?? this.shelterLat);
+
+  static DonatesTo fromJson(Map<String, Object?> json) => DonatesTo(
+      id: json[DonatesToFields.id] as int?,
+      username: json[DonatesToFields.username] as String,
+      shelterLong: json[DonatesToFields.shelterLong] as double,
+      shelterLat: json[DonatesToFields.shelterLat] as double);
 
   Map<String, Object?> toJson() => {
         DonatesToFields.id: id,

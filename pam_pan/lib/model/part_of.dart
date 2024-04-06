@@ -1,6 +1,16 @@
 const String tablePartOf = "PartOf";
 
 class PartOfFields {
+  static final List<String> values = [
+    id,
+    itemName,
+    expiryDate,
+    username,
+    shelterLong,
+    shelterLat,
+    categoryName
+  ];
+
   static const String id = "_id";
   static const String itemName = "Item_Name";
   static const String expiryDate = "Expiry_Date";
@@ -44,6 +54,15 @@ class PartOf {
           shelterLong: shelterLong ?? this.shelterLong,
           shelterLat: shelterLat ?? this.shelterLat,
           categoryName: categoryName ?? this.categoryName);
+
+  static PartOf fromJson(Map<String, Object?> json) => PartOf(
+      id: json[PartOfFields.id] as int?,
+      itemName: json[PartOfFields.itemName] as String,
+      expiryDate: DateTime.parse(json[PartOfFields.expiryDate] as String),
+      username: json[PartOfFields.username] as String,
+      shelterLong: json[PartOfFields.shelterLong] as double,
+      shelterLat: json[PartOfFields.shelterLat] as double,
+      categoryName: json[PartOfFields.categoryName] as String);
 
   Map<String, Object?> toJson() => {
         PartOfFields.id: id,

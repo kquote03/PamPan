@@ -1,6 +1,16 @@
 const String tablePersonEmail = 'Person_Email';
 
 class PersonEmailFields {
+  static final List<String> values = [
+    id,
+    email,
+    passwordPerson,
+    mobile,
+    fName,
+    lName,
+    points
+  ];
+
   static const String id = "_id";
   static const String email = "Email";
   static const String passwordPerson = "Password_Person";
@@ -44,6 +54,15 @@ class PersonEmail {
           fName: fName ?? this.fName,
           lName: lName ?? this.lName,
           points: points ?? this.points);
+
+  static PersonEmail fromJson(Map<String, Object?> json) => PersonEmail(
+      id: json[PersonEmailFields.id] as int?,
+      email: json[PersonEmailFields.email] as String,
+      passwordPerson: json[PersonEmailFields.passwordPerson] as String,
+      mobile: json[PersonEmailFields.mobile] as String,
+      fName: json[PersonEmailFields.fName] as String,
+      lName: json[PersonEmailFields.lName] as String,
+      points: json[PersonEmailFields.points] as int);
 
   Map<String, Object?> toJson() => {
         PersonEmailFields.id: id,
