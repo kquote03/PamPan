@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
-import 'package:pam_pan/notification_controller.dart';
+import 'package:pam_pan/notifications/notification_controller.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
