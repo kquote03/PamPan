@@ -6,7 +6,6 @@ import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/payment_page.dart';
-import 'package:pam_pan/paymentmethod.dart';
 import 'package:pam_pan/profile.dart';
 
 class ButtonContentsManager {

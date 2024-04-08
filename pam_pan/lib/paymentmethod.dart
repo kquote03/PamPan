@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PaymentMethod extends StatelessWidget {
   const PaymentMethod({super.key});
@@ -77,9 +76,7 @@ class PaymentMethod extends StatelessWidget {
                     const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
-                    
-                  ), 
-                 
+                  ),
                 ),
               ),
             ],

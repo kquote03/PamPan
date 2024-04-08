@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 
@@ -67,7 +68,8 @@ class _PageSkeleton extends State<PageSkeleton> {
           shape: const CircleBorder(),
           child: IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.camera_alt, size: 55, color: Colors.black),
+            icon: const Icon(Clarity.plus_circle_solid,
+                size: 55, color: Colors.black),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -109,70 +111,23 @@ class _PageSkeleton extends State<PageSkeleton> {
             NavigationDestination(
               icon: IconButton(
                 onPressed: () {
-                   index = 7;
-                    buttonClicked();
+                  index = 7;
+                  buttonClicked();
                 },
                 icon: const Icon(Icons.person, size: 35, color: Colors.black),
               ),
               label: 'Profile',
             ),
           ],
-          // showSelectedLabels: false,
           backgroundColor: Colors.white,
-          // enableFeedback: true,
-          // type: BottomNavigationBarType.fixed
-
           labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           height: 70,
-          // backgroundColor: const Color.fromARGB(255, 241, 247, 243),
-          onDestinationSelected: (value) {},
+          // onDestinationSelected: (value) {},
           selectedIndex: 0,
-          surfaceTintColor: null,
-          indicatorColor: const Color.fromARGB(27, 187, 48, 48),
+          surfaceTintColor: Colors.white,
+          indicatorColor: const Color.fromARGB(255, 255, 255, 255),
         ),
       ),
     );
   }
 }
-
-
-
-            // BottomAppBar(
-            //   color: Colors.white,
-            //   child: Row(
-            //       mainAxisSize: MainAxisSize.max,
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: <Widget>[
-            //         IconButton(
-            //             onPressed: () {
-            //               index = 0;
-
-            //               buttonClicked();
-            //             },
-            //             icon: const Icon(
-            //               Icons.home,
-            //               size: 40,
-            //             )),
-            //         IconButton(
-            //           onPressed: () {
-            //             index = 1;
-            //             buttonClicked();
-            //           },
-            //           icon: const Icon(
-            //             Icons.location_on,
-            //             size: 40,
-            //           ),
-            //         ),
-            //         IconButton(
-            //           icon: const Icon(Icons.notifications, size: 40),
-            //           onPressed: () {},
-            //         ),
-            //         IconButton(
-            //           onPressed: () {},
-            //           icon: const Icon(
-            //             Icons.person,
-            //             size: 40,
-            //           ),
-            //         ),
-            //       ]),
-            // ),

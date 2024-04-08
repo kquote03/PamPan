@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 400),
+            const Expanded(child: SizedBox()),
             TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -63,9 +63,10 @@ class ProfilePage extends StatelessWidget {
             TextButton.icon(
               onPressed: () {},
               icon: const Icon(
-                    Icons.exit_to_app,
-                    size: 17,
-                    color: Color.fromARGB(255, 34, 33, 33),),
+                Icons.exit_to_app,
+                size: 17,
+                color: Color.fromARGB(255, 34, 33, 33),
+              ),
               label: const Text(
                 "Log Out",
                 style: TextStyle(
