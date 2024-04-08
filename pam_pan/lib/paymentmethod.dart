@@ -35,7 +35,7 @@ class PaymentMethod extends StatelessWidget {
                   color: Color.fromARGB(255, 34, 33, 33),
                 ),
                 label: const Text(
-                  ('Stored Payment Methods'),
+                  ('Stored Payment Methods                 '),
                   style: TextStyle(
                     fontSize: 17.0,
                     color: Color.fromARGB(255, 34, 33, 33),
@@ -46,6 +46,9 @@ class PaymentMethod extends StatelessWidget {
                     const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
+                  ),
+                  minimumSize: MaterialStateProperty.all<Size>(
+                    const Size(150, 50),
                   ),
                 ),
               ),
@@ -65,7 +68,7 @@ class PaymentMethod extends StatelessWidget {
                   color: Color.fromARGB(255, 34, 33, 33),
                 ),
                 label: const Text(
-                  ('Credit Card'),
+                  ('Credit Card                                         '),
                   style: TextStyle(
                     fontSize: 17.0,
                     color: Color.fromARGB(255, 34, 33, 33),
@@ -76,6 +79,9 @@ class PaymentMethod extends StatelessWidget {
                     const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
+                  ),
+                  minimumSize: MaterialStateProperty.all<Size>(
+                    const Size(150, 50),
                   ),
                 ),
               ),
