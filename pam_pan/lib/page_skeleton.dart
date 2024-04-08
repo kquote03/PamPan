@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/local_notifications.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
@@ -40,7 +41,12 @@ class _PageSkeleton extends State<PageSkeleton> {
           title: Text(ButtonContentsManager.pageLabels[index]),
           leading: IconButton(
             icon: const Icon(Icons.help, size: 30, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              LocalNotifications.showSimpleNotification(
+                  title: "this is a title",
+                  body: "this is a body",
+                  payload: "this is a payload");
+            },
           ),
           actions: [
             Text(
