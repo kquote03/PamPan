@@ -6,6 +6,8 @@ import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/payment_page.dart';
+import 'package:pam_pan/paymentmethod.dart';
+import 'package:pam_pan/profile.dart';
 
 class ButtonContentsManager {
   static final List<Widget> buttonContents = [
@@ -16,6 +18,7 @@ class ButtonContentsManager {
     const TableComplexExample(),
     const TableMultiExample(),
     const TableRangeExample(),
+    const ProfilePage(),
   ];
 
   static final List<String> pageLabels = [
@@ -25,6 +28,7 @@ class ButtonContentsManager {
     "Table Events Cal",
     "Table Complex Cal",
     "Table Multi Cal",
-    "Table Range Cal"
+    "Table Range Cal",
+    "Profile"
   ];
 }

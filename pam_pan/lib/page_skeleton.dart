@@ -108,7 +108,10 @@ class _PageSkeleton extends State<PageSkeleton> {
                 label: 'Notifications'),
             NavigationDestination(
               icon: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                   index = 7;
+                    buttonClicked();
+                },
                 icon: const Icon(Icons.person, size: 35, color: Colors.black),
               ),
               label: 'Profile',
