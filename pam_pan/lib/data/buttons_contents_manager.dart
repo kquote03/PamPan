@@ -4,7 +4,6 @@ import 'package:pam_pan/calendars(temp)/calendar_page_complex.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_events.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
-import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/payment_page.dart';
 
@@ -17,11 +16,10 @@ class ButtonContentsManager {
     const TableComplexExample(),
     const TableMultiExample(),
     const TableRangeExample(),
-    const CalendarPageWeek(),
   ];
 
   static final List<String> pageLabels = [
-    "Home",
+    "",
     "Donation",
     "Basic Calendar Page",
     "Table Events Cal",

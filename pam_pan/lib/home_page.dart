@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,9 +8,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ButtonContentsManager.buttonContents[7],
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CalendarPageWeek(),
         ),
         Expanded(
           child: Padding(
