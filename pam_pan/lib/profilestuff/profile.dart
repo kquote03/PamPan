@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/paymentmethod.dart';
+import 'package:pam_pan/profilestuff/paymentmethod.dart';
 import 'editprofile.dart';
 
 class ProfilePage extends StatelessWidget {
