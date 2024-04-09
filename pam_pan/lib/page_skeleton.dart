@@ -70,13 +70,19 @@ class _PageSkeleton extends State<PageSkeleton> {
         ),
         body: currentPage,
         floatingActionButton: FloatingActionButton.large(
-          onPressed: () {},
+          onPressed: () {
+            index = 8;
+            buttonClicked();
+          },
           elevation: 0,
           // isExtended: true,
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           shape: const CircleBorder(),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              index = 8;
+              buttonClicked();
+            },
             icon: const Icon(Clarity.plus_circle_solid,
                 size: 55, color: Colors.black),
           ),
