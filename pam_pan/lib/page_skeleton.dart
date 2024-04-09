@@ -1,7 +1,9 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/notifications/notification_controller.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
@@ -17,10 +19,17 @@ class _PageSkeleton extends State<PageSkeleton> {
 
   late Widget currentPage;
 
-  String currentMonth = DateFormat.MMMM().format(DateTime.now());
-
   @override
   void initState() {
+    AwesomeNotifications().setListeners(
+      onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+      onNotificationCreatedMethod:
+          NotificationController.onNotificationCreatedMethod,
+      onNotificationDisplayedMethod:
+          NotificationController.onNotificationDisplayedMethod,
+      onDismissActionReceivedMethod:
+          NotificationController.onDismissActionReceivedMethod,
+    );
     super.initState();
     currentPage = ButtonContentsManager.buttonContents[0];
   }
@@ -44,7 +53,7 @@ class _PageSkeleton extends State<PageSkeleton> {
           ),
           actions: [
             Text(
-              currentMonth,
+              DateFormat.MMMM().format(DateTime.now()),
               style: const TextStyle(fontSize: 20),
             ),
             IconButton(
@@ -105,7 +114,15 @@ class _PageSkeleton extends State<PageSkeleton> {
                 icon: IconButton(
                   icon: const Icon(Icons.notifications,
                       size: 35, color: Colors.black),
-                  onPressed: () {},
+                  onPressed: () {
+                    AwesomeNotifications().createNotification(
+                        content: NotificationContent(
+                      id: 1,
+                      channelKey: "basic_channel",
+                      title: "hello world",
+                      body: "yay noti",
+                    ));
+                  },
                 ),
                 label: 'Notifications'),
             NavigationDestination(
