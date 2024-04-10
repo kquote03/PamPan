@@ -52,26 +52,16 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const EditProfile(),
-                      ),
-                    );
-                  },
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Colors.blueGrey[700],
-                    child: const CircleAvatar(
-                      radius: 35,
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.person,
-                        size: 30,
-                        color: Colors.white,
-                      ),
+                CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Colors.blueGrey[700],
+                  child: const CircleAvatar(
+                    radius: 35,
+                    backgroundColor: Colors.transparent,
+                    child: Icon(
+                      Icons.person,
+                      size: 30,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -112,18 +102,109 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             const Expanded(child: SizedBox()),
-            TextButton.icon(
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: 50,
+                width: 380,
+                child: TextButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PaymentMethod()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.payments_outlined,
+                    size: 20,
+                    color: Color.fromARGB(255, 34, 33, 33),
+                  ),
+                  label: const Align(
+                    alignment: Alignment(-1.0, 0.0),
+                    child: Text(
+                      "Payment Options",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        return const Color.fromARGB(255, 219, 219, 219);
+                      },
+                    ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+            const SizedBox(height: 5),
+            SizedBox(
+              height: 50,
+              width: 500,
+              child: TextButton.icon(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const PaymentMethod()),
+                    MaterialPageRoute(builder: (context) => const AboutPam()),
                   );
                 },
                 icon: const Icon(
-                  Icons.payments_outlined,
+                  Icons.info_outline,
                   size: 20,
                   color: Color.fromARGB(255, 34, 33, 33),
+                ),
+                label: const Align(
+                    alignment: Alignment(-1.0, 0.0),
+                    child: Text(
+                      "About PamPan",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return const Color.fromARGB(255, 219, 219, 219);
+                    },
+                  ),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            SizedBox(
+              height: 50,
+              width: 500,
+              child: TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.exit_to_app,
+                  size: 20,
+                  color: Color.fromARGB(255, 34, 33, 33),
+                ),
+                label: const Text(
+                  "Log Out",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.resolveWith<Color>(
@@ -136,78 +217,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       borderRadius: BorderRadius.zero,
                     ),
                   ),
-                
-                ),
-                label: const Text(("Payment Options                                   "),
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color.fromARGB(255, 34, 33, 33),
-                      fontWeight: FontWeight.bold,
-                    ))),
-            const SizedBox(height: 5),
-            TextButton.icon(
-              onPressed: () {
-                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AboutPam()),
-                  );
-              },
-              icon: const Icon(
-                Icons.info_outline,
-                size: 20,
-                color: Color.fromARGB(255, 34, 33, 33),
-              ),
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    return const Color.fromARGB(255, 219, 219, 219);
-                  },
-                ),
-                   shape: MaterialStateProperty.all<OutlinedBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                
-              ),
-              label: const Text(
-                "About PamPan                                             ",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Color.fromARGB(255, 34, 33, 33),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextButton.icon(
-              onPressed: () {
-
-              },
-              icon: const Icon(
-                Icons.exit_to_app,
-                size: 20,
-                color: Color.fromARGB(255, 34, 33, 33),
-              ),
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    return const Color.fromARGB(255, 219, 219, 219);
-                  },
-                ),
-                   shape: MaterialStateProperty.all<OutlinedBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-              ),
-              label: const Text(
-                "Log Out                                                     ",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
