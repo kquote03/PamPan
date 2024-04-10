@@ -42,11 +42,17 @@ class PaymentMethod extends StatelessWidget {
                   ),
                 ),
                 style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return const Color.fromARGB(255, 219, 219, 219);
+                    },
+                  ),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
                   ),
+                
                   minimumSize: MaterialStateProperty.all<Size>(
                     const Size(150, 50),
                   ),
@@ -75,6 +81,11 @@ class PaymentMethod extends StatelessWidget {
                   ),
                 ),
                 style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return const Color.fromARGB(255, 219, 219, 219);
+                    },
+                  ),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
