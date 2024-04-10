@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/aboupam.dart';
 import 'package:pam_pan/profilestuff/paymentmethod.dart';
@@ -102,49 +103,53 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             const Expanded(child: SizedBox()),
-            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
-                height: 50,
-                width: 380,
-                child: TextButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PaymentMethod()),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.payments_outlined,
-                    size: 20,
-                    color: Color.fromARGB(255, 34, 33, 33),
-                  ),
-                  label: const Align(
-                    alignment: Alignment(-1.0, 0.0),
-                    child: Text(
-                      "Payment Options",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                        return const Color.fromARGB(255, 219, 219, 219);
+            SizedBox(
+              height: 50,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PaymentMethod()),
+                        );
                       },
-                    ),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+                      icon: const Icon(
+                        Icons.payments_outlined,
+                        size: 20,
+                        color: Color.fromARGB(255, 34, 33, 33),
+                      ),
+                      label: const Align(
+                        alignment: Alignment(-1.0, 0.0),
+                        child: Text(
+                          "Payment Options",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith<Color>(
+                          (Set<MaterialState> states) {
+                            return const Color.fromARGB(255, 219, 219, 219);
+                          },
+                        ),
+                        shape: MaterialStateProperty.all<OutlinedBorder>(
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ]),
+            ),
             const SizedBox(height: 5),
             SizedBox(
               height: 50,
@@ -162,17 +167,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: Color.fromARGB(255, 34, 33, 33),
                 ),
                 label: const Align(
-                    alignment: Alignment(-1.0, 0.0),
-                    child: Text(
-                      "About PamPan",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontWeight: FontWeight.bold,
-                      ),
+                  alignment: Alignment(-1.0, 0.0),
+                  child: Text(
+                    "About PamPan",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-
+                ),
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
