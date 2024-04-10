@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pam_pan/aboupam.dart';
 import 'package:pam_pan/profilestuff/paymentmethod.dart';
 import 'editprofile.dart';
 
@@ -22,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
         nextLevelThreshold = (level + 1) * 100;
         progressValue = 0.0;
       } else {
-       progressValue = points / nextLevelThreshold;
+        progressValue = points / nextLevelThreshold;
       }
     });
   }
@@ -124,7 +125,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   size: 20,
                   color: Color.fromARGB(255, 34, 33, 33),
                 ),
-                label: const Text(("Payment Options"),
+                style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return const Color.fromARGB(255, 219, 219, 219);
+                    },
+                  ),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+                
+                ),
+                label: const Text(("Payment Options                                   "),
                     style: TextStyle(
                       fontSize: 18,
                       color: Color.fromARGB(255, 34, 33, 33),
@@ -132,14 +146,33 @@ class _ProfilePageState extends State<ProfilePage> {
                     ))),
             const SizedBox(height: 5),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                 Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AboutPam()),
+                  );
+              },
               icon: const Icon(
                 Icons.info_outline,
                 size: 20,
                 color: Color.fromARGB(255, 34, 33, 33),
               ),
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return const Color.fromARGB(255, 219, 219, 219);
+                  },
+                ),
+                   shape: MaterialStateProperty.all<OutlinedBorder>(
+                    const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+                
+              ),
               label: const Text(
-                "About PamPan",
+                "About PamPan                                             ",
                 style: TextStyle(
                   fontSize: 18,
                   color: Color.fromARGB(255, 34, 33, 33),
@@ -149,14 +182,28 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 5),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+
+              },
               icon: const Icon(
                 Icons.exit_to_app,
                 size: 20,
                 color: Color.fromARGB(255, 34, 33, 33),
               ),
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return const Color.fromARGB(255, 219, 219, 219);
+                  },
+                ),
+                   shape: MaterialStateProperty.all<OutlinedBorder>(
+                    const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
+              ),
               label: const Text(
-                "Log Out",
+                "Log Out                                                     ",
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.red,
