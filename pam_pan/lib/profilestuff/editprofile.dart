@@ -15,7 +15,7 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController _numberController;
   String? _selectedGender;
   File? _selectedImage;
-  final ImagePicker _picker = ImagePicker(); // ImagePicker instance
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
