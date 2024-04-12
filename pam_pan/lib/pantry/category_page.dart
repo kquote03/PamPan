@@ -68,15 +68,13 @@ class CategoryPage extends StatelessWidget {
             },
           ),
         ),
-        body: Container(
-          child: GridView.count(
-            crossAxisCount: 2,
-            children: List.generate(8, (index) {
-              return Center(
-                child: categoryList[index].icon,
-              );
-            }),
-          ),
+        body: GridView.count(
+          crossAxisCount: 2,
+          children: List.generate(8, (index) {
+            return Center(
+              child: categoryList[index].icon,
+            );
+          }),
         ));
   }
 }

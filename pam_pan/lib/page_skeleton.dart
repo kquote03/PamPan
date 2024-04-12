@@ -43,10 +43,31 @@ class _PageSkeleton extends State<PageSkeleton> {
   @override
   Widget build(context) {
     return MaterialApp(
-      color: const Color.fromARGB(255, 255, 255, 255),
+      color: const Color.fromARGB(255, 255, 250, 240),
+      theme: ThemeData(
+          colorScheme: const ColorScheme(
+        brightness: Brightness.light,
+        primary: Color.fromARGB(255, 255, 250, 240),
+        secondary: Color.fromARGB(255, 255, 255, 255),
+        onPrimary: Colors.black,
+        onSecondary: Colors.black,
+        error: Colors.red,
+        onError: Colors.white,
+        background: Color.fromARGB(255, 255, 250, 240),
+        onBackground: Colors.black,
+        surface: Color.fromARGB(255, 255, 250, 240),
+        onSurface: Colors.black,
+      )),
       home: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                index = 7;
+                buttonClicked();
+              },
+              icon: const Icon(Icons.person, size: 35, color: Colors.black),
+            ),
             title: Text(ButtonContentsManager.pageLabels[index]),
             actions: [
               Text(
@@ -68,23 +89,8 @@ class _PageSkeleton extends State<PageSkeleton> {
                 },
               ),
             ],
-            backgroundColor: const Color.fromARGB(255, 255, 254, 254),
           ),
           body: currentPage,
-          floatingActionButton: FloatingActionButton.large(
-            onPressed: () {},
-            elevation: 0,
-            // isExtended: true,
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-            shape: const CircleBorder(),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Clarity.plus_circle_solid,
-                  size: 55, color: Colors.black),
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: NavigationBar(
             destinations: [
               NavigationDestination(
@@ -110,10 +116,10 @@ class _PageSkeleton extends State<PageSkeleton> {
               NavigationDestination(
                   icon: IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.camera_alt,
-                        size: 1, color: Color.fromARGB(0, 0, 0, 0)),
+                    icon: const Icon(Clarity.plus_circle_solid,
+                        size: 35, color: Colors.black),
                   ),
-                  label: 'Map'),
+                  label: 'Camera'),
               NavigationDestination(
                   icon: IconButton(
                     icon: const Icon(Icons.notifications,
@@ -129,24 +135,13 @@ class _PageSkeleton extends State<PageSkeleton> {
                     },
                   ),
                   label: 'Notifications'),
-              NavigationDestination(
-                icon: IconButton(
-                  onPressed: () {
-                    index = 7;
-                    buttonClicked();
-                  },
-                  icon: const Icon(Icons.person, size: 35, color: Colors.black),
-                ),
-                label: 'Profile',
-              ),
             ],
-            backgroundColor: Colors.white,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 70,
             // onDestinationSelected: (value) {},
             selectedIndex: 0,
-            surfaceTintColor: Colors.white,
-            indicatorColor: const Color.fromARGB(255, 255, 255, 255),
+            surfaceTintColor: const Color.fromARGB(255, 255, 255, 242),
+            indicatorColor: const Color.fromARGB(255, 255, 255, 242),
           ),
         ),
       ),
