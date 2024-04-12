@@ -43,28 +43,35 @@ class _PageSkeleton extends State<PageSkeleton> {
   @override
   Widget build(context) {
     return MaterialApp(
-      color: const Color.fromARGB(255, 255, 250, 240),
-      theme: ThemeData(
-          colorScheme: const ColorScheme(
-        brightness: Brightness.light,
-        primary: Color.fromARGB(255, 255, 250, 240),
-        secondary: Color.fromARGB(255, 255, 255, 255),
-        onPrimary: Colors.black,
-        onSecondary: Colors.black,
-        error: Colors.red,
-        onError: Colors.white,
-        background: Color.fromARGB(255, 255, 250, 240),
-        onBackground: Colors.black,
-        surface: Color.fromARGB(255, 255, 250, 240),
-        onSurface: Colors.black,
-      )),
+      // theme: ThemeData(
+      //     colorScheme: const ColorScheme(
+      //   brightness: Brightness.light,
+      //   primary: Color.fromARGB(0, 255, 250, 240),
+      //   secondary: Colors.black,
+      //   onPrimary: Colors.black,
+      //   onSecondary: Color.fromARGB(255, 255, 250, 240),
+      //   error: Colors.red,
+      //   onError: Colors.white,
+      //   background: Color.fromARGB(255, 255, 250, 240),
+      //   onBackground: Colors.black,
+      //   surface: Color.fromARGB(255, 255, 250, 240),
+      //   onSurface: Colors.black,
+      // )),
       home: Builder(
         builder: (context) => Scaffold(
+          backgroundColor: const Color.fromARGB(255, 255, 250, 240),
           appBar: AppBar(
+            backgroundColor: const Color.fromARGB(255, 255, 250, 240),
             leading: IconButton(
               onPressed: () {
-                index = 7;
-                buttonClicked();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ButtonContentsManager.buttonContents[7];
+                    },
+                  ),
+                );
               },
               icon: const Icon(Icons.person, size: 35, color: Colors.black),
             ),
@@ -92,6 +99,7 @@ class _PageSkeleton extends State<PageSkeleton> {
           ),
           body: currentPage,
           bottomNavigationBar: NavigationBar(
+            backgroundColor: const Color.fromARGB(255, 255, 250, 240),
             destinations: [
               NavigationDestination(
                 icon: IconButton(
@@ -106,8 +114,14 @@ class _PageSkeleton extends State<PageSkeleton> {
               NavigationDestination(
                   icon: IconButton(
                     onPressed: () {
-                      index = 1;
-                      buttonClicked();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ButtonContentsManager.buttonContents[1];
+                          },
+                        ),
+                      );
                     },
                     icon: const Icon(Icons.location_on,
                         size: 35, color: Colors.black),

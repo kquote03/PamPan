@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/aboupam.dart';
-import 'package:pam_pan/profilestuff/paymentmethod.dart';
-import 'editprofile.dart';
+import 'package:pam_pan/profile/about_pam_page.dart';
+import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/profile/payment_methods_page.dart';
+import 'edit_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -44,6 +45,17 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        title: Text(ButtonContentsManager.pageLabels[7]),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -88,9 +100,9 @@ class ProfilePage extends StatelessWidget {
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                      return  Colors.transparent;
+                      return Colors.transparent;
                     },
-                  ), 
+                  ),
                 ),
                 child: const Text(
                   'Edit',

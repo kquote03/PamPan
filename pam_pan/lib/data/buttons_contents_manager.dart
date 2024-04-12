@@ -7,7 +7,7 @@ import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/category_page.dart';
 import 'package:pam_pan/payment_page.dart';
-import 'package:pam_pan/profilestuff/profile.dart';
+import 'package:pam_pan/profile/profile_page.dart';
 
 class ButtonContentsManager {
   static final List<Widget> buttonContents = [

@@ -6,6 +6,7 @@ class PaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -13,6 +14,7 @@ class PaymentMethod extends StatelessWidget {
           },
         ),
       ),
+      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       body: Padding(
         padding: const EdgeInsets.all(23.0),
         child: Column(
