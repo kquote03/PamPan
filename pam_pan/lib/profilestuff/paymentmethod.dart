@@ -4,100 +4,115 @@ class PaymentMethod extends StatelessWidget {
   const PaymentMethod({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(23.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Stored Payment Methods',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(23.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Stored Payment Methods',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 10.0),
-              OutlinedButton.icon(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.storage,
-                  size: 17,
-                  color: Color.fromARGB(255, 34, 33, 33),
-                ),
-                label: const Text(
-                  ('Stored Payment Methods                 '),
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    color: Color.fromARGB(255, 34, 33, 33),
-                  ),
-                ),
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      return const Color.fromARGB(255, 219, 219, 219);
-                    },
-                  ),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+            ),
+            const SizedBox(height: 10.0),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.storage,
+                      size: 17,
+                      color: Color.fromARGB(255, 34, 33, 33),
+                    ),
+                    label: const Align(
+                      alignment: Alignment(-1.0, 0.0),
+                      child: Text(
+                        ('Stored Payment Methods'),
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          color: Color.fromARGB(255, 34, 33, 33),
+                        ),
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          return const Color.fromARGB(255, 219, 219, 219);
+                        },
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        const Size(double.infinity, 50), // Adjust height here
+                      ),
                     ),
                   ),
-                
-                  minimumSize: MaterialStateProperty.all<Size>(
-                    const Size(150, 50),
-                  ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+            const Text(
+              'Add payment method',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 20.0),
-              const Text(
-                'Add payment method',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              OutlinedButton.icon(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.credit_card,
-                  size: 17,
-                  color: Color.fromARGB(255, 34, 33, 33),
-                ),
-                label: const Text(
-                  ('Credit Card                                         '),
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    color: Color.fromARGB(255, 34, 33, 33),
-                  ),
-                ),
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      return const Color.fromARGB(255, 219, 219, 219);
-                    },
-                  ),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.credit_card,
+                      size: 17,
+                      color: Color.fromARGB(255, 34, 33, 33),
+                    ),
+                    label: const Align(
+                      alignment: Alignment(-1.0, 0.0),
+                      child: Text(
+                        ('Credit Card'),
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          color: Color.fromARGB(255, 34, 33, 33),
+                        ),
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          return const Color.fromARGB(255, 219, 219, 219);
+                        },
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        const Size(double.infinity, 50), // Adjust height here
+                      ),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all<Size>(
-                    const Size(150, 50),
-                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );

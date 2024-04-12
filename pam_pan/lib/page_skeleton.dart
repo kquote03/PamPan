@@ -43,7 +43,7 @@ class _PageSkeleton extends State<PageSkeleton> {
   @override
   Widget build(context) {
     return MaterialApp(
-      color: Colors.white,
+      color: const Color.fromARGB(255, 255, 255, 255),
       home: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
@@ -72,7 +72,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                 },
               ),
             ],
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            backgroundColor: const Color.fromARGB(255, 255, 254, 254),
           ),
           body: currentPage,
           floatingActionButton: FloatingActionButton.large(

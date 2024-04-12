@@ -1,9 +1,11 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
-  @override
+   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
@@ -12,6 +14,8 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController _emailController;
   late TextEditingController _numberController;
   String? _selectedGender;
+  File? _selectedImage;
+  final ImagePicker _picker = ImagePicker(); // ImagePicker instance
 
   @override
   void initState() {
@@ -70,17 +74,48 @@ class _EditProfileState extends State<EditProfile> {
             ),
             const SizedBox(height: 16),
             TextButton(
-                onPressed: () {},
-                child: const Text(('Save'),
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color.fromARGB(255, 34, 33, 33),
-                      fontWeight: FontWeight.bold,
-                    ))),
+              onPressed: () {},
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 34, 33, 33),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: _getImage,
+              child: const Text(
+                'Pick Profile Picture',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 34, 33, 33),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (_selectedImage != null)
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: FileImage(_selectedImage!),
+              )
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _getImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
   }
 
   @override
