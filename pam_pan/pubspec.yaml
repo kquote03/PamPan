@@ -55,6 +55,8 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   image_path: "assets/logo/pampan_logo.png"
+  adaptive_icon_foreground: "assets/logo/pampan_logo_android.png"
+  adaptive_icon_background: "assets/logo/transparent.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

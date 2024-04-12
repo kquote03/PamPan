@@ -16,10 +16,10 @@ void main() async {
       channelGroupName: "basic group",
     )
   ]);
-  bool isAllowedToSendNotifications =
-      await AwesomeNotifications().isNotificationAllowed();
-  if (!isAllowedToSendNotifications) {
-    AwesomeNotifications().requestPermissionToSendNotifications();
-  }
+  // bool isAllowedToSendNotifications =
+  // await AwesomeNotifications().isNotificationAllowed();
+  // if (!isAllowedToSendNotifications) {
+  AwesomeNotifications().requestPermissionToSendNotifications();
+  // }
   runApp(const PageSkeleton());
 }
