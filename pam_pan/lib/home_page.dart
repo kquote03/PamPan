@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
+import 'package:pam_pan/data/buttons_contents_manager.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,14 +16,22 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.amber,
-              ),
-              child: const Center(
-                child: Text(
-                    'Pam and buttons and the pantry - incomplete - is clickable and will take you to the full pantry page'),
+            child: SizedBox(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ButtonContentsManager.buttonContents[8];
+                      },
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  "assets/bigPamHome/pam_expanded.png",
+                  fit: BoxFit.fitHeight,
+                ),
               ),
             ),
           ),

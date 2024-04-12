@@ -48,10 +48,6 @@ class _PageSkeleton extends State<PageSkeleton> {
         builder: (context) => Scaffold(
           appBar: AppBar(
             title: Text(ButtonContentsManager.pageLabels[index]),
-            leading: IconButton(
-              icon: const Icon(Icons.help, size: 30, color: Colors.black),
-              onPressed: () {},
-            ),
             actions: [
               Text(
                 DateFormat.MMMM().format(DateTime.now()),
@@ -76,19 +72,13 @@ class _PageSkeleton extends State<PageSkeleton> {
           ),
           body: currentPage,
           floatingActionButton: FloatingActionButton.large(
-            onPressed: () {
-              index = 8;
-              buttonClicked();
-            },
+            onPressed: () {},
             elevation: 0,
             // isExtended: true,
             backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             shape: const CircleBorder(),
             child: IconButton(
-              onPressed: () {
-                index = 8;
-                buttonClicked();
-              },
+              onPressed: () {},
               icon: const Icon(Clarity.plus_circle_solid,
                   size: 55, color: Colors.black),
             ),
