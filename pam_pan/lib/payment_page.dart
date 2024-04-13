@@ -124,12 +124,12 @@ class _PaymentPage extends State<PaymentPage> {
                         controller: _controllerAmount,
                         decoration: const InputDecoration(
                           labelText: 'Amount (in Dirhams)',
-                          hintText: 'XX.XX AED',
+                          hintText: 'AED XXX.XX',
                         ),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           CurrencyTextInputFormatter(
-                            symbol: "AED",
+                            symbol: "AED ",
                             locale: "en",
                           ),
                         ]),
