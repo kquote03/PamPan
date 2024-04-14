@@ -19,7 +19,7 @@ class ButtonContentsManager {
     const TableMultiExample(),
     const TableRangeExample(),
     const ProfilePage(),
-    CategoryPage()
+    const CategoryPage()
   ];
 
   static final List<String> pageLabels = [
