@@ -11,111 +11,138 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPage extends State<CategoryPage> {
   Category bread = Category(
-    "bread",
+    const Text(
+      "bread",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/bread.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category dairy = Category(
-    "dairy",
+    const Text(
+      "dairy",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/dairy.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category cheese = Category(
-    "cheese",
+    const Text(
+      "cheese",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/cheese.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category chicken = Category(
-    "chicken",
+    const Text(
+      "chicken",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/chicken.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category meats = Category(
-    "meats",
+    const Text(
+      "meats",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/meats.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category fruits = Category(
-    "fruits",
+    const Text(
+      "fruits",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/fruits.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category vegetables = Category(
-    "vegetables",
+    const Text(
+      "vegetables",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/vegetables.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category fish = Category(
-    "fish",
+    const Text(
+      "fish",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/fish.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
   Category party = Category(
-    "party",
+    const Text(
+      "party",
+      style: TextStyle(fontSize: 20),
+    ),
     IconButton(
       icon: Image.asset(
         'assets/categories/party.png',
-        scale: 10,
+        scale: 7,
       ),
       onPressed: () {},
     ),
   );
 
-  Category other = Category(
-    "other",
-    IconButton(
-      icon: const Icon(Icons.heart_broken),
-      onPressed: () {},
-    ),
-  );
+  // Category other = Category(
+  //   "other",
+  //   IconButton(
+  //     icon: const Icon(Icons.heart_broken),
+  //     onPressed: () {},
+  //   ),
+  // );
 
   final List<Widget> categoryList = [
     ListTile(
@@ -151,7 +178,7 @@ class _CategoryPage extends State<CategoryPage> {
                   Container(child: bread.icon),
                   Column(
                     children: [
-                      Text(bread.name),
+                      bread.name,
                     ],
                   ),
                 ],
@@ -179,7 +206,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: cheese.icon),
               Column(children: [
-                Text(cheese.name),
+                cheese.name,
               ]),
             ],
           ),
@@ -187,7 +214,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: chicken.icon),
               Column(children: [
-                Text(chicken.name),
+                chicken.name,
               ]),
             ],
           ),
@@ -195,7 +222,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: dairy.icon),
               Column(children: [
-                Text(dairy.name),
+                dairy.name,
               ]),
             ],
           ),
@@ -203,7 +230,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: fish.icon),
               Column(children: [
-                Text(fish.name),
+                fish.name,
               ]),
             ],
           ),
@@ -211,7 +238,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: fruits.icon),
               Column(children: [
-                Text(fruits.name),
+                fruits.name,
               ]),
             ],
           ),
@@ -219,7 +246,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: vegetables.icon),
               Column(children: [
-                Text(vegetables.name),
+                vegetables.name,
               ]),
             ],
           ),
@@ -227,7 +254,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: meats.icon),
               Column(children: [
-                Text(meats.name),
+                meats.name,
               ]),
             ],
           ),
@@ -235,7 +262,7 @@ class _CategoryPage extends State<CategoryPage> {
             children: [
               Container(child: party.icon),
               Column(children: [
-                Text(party.name),
+                party.name,
               ]),
             ],
           ),

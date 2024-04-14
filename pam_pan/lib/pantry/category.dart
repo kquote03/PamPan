@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Category {
-  final String name;
+  final Text name;
   final List<Widget>? items;
   final IconButton icon;
 
