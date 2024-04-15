@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:pam_pan/notifications/notification_controller.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
@@ -129,7 +132,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                   label: 'Map'),
               NavigationDestination(
                   icon: IconButton(
-                    onPressed: () {},
+                    onPressed: scanBarcode,
                     icon: const Icon(Clarity.plus_circle_solid,
                         size: 35, color: Colors.black),
                   ),
@@ -160,5 +163,9 @@ class _PageSkeleton extends State<PageSkeleton> {
         ),
       ),
     );
+  }
+
+  void scanBarcode() async {
+    print((await BarcodeScanner.scan()).rawContent);
   }
 }
