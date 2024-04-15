@@ -439,7 +439,8 @@ class _AddItemPage extends State<AddItemPage> {
   void _barcodeClick() async {
     // Launches the barcode reader, then (inshallah) will interface with the API
     // Then finally fills the fields with the data from the API.
-    print((await BarcodeScanner.scan()).rawContent);
+    print(BarcodeApi()
+        .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
   }
 }
 
