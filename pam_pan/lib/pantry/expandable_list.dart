@@ -3,73 +3,78 @@ import 'package:pam_pan/pantry/category.dart';
 
 var data = {
   "01/01/2018": [
-    ["CocaCola", "\$ 5"],
-    ["Dominos Pizza", "\$ 50"],
+    ["CocaCola", "2024-05-01", "330", "mL"],
+    ["Dominos Pizza", "2024-05-01", "330", "mL"],
   ],
   "04/01/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/02/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/03/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/04/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/05/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/06/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/07/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/08/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/09/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/10/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    [
+      "Appy Fizz",
+      "2024-05-01",
+      "330",
+      "mL",
+    ],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/11/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/12/2018": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/12/2019": [
-    ["Appy Fizz", "\$ 10"],
-    ["Galaxy S9+", "\$ 700"],
-    ["Apple iPhone X", "\$ 999"],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
 };
 
@@ -165,7 +170,7 @@ Category fish = Category(
 
 Category party = Category(
   const Text(
-    "Party",
+    "Party/Occassion",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
   Image.asset(
@@ -208,16 +213,36 @@ class _ExpandableList extends State<ExpandableList> {
 
     for (int i = 0; i < data[dataKeys[keyIndex]]!.length; i++) {
       list.add(
-        SizedBox(
-          height: 40,
-          child: Row(
-            children: <Widget>[
-              Text(
-                data[dataKeys[keyIndex]]![i][0],
-                style: const TextStyle(color: Colors.white),
-              )
-            ],
-          ),
+        Row(
+          children: <Widget>[
+            Row(
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      '''
+
+Item Name:
+Expiry Date:
+Quantity/Amount:
+''',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(),
+                    Text(
+                      '''
+        
+        ${data[dataKeys[keyIndex]]![i][0]}
+        ${data[dataKeys[keyIndex]]![i][1]}
+        ${data[dataKeys[keyIndex]]![i][2]} ${data[dataKeys[keyIndex]]![i][3]}
+        ''',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       );
     }
@@ -250,7 +275,7 @@ class _ExpandableList extends State<ExpandableList> {
               child: ExpansionTile(
                 enableFeedback: true,
                 iconColor: Colors.white,
-                childrenPadding: const EdgeInsets.only(left: 30),
+                childrenPadding: const EdgeInsets.only(left: 20),
                 leading: categories[keyIndex].icon,
                 title: categories[keyIndex].name,
                 children: <Widget>[

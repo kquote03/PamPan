@@ -120,7 +120,16 @@ class _PageSkeleton extends State<PageSkeleton> {
                   label: 'Map'),
               NavigationDestination(
                   icon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ButtonContentsManager.buttonContents[10];
+                          },
+                        ),
+                      );
+                    },
                     icon: const Icon(Clarity.plus_circle_solid,
                         size: 35, color: Colors.black),
                   ),
