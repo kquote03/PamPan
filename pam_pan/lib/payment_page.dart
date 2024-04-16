@@ -30,138 +30,140 @@ class _PaymentPage extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+      appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-          title: Text(ButtonContentsManager.pageLabels[1]),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+        title: Text(ButtonContentsManager.pageLabels[1]),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  style: TextStyle(
-                    fontSize: 24,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+                "Donating to help the hungry. A worthy endevour.",
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+                "Any donation you make through us would go straight to the United Nation's World Food Programme (WFP), which aims to distribute food to as many hungry people as possible, across the globe.",
+                textAlign: TextAlign.justify,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Card Name',
+                    ),
                   ),
-                  "Donating to help the hungry. A worthy endevour.",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  style: TextStyle(
-                    fontSize: 12,
+                  TextField(
+                    controller: _controllerCardNumber,
+                    decoration: const InputDecoration(
+                      labelText: 'Card Number',
+                      hintText: 'XXXX XXXX XXXX XXXX',
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(19),
+                      _CreditCardInputFormatter(),
+                    ],
                   ),
-                  "Any donation you make through us would go straight to the United Nation's World Food Programme (WFP), which aims to distribute food to as many hungry people as possible, across the globe.",
-                  textAlign: TextAlign.justify,
-                ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: _controllerDate,
+                          decoration: const InputDecoration(
+                            labelText: 'Expiration Date',
+                            hintText: 'MM/YY',
+                          ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(5),
+                            _ExpirationDateInputFormatter(),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 16.0),
+                      Expanded(
+                        child: TextField(
+                          controller: _controllerCVC,
+                          decoration: const InputDecoration(
+                            labelText: 'CVC',
+                            hintText: 'XXX',
+                          ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(3),
+                            _CVCInputFormatter(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  TextField(
+                    controller: _controllerAmount,
+                    decoration: const InputDecoration(
+                      labelText: 'Amount (in Dirhams)',
+                      hintText: 'AED XXX.XX',
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      CurrencyTextInputFormatter(
+                        symbol: "AED ",
+                        locale: "en",
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32.0),
+                  TextButton(
+                    onPressed: () {
+                      if (_creditCardChecker() ==
+                          "Donation successful. Thank you. The hungry children thank you.") {
+                        _showSimpleModalDialog2(context);
+                        _showSimpleModalDialog1(context);
+                        Timer(const Duration(seconds: 3), () {
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        _showErrorModalDialog(context);
+                        _showSimpleModalDialog1(context);
+                        Timer(const Duration(seconds: 3), () {
+                          Navigator.pop(context);
+                        });
+                      }
+                    },
+                    child: const Text(
+                      'Process Donation',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Card Name',
-                      ),
-                    ),
-                    TextField(
-                      controller: _controllerCardNumber,
-                      decoration: const InputDecoration(
-                        labelText: 'Card Number',
-                        hintText: 'XXXX XXXX XXXX XXXX',
-                      ),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(19),
-                        _CreditCardInputFormatter(),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: TextField(
-                            controller: _controllerDate,
-                            decoration: const InputDecoration(
-                              labelText: 'Expiration Date',
-                              hintText: 'MM/YY',
-                            ),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(5),
-                              _ExpirationDateInputFormatter(),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16.0),
-                        Expanded(
-                          child: TextField(
-                            controller: _controllerCVC,
-                            decoration: const InputDecoration(
-                              labelText: 'CVC',
-                              hintText: 'XXX',
-                            ),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(3),
-                              _CVCInputFormatter(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    TextField(
-                        controller: _controllerAmount,
-                        decoration: const InputDecoration(
-                          labelText: 'Amount (in Dirhams)',
-                          hintText: 'AED XXX.XX',
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          CurrencyTextInputFormatter(
-                            symbol: "AED ",
-                            locale: "en",
-                          ),
-                        ]),
-                    const SizedBox(height: 32.0),
-                    TextButton(
-                      onPressed: () {
-                        if (_creditCardChecker() ==
-                            "Donation successful. Thank you. The hungry children thank you.") {
-                          _showSimpleModalDialog2(context);
-                          _showSimpleModalDialog1(context);
-                          Timer(const Duration(seconds: 3), () {
-                            Navigator.pop(context);
-                          });
-                        } else {
-                          _showErrorModalDialog(context);
-                          _showSimpleModalDialog1(context);
-                          Timer(const Duration(seconds: 3), () {
-                            Navigator.pop(context);
-                          });
-                        }
-                      },
-                      child: const Text(
-                        'Process Donation',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   String _creditCardChecker() {

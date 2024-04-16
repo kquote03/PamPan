@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Category {
   final Text name;
   final List<Widget>? items;
-  final IconButton icon;
+  final Widget icon;
 
   Category(this.name, this.icon, {this.items});
 

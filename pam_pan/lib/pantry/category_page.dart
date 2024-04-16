@@ -136,24 +136,18 @@ class _CategoryPage extends State<CategoryPage> {
     ),
   );
 
-  // Category other = Category(
-  //   "other",
-  //   IconButton(
-  //     icon: const Icon(Icons.heart_broken),
-  //     onPressed: () {},
-  //   ),
-  // );
-
-  final List<Widget> categoryList = [
-    ListTile(
-      title: const Text('bread'),
-      enableFeedback: true,
-      enabled: true,
-      leading: Image.asset('assets/categories/bread.png'),
+  Category other = Category(
+    const Text(
+      "other",
+      style: TextStyle(fontSize: 20),
     ),
-  ];
-
-  late List<ListItem> items = itemGenerator();
+    IconButton(
+      icon: const Icon(
+        Icons.heart_broken,
+      ),
+      onPressed: () {},
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -266,57 +260,16 @@ class _CategoryPage extends State<CategoryPage> {
               ]),
             ],
           ),
+          Row(
+            children: [
+              Container(child: other.icon),
+              Column(children: [
+                other.name,
+              ]),
+            ],
+          ),
         ],
       ),
     );
   }
-
-  List<ListItem> itemGenerator() {
-    return List.generate(
-      5,
-      (i) => i % 6 == 0
-          ? HeadingItem('Heading $i')
-          : MessageItem('Sender $i', 'Message body $i'),
-    );
-  }
-}
-
-abstract class ListItem {
-  /// The title line to show in a list item.
-  Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
-}
-
-/// A ListItem that contains data to display a heading.
-class HeadingItem implements ListItem {
-  final String heading;
-
-  HeadingItem(this.heading);
-
-  @override
-  Widget buildTitle(BuildContext context) {
-    return Text(
-      heading,
-      style: Theme.of(context).textTheme.headlineSmall,
-    );
-  }
-
-  @override
-  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
-}
-
-/// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String sender;
-  final String body;
-
-  MessageItem(this.sender, this.body);
-
-  @override
-  Widget buildTitle(BuildContext context) => Text(sender);
-
-  @override
-  Widget buildSubtitle(BuildContext context) => Text(body);
 }

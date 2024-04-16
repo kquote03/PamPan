@@ -6,6 +6,7 @@ import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/category_page.dart';
+import 'package:pam_pan/pantry/expandable_list.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 
@@ -19,7 +20,8 @@ class ButtonContentsManager {
     const TableMultiExample(),
     const TableRangeExample(),
     const ProfilePage(),
-    const CategoryPage()
+    const CategoryPage(),
+    const ExpandableList()
   ];
 
   static final List<String> pageLabels = [
