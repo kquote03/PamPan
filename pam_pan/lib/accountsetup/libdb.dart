@@ -174,10 +174,11 @@ class LibDB {
     return openDatabase(
       join(path, 'database.db'),
       onCreate: (database, version) async {
-        for (String i in tables)
+        for (String i in tables) {
           await database.execute(
             i,
           );
+        }
         print("DB CREATED!!!! :D");
       },
       version: 1,
