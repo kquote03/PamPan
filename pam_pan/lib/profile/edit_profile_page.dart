@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -76,7 +77,8 @@ class _EditProfileState extends State<EditProfile> {
             ),
             const SizedBox(height: 16),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+              },
               child: const Text(
                 'Save',
                 style: TextStyle(
@@ -88,7 +90,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
             const SizedBox(height: 16),
             TextButton(
-              onPressed: _getImage,
+              onPressed: _requestPermissionAndPickImage,
               child: const Text(
                 'Pick Profile Picture',
                 style: TextStyle(
@@ -110,7 +112,18 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Future<void> _getImage() async {
+  Future<void> _requestPermissionAndPickImage() async {
+   
+    var status = await Permission.photos.request();
+    if (status.isGranted) {
+    
+      _pickImage();
+    } else {
+  
+    }
+  }
+
+  Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {

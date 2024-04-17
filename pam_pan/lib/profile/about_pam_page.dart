@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AboutPam extends StatelessWidget {
-  const AboutPam({super.key});
+  const AboutPam({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,12 +11,16 @@ class AboutPam extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         title: const Text('About Us'),
       ),
-      body: const Center(
-        child: Text(
-          'meow ><',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          alignment: Alignment.center,
+          child: const Text(
+            'PamPan is a food waste management system, giving you the ability to scan barcodes and expiry dates and store them in the system. PamPan lets you categorize your food items and reminds you when those food items are about to expire. PamPan also provides you with locations that you can donate your food to, as well as the ability to donate money.',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
