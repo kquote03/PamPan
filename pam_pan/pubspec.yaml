@@ -36,6 +36,9 @@ dependencies:
   icons_plus: ^5.0.0
   awesome_notifications: ^0.9.3+1
   sqflite: ^2.3.3
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
+
 
 
 
@@ -52,6 +55,7 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.2
+  
 
 flutter_launcher_icons:
   android: true

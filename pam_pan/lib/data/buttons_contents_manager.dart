@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_complex.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_events.dart';
@@ -25,7 +26,8 @@ class ButtonContentsManager {
     const CategoryPage(),
     const ExpandableList(),
     const AddItemPage(),
-    const MiriamCalendar()
+    const MiriamCalendar(),
+    const MiriamMap()
   ];
 
   static final List<String> pageLabels = [
