@@ -141,15 +141,21 @@ class _PaymentPage extends State<PaymentPage> {
                           "Donation successful. Thank you. The hungry children thank you.") {
                         _showSimpleModalDialog2(context);
                         _showSimpleModalDialog1(context);
-                        Timer(const Duration(seconds: 3), () {
-                          Navigator.pop(context);
-                        });
+                        Timer(
+                          const Duration(seconds: 3),
+                          () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        );
                       } else {
                         _showErrorModalDialog(context);
                         _showSimpleModalDialog1(context);
-                        Timer(const Duration(seconds: 3), () {
-                          Navigator.pop(context);
-                        });
+                        Timer(
+                          const Duration(seconds: 3),
+                          () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        );
                       }
                     },
                     child: const Text(
@@ -240,7 +246,7 @@ class _PaymentPage extends State<PaymentPage> {
               ElevatedButton(
                 child: const Text("OK"),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context, rootNavigator: true).pop();
                 },
               ),
             ],
@@ -318,7 +324,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).pop();
                         },
                         child: const Text("Close"))
                   ],

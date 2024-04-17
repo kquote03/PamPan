@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,7 @@ class _AddItemPage extends State<AddItemPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context, rootNavigator: true).pop();
           },
         ),
       ),
@@ -173,13 +174,13 @@ class _AddItemPage extends State<AddItemPage> {
                         _showSimpleModalDialog2(context);
                         _showSimpleModalDialog1(context);
                         Timer(const Duration(seconds: 3), () {
-                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).pop();
                         });
                       } else {
                         _showErrorModalDialog(context);
                         _showSimpleModalDialog1(context);
                         Timer(const Duration(seconds: 3), () {
-                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).pop();
                         });
                       }
                     },
@@ -297,7 +298,7 @@ class _AddItemPage extends State<AddItemPage> {
             ElevatedButton(
               child: const Text("OK"),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.of(context, rootNavigator: true).pop();
               },
             ),
           ],
@@ -377,7 +378,7 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context, rootNavigator: true).pop();
                       },
                       child: const Text("Close"))
                 ],
