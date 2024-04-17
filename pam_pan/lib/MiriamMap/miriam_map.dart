@@ -34,13 +34,35 @@ class _MiriamMapState extends State<MiriamMap> {
               options: const MapOptions(
                 initialCenter: LatLng(24.2006, 55.6760),
                 initialZoom: 15,
-                maxZoom: 10,
+                maxZoom: 20,
                 minZoom: 3,
               ),
               children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                ),
+                openStreetTileLater,
+                const MarkerLayer(markers: [
+                  Marker(
+                    point: LatLng(24.2006, 55.6760),
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.location_pin,
+                      size: 60,
+                      color: Colors.red,
+                    ),
+                  ),
+                  Marker(
+                    point: LatLng(24.2006, 55.6760),
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.location_pin,
+                      size: 60,
+                      color: Colors.red,
+                    ),
+                  )
+                ]),
               ],
             ),
           ),
@@ -49,3 +71,8 @@ class _MiriamMapState extends State<MiriamMap> {
     );
   }
 }
+
+TileLayer get openStreetTileLater => TileLayer(
+      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+    );
