@@ -14,24 +14,21 @@ class HomePage extends StatelessWidget {
           child: CalendarPageWeek(),
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-            child: SizedBox(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ButtonContentsManager.buttonContents[9];
-                      },
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  "assets/bigPamHome/pam_expanded.png",
-                  fit: BoxFit.fitHeight,
-                ),
+          child: SizedBox(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ButtonContentsManager.buttonContents[9];
+                    },
+                  ),
+                );
+              },
+              child: Image.asset(
+                "assets/bigPamHome/pam_normal.png",
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),

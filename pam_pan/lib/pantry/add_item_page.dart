@@ -36,7 +36,7 @@ class _AddItemPage extends State<AddItemPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
+            Navigator.pop(context);
           },
         ),
       ),
