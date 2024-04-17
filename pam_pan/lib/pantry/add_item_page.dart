@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_dropdown/multiselect_dropdown.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -30,79 +31,116 @@ class _AddItemPage extends State<AddItemPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(labelText: "Item Name"),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), labelText: "Item Name"),
                   ),
                   const SizedBox(height: 12),
-                  const TextField(
-                    decoration: InputDecoration(labelText: "Expiry Date"),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), labelText: "Expiry Date"),
                     keyboardType: TextInputType.datetime,
                   ),
                   const SizedBox(height: 12),
-                  DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(labelText: "Category"),
-                    items: [
-                      'bread',
-                      'dairy',
-                      'cheese',
-                      'chicken',
-                      'meats',
-                      'fruits',
-                      'vegetables',
-                      'fish',
-                      'party',
-                      'other'
-                    ].map((String category) {
-                      return DropdownMenuItem<String>(
-                        value: category,
-                        child: Text(category),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      // Handle category selection
-                    },
+                  MultiSelectDropDown<String>(
+                    onOptionSelected:
+                        (List<ValueItem<String>> selectedOptions) {},
+                    options: const [
+                      ValueItem(label: 'Bread', value: 'bread'),
+                      ValueItem(label: 'Dairy', value: 'dairy'),
+                      ValueItem(label: 'Cheese', value: 'cheese'),
+                      ValueItem(label: 'Meats', value: 'meats'),
+                      ValueItem(label: 'Fruits', value: 'fruits'),
+                      ValueItem(label: 'Vegetables', value: 'vegetables'),
+                      ValueItem(label: 'Fish', value: 'fish'),
+                      ValueItem(label: 'Party', value: 'party'),
+                      ValueItem(label: 'Other', value: 'other'),
+                    ],
+                    borderColor: Colors.black45,
+                    borderWidth: 1,
+                    hintColor: Colors.black,
+                    borderRadius: 0,
+                    fieldBackgroundColor:
+                        const Color.fromARGB(255, 255, 250, 240),
+                    focusedBorderColor:
+                        const Color.fromARGB(255, 113, 216, 244),
+                    dropdownHeight: 450,
+                    optionTextStyle: const TextStyle(fontSize: 16),
+                    selectedOptionIcon: const Icon(Icons.check_circle),
+                    selectionType: SelectionType.single,
+                    hint: "Category",
                   ),
                   const SizedBox(height: 12),
-                  DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(labelText: "Allergens"),
-                    items: [
-                      'milk',
-                      'eggs',
-                      'fish',
-                      'shellfish',
-                      'nuts',
-                      'wheat',
-                      'soybean',
-                      'other',
-                      'none'
-                    ].map((String allergen) {
-                      return DropdownMenuItem<String>(
-                        value: allergen,
-                        child: Text(allergen),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      // Handle allergen selection
-                    },
+                  MultiSelectDropDown<String>(
+                    onOptionSelected:
+                        (List<ValueItem<String>> selectedOptions) {},
+                    options: const [
+                      ValueItem(label: 'None', value: 'none'),
+                      ValueItem(label: 'Milk', value: 'milk'),
+                      ValueItem(label: 'Eggs', value: 'fish'),
+                      ValueItem(label: 'Fish', value: 'fish'),
+                      ValueItem(label: 'Shellfish', value: 'shellfish'),
+                      ValueItem(label: 'Nuts', value: 'nuts'),
+                      ValueItem(label: 'Wheat', value: 'wheat'),
+                      ValueItem(label: 'Soybean', value: 'soybean'),
+                      ValueItem(label: 'Other', value: 'other'),
+                    ],
+                    disabledOptions: const [
+                      ValueItem(label: 'Other', value: 'other')
+                    ],
+                    borderColor: Colors.black45,
+                    borderWidth: 1,
+                    hintColor: Colors.black,
+                    borderRadius: 0,
+                    searchEnabled: true,
+                    fieldBackgroundColor:
+                        const Color.fromARGB(255, 255, 250, 240),
+                    focusedBorderColor:
+                        const Color.fromARGB(255, 113, 216, 244),
+                    dropdownHeight: 450,
+                    optionTextStyle: const TextStyle(fontSize: 16),
+                    selectedOptionIcon: const Icon(Icons.check_circle),
+                    selectionType: SelectionType.multi,
+                    hint: "Allergens",
                   ),
                   const SizedBox(height: 12),
-                  DropdownButtonFormField<String>(
-                    decoration:
-                        const InputDecoration(labelText: "Measurement Unit"),
-                    items: ['g', 'kg', 'mL', 'L', 'pieces'].map((String unit) {
-                      return DropdownMenuItem<String>(
-                        value: unit,
-                        child: Text(unit),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      // Handle unit selection
-                    },
+                  MultiSelectDropDown<String>(
+                    onOptionSelected:
+                        (List<ValueItem<String>> selectedOptions) {},
+                    options: const [
+                      ValueItem(label: 'g', value: 'g'),
+                      ValueItem(label: 'kg', value: 'kg'),
+                      ValueItem(label: 'mL', value: 'mL'),
+                      ValueItem(label: 'L', value: 'L'),
+                      ValueItem(label: 'Pieces', value: 'pieces'),
+                    ],
+                    borderColor: Colors.black45,
+                    borderWidth: 1,
+                    borderRadius: 0,
+                    hintColor: Colors.black,
+                    fieldBackgroundColor:
+                        const Color.fromARGB(255, 255, 250, 240),
+                    focusedBorderColor:
+                        const Color.fromARGB(255, 113, 216, 244),
+                    dropdownHeight: 450,
+                    optionTextStyle: const TextStyle(fontSize: 16),
+                    selectedOptionIcon: const Icon(Icons.check_circle),
+                    selectionType: SelectionType.single,
+                    hint: "Measurement Unit",
                   ),
                   const SizedBox(height: 12),
-                  const TextField(
-                    decoration: InputDecoration(labelText: "Quantity"),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), labelText: "Quantity"),
                     keyboardType: TextInputType.number,
+                  ),
+                  const SizedBox(height: 12),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Add Item',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ],
               ),
