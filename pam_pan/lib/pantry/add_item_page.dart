@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 
 class AddItemPage extends StatefulWidget {
@@ -164,7 +167,22 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_addItemChecker() ==
+                          "Item added successfully and is now tracked. - Pam") {
+                        _showSimpleModalDialog2(context);
+                        _showSimpleModalDialog1(context);
+                        Timer(const Duration(seconds: 3), () {
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        _showErrorModalDialog(context);
+                        _showSimpleModalDialog1(context);
+                        Timer(const Duration(seconds: 3), () {
+                          Navigator.pop(context);
+                        });
+                      }
+                    },
                     child: const Text(
                       'Add Item',
                       style: TextStyle(color: Colors.black),
@@ -179,13 +197,102 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
+  String _addItemChecker() {
+    bool itemNameCorrect = false;
+    if (_controllerItemName.text.isNotEmpty) {
+      itemNameCorrect = true;
+    }
+
+    int dateYYYY;
+    int dateMM;
+    int dateDD;
+
+    if (_controllerExpiryDate.text.isNotEmpty &&
+        _controllerExpiryDate.text.length == 10) {
+      dateYYYY = int.parse(
+        _controllerExpiryDate.text[0] +
+            _controllerExpiryDate.text[1] +
+            _controllerExpiryDate.text[2] +
+            _controllerExpiryDate.text[3],
+      );
+      dateMM = int.parse(
+        _controllerExpiryDate.text[5] + _controllerExpiryDate.text[6],
+      );
+      dateDD = int.parse(
+        _controllerExpiryDate.text[8] + _controllerExpiryDate.text[9],
+      );
+    } else {
+      dateYYYY = -1;
+      dateMM = -1;
+      dateDD = -1;
+    }
+
+    bool expiryDateCorrect = false;
+
+    DateTime currentDate = DateTime.now();
+    var formatterYear = DateFormat('y');
+    var formatterMonth = DateFormat('MM');
+    var formatterDay = DateFormat('dd');
+    String formattedYear = formatterYear.format(currentDate);
+    String formattedMonth = formatterMonth.format(currentDate);
+    String formattedDay = formatterDay.format(currentDate);
+    int currentYear = int.parse(formattedYear);
+    int currentMonth = int.parse(formattedMonth);
+    int currentDay = int.parse(formattedDay);
+
+    if (1 <= dateMM &&
+        dateMM <= 12 &&
+        dateYYYY >= currentYear &&
+        dateDD >= 01 &&
+        dateDD <= 31) {
+      expiryDateCorrect = true;
+    } else {
+      expiryDateCorrect = false;
+    }
+
+    if (dateYYYY == currentYear) {
+      if (dateMM == currentMonth) {
+        if (dateDD < currentDay) {
+          expiryDateCorrect = false;
+        } else {
+          expiryDateCorrect = true;
+        }
+      }
+      if (dateMM < currentMonth) {
+        expiryDateCorrect = false;
+      } else {
+        expiryDateCorrect = true;
+      }
+    }
+
+    bool quantityCorrect = false;
+
+    if (_controllerExpiryDate.text.isNotEmpty &&
+        _controllerQuantity.text.length < 4) {
+      quantityCorrect = true;
+    }
+
+    String output = "ERROR!\n";
+
+    if (!(itemNameCorrect && expiryDateCorrect && quantityCorrect)) {
+      output =
+          "Invalid input: Errors in one (or more) text fields. Please try again. - Pam";
+    }
+
+    if (output == "ERROR!\n") {
+      output = "Item added successfully and is now tracked. - Pam";
+    }
+
+    return output;
+  }
+
   _showErrorModalDialog(context) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
         return AlertDialog(
           title: const Text("ERROR"),
-          content: const Text("_creditCardChecker()"),
+          content: Text(_addItemChecker()),
           actions: <Widget>[
             ElevatedButton(
               child: const Text("OK"),
@@ -252,11 +359,10 @@ class _AddItemPage extends State<AddItemPage> {
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  const Center(
+                  Center(
                     child: Text(
-                      // _creditCardChecker(),
-                      "test",
-                      style: TextStyle(fontSize: 24),
+                      _addItemChecker(),
+                      style: const TextStyle(fontSize: 24),
                     ),
                   ),
                   RichText(
