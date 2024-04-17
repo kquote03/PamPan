@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 
 class AddItemPage extends StatefulWidget {
@@ -9,6 +10,18 @@ class AddItemPage extends StatefulWidget {
 }
 
 class _AddItemPage extends State<AddItemPage> {
+  final TextEditingController _controllerItemName = TextEditingController();
+  final TextEditingController _controllerExpiryDate = TextEditingController();
+  final TextEditingController _controllerQuantity = TextEditingController();
+
+  @override
+  void dispose() {
+    _controllerItemName.dispose();
+    _controllerExpiryDate.dispose();
+    _controllerQuantity.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +46,22 @@ class _AddItemPage extends State<AddItemPage> {
                 children: [
                   TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Item Name"),
+                      border: OutlineInputBorder(),
+                      labelText: "Item Name",
+                      hintText: "Please enter the name of your item",
+                    ),
+                    controller: _controllerItemName,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Expiry Date"),
+                      border: OutlineInputBorder(),
+                      labelText: "Expiry Date",
+                      hintText: "YYYY-MM-DD",
+                    ),
                     keyboardType: TextInputType.datetime,
+                    controller: _controllerExpiryDate,
+                    inputFormatters: [_ExpiryDateInputFormatter()],
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
@@ -92,7 +114,6 @@ class _AddItemPage extends State<AddItemPage> {
                     borderWidth: 1,
                     hintColor: Colors.black,
                     borderRadius: 0,
-                    searchEnabled: true,
                     fieldBackgroundColor:
                         const Color.fromARGB(255, 255, 250, 240),
                     focusedBorderColor:
@@ -122,7 +143,7 @@ class _AddItemPage extends State<AddItemPage> {
                         const Color.fromARGB(255, 255, 250, 240),
                     focusedBorderColor:
                         const Color.fromARGB(255, 113, 216, 244),
-                    dropdownHeight: 450,
+                    dropdownHeight: 250,
                     optionTextStyle: const TextStyle(fontSize: 16),
                     selectedOptionIcon: const Icon(Icons.check_circle),
                     selectionType: SelectionType.single,
@@ -131,8 +152,15 @@ class _AddItemPage extends State<AddItemPage> {
                   const SizedBox(height: 12),
                   TextFormField(
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Quantity"),
+                      border: OutlineInputBorder(),
+                      labelText: "Quantity",
+                      hintText: "#",
+                    ),
                     keyboardType: TextInputType.number,
+                    controller: _controllerQuantity,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(3),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   TextButton(
@@ -149,5 +177,157 @@ class _AddItemPage extends State<AddItemPage> {
         ),
       ),
     );
+  }
+
+  _showErrorModalDialog(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext builderContext) {
+        return AlertDialog(
+          title: const Text("ERROR"),
+          content: const Text("_creditCardChecker()"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _showSimpleModalDialog1(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext builderContext) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  const Column(
+                    children: [
+                      Text('Adding Item'),
+                      Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ],
+                  ),
+                  RichText(
+                    textAlign: TextAlign.justify,
+                    text: const TextSpan(
+                        text: "ok",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: Colors.black,
+                            wordSpacing: 1)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _showSimpleModalDialog2(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext builderContext) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  const Center(
+                    child: Text(
+                      // _creditCardChecker(),
+                      "test",
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  RichText(
+                    textAlign: TextAlign.justify,
+                    text: const TextSpan(
+                        text: "ok",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: Colors.black,
+                            wordSpacing: 1)),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Close"))
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ExpiryDateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final text =
+        newValue.text.replaceAll(RegExp(r'\D'), ''); // Remove non-digits
+    final formattedText = _getFormattedText(text);
+    return TextEditingValue(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+
+  String _getFormattedText(String text) {
+    if (text.isEmpty) return '';
+
+    final buffer = StringBuffer();
+
+    if (text.length >= 4) {
+      buffer.write(text.substring(0, 4));
+    } else {
+      buffer.write(text);
+    }
+
+    if (text.length > 4) {
+      buffer.write('-');
+    }
+
+    if (text.length >= 6) {
+      buffer.write(text.substring(4, 6));
+    } else if (text.length > 4) {
+      buffer.write(text.substring(4));
+    }
+
+    if (text.length > 6) {
+      buffer.write('-');
+    }
+
+    if (text.length >= 8) {
+      buffer.write(text.substring(6, 8));
+    } else if (text.length > 6) {
+      buffer.write(text.substring(6));
+    }
+
+    return buffer.toString();
   }
 }
