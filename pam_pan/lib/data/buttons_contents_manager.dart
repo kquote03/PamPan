@@ -5,6 +5,7 @@ import 'package:pam_pan/calendars(temp)/calendar_page_events.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
+import 'package:pam_pan/miriamCalendar/miriam_calendar.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category_page.dart';
 import 'package:pam_pan/pantry/expandable_list.dart';
@@ -23,7 +24,8 @@ class ButtonContentsManager {
     const ProfilePage(),
     const CategoryPage(),
     const ExpandableList(),
-    const AddItemPage()
+    const AddItemPage(),
+    const MiriamCalendar()
   ];
 
   static final List<String> pageLabels = [

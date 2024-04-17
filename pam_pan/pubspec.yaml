@@ -45,6 +45,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   image_picker: ^1.0.8
   logging: ^1.2.0
+  syncfusion_flutter_calendar: ^25.1.40
 
 dev_dependencies:
   flutter_test:

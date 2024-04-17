@@ -89,7 +89,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ButtonContentsManager.buttonContents[2];
+                        return ButtonContentsManager.buttonContents[11];
                       },
                     ),
                   );
