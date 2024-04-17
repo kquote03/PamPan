@@ -69,12 +69,12 @@ class _PaymentPage extends State<PaymentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextFormField(
+                    decoration: const InputDecoration(
                       labelText: 'Card Name',
                     ),
                   ),
-                  TextField(
+                  TextFormField(
                     controller: _controllerCardNumber,
                     decoration: const InputDecoration(
                       labelText: 'Card Number',
@@ -90,7 +90,7 @@ class _PaymentPage extends State<PaymentPage> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
                           controller: _controllerDate,
                           decoration: const InputDecoration(
                             labelText: 'Expiration Date',
@@ -105,7 +105,7 @@ class _PaymentPage extends State<PaymentPage> {
                       ),
                       const SizedBox(width: 16.0),
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
                           controller: _controllerCVC,
                           decoration: const InputDecoration(
                             labelText: 'CVC',
@@ -120,7 +120,7 @@ class _PaymentPage extends State<PaymentPage> {
                       ),
                     ],
                   ),
-                  TextField(
+                  TextFormField(
                     controller: _controllerAmount,
                     decoration: const InputDecoration(
                       labelText: 'Amount (in Dirhams)',
@@ -141,15 +141,21 @@ class _PaymentPage extends State<PaymentPage> {
                           "Donation successful. Thank you. The hungry children thank you.") {
                         _showSimpleModalDialog2(context);
                         _showSimpleModalDialog1(context);
-                        Timer(const Duration(seconds: 3), () {
-                          Navigator.pop(context);
-                        });
+                        Timer(
+                          const Duration(seconds: 3),
+                          () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        );
                       } else {
                         _showErrorModalDialog(context);
                         _showSimpleModalDialog1(context);
-                        Timer(const Duration(seconds: 3), () {
-                          Navigator.pop(context);
-                        });
+                        Timer(
+                          const Duration(seconds: 3),
+                          () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        );
                       }
                     },
                     child: const Text(
@@ -240,7 +246,7 @@ class _PaymentPage extends State<PaymentPage> {
               ElevatedButton(
                 child: const Text("OK"),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context, rootNavigator: true).pop();
                 },
               ),
             ],
@@ -318,7 +324,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).pop();
                         },
                         child: const Text("Close"))
                   ],

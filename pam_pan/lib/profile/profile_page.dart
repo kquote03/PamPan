@@ -250,7 +250,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Expanded(
                       child: TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                        },
                         icon: const Icon(
                           Icons.exit_to_app,
                           size: 20,
