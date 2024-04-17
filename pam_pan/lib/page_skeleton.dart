@@ -89,7 +89,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ButtonContentsManager.buttonContents[2];
+                        return ButtonContentsManager.buttonContents[11];
                       },
                     ),
                   );
@@ -113,7 +113,16 @@ class _PageSkeleton extends State<PageSkeleton> {
               ),
               NavigationDestination(
                   icon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ButtonContentsManager.buttonContents[12];
+                          },
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.location_on,
                         size: 35, color: Colors.black),
                   ),
