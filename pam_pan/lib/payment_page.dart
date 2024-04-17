@@ -128,7 +128,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: [
-                      CurrencyTextInputFormatter(
+                      CurrencyTextInputFormatter.currency(
                         symbol: "AED ",
                         locale: "en",
                       ),
