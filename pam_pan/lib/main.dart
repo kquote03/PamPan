@@ -8,11 +8,17 @@ int id = 0;
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+int id = 0;
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
 void main() async {
   // v-- might make the app take longer to load (needed to make sure the db can initialize)
   Logger.level = Level.debug;
   WidgetsFlutterBinding.ensureInitialized();
   final db = LibDB().initializeDB();
+<<<<<<< HEAD
 <<<<<<< HEAD
   await AwesomeNotifications().initialize(null, [
     NotificationChannel(
@@ -39,6 +45,8 @@ void main() async {
     ),
   );
 =======
+=======
+>>>>>>> e1cd7a4cb637892182941201b4efc35ec4497b5d
 
   runApp(const PageSkeleton());
 >>>>>>> e1cd7a4 (somebody once told me)
