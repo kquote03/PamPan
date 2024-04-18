@@ -31,7 +31,7 @@ class _CalendarPageWeek extends State<CalendarPageWeek> {
           });
         }
       },
-      availableCalendarFormats: const {CalendarFormat.week: "week"},
+      availableCalendarFormats: const {CalendarFormat.twoWeeks: "2week"},
       headerVisible: false,
     );
   }

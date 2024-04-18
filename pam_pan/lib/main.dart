@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,6 +14,18 @@ void main() async {
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  void onDidReceiveNotificationResponse(
+      NotificationResponse notificationResponse) async {
+    final String? payload = notificationResponse.payload;
+    if (notificationResponse.payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    await Navigator.push(
+      context as BuildContext,
+      MaterialPageRoute<void>(builder: (context) => const PaymentPage()),
+    );
+  }
 
   final StreamController<ReceivedNotification>
       didReceiveLocalNotificationStream =
@@ -63,16 +75,4 @@ class ReceivedNotification {
   final String? title;
   final String? body;
   final String? payload;
-}
-
-void onDidReceiveNotificationResponse(
-    NotificationResponse notificationResponse) async {
-  final String? payload = notificationResponse.payload;
-  if (notificationResponse.payload != null) {
-    debugPrint('notification payload: $payload');
-  }
-  await Navigator.push(
-    context as BuildContext,
-    MaterialPageRoute<void>(builder: (context) => const PaymentPage()),
-  );
 }

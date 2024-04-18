@@ -84,6 +84,76 @@ class _PageSkeleton extends State<PageSkeleton> {
                   );
                 },
               ),
+              // IconButton(
+              //   icon: const Icon(Icons.calendar_month,
+              //       size: 30, color: Colors.black),
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) {
+              //           return ButtonContentsManager.buttonContents[2];
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
+              // IconButton(
+              //   icon: const Icon(Icons.calendar_month,
+              //       size: 30, color: Colors.black),
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) {
+              //           return ButtonContentsManager.buttonContents[3];
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
+              // IconButton(
+              //   icon: const Icon(Icons.calendar_month,
+              //       size: 30, color: Colors.black),
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) {
+              //           return ButtonContentsManager.buttonContents[4];
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
+              // IconButton(
+              //   icon: const Icon(Icons.calendar_month,
+              //       size: 30, color: Colors.black),
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) {
+              //           return ButtonContentsManager.buttonContents[5];
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
+              // IconButton(
+              //   icon: const Icon(Icons.calendar_month,
+              //       size: 30, color: Colors.black),
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) {
+              //           return ButtonContentsManager.buttonContents[6];
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
             ],
           ),
           body: currentPage,
