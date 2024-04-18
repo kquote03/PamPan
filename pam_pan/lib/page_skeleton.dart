@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/notifications/local_notifications.dart';
+import 'package:pam_pan/notifications_page.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
@@ -19,8 +21,23 @@ class _PageSkeleton extends State<PageSkeleton> {
 
   @override
   void initState() {
+    listenNotifications();
     super.initState();
     currentPage = ButtonContentsManager.buttonContents[0];
+  }
+
+  listenNotifications() {
+    print("Listening to notification");
+    LocalNotifications.onClickNotification.stream.listen(
+      (event) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NotificationsPage(payload: event),
+          ),
+        );
+      },
+    );
   }
 
   void buttonClicked() {
@@ -81,6 +98,45 @@ class _PageSkeleton extends State<PageSkeleton> {
                         return ButtonContentsManager.buttonContents[11];
                       },
                     ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.notifications,
+                    size: 35, color: Colors.black),
+                onPressed: () {
+                  LocalNotifications.showSimpleNotification(
+                    title: "Simple title",
+                    body: "Simple body",
+                    payload: "Simple payload",
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.notifications,
+                    size: 35, color: Colors.black),
+                onPressed: () {
+                  LocalNotifications.showPeriodicNotification(
+                    title: "Periodic title",
+                    body: "Periodic body",
+                    payload: "Periodic payload",
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
+                onPressed: () {
+                  LocalNotifications.cancel(1);
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.notifications,
+                    size: 35, color: Colors.black),
+                onPressed: () {
+                  LocalNotifications.showScheduleNotification(
+                    title: "Scheduled title",
+                    body: "Scheduled body",
+                    payload: "Scheduled payload",
                   );
                 },
               ),
@@ -206,7 +262,13 @@ class _PageSkeleton extends State<PageSkeleton> {
                   icon: IconButton(
                     icon: const Icon(Icons.notifications,
                         size: 35, color: Colors.black),
-                    onPressed: () {},
+                    onPressed: () {
+                      LocalNotifications.showSimpleNotification(
+                        title: "Simple title",
+                        body: "Simple body",
+                        payload: "Simple payload",
+                      );
+                    },
                   ),
                   label: 'Notifications'),
             ],
