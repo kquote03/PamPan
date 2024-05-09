@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:pam_pan/pantry/category.dart';
 
+//OLD
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
 

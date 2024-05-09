@@ -52,12 +52,7 @@ var data = {
     ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
   "04/10/2018": [
-    [
-      "Appy Fizz",
-      "2024-05-01",
-      "330",
-      "mL",
-    ],
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
     ["Galaxy S9+", "2024-05-01", "330", "mL"],
     ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
@@ -76,13 +71,33 @@ var data = {
     ["Galaxy S9+", "2024-05-01", "330", "mL"],
     ["Apple iPhone X", "2024-05-01", "330", "mL"],
   ],
+  "04/13/2019": [
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
+  ],
+  "04/14/2019": [
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
+  ],
+  "04/15/2019": [
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
+  ],
+  "04/16/2019": [
+    ["Appy Fizz", "2024-05-01", "330", "mL"],
+    ["Galaxy S9+", "2024-05-01", "330", "mL"],
+    ["Apple iPhone X", "2024-05-01", "330", "mL"],
+  ],
 };
 
 List<String> dataKeys = data.keys.toList();
 
 Category bread = Category(
   const Text(
-    "Bread",
+    "Bread & Pastries",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
   Image.asset(
@@ -93,7 +108,7 @@ Category bread = Category(
 
 Category dairy = Category(
   const Text(
-    "Dairy",
+    "Dairy & Eggs",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
   Image.asset(
@@ -159,7 +174,7 @@ Category vegetables = Category(
 
 Category fish = Category(
   const Text(
-    "Fish",
+    "Fish & Seafood",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
   Image.asset(
@@ -168,15 +183,60 @@ Category fish = Category(
   ),
 );
 
-Category party = Category(
+Category HSC = Category(
   const Text(
-    "Party/Occassion",
+    "Herbs, Spices, & Condiments",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  Image.asset(
-    'assets/categories/party.png',
-    scale: 7,
+  const Icon(Icons.heart_broken),
+);
+
+Category nutsSeeds = Category(
+  const Text(
+    "Nuts & Seeds",
+    style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  const Icon(Icons.heart_broken),
+);
+
+Category drinksBeverages = Category(
+  const Text(
+    "Drinks & Beverages",
+    style: TextStyle(color: Colors.white, fontSize: 20),
+  ),
+  const Icon(Icons.heart_broken),
+);
+
+Category sweetsCandies = Category(
+  const Text(
+    "Sweets & Candies",
+    style: TextStyle(color: Colors.white, fontSize: 20),
+  ),
+  const Icon(Icons.heart_broken),
+);
+
+Category grainsNoodles = Category(
+  const Text(
+    "Grains & Noodles",
+    style: TextStyle(color: Colors.white, fontSize: 20),
+  ),
+  const Icon(Icons.heart_broken),
+);
+
+Category canned = Category(
+  const Text(
+    "Canned Foods",
+    style: TextStyle(color: Colors.white, fontSize: 20),
+  ),
+  const Icon(Icons.heart_broken),
+);
+
+Category pet = Category(
+  const Text(
+    "Pet Food",
+    style: TextStyle(color: Colors.white, fontSize: 20),
+  ),
+  const Icon(Icons.heart_broken),
 );
 
 Category other = Category(
@@ -193,10 +253,16 @@ List<Category> categories = [
   cheese,
   chicken,
   meats,
+  fish,
   fruits,
   vegetables,
-  fish,
-  party,
+  HSC,
+  nutsSeeds,
+  drinksBeverages,
+  sweetsCandies,
+  grainsNoodles,
+  canned,
+  pet,
   other
 ];
 
