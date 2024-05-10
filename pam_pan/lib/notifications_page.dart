@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key, required this.payload});

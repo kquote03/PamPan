@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -20,7 +19,7 @@ class _CalendarPage extends State<CalendarPage> {
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-          title: Text(ButtonContentsManager.pageLabels[2]),
+          title: const Text('Basic Calendar Page'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {

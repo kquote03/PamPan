@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pam_pan/profile/about_pam_page.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:pam_pan/profile/payment_methods_page.dart';
 import 'edit_profile_page.dart';
 
@@ -51,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context) => Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-          title: Text(ButtonContentsManager.pageLabels[7]),
+          title: const Text("Profile"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -250,9 +247,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Expanded(
                       child: TextButton.icon(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         icon: const Icon(
                           Icons.exit_to_app,
                           size: 20,

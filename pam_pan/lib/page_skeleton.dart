@@ -95,7 +95,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ButtonContentsManager.buttonContents[11];
+                        return ButtonContentsManager.buttonContents[10];
                       },
                     ),
                   );
@@ -140,76 +140,6 @@ class _PageSkeleton extends State<PageSkeleton> {
                   );
                 },
               ),
-              // IconButton(
-              //   icon: const Icon(Icons.calendar_month,
-              //       size: 30, color: Colors.black),
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) {
-              //           return ButtonContentsManager.buttonContents[2];
-              //         },
-              //       ),
-              //     );
-              //   },
-              // ),
-              // IconButton(
-              //   icon: const Icon(Icons.calendar_month,
-              //       size: 30, color: Colors.black),
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) {
-              //           return ButtonContentsManager.buttonContents[3];
-              //         },
-              //       ),
-              //     );
-              //   },
-              // ),
-              // IconButton(
-              //   icon: const Icon(Icons.calendar_month,
-              //       size: 30, color: Colors.black),
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) {
-              //           return ButtonContentsManager.buttonContents[4];
-              //         },
-              //       ),
-              //     );
-              //   },
-              // ),
-              // IconButton(
-              //   icon: const Icon(Icons.calendar_month,
-              //       size: 30, color: Colors.black),
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) {
-              //           return ButtonContentsManager.buttonContents[5];
-              //         },
-              //       ),
-              //     );
-              //   },
-              // ),
-              // IconButton(
-              //   icon: const Icon(Icons.calendar_month,
-              //       size: 30, color: Colors.black),
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) {
-              //           return ButtonContentsManager.buttonContents[6];
-              //         },
-              //       ),
-              //     );
-              //   },
-              // ),
             ],
           ),
           body: currentPage,
@@ -233,7 +163,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ButtonContentsManager.buttonContents[12];
+                            return ButtonContentsManager.buttonContents[11];
                           },
                         ),
                       );
@@ -249,7 +179,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ButtonContentsManager.buttonContents[10];
+                            return ButtonContentsManager.buttonContents[9];
                           },
                         ),
                       );

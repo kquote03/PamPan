@@ -8,26 +8,24 @@ import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/miriamCalendar/miriam_calendar.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
-import 'package:pam_pan/pantry/category_page.dart';
 import 'package:pam_pan/pantry/expandable_list.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 
 class ButtonContentsManager {
   static final List<Widget> buttonContents = [
-    const HomePage(),
-    const PaymentPage(),
-    const CalendarPage(),
-    const TableEventsExample(),
-    const TableComplexExample(),
-    const TableMultiExample(),
-    const TableRangeExample(),
-    const ProfilePage(),
-    const CategoryPage(),
-    const ExpandableList(),
-    const AddItemPage(),
-    const MiriamCalendar(),
-    const MiriamMap()
+    const HomePage(), //0
+    const PaymentPage(), //1
+    const CalendarPage(), //2
+    const TableEventsExample(), //3
+    const TableComplexExample(), //4
+    const TableMultiExample(), //5
+    const TableRangeExample(), //6
+    const ProfilePage(), //7
+    const ExpandableList(), //8
+    const AddItemPage(), //9
+    const MiriamCalendar(), //10
+    const MiriamMap() //11
   ];
 
   static final List<String> pageLabels = [

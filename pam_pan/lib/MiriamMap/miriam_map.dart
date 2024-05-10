@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
 
 class MiriamMap extends StatefulWidget {
   const MiriamMap({super.key});
@@ -18,7 +17,7 @@ class _MiriamMapState extends State<MiriamMap> {
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        title: Text(ButtonContentsManager.pageLabels[2]),
+        title: const Text('Map'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

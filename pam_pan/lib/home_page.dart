@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ButtonContentsManager.buttonContents[9];
+                      return ButtonContentsManager.buttonContents[8];
                     },
                   ),
                 );

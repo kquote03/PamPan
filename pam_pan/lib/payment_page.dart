@@ -3,7 +3,6 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -33,7 +32,7 @@ class _PaymentPage extends State<PaymentPage> {
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        title: Text(ButtonContentsManager.pageLabels[1]),
+        title: const Text("Donation"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
