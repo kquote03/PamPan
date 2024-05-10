@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
-import 'package:pam_pan/notifications_page.dart';
+import 'package:pam_pan/notifications/notifications_page.dart';
+import 'package:pam_pan/notifications/tips.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
@@ -18,6 +21,7 @@ class _PageSkeleton extends State<PageSkeleton> {
   int index = 0;
 
   late Widget currentPage;
+  Random random = Random();
 
   @override
   void initState() {
@@ -116,10 +120,11 @@ class _PageSkeleton extends State<PageSkeleton> {
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
+                  int randomTip = random.nextInt(Tips.tips.length);
                   LocalNotifications.showPeriodicNotification(
-                    title: "Periodic title",
-                    body: "Periodic body",
-                    payload: "Periodic payload",
+                    title: "Pam got some tips for you!",
+                    body: Tips.tips[randomTip][0],
+                    payload: Tips.tips[randomTip][0],
                   );
                 },
               ),
@@ -137,6 +142,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                     title: "Scheduled title",
                     body: "Scheduled body",
                     payload: "Scheduled payload",
+                    seconds: 5,
                   );
                 },
               ),
