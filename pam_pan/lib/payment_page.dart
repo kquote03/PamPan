@@ -12,6 +12,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPage extends State<PaymentPage> {
+  final TextEditingController _controllerCardName = TextEditingController();
   final TextEditingController _controllerCardNumber = TextEditingController();
   final TextEditingController _controllerDate = TextEditingController();
   final TextEditingController _controllerCVC = TextEditingController();
@@ -19,6 +20,7 @@ class _PaymentPage extends State<PaymentPage> {
 
   @override
   void dispose() {
+    _controllerCardName.dispose();
     _controllerCardNumber.dispose();
     _controllerDate.dispose();
     _controllerCVC.dispose();
@@ -69,6 +71,7 @@ class _PaymentPage extends State<PaymentPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   TextFormField(
+                    controller: _controllerCardName,
                     decoration: const InputDecoration(
                       labelText: 'Card Name',
                     ),
@@ -172,10 +175,16 @@ class _PaymentPage extends State<PaymentPage> {
   }
 
   String _creditCardChecker() {
+    bool cardNameCorrect = false;
+    if (_controllerCardName.text.isNotEmpty) {
+      cardNameCorrect = true;
+    }
+
     bool cardNumberCorrect = false;
     if (_controllerCardNumber.text.length == 19) {
       cardNumberCorrect = true;
     }
+
     int dateMM;
     int dateYY;
 
@@ -215,19 +224,46 @@ class _PaymentPage extends State<PaymentPage> {
       cvcCorrect = true;
     }
 
+    RegExp myRegExp = RegExp('AED 0.00');
+
     bool amountCorrect = false;
-    if (RegExp(r'^\d+(\.\d{0,2})?$').hasMatch(_controllerAmount.text)) {
+    if (_controllerAmount.text.isNotEmpty &&
+        !_controllerAmount.text.startsWith(myRegExp)) {
       amountCorrect = true;
     }
 
-    String output = "ERROR!\n";
+    String output = "basic";
 
-    if (!(cardNumberCorrect && dateCorrect && cvcCorrect && amountCorrect)) {
+    // if (!cardNameCorrect) {
+    //   output += "\nName wrong lol";
+    // }
+
+    // if (!cardNumberCorrect) {
+    //   output += "\nNumber wrong lol";
+    // }
+
+    // if (!dateCorrect) {
+    //   output += "\nDate wrong lol";
+    // }
+
+    // if (!cvcCorrect) {
+    //   output += "\nCvc wrong lol";
+    // }
+
+    // if (!amountCorrect) {
+    //   output += "\nAmount wrong lol";
+    // }
+
+    if (!(cardNameCorrect &&
+        cardNumberCorrect &&
+        dateCorrect &&
+        cvcCorrect &&
+        amountCorrect)) {
       output =
           "Invalid input: Errors in one (or more) text fields. Please try again.";
     }
 
-    if (output == "ERROR!\n") {
+    if (output == "basic") {
       output = "Donation successful. Thank you. The hungry children thank you.";
     }
 

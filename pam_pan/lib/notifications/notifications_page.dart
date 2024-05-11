@@ -19,7 +19,10 @@ class NotificationsPage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text(payload),
+        child: Text(
+          payload,
+          style: const TextStyle(fontSize: 30),
+        ),
       ),
     );
   }

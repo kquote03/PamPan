@@ -120,11 +120,12 @@ class _PageSkeleton extends State<PageSkeleton> {
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
-                  int randomTip = random.nextInt(Tips.tips.length);
+                  String randomTip =
+                      Tips.tips[random.nextInt(Tips.tips.length)][0];
                   LocalNotifications.showPeriodicNotification(
                     title: "Pam got some tips for you!",
-                    body: Tips.tips[randomTip][0],
-                    payload: Tips.tips[randomTip][0],
+                    body: randomTip,
+                    payload: randomTip,
                   );
                 },
               ),

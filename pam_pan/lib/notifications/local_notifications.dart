@@ -85,6 +85,7 @@ class LocalNotifications {
       body,
       RepeatInterval.everyMinute,
       notificationDetails,
+      payload: payload,
     );
   }
 
