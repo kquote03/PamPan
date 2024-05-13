@@ -207,9 +207,9 @@ Category drinksBeverages = Category(
   const Icon(Icons.heart_broken),
 );
 
-Category sweetsCandies = Category(
+Category sweets = Category(
   const Text(
-    "Sweets & Candies",
+    "Sweets",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
   const Icon(Icons.heart_broken),
@@ -259,7 +259,7 @@ List<Category> categories = [
   HSC,
   nutsSeeds,
   drinksBeverages,
-  sweetsCandies,
+  sweets,
   grainsNoodles,
   canned,
   pet,

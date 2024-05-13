@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'utils.dart';
@@ -15,7 +16,7 @@ class TableEventsExample extends StatefulWidget {
 
 class _TableEventsExampleState extends State<TableEventsExample> {
   late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
   DateTime _focusedDay = DateTime.now();
@@ -86,9 +87,19 @@ class _TableEventsExampleState extends State<TableEventsExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TableCalendar<Event>(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('TableCalendar - Events'),
+      ),
+      body: SingleChildScrollView(
+        child: TableCalendar<Event>(
+          // VV which gestures (vertical horizontal all or none) are allowed.
+          // VV vertical changes modes (if there is only one mode then it does nothing) horizontal scrolls
+          availableGestures: AvailableGestures.horizontalSwipe,
+          // VV which available cal formats are allowed
+          availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+          // VV size of the calendar essentially. how much space it takes up.
+          rowHeight: 250,
           firstDay: kFirstDay,
           lastDay: kLastDay,
           focusedDay: _focusedDay,
@@ -100,8 +111,17 @@ class _TableEventsExampleState extends State<TableEventsExample> {
           eventLoader: _getEventsForDay,
           startingDayOfWeek: StartingDayOfWeek.monday,
           calendarStyle: const CalendarStyle(
-            // Use `CalendarStyle` to customize the UI
-            outsideDaysVisible: false,
+            markerDecoration: BoxDecoration(
+              //this messes with the dots that represent individual events.
+              shape: BoxShape.circle,
+              color: Color.fromARGB(255, 38, 50, 56),
+            ),
+            selectedDecoration: BoxDecoration(
+              //this messes with the highlighting of the selected day.
+              color: Color(0xFF5C6BC0),
+              shape: BoxShape.rectangle,
+            ),
+            outsideDaysVisible: true,
           ),
           onDaySelected: _onDaySelected,
           onRangeSelected: _onRangeSelected,
@@ -115,9 +135,8 @@ class _TableEventsExampleState extends State<TableEventsExample> {
           onPageChanged: (focusedDay) {
             _focusedDay = focusedDay;
           },
-          headerVisible: false,
         ),
-        const SizedBox(height: 8.0),
+        // const SizedBox(height: 8.0),
         // Expanded(
         //   child: ValueListenableBuilder<List<Event>>(
         //     valueListenable: _selectedEvents,
@@ -144,7 +163,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
         //     },
         //   ),
         // ),
-      ],
+      ),
     );
   }
 }

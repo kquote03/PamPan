@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/calendars(temp)/calendar_page_events.dart';
+import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TableEventsExample(),
+        const CalendarPageWeek(),
         Expanded(
           child: SizedBox(
             child: GestureDetector(
