@@ -1,10 +1,12 @@
 import "package:pam_pan/accountsetup/libdb.dart";
 
 class DBInterface {
-  final DBConnection = LibDB();
+  final db = LibDB().initializeDB();
 
   void insertFoodItem(itemName, exiryDate, category, allergen, unit, quantity) {
-    LibDB().execSQL(
-        'INSERT INTO FoodItem VALUES $itemName, $exiryDate, "", 0, $unit, $quantity, $category;');
+    db.then((connection) {
+      connection.execute(
+          'INSERT INTO FoodItem (Item_Name, Expiry_Date, Barcode, ProductionDate, Can_Refrigerate, Measurement_Unit, Quantity, Category_Name) VALUES ("$itemName", "$exiryDate", "", "", 0, "$unit", $quantity, "$category")');
+    });
   }
 }

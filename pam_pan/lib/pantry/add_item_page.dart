@@ -301,7 +301,8 @@ class _AddItemPage extends State<AddItemPage> {
           _controllerCategory.selectedOptions[0].label,
           _controllerAllergens.selectedOptions[0].label,
           _controllerMeasurement.selectedOptions[0].label,
-          _controllerQuantity.text);
+          int.parse(_controllerQuantity.text));
+      print(_controllerItemName.text + ' in db');
     }
 
     return output;
