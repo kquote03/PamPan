@@ -16,13 +16,23 @@ class AddItemPage extends StatefulWidget {
 class _AddItemPage extends State<AddItemPage> {
   final TextEditingController _controllerItemName = TextEditingController();
   final TextEditingController _controllerExpiryDate = TextEditingController();
+  final MultiSelectController<String> _controllerCategory =
+      MultiSelectController();
+  final MultiSelectController<String> _controllerAllergens =
+      MultiSelectController();
+  final MultiSelectController<String> _controllerMeasurement =
+      MultiSelectController();
   final TextEditingController _controllerQuantity = TextEditingController();
 
   @override
   void dispose() {
     _controllerItemName.dispose();
     _controllerExpiryDate.dispose();
+    _controllerCategory.dispose();
+    _controllerAllergens.dispose();
+    _controllerMeasurement.dispose();
     _controllerQuantity.dispose();
+
     super.dispose();
   }
 
@@ -69,6 +79,7 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
+                    controller: _controllerCategory,
                     onOptionSelected:
                         (List<ValueItem<String>> selectedOptions) {},
                     options: const [
@@ -98,6 +109,7 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
+                    controller: _controllerAllergens,
                     onOptionSelected:
                         (List<ValueItem<String>> selectedOptions) {},
                     options: const [
@@ -130,6 +142,7 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
+                    controller: _controllerMeasurement,
                     onOptionSelected:
                         (List<ValueItem<String>> selectedOptions) {},
                     options: const [
@@ -282,7 +295,13 @@ class _AddItemPage extends State<AddItemPage> {
 
     if (output == "ERROR!\n") {
       output = "Item added successfully and is now tracked. - Pam";
-      DBInterface().insertFoodItem(itemName, exiryDate, category, allergen, unit, quantity)
+      DBInterface().insertFoodItem(
+          _controllerItemName.text,
+          _controllerExpiryDate.text,
+          _controllerCategory.selectedOptions[0].label,
+          _controllerAllergens.selectedOptions[0].label,
+          _controllerMeasurement.selectedOptions[0].label,
+          _controllerQuantity.text);
     }
 
     return output;
