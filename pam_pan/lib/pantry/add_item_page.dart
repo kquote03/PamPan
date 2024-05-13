@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:pam_pan/accountsetup/dbinterface.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -273,7 +274,7 @@ class _AddItemPage extends State<AddItemPage> {
     }
 
     String output = "ERROR!\n";
-
+//TODO: change this!!!!
     if (!(itemNameCorrect && expiryDateCorrect && quantityCorrect)) {
       output =
           "Invalid input: Errors in one (or more) text fields. Please try again. - Pam";
@@ -281,6 +282,7 @@ class _AddItemPage extends State<AddItemPage> {
 
     if (output == "ERROR!\n") {
       output = "Item added successfully and is now tracked. - Pam";
+      DBInterface().insertFoodItem(itemName, exiryDate, category, allergen, unit, quantity)
     }
 
     return output;

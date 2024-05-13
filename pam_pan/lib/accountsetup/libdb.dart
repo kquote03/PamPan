@@ -2,7 +2,6 @@
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:logging/logging.dart';
 
 const String INITIALIZATION_STATEMENT_PERSON = """
 CREATE TABLE Person(
@@ -183,5 +182,12 @@ class LibDB {
       },
       version: 1,
     );
+  }
+
+  void execSQL(String statement) async {
+    String path = await getDatabasesPath();
+    openDatabase(join(path, 'database.db'), onOpen: (database) async {
+      database.execute(statement);
+    });
   }
 }
