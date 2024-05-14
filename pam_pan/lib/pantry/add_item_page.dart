@@ -205,7 +205,7 @@ class _AddItemPage extends State<AddItemPage> {
                           _controllerMeasurement.selectedOptions[0].label,
                           int.parse(_controllerQuantity.text),
                         );
-                        print(await DBInterface().getFoodItem(1));
+                        print(await DBInterface().getFoodItemById(1));
                         _showSimpleItemSuccessDialog(context);
                         _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
