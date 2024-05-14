@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -182,8 +183,7 @@ class _AddItemPage extends State<AddItemPage> {
                   const SizedBox(height: 12),
                   TextButton(
                     onPressed: () {
-                      if (_addItemChecker() ==
-                          "Item added successfully and is now tracked. - Pam") {
+                      if (_addItemChecker()) {
                         _showSimpleModalDialog2(context);
                         _showSimpleModalDialog1(context);
                         Timer(const Duration(seconds: 3), () {
@@ -211,7 +211,7 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  String _addItemChecker() {
+  bool _addItemChecker() {
     bool itemNameCorrect = false;
     if (_controllerItemName.text.isNotEmpty) {
       itemNameCorrect = true;
@@ -286,26 +286,31 @@ class _AddItemPage extends State<AddItemPage> {
       quantityCorrect = true;
     }
 
-    String output = "ERROR!\n";
-//TODO: change this!!!!
+    bool output = true;
+
     if (!(itemNameCorrect && expiryDateCorrect && quantityCorrect)) {
-      output =
-          "Invalid input: Errors in one (or more) text fields. Please try again. - Pam";
+      output = false;
     }
 
-    if (output == "ERROR!\n") {
-      output = "Item added successfully and is now tracked. - Pam";
-      DBInterface().insertFoodItem(
-          _controllerItemName.text,
-          _controllerExpiryDate.text,
-          _controllerCategory.selectedOptions[0].label,
-          _controllerAllergens.selectedOptions[0].label,
-          _controllerMeasurement.selectedOptions[0].label,
-          int.parse(_controllerQuantity.text));
+    if (output) {
+      addFoodItem(
+        _controllerItemName.text,
+        _controllerExpiryDate.text,
+        _controllerCategory.selectedOptions[0].label,
+        _controllerAllergens.selectedOptions[0].label,
+        _controllerMeasurement.selectedOptions[0].label,
+        int.parse(_controllerQuantity.text),
+      );
       print(_controllerItemName.text + ' in db');
     }
 
     return output;
+  }
+
+  void addFoodItem(String item, String expiryDate, String category,
+      String allergens, String measurements, int quantity) {
+    DBInterface().insertFoodItem(
+        item, expiryDate, category, allergens, measurements, quantity);
   }
 
   _showErrorModalDialog(context) {
@@ -314,7 +319,8 @@ class _AddItemPage extends State<AddItemPage> {
       builder: (BuildContext builderContext) {
         return AlertDialog(
           title: const Text("ERROR"),
-          content: Text(_addItemChecker()),
+          content: const Text(
+              "Invalid input: Errors in one (or more) text fields. Please try again. - Pam"),
           actions: <Widget>[
             ElevatedButton(
               child: const Text("OK"),
@@ -381,10 +387,10 @@ class _AddItemPage extends State<AddItemPage> {
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  Center(
+                  const Center(
                     child: Text(
-                      _addItemChecker(),
-                      style: const TextStyle(fontSize: 24),
+                      "Item added successfully and is now tracked. - Pam",
+                      style: TextStyle(fontSize: 24),
                     ),
                   ),
                   RichText(
