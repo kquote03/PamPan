@@ -125,4 +125,10 @@ class LocalNotifications {
   static Future cancelAll() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
+
+  static returnPendingNotifications() async {
+    final List<PendingNotificationRequest> pendingNotificationRequests =
+        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+    return pendingNotificationRequests;
+  }
 }

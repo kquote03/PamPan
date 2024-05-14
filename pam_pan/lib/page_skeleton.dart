@@ -122,38 +122,40 @@ class _PageSkeleton extends State<PageSkeleton> {
                   LocalNotifications.cancelAll();
                 },
               ),
-              // IconButton(
-              //   icon: const Icon(Icons.notifications,
-              //       size: 35, color: Colors.black),
-              //   onPressed: () {
-              //     ExpiryTest.sortList(ExpiryTest.items);
-              //     for (int i = 0; i < ExpiryTest.items.length; i++) {
-              // LocalNotifications.showScheduleNotification(
-              //   id: i,
-              //   title: "Scheduled title",
-              //   body: "Scheduled body",
-              //   payload: "Scheduled payload",
-              //   days: ExpiryTest.daysBetween(DateTime.now(),
-              //       ExpiryTest.stringToDate(ExpiryTest.items[i][0])),
-              // );
-              //     }
-              //   },
-              // ),
               IconButton(
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
-                  for (int i = 1; i < 5; i++) {
+                  ExpiryTest.sortList(ExpiryTest.items);
+                  for (int i = 0; i < ExpiryTest.items.length; i++) {
                     LocalNotifications.showScheduleNotification(
                       id: i,
-                      title: "Scheduled title",
-                      body: "Scheduled body",
+                      title:
+                          "Uhoh! ${ExpiryTest.items[i][1]} is about to expire!",
+                      body:
+                          "Quick! It will expire on ${ExpiryTest.items[i][0]}",
                       payload: "Scheduled payload",
-                      minutes: i,
+                      minutes: ExpiryTest.daysBetween(DateTime.now(),
+                          ExpiryTest.stringToDate(ExpiryTest.items[i][0])),
                     );
                   }
                 },
               ),
+              // IconButton(
+              //   icon: const Icon(Icons.notifications,
+              //       size: 35, color: Colors.black),
+              //   onPressed: () {
+              //     for (int i = 1; i < 5; i++) {
+              //       LocalNotifications.showScheduleNotification(
+              //         id: i,
+              //         title: "Scheduled title",
+              //         body: "Scheduled body",
+              //         payload: "Scheduled payload",
+              //         minutes: i,
+              //       );
+              //     }
+              //   },
+              // ),
             ],
           ),
           body: currentPage,
