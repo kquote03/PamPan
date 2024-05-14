@@ -97,10 +97,8 @@ CREATE TABLE FoodShelter (
 
 const String INITIALIZATION_STATEMENT_FOODITEM = """
 CREATE TABLE FoodItem (
-    Item_Name TEXT NOT NULL CHECK(
-        LENGTH(Item_Name) >= 3
-        AND LENGTH(Item_Name) <= 30
-    ),
+    Item_Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Item_Name TEXT NOT NULL,
     Expiry_Date TEXT NOT NULL,
     Barcode TEXT,
     ProductionDate TEXT NOT NULL ,
