@@ -10,10 +10,11 @@ class DBInterface {
     });
   }
 
-  getFoodItem() async {
+  getFoodItem(int item_id) async {
     var val = db.then((connection) async {
       //print(await connection.rawQuery('SELECT * FROM FoodItem'));
-      return await connection.rawQuery('SELECT * FROM FoodItem');
+      return await connection
+          .rawQuery('SELECT * FROM FoodItem WHERE Item_Id = $item_id');
     });
     return await val;
   }
