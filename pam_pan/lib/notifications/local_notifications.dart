@@ -90,16 +90,17 @@ class LocalNotifications {
   }
 
   static Future showScheduleNotification(
-      {required String title,
+      {required int id,
+      required String title,
       required String body,
       required String payload,
-      required int seconds}) async {
+      required int minutes}) async {
     tz.initializeTimeZones();
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      2,
+      id,
       title,
       body,
-      tz.TZDateTime.now(tz.local).add(Duration(seconds: seconds)),
+      tz.TZDateTime.now(tz.local).add(Duration(minutes: minutes)),
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'FLNChannel 3',

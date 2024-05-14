@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:pam_pan/notifications/tips.dart';
@@ -53,20 +54,6 @@ class _PageSkeleton extends State<PageSkeleton> {
   @override
   Widget build(context) {
     return MaterialApp(
-      // theme: ThemeData(
-      //     colorScheme: const ColorScheme(
-      //   brightness: Brightness.light,
-      //   primary: Color.fromARGB(0, 255, 250, 240),
-      //   secondary: Colors.black,
-      //   onPrimary: Colors.black,
-      //   onSecondary: Color.fromARGB(255, 255, 250, 240),
-      //   error: Colors.red,
-      //   onError: Colors.white,
-      //   background: Color.fromARGB(255, 255, 250, 240),
-      //   onBackground: Colors.black,
-      //   surface: Color.fromARGB(255, 255, 250, 240),
-      //   onSurface: Colors.black,
-      // )),
       home: Builder(
         builder: (context) => Scaffold(
           backgroundColor: const Color.fromARGB(255, 255, 250, 240),
@@ -132,19 +119,39 @@ class _PageSkeleton extends State<PageSkeleton> {
               IconButton(
                 icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
                 onPressed: () {
-                  LocalNotifications.cancel(1);
+                  LocalNotifications.cancelAll();
                 },
               ),
+              // IconButton(
+              //   icon: const Icon(Icons.notifications,
+              //       size: 35, color: Colors.black),
+              //   onPressed: () {
+              //     ExpiryTest.sortList(ExpiryTest.items);
+              //     for (int i = 0; i < ExpiryTest.items.length; i++) {
+              // LocalNotifications.showScheduleNotification(
+              //   id: i,
+              //   title: "Scheduled title",
+              //   body: "Scheduled body",
+              //   payload: "Scheduled payload",
+              //   days: ExpiryTest.daysBetween(DateTime.now(),
+              //       ExpiryTest.stringToDate(ExpiryTest.items[i][0])),
+              // );
+              //     }
+              //   },
+              // ),
               IconButton(
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
-                  LocalNotifications.showScheduleNotification(
-                    title: "Scheduled title",
-                    body: "Scheduled body",
-                    payload: "Scheduled payload",
-                    seconds: 5,
-                  );
+                  for (int i = 1; i < 5; i++) {
+                    LocalNotifications.showScheduleNotification(
+                      id: i,
+                      title: "Scheduled title",
+                      body: "Scheduled body",
+                      payload: "Scheduled payload",
+                      minutes: i,
+                    );
+                  }
                 },
               ),
             ],

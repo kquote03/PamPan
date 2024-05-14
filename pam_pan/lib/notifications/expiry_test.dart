@@ -7,16 +7,16 @@ class ExpiryTest {
     ["2024-05-19", "Item5"],
   ];
 
-  List<List<String>> sortList(List<List<String>> list) {
+  static List<List<String>> sortList(List<List<String>> list) {
     list.sort((a, b) => a[0].compareTo(b[0]));
     return list;
   }
 
-  DateTime stringToDate(String date) {
+  static DateTime stringToDate(String date) {
     return DateTime.parse(date);
   }
 
-  int daysBetween(DateTime from, DateTime to) {
+  static int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
