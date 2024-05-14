@@ -12,9 +12,15 @@ class DBInterface {
 
   getFoodItemById(int item_id) async {
     var val = db.then((connection) async {
-      //print(await connection.rawQuery('SELECT * FROM FoodItem'));
       return await connection
           .rawQuery('SELECT * FROM FoodItem WHERE Item_Id = $item_id');
+    });
+    return await val;
+  }
+
+  Future<List> getFoodItemList() async {
+    var val = db.then((connection) async {
+      return await connection.rawQuery('SELECT * FROM FoodItem');
     });
     return await val;
   }
