@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:pam_pan/accountsetup/dbinterface.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -15,13 +17,23 @@ class AddItemPage extends StatefulWidget {
 class _AddItemPage extends State<AddItemPage> {
   final TextEditingController _controllerItemName = TextEditingController();
   final TextEditingController _controllerExpiryDate = TextEditingController();
+  final MultiSelectController<String> _controllerCategory =
+      MultiSelectController();
+  final MultiSelectController<String> _controllerAllergens =
+      MultiSelectController();
+  final MultiSelectController<String> _controllerMeasurement =
+      MultiSelectController();
   final TextEditingController _controllerQuantity = TextEditingController();
 
   @override
   void dispose() {
     _controllerItemName.dispose();
     _controllerExpiryDate.dispose();
+    _controllerCategory.dispose();
+    _controllerAllergens.dispose();
+    _controllerMeasurement.dispose();
     _controllerQuantity.dispose();
+
     super.dispose();
   }
 
@@ -53,6 +65,12 @@ class _AddItemPage extends State<AddItemPage> {
                       labelText: "Item Name",
                       hintText: "Please enter the name of your item",
                     ),
+                    validator: (String? value) {
+                      _itemNameChecker(value)
+                          ? 'Please enter a valid name'
+                          : null;
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _controllerItemName,
                   ),
                   const SizedBox(height: 12),
@@ -62,12 +80,18 @@ class _AddItemPage extends State<AddItemPage> {
                       labelText: "Expiry Date",
                       hintText: "YYYY-MM-DD",
                     ),
+                    validator: (String? value) {
+                      !_expiryDateChecker(value)
+                          ? "Please insert a valid expiry date"
+                          : null;
+                    },
                     keyboardType: TextInputType.datetime,
                     controller: _controllerExpiryDate,
                     inputFormatters: [_ExpiryDateInputFormatter()],
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
+                    controller: _controllerCategory,
                     onOptionSelected:
                         (List<ValueItem<String>> selectedOptions) {},
                     options: const [
@@ -97,6 +121,7 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
+                    controller: _controllerAllergens,
                     onOptionSelected:
                         (List<ValueItem<String>> selectedOptions) {},
                     options: const [
@@ -129,6 +154,7 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
+                    controller: _controllerMeasurement,
                     onOptionSelected:
                         (List<ValueItem<String>> selectedOptions) {},
                     options: const [
@@ -167,17 +193,27 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   TextButton(
-                    onPressed: () {
-                      if (_addItemChecker() ==
-                          "Item added successfully and is now tracked. - Pam") {
-                        _showSimpleModalDialog2(context);
-                        _showSimpleModalDialog1(context);
+                    onPressed: () async {
+                      if (_itemNameChecker(_controllerItemName.text) &&
+                          _quantityChecker() &&
+                          _expiryDateChecker(_controllerExpiryDate.text)) {
+                        addFoodItem(
+                          _controllerItemName.text,
+                          _controllerExpiryDate.text,
+                          _controllerCategory.selectedOptions[0].label,
+                          _controllerAllergens.selectedOptions[0].label,
+                          _controllerMeasurement.selectedOptions[0].label,
+                          int.parse(_controllerQuantity.text),
+                        );
+                        print(await DBInterface().getFoodItemById(1));
+                        _showSimpleItemSuccessDialog(context);
+                        _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
                           Navigator.of(context, rootNavigator: true).pop();
                         });
                       } else {
                         _showErrorModalDialog(context);
-                        _showSimpleModalDialog1(context);
+                        _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
                           Navigator.of(context, rootNavigator: true).pop();
                         });
@@ -197,12 +233,12 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  String _addItemChecker() {
-    bool itemNameCorrect = false;
-    if (_controllerItemName.text.isNotEmpty) {
-      itemNameCorrect = true;
-    }
+  bool _itemNameChecker(String? value) {
+    return !(value == null || value.isEmpty);
+  }
 
+  bool _expiryDateChecker(String? value) {
+    //TODO: Make the code below use the passed value instead of re-extracting the text
     int dateYYYY;
     int dateMM;
     int dateDD;
@@ -264,26 +300,23 @@ class _AddItemPage extends State<AddItemPage> {
         expiryDateCorrect = true;
       }
     }
+    return expiryDateCorrect;
+  }
 
+  bool _quantityChecker() {
     bool quantityCorrect = false;
 
     if (_controllerExpiryDate.text.isNotEmpty &&
         _controllerQuantity.text.length < 4) {
       quantityCorrect = true;
     }
+    return quantityCorrect;
+  }
 
-    String output = "ERROR!\n";
-
-    if (!(itemNameCorrect && expiryDateCorrect && quantityCorrect)) {
-      output =
-          "Invalid input: Errors in one (or more) text fields. Please try again. - Pam";
-    }
-
-    if (output == "ERROR!\n") {
-      output = "Item added successfully and is now tracked. - Pam";
-    }
-
-    return output;
+  void addFoodItem(String item, String expiryDate, String category,
+      String allergens, String measurements, int quantity) {
+    DBInterface().insertFoodItem(
+        item, expiryDate, category, allergens, measurements, quantity);
   }
 
   _showErrorModalDialog(context) {
@@ -292,7 +325,8 @@ class _AddItemPage extends State<AddItemPage> {
       builder: (BuildContext builderContext) {
         return AlertDialog(
           title: const Text("ERROR"),
-          content: Text(_addItemChecker()),
+          content: const Text(
+              "Invalid input: Errors in one (or more) text fields. Please try again. - Pam"),
           actions: <Widget>[
             ElevatedButton(
               child: const Text("OK"),
@@ -306,7 +340,7 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  _showSimpleModalDialog1(context) {
+  _showAddingItemDialog(context) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
@@ -346,7 +380,7 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  _showSimpleModalDialog2(context) {
+  _showSimpleItemSuccessDialog(context) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
@@ -359,10 +393,10 @@ class _AddItemPage extends State<AddItemPage> {
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  Center(
+                  const Center(
                     child: Text(
-                      _addItemChecker(),
-                      style: const TextStyle(fontSize: 24),
+                      "Item added successfully and is now tracked. - Pam",
+                      style: TextStyle(fontSize: 24),
                     ),
                   ),
                   RichText(

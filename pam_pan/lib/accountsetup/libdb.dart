@@ -2,7 +2,6 @@
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:logging/logging.dart';
 
 const String INITIALIZATION_STATEMENT_PERSON = """
 CREATE TABLE Person(
@@ -98,39 +97,15 @@ CREATE TABLE FoodShelter (
 
 const String INITIALIZATION_STATEMENT_FOODITEM = """
 CREATE TABLE FoodItem (
-    Item_Name TEXT NOT NULL CHECK(
-        LENGTH(Item_Name) >= 3
-        AND LENGTH(Item_Name) <= 30
-    ),
-    Expiry_Date TEXT NOT NULL CHECK(
-        LENGTH(Expiry_Date) = 10
-        AND Expiry_Date GLOB '????-??-??'
-        AND SUBSTR(Expiry_Date, 5, 1) = '-'
-        AND SUBSTR(Expiry_Date, 8, 1) = '-'
-        AND CAST(SUBSTR(Expiry_Date, 1, 4) AS INTEGER) >= CAST(STRFTIME('%Y', 'now') AS INTEGER)
-        AND CAST(SUBSTR(Expiry_Date, 6, 2) AS INTEGER) >= 1
-        AND CAST(SUBSTR(Expiry_Date, 6, 2) AS INTEGER) <= 12
-        AND CAST(SUBSTR(Expiry_Date, 9, 2) AS INTEGER) >= 1
-        AND CAST(SUBSTR(Expiry_Date, 9, 2) AS INTEGER) <= 31
-    ),
+    Item_Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Item_Name TEXT NOT NULL,
+    Expiry_Date TEXT NOT NULL,
     Barcode TEXT,
-    ProductionDate TEXT NOT NULL CHECK(
-        ProductionDate != DATE('now')
-    ),
-    Can_Refrigerate INTEGER NOT NULL CHECK(
-        Can_Refrigerate IN (0, 1)
-    ),
-    Measurement_Unit TEXT NOT NULL CHECK(
-        Measurement_Unit IN ('g', 'kg', 'mL', 'L', 'pieces')
-    ),
-    Quantity INTEGER NOT NULL CHECK(
-        Quantity >= 0
-    ),
-    Category_Name TEXT NOT NULL CHECK(
-        Category_Name IN ('bread', 'milk', 'cheese', 'chicken', 'meats', 'fruits', 'vegetables', 'other')
-    ),
-    PRIMARY KEY(Item_Name, Expiry_Date),
-    FOREIGN KEY(Category_Name) REFERENCES CategoryOfFood(Category_Name)
+    ProductionDate TEXT NOT NULL ,
+    Can_Refrigerate INTEGER NOT NULL ,
+    Measurement_Unit TEXT NOT NULL ,
+    Quantity INTEGER NOT NULL ,
+    Category_Name TEXT NOT NULL 
 );
 """;
 
@@ -183,5 +158,13 @@ class LibDB {
       },
       version: 1,
     );
+  }
+
+  void execSQL(String statement) async {
+    String path = await getDatabasesPath();
+    openDatabase(join(path, 'database.db'), onOpen: (database) async {
+      database.execute(statement);
+      print('internal added');
+    });
   }
 }
