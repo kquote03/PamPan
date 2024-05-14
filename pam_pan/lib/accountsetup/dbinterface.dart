@@ -9,4 +9,12 @@ class DBInterface {
           'INSERT INTO FoodItem (Item_Name, Expiry_Date, Barcode, ProductionDate, Can_Refrigerate, Measurement_Unit, Quantity, Category_Name) VALUES ("$itemName", "$exiryDate", "", "", 0, "$unit", $quantity, "$category")');
     });
   }
+
+  getFoodItem() async {
+    var val = db.then((connection) async {
+      //print(await connection.rawQuery('SELECT * FROM FoodItem'));
+      return await connection.rawQuery('SELECT * FROM FoodItem');
+    });
+    return await val;
+  }
 }

@@ -65,6 +65,12 @@ class _AddItemPage extends State<AddItemPage> {
                       labelText: "Item Name",
                       hintText: "Please enter the name of your item",
                     ),
+                    validator: (String? value) {
+                      _itemNameChecker(value)
+                          ? 'Please enter a valid name'
+                          : null;
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _controllerItemName,
                   ),
                   const SizedBox(height: 12),
@@ -74,6 +80,11 @@ class _AddItemPage extends State<AddItemPage> {
                       labelText: "Expiry Date",
                       hintText: "YYYY-MM-DD",
                     ),
+                    validator: (String? value) {
+                      !_expiryDateChecker(value)
+                          ? "Please insert a valid expiry date"
+                          : null;
+                    },
                     keyboardType: TextInputType.datetime,
                     controller: _controllerExpiryDate,
                     inputFormatters: [_ExpiryDateInputFormatter()],
@@ -182,16 +193,27 @@ class _AddItemPage extends State<AddItemPage> {
                   ),
                   const SizedBox(height: 12),
                   TextButton(
-                    onPressed: () {
-                      if (_addItemChecker()) {
-                        _showSimpleModalDialog2(context);
-                        _showSimpleModalDialog1(context);
+                    onPressed: () async {
+                      if (_itemNameChecker(_controllerItemName.text) &&
+                          _quantityChecker() &&
+                          _expiryDateChecker(_controllerExpiryDate.text)) {
+                        addFoodItem(
+                          _controllerItemName.text,
+                          _controllerExpiryDate.text,
+                          _controllerCategory.selectedOptions[0].label,
+                          _controllerAllergens.selectedOptions[0].label,
+                          _controllerMeasurement.selectedOptions[0].label,
+                          int.parse(_controllerQuantity.text),
+                        );
+                        print(await DBInterface().getFoodItem());
+                        _showSimpleItemSuccessDialog(context);
+                        _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
                           Navigator.of(context, rootNavigator: true).pop();
                         });
                       } else {
                         _showErrorModalDialog(context);
-                        _showSimpleModalDialog1(context);
+                        _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
                           Navigator.of(context, rootNavigator: true).pop();
                         });
@@ -211,12 +233,12 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  bool _addItemChecker() {
-    bool itemNameCorrect = false;
-    if (_controllerItemName.text.isNotEmpty) {
-      itemNameCorrect = true;
-    }
+  bool _itemNameChecker(String? value) {
+    return !(value == null || value.isEmpty);
+  }
 
+  bool _expiryDateChecker(String? value) {
+    //TODO: Make the code below use the passed value instead of re-extracting the text
     int dateYYYY;
     int dateMM;
     int dateDD;
@@ -278,33 +300,17 @@ class _AddItemPage extends State<AddItemPage> {
         expiryDateCorrect = true;
       }
     }
+    return expiryDateCorrect;
+  }
 
+  bool _quantityChecker() {
     bool quantityCorrect = false;
 
     if (_controllerExpiryDate.text.isNotEmpty &&
         _controllerQuantity.text.length < 4) {
       quantityCorrect = true;
     }
-
-    bool output = true;
-
-    if (!(itemNameCorrect && expiryDateCorrect && quantityCorrect)) {
-      output = false;
-    }
-
-    if (output) {
-      addFoodItem(
-        _controllerItemName.text,
-        _controllerExpiryDate.text,
-        _controllerCategory.selectedOptions[0].label,
-        _controllerAllergens.selectedOptions[0].label,
-        _controllerMeasurement.selectedOptions[0].label,
-        int.parse(_controllerQuantity.text),
-      );
-      print(_controllerItemName.text + ' in db');
-    }
-
-    return output;
+    return quantityCorrect;
   }
 
   void addFoodItem(String item, String expiryDate, String category,
@@ -334,7 +340,7 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  _showSimpleModalDialog1(context) {
+  _showAddingItemDialog(context) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
@@ -374,7 +380,7 @@ class _AddItemPage extends State<AddItemPage> {
     );
   }
 
-  _showSimpleModalDialog2(context) {
+  _showSimpleItemSuccessDialog(context) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
