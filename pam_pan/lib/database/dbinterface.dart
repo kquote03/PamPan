@@ -1,4 +1,4 @@
-import "package:pam_pan/accountsetup/libdb.dart";
+import "package:pam_pan/database/libdb.dart";
 
 class DBInterface {
   final db = LibDB().initializeDB();

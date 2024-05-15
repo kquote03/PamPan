@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
-import 'package:pam_pan/accountsetup/dbinterface.dart';
+import 'package:pam_pan/database/dbinterface.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});

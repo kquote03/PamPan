@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pam_pan/accountsetup/front_page.dart';
-import 'package:pam_pan/accountsetup/libdb.dart';
+import 'package:pam_pan/database/libdb.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:sqflite/sqflite.dart';
 
