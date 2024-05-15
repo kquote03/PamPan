@@ -2,9 +2,9 @@ import 'dart:async';
 // import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:pam_pan/accountsetup/front_page.dart';
 import 'package:pam_pan/database/libdb.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
+import 'package:pam_pan/page_skeleton.dart';
 import 'package:sqflite/sqflite.dart';
 
 void main() async {
@@ -14,7 +14,7 @@ void main() async {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FrontPage(),
+      home: PageSkeleton(),
     ),
   );
 }

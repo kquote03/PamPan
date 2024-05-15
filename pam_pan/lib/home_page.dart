@@ -36,25 +36,36 @@ class HomePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            height: 400,
-            child: GridView.count(
-              crossAxisCount: 2,
-              scrollDirection: Axis.horizontal,
-              children: List.generate(
-                categories.length,
-                (index) {
-                  return Center(
-                    child: Column(
-                      children: [
-                        categories[index].icon,
-                        Text(
-                          categories[index].nameString,
-                          style: const TextStyle(fontSize: 20),
+            height: 600,
+            child: DecoratedBox(
+              decoration:
+                  const BoxDecoration(color: Color.fromARGB(103, 93, 51, 16)),
+              child: Center(
+                child: GridView.count(
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 7,
+                  // crossAxisSpacing:5,
+                  scrollDirection: Axis.horizontal,
+                  childAspectRatio: 1.4,
+                  children: List.generate(
+                    categories.length,
+                    (index) {
+                      return Center(
+                        child: Column(
+                          children: [
+                            categories[index].icon,
+                            Text(
+                              categories[index].nameString,
+                              style: const TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
-                },
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ),
