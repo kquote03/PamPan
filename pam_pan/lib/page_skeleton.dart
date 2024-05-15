@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
-import 'package:pam_pan/notifications/expiry_test.dart';
+import 'package:pam_pan/database/dbinterface.dart';
+import 'package:pam_pan/notifications/expiry.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:pam_pan/notifications/tips.dart';
@@ -53,6 +54,9 @@ class _PageSkeleton extends State<PageSkeleton> {
 
   @override
   Widget build(context) {
+    DBInterface().getFoodItemList().then((value) {
+      print(value[0]['Item_Name']);
+    });
     return MaterialApp(
       home: Builder(
         builder: (context) => Scaffold(
@@ -126,17 +130,17 @@ class _PageSkeleton extends State<PageSkeleton> {
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
-                  ExpiryTest.sortList(ExpiryTest.items);
-                  for (int i = 0; i < ExpiryTest.items.length; i++) {
+                  Expiry.sortList(Expiry.items);
+                  for (int i = 0; i < Expiry.items.length; i++) {
+                    //TODO: Refactor out into a separate method
+                    //Though this is how notifications are done for now
                     LocalNotifications.showScheduleNotification(
                       id: i,
-                      title:
-                          "Uhoh! ${ExpiryTest.items[i][1]} is about to expire!",
-                      body:
-                          "Quick! It will expire on ${ExpiryTest.items[i][0]}",
+                      title: "Uhoh! ${Expiry.items[i][1]} is about to expire!",
+                      body: "Quick! It will expire on ${Expiry.items[i][0]}",
                       payload: "Scheduled payload",
-                      minutes: ExpiryTest.daysBetween(DateTime.now(),
-                          ExpiryTest.stringToDate(ExpiryTest.items[i][0])),
+                      minutes: Expiry.daysBetween(DateTime.now(),
+                          Expiry.stringToDate(Expiry.items[i][0])),
                     );
                   }
                 },

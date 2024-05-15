@@ -1,4 +1,4 @@
-class ExpiryTest {
+class Expiry {
   static final List<List<String>> items = [
     ["2024-05-16", "Item1"],
     ["2024-05-17", "Item2"],
