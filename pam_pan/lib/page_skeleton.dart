@@ -158,7 +158,18 @@ class _PageSkeleton extends State<PageSkeleton> {
               // ),
             ],
           ),
-          body: currentPage,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                currentPage,
+                const SizedBox(
+                  height: 1500,
+                  child: Placeholder(),
+                ),
+                const Text("yo"),
+              ],
+            ),
+          ),
           bottomNavigationBar: NavigationBar(
             backgroundColor: const Color.fromARGB(255, 255, 250, 240),
             destinations: [

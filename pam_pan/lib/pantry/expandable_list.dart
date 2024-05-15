@@ -100,6 +100,7 @@ Category bread = Category(
     "Bread & Pastries",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Bread & Pastries",
   Image.asset(
     'assets/categories/bread.png',
     scale: 7,
@@ -111,6 +112,7 @@ Category dairy = Category(
     "Dairy & Eggs",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Dairy & Eggs",
   Image.asset(
     'assets/categories/dairy.png',
     scale: 7,
@@ -122,6 +124,7 @@ Category cheese = Category(
     "Cheese",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Cheese",
   Image.asset(
     'assets/categories/cheese.png',
     scale: 7,
@@ -133,6 +136,7 @@ Category chicken = Category(
     "Chicken",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Chicken",
   Image.asset(
     'assets/categories/chicken.png',
     scale: 7,
@@ -144,6 +148,7 @@ Category meats = Category(
     "Meats",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Meats",
   Image.asset(
     'assets/categories/meats.png',
     scale: 7,
@@ -155,6 +160,7 @@ Category fruits = Category(
     "Fruits",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Fruits",
   Image.asset(
     'assets/categories/fruits.png',
     scale: 7,
@@ -166,6 +172,7 @@ Category vegetables = Category(
     "Vegetables",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Vegetables",
   Image.asset(
     'assets/categories/vegetables.png',
     scale: 7,
@@ -177,6 +184,7 @@ Category fish = Category(
     "Fish & Seafood",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Fish & Seafood",
   Image.asset(
     'assets/categories/fish.png',
     scale: 7,
@@ -188,6 +196,7 @@ Category HSC = Category(
     "Herbs, Spices, & Condiments",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Herbs, Spices, & Condiments",
   const Icon(Icons.heart_broken),
 );
 
@@ -196,6 +205,7 @@ Category nutsSeeds = Category(
     "Nuts & Seeds",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Nuts & Seeds",
   const Icon(Icons.heart_broken),
 );
 
@@ -204,6 +214,7 @@ Category drinksBeverages = Category(
     "Drinks & Beverages",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Drinks & Beverages",
   const Icon(Icons.heart_broken),
 );
 
@@ -212,6 +223,7 @@ Category sweetsCandies = Category(
     "Sweets & Candies",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Sweets & Candies",
   const Icon(Icons.heart_broken),
 );
 
@@ -220,6 +232,7 @@ Category grainsNoodles = Category(
     "Grains & Noodles",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Grains & Noodles",
   const Icon(Icons.heart_broken),
 );
 
@@ -228,6 +241,7 @@ Category canned = Category(
     "Canned Foods",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Canned Foods",
   const Icon(Icons.heart_broken),
 );
 
@@ -236,6 +250,7 @@ Category pet = Category(
     "Pet Food",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Pet Food",
   const Icon(Icons.heart_broken),
 );
 
@@ -244,6 +259,7 @@ Category other = Category(
     "Other",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
+  "Other",
   const Icon(Icons.heart_broken),
 );
 
@@ -343,7 +359,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 leading: categories[keyIndex].icon,
-                title: categories[keyIndex].name,
+                title: categories[keyIndex].nameText,
                 children: <Widget>[
                   Column(
                     children: _buildList(keyIndex),
