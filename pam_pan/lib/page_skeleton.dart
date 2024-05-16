@@ -126,17 +126,15 @@ class _PageSkeleton extends State<PageSkeleton> {
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
-                  ExpiryTest.sortList(ExpiryTest.items);
-                  for (int i = 0; i < ExpiryTest.items.length; i++) {
+                  ExpiryTest.sortList(items);
+                  for (int i = 0; i < items.length; i++) {
                     LocalNotifications.showScheduleNotification(
                       id: i,
-                      title:
-                          "Uhoh! ${ExpiryTest.items[i][1]} is about to expire!",
-                      body:
-                          "Quick! It will expire on ${ExpiryTest.items[i][0]}",
+                      title: "Uhoh! ${items[i][1]} is about to expire!",
+                      body: "Quick! It will expire on ${items[i][0]}",
                       payload: "Scheduled payload",
-                      minutes: ExpiryTest.daysBetween(DateTime.now(),
-                          ExpiryTest.stringToDate(ExpiryTest.items[i][0])),
+                      minutes: ExpiryTest.daysBetween(
+                          DateTime.now(), ExpiryTest.stringToDate(items[i][0])),
                     );
                   }
                 },

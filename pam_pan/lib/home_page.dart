@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:pam_pan/pantry/expandable_list.dart';
+import 'package:pam_pan/pantry/items_list_page.dart';
 
 final List<String> categoriesList = [
   "Herbs, Spices, & Condiments",
@@ -51,16 +52,29 @@ class HomePage extends StatelessWidget {
                     categories.length,
                     (index) {
                       return Center(
-                        child: Column(
-                          children: [
-                            categories[index].icon,
-                            Text(
-                              categories[index].nameString,
-                              style: const TextStyle(
-                                fontSize: 15,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ItemListPage(
+                                      categories[index].nameString);
+                                },
                               ),
-                            ),
-                          ],
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              categories[index].icon,
+                              Text(
+                                categories[index].nameString,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

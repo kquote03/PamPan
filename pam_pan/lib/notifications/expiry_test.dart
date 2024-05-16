@@ -1,12 +1,12 @@
-class ExpiryTest {
-  static final List<List<String>> items = [
-    ["2024-05-16", "Item1"],
-    ["2024-05-17", "Item2"],
-    ["2024-05-18", "Item3"],
-    ["2024-05-19", "Item4"],
-    ["2024-05-20", "Item5"],
-  ];
+List<List<String>> items = [
+  ["2024-05-16", "Item1", "750", "g"],
+  ["2024-05-17", "Item2", "6", "items"],
+  ["2024-05-18", "Item3", "4", "L"],
+  ["2024-05-19", "Item4", "350", "mL"],
+  ["2024-05-20", "Item5", "2", "Kg"],
+];
 
+class ExpiryTest {
   static List<List<String>> sortList(List<List<String>> list) {
     list.sort((a, b) => a[0].compareTo(b[0]));
     return list;
