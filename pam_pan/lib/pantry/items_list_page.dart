@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/notifications/expiry_test.dart';
+import 'package:pam_pan/pantry/add_item_page.dart';
 
 class ItemListPage extends StatefulWidget {
   const ItemListPage(this.category, {super.key});
@@ -64,6 +66,22 @@ Quantity/Amount:
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Clarity.plus_circle_solid,
+                size: 30, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const AddItemPage();
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         color: const Color.fromARGB(255, 255, 250, 240),
@@ -79,6 +97,7 @@ Quantity/Amount:
                 title: Text(
                   items[keyIndex][1],
                   style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
                 children: <Widget>[
                   Column(

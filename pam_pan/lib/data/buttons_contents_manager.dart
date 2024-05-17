@@ -8,7 +8,6 @@ import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/miriamCalendar/miriam_calendar.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
-import 'package:pam_pan/pantry/expandable_list.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 
@@ -22,7 +21,7 @@ class ButtonContentsManager {
     const TableMultiExample(), //5
     const TableRangeExample(), //6
     const ProfilePage(), //7
-    const ExpandableList(), //8
+    const Placeholder(), //8
     const AddItemPage(), //9
     const MiriamCalendar(), //10
     const MiriamMap() //11

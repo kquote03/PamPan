@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/payment_page.dart';
 
 class PaymentMethod extends StatelessWidget {
   const PaymentMethod({super.key});
@@ -85,7 +85,7 @@ class PaymentMethod extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ButtonContentsManager.buttonContents[1];
+                            return const PaymentPage();
                           },
                         ),
                       );
