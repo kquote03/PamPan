@@ -107,6 +107,7 @@ Category fish = Category(
   ),
 );
 
+// ignore: non_constant_identifier_names
 Category HSC = Category(
   const Text(
     "Herbs, Spices, & Condiments",

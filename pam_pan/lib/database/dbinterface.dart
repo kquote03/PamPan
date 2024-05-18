@@ -10,6 +10,7 @@ class DBInterface {
     });
   }
 
+  // ignore: non_constant_identifier_names
   getFoodItemById(int item_id) async {
     var val = db.then((connection) async {
       return await connection

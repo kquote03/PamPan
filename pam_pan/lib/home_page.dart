@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 25),
                 child: GridView.count(
                   crossAxisCount: 4,
-                  mainAxisSpacing: 7,
+                  // mainAxisSpacing: 7,
                   // crossAxisSpacing:5,
                   scrollDirection: Axis.horizontal,
                   childAspectRatio: 1.4,
