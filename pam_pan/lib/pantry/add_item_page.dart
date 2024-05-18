@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:pam_pan/database/dbinterface.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:pam_pan/pantry/barcode_api.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -57,19 +59,28 @@ class _AddItemPage extends State<AddItemPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Item Name",
-                      hintText: "Please enter the name of your item",
-                    ),
-                    validator: (String? value) {
-                      _itemNameChecker(value)
-                          ? 'Please enter a valid name'
-                          : null;
-                    },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _controllerItemName,
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Item Name",
+                            hintText: "Please enter the name of your item",
+                          ),
+                          validator: (String? value) {
+                            _itemNameChecker(value)
+                                ? 'Please enter a valid name'
+                                : null;
+                          },
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: _controllerItemName,
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: _barcodeClick,
+                          icon: const Icon(Icons.barcode_reader))
+                    ],
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
@@ -203,7 +214,11 @@ class _AddItemPage extends State<AddItemPage> {
                           _controllerMeasurement.selectedOptions[0].label,
                           int.parse(_controllerQuantity.text),
                         );
+                        //TODO: Remove Test
+                        print(await BarcodeApi()
+                            .getFoodItemByUPC('8690504019091'));
                         print(await DBInterface().getFoodItemList());
+
                         _showSimpleItemSuccessDialog(context);
                         _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
@@ -419,6 +434,14 @@ class _AddItemPage extends State<AddItemPage> {
         );
       },
     );
+  }
+
+  void _barcodeClick() async {
+    // Launches the barcode reader, then (inshallah) will interface with the API
+    // Then finally fills the fields with the data from the API.
+    _controllerItemName.text = (await BarcodeApi()
+            .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent))
+        .itemName;
   }
 }
 
