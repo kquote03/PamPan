@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -219,6 +217,8 @@ class _AddItemPage extends State<AddItemPage> {
                         //TODO: Remove Test
                         print(await BarcodeApi()
                             .getFoodItemByUPC('8690504019091'));
+                        print(await DBInterface().getFoodItemList());
+
                         _showSimpleItemSuccessDialog(context);
                         _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {

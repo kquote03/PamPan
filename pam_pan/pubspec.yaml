@@ -51,7 +51,8 @@ dependencies:
   clock: ^1.1.1
   workmanager: ^0.5.2
   barcode_scan2: any
-  
+  wheel_picker: ^0.0.4
+
 
 
 

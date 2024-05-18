@@ -61,7 +61,7 @@ class _PaymentPage extends State<PaymentPage> {
                 style: TextStyle(
                   fontSize: 12,
                 ),
-                "Any donation you make through us would go straight to the United Nation's World Food Programme (WFP), which aims to distribute food to as many hungry people as possible, across the globe.",
+                "Any donations go to the United Nation's World Food Programme (WFP).",
                 textAlign: TextAlign.justify,
               ),
             ),

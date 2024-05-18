@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
-import 'package:pam_pan/data/buttons_contents_manager.dart';
-import 'package:pam_pan/pantry/expandable_list.dart';
+import 'package:pam_pan/pantry/category.dart';
+import 'package:pam_pan/pantry/items_list_page.dart';
 
 final List<String> categoriesList = [
   "Herbs, Spices, & Condiments",
@@ -33,47 +33,55 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: CalendarPageWeek(),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        Container(
+          padding: const EdgeInsets.all(8),
           child: SizedBox(
-            height: 400,
-            child: GridView.count(
-              crossAxisCount: 2,
-              scrollDirection: Axis.horizontal,
-              children: List.generate(
-                categories.length,
-                (index) {
-                  return Center(
-                    child: Column(
-                      children: [
-                        categories[index].icon,
-                        Text(
-                          categories[index].nameString,
-                          style: const TextStyle(fontSize: 20),
+            height: 600,
+            child: DecoratedBox(
+              decoration:
+                  const BoxDecoration(color: Color.fromARGB(103, 93, 51, 16)),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: GridView.count(
+                  crossAxisCount: 4,
+                  // mainAxisSpacing: 7,
+                  // crossAxisSpacing:5,
+                  scrollDirection: Axis.horizontal,
+                  childAspectRatio: 1.4,
+                  children: List.generate(
+                    categories.length,
+                    (index) {
+                      return Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ItemListPage(
+                                      categories[index].nameString);
+                                },
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              categories[index].icon,
+                              Text(
+                                categories[index].nameString,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ButtonContentsManager.buttonContents[8];
-                  },
+                      );
+                    },
+                  ),
                 ),
-              );
-            },
-            child: Image.asset(
-              "assets/bigPamHome/pam_normal.png",
-              fit: BoxFit.fitWidth,
+              ),
             ),
           ),
         ),
