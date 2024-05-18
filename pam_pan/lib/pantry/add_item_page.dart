@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:pam_pan/database/dbinterface.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:pam_pan/pantry/barcode_api.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -215,7 +216,9 @@ class _AddItemPage extends State<AddItemPage> {
                           _controllerMeasurement.selectedOptions[0].label,
                           int.parse(_controllerQuantity.text),
                         );
-                        print(await DBInterface().getFoodItemList());
+                        //TODO: Remove Test
+                        print(await BarcodeApi()
+                            .getFoodItemByUPC('8690504019091'));
                         _showSimpleItemSuccessDialog(context);
                         _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
