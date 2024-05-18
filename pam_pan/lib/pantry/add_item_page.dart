@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:pam_pan/database/dbinterface.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -59,19 +60,28 @@ class _AddItemPage extends State<AddItemPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Item Name",
-                      hintText: "Please enter the name of your item",
-                    ),
-                    validator: (String? value) {
-                      _itemNameChecker(value)
-                          ? 'Please enter a valid name'
-                          : null;
-                    },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _controllerItemName,
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Item Name",
+                            hintText: "Please enter the name of your item",
+                          ),
+                          validator: (String? value) {
+                            _itemNameChecker(value)
+                                ? 'Please enter a valid name'
+                                : null;
+                          },
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: _controllerItemName,
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: _barcodeClick,
+                          icon: const Icon(Icons.barcode_reader))
+                    ],
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
@@ -421,6 +431,12 @@ class _AddItemPage extends State<AddItemPage> {
         );
       },
     );
+  }
+
+  void _barcodeClick() async {
+    // Launches the barcode reader, then (inshallah) will interface with the API
+    // Then finally fills the fields with the data from the API.
+    print((await BarcodeScanner.scan()).rawContent);
   }
 }
 
