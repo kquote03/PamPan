@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_complex.dart';
-import 'package:pam_pan/calendars(temp)/calendar_page_events.dart';
+import 'package:pam_pan/calendar/calendar_page_events.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
 import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
@@ -17,9 +17,9 @@ class ButtonContentsManager {
     const PaymentPage(), //1
     const CalendarPage(), //2
     const TableEventsExample(), //3
-    const TableComplexExample(), //4
-    const TableMultiExample(), //5
-    const TableRangeExample(), //6
+    const Placeholder(), //4
+    const Placeholder(), //5
+    const Placeholder(), //6
     const ProfilePage(), //7
     const Placeholder(), //8
     const AddItemPage(), //9
