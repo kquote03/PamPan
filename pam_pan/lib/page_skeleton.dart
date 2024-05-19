@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/calendars(temp)/calendar_page_events.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
 import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
@@ -86,7 +87,7 @@ class _PageSkeleton extends State<PageSkeleton> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ButtonContentsManager.buttonContents[10];
+                        return const TableEventsExample();
                       },
                     ),
                   );
@@ -156,16 +157,20 @@ class _PageSkeleton extends State<PageSkeleton> {
               // ),
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                currentPage,
-                const SizedBox(
-                  height: 1500,
-                  child: Placeholder(),
-                ),
-                const Text("yo"),
-              ],
+          body: Scrollbar(
+            interactive: true,
+            thickness: 7,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  currentPage,
+                  const SizedBox(
+                    height: 1500,
+                    child: Placeholder(),
+                  ),
+                  const Text("yo"),
+                ],
+              ),
             ),
           ),
           bottomNavigationBar: NavigationBar(

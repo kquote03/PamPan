@@ -24,7 +24,7 @@ class _MiriamCalendarState extends State<MiriamCalendar> {
         ),
       ),
       body: SfCalendar(
-        view: CalendarView.month,
+        view: CalendarView.week,
         monthViewSettings: const MonthViewSettings(showAgenda: true),
       ),
     );
