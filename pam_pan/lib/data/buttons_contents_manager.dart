@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
-import 'package:pam_pan/calendars(temp)/calendar_page.dart';
-import 'package:pam_pan/calendars(temp)/calendar_page_complex.dart';
 import 'package:pam_pan/calendar/calendar_page_events.dart';
-import 'package:pam_pan/calendars(temp)/calendar_page_multi.dart';
-import 'package:pam_pan/calendars(temp)/calendar_page_range.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/miriamCalendar/miriam_calendar.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';

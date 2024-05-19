@@ -50,17 +50,17 @@ class PaymentMethod extends StatelessWidget {
                       ),
                     ),
                     style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
+                      overlayColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
                           return const Color.fromARGB(255, 219, 219, 219);
                         },
                       ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
                         const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all<Size>(
+                      minimumSize: WidgetStateProperty.all<Size>(
                         const Size(double.infinity, 50), // Adjust height here
                       ),
                     ),
@@ -106,17 +106,17 @@ class PaymentMethod extends StatelessWidget {
                       ),
                     ),
                     style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
+                      overlayColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
                           return const Color.fromARGB(255, 219, 219, 219);
                         },
                       ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
                         const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all<Size>(
+                      minimumSize: WidgetStateProperty.all<Size>(
                         const Size(double.infinity, 50), // Adjust height here
                       ),
                     ),

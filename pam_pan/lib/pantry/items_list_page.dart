@@ -9,6 +9,7 @@ class ItemListPage extends StatefulWidget {
   final String category;
 
   @override
+  // ignore: no_logic_in_create_state
   State<ItemListPage> createState() => _ItemListPageState(category);
 }
 
