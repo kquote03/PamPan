@@ -144,12 +144,12 @@ Category drinksBeverages = Category(
   ),
 );
 
-Category sweetsCandies = Category(
+Category sweets = Category(
   const Text(
-    "Sweets & Candies",
+    "Sweets",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Sweets & Candies",
+  "Sweets",
   const Icon(
     Icons.heart_broken,
     size: 40,
@@ -217,7 +217,7 @@ List<Category> categories = [
   vegetables,
   grainsNoodles,
   pet,
-  sweetsCandies,
+  sweets,
   meats,
   HSC,
   plus

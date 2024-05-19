@@ -74,10 +74,10 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) {
-                return const PageSkeleton();
-              },
-            ),
+                builder: (context) {
+                  return const PageSkeleton();
+                },
+                fullscreenDialog: true),
           );
         },
         child: const Text(
