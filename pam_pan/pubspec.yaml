@@ -50,13 +50,18 @@ dependencies:
   timezone: ^0.9.2
   clock: ^1.1.1
   workmanager: ^0.5.2
+  barcode_scan2: any
   wheel_picker: ^0.0.4
-  
+
 
 
 
   path: any
+<<<<<<< HEAD
   home_widget: ^0.5.0
+=======
+  http: ^1.2.1
+>>>>>>> c935028f071a216dec539ab73963a0ddf7452b0e
 dev_dependencies:
   flutter_test:
     sdk: flutter
