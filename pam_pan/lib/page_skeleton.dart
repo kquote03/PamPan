@@ -5,7 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/calendar/calendar.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
-import 'package:pam_pan/history_page.dart';
+import 'package:pam_pan/records.dart';
 import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
@@ -222,20 +222,23 @@ class _PageSkeleton extends State<PageSkeleton> {
                   label: 'Camera'),
               NavigationDestination(
                   icon: IconButton(
-                    icon: const Icon(Icons.notifications,
-                        size: 35, color: Colors.black),
+                    icon: const Icon(
+                      Icons.receipt,
+                      size: 35,
+                      color: Colors.black,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const HistoryPage();
+                            return const Records();
                           },
                         ),
                       );
                     },
                   ),
-                  label: 'Notifications'),
+                  label: 'Records'),
             ],
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 70,

@@ -19,7 +19,7 @@ class Calendar extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  State<StatefulWidget> createState() {
+  State<Calendar> createState() {
     if (view == 1) {
       return _CalendarWeekState();
     } else {
