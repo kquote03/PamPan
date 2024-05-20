@@ -9,7 +9,7 @@ import 'package:pam_pan/profile/profile_page.dart';
 
 class ButtonContentsManager {
   static final List<Widget> buttonContents = [
-    const HomePage(), //0
+    HomePage(), //0
     const PaymentPage(), //1
     const Placeholder(), //2
     const Calendar(2), //3

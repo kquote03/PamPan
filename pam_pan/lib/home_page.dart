@@ -4,10 +4,53 @@ import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final List<Widget> gridCategories = [];
 
   @override
   Widget build(BuildContext context) {
+    for (Category category in categories) {
+      gridCategories.add(
+        Container(
+          decoration: const BoxDecoration(
+              // border: Border.all(
+              //   // width: 3,
+              //   color: Colors.black,
+              // ),
+              ),
+          child: Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ItemListPage(category.nameString);
+                    },
+                  ),
+                );
+              },
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  category.icon,
+                  Text(
+                    category.nameString,
+                    style: const TextStyle(
+                      fontSize: 15,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     return Column(
       children: [
         const Padding(
@@ -33,50 +76,7 @@ class HomePage extends StatelessWidget {
                     // crossAxisSpacing:5,
                     scrollDirection: Axis.horizontal,
                     childAspectRatio: 1.4,
-                    children: List.generate(
-                      categories.length,
-                      (index) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                              // border: Border.all(
-                              //   // width: 3,
-                              //   color: Colors.black,
-                              // ),
-                              ),
-                          child: Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return ItemListPage(
-                                          categories[index].nameString);
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.02,
-                                  ),
-                                  categories[index].icon,
-                                  Text(
-                                    categories[index].nameString,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    children: gridCategories,
                   ),
                 ),
               ),

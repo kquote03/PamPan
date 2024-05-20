@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pam_pan/pantry/items_list_page.dart';
 
 class Category {
   final Text nameText;
-  final String nameString;
   final List<Widget>? items;
   final Widget icon;
+  final Function goesTo;
 
-  Category(this.nameText, this.nameString, this.icon, {this.items});
+  Category(this.nameText, this.icon, this.goesTo, {this.items});
 
   // void addItem
 }
@@ -16,11 +17,20 @@ Category bread = Category(
     "Bread & Pastries",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Bread & Pastries",
   Image.asset(
     'assets/categories/bread.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Bread & Pastries");
+        },
+      ),
+    );
+  },
 );
 
 Category dairy = Category(
@@ -28,11 +38,20 @@ Category dairy = Category(
     "Dairy & Eggs",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Dairy & Eggs",
   Image.asset(
     'assets/categories/dairy_eggs.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Dairy & Eggs");
+        },
+      ),
+    );
+  },
 );
 
 Category cheese = Category(
@@ -40,11 +59,20 @@ Category cheese = Category(
     "Cheese",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Cheese",
   Image.asset(
     'assets/categories/fromage.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Cheese");
+        },
+      ),
+    );
+  },
 );
 
 Category chicken = Category(
@@ -52,11 +80,20 @@ Category chicken = Category(
     "Chicken",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Chicken",
   Image.asset(
     'assets/categories/chicken.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Chicken");
+        },
+      ),
+    );
+  },
 );
 
 Category meats = Category(
@@ -64,11 +101,20 @@ Category meats = Category(
     "Meats",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Meats",
   Image.asset(
     'assets/categories/meat.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Meats");
+        },
+      ),
+    );
+  },
 );
 
 Category fruits = Category(
@@ -76,11 +122,20 @@ Category fruits = Category(
     "Fruits",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Fruits",
   Image.asset(
     'assets/categories/fruits.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Fruits");
+        },
+      ),
+    );
+  },
 );
 
 Category vegetables = Category(
@@ -88,11 +143,20 @@ Category vegetables = Category(
     "Vegetables",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Vegetables",
   Image.asset(
     'assets/categories/veg.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Vegetables");
+        },
+      ),
+    );
+  },
 );
 
 Category fish = Category(
@@ -100,11 +164,20 @@ Category fish = Category(
     "Fish & Seafood",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Fish & Seafood",
   Image.asset(
     'assets/categories/fish.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Fish & Seafood");
+        },
+      ),
+    );
+  },
 );
 
 // ignore: non_constant_identifier_names
@@ -113,11 +186,20 @@ Category HSC = Category(
     "Herbs, Spices, & Condiments",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Herbs, Spices, & Condiments",
   Image.asset(
     'assets/categories/herbs.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Herbs, Spices, & Condiments");
+        },
+      ),
+    );
+  },
 );
 
 Category nutsSeeds = Category(
@@ -125,11 +207,20 @@ Category nutsSeeds = Category(
     "Nuts & Seeds",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Nuts & Seeds",
   Image.asset(
     'assets/categories/nuts.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Nuts & Seeds");
+        },
+      ),
+    );
+  },
 );
 
 Category drinksBeverages = Category(
@@ -137,11 +228,20 @@ Category drinksBeverages = Category(
     "Drinks & Beverages",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Drinks & Beverages",
   Image.asset(
     'assets/categories/bevs.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Drinks & Beverages");
+        },
+      ),
+    );
+  },
 );
 
 Category sweets = Category(
@@ -149,11 +249,20 @@ Category sweets = Category(
     "Sweets",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Sweets",
   Image.asset(
     'assets/categories/sweets.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Sweets");
+        },
+      ),
+    );
+  },
 );
 
 Category grainsNoodles = Category(
@@ -161,11 +270,20 @@ Category grainsNoodles = Category(
     "Grains & Noodles",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Grains & Noodles",
   Image.asset(
     'assets/categories/grains.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Grains & Noodles");
+        },
+      ),
+    );
+  },
 );
 
 Category canned = Category(
@@ -173,11 +291,20 @@ Category canned = Category(
     "Canned Foods",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Canned Foods",
   Image.asset(
     'assets/categories/can.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Canned Foods");
+        },
+      ),
+    );
+  },
 );
 
 Category pet = Category(
@@ -185,11 +312,20 @@ Category pet = Category(
     "Pet Food",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Pet Food",
   Image.asset(
     'assets/categories/pet.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Pet Food");
+        },
+      ),
+    );
+  },
 );
 
 Category plus = Category(
@@ -197,11 +333,20 @@ Category plus = Category(
     "Plus",
     style: TextStyle(color: Colors.white, fontSize: 20),
   ),
-  "Plus",
   Image.asset(
     'assets/categories/other.png',
     scale: 15,
   ),
+  (context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ItemListPage("Plus");
+        },
+      ),
+    );
+  },
 );
 
 List<Category> categories = [
