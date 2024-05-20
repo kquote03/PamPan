@@ -160,6 +160,7 @@ class _PageSkeleton extends State<PageSkeleton> {
           body: Scrollbar(
             interactive: true,
             thickness: 7,
+            thumbVisibility: true,
             child: SingleChildScrollView(
               child: Column(
                 children: [
