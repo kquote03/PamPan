@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                       categories.length,
                       (index) {
                         return Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               // border: Border.all(
                               //   // width: 3,
                               //   color: Colors.black,
