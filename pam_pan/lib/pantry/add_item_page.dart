@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:pam_pan/calendar/calendar.dart';
+import 'package:pam_pan/calendar/utils.dart';
 import 'package:pam_pan/database/dbinterface.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:pam_pan/pantry/barcode_api.dart';
@@ -224,6 +226,11 @@ class _AddItemPage extends State<AddItemPage> {
                         Timer(const Duration(seconds: 3), () {
                           Navigator.of(context, rootNavigator: true).pop();
                         });
+                        // events.addAll({
+                        //   DateTime.parse(_controllerExpiryDate.text): [
+                        //     Event(_controllerItemName.text)
+                        //   ]
+                        // });
                       } else {
                         _showErrorModalDialog(context);
                         _showAddingItemDialog(context);

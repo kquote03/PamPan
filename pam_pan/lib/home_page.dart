@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pam_pan/calendar/calendar.dart';
 import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
 import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: CalendarPageWeek(),
+          child: Calendar(1),
         ),
         Container(
           padding: const EdgeInsets.all(8),

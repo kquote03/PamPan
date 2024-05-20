@@ -3,34 +3,45 @@
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import 'utils.dart';
 
-class TableEventsExample extends StatefulWidget {
-  const TableEventsExample({super.key});
+Map<DateTime, List<Event>> events = {};
 
-  @override
-  _TableEventsExampleState createState() => _TableEventsExampleState();
+void addEvent(String eventName, DateTime expiryDate) {
+  events.addAll({
+    expiryDate: [Event(eventName)]
+  });
 }
 
-class _TableEventsExampleState extends State<TableEventsExample> {
+class Calendar extends StatefulWidget {
+  const Calendar(this.view, {super.key});
+  final int view;
+
+  @override
+  // ignore: no_logic_in_create_state
+  State<StatefulWidget> createState() {
+    if (view == 1) {
+      return _CalendarWeekState();
+    } else {
+      return _CalendarMonthState();
+    }
+  }
+}
+
+class _CalendarWeekState extends State<Calendar> {
   late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  // RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-  //     .toggledOff; // Can be toggled on/off by longpressing a date
+  final CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  Map<DateTime, List<Event>> events = {};
+
   final TextEditingController _eventController = TextEditingController();
-  // DateTime? _rangeStart;
-  // DateTime? _rangeEnd;
 
   @override
   void initState() {
     super.initState();
 
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _selectedEvents = ValueNotifier(getEventsForDay(_selectedDay!));
   }
 
   @override
@@ -39,7 +50,79 @@ class _TableEventsExampleState extends State<TableEventsExample> {
     super.dispose();
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
+  List<Event> getEventsForDay(DateTime day) {
+    // Implementation example
+    return events[day] ?? [];
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TableCalendar<Event>(
+      firstDay: DateTime.fromMicrosecondsSinceEpoch(0),
+      lastDay: DateTime(2100, 12, 31),
+      focusedDay: DateTime.now(),
+      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+      calendarFormat: _calendarFormat,
+      eventLoader: getEventsForDay,
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      calendarStyle: const CalendarStyle(
+        // Use `CalendarStyle` to customize the UI
+        outsideDaysVisible: false,
+      ),
+      onDaySelected: _onDaySelected,
+      onPageChanged: (focusedDay) {
+        _focusedDay = focusedDay;
+      },
+      availableCalendarFormats: const {CalendarFormat.week: 'Week'},
+      headerVisible: false,
+    );
+  }
+
+  void addEventCal() {
+    events.addAll({
+      _selectedDay!: [Event(_eventController.text)]
+    });
+    _selectedEvents.value = getEventsForDay(_selectedDay!);
+  }
+}
+
+class _CalendarMonthState extends State<Calendar> {
+  late final ValueNotifier<List<Event>> _selectedEvents;
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
+  // RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
+  //     .toggledOff; // Can be toggled on/off by longpressing a date
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+
+  final TextEditingController _eventController = TextEditingController();
+
+  // DateTime? _rangeStart;
+  // DateTime? _rangeEnd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(getEventsForDay(_selectedDay!));
+  }
+
+  @override
+  void dispose() {
+    _selectedEvents.dispose();
+    super.dispose();
+  }
+
+  List<Event> getEventsForDay(DateTime day) {
     // Implementation example
     return events[day] ?? [];
   }
@@ -49,7 +132,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   //   final days = daysInRange(start, end);
 
   //   return [
-  //     for (final d in days) ..._getEventsForDay(d),
+  //     for (final d in days) ...getEventsForDay(d),
   //   ];
   // }
 
@@ -58,12 +141,13 @@ class _TableEventsExampleState extends State<TableEventsExample> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
+        _selectedEvents.value = getEventsForDay(selectedDay);
         // _rangeStart = null; // Important to clean those
         // _rangeEnd = null;
         // _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
 
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      _selectedEvents.value = getEventsForDay(selectedDay);
     }
   }
 
@@ -80,9 +164,9 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   //   if (start != null && end != null) {
   //     _selectedEvents.value = _getEventsForRange(start, end);
   //   } else if (start != null) {
-  //     _selectedEvents.value = _getEventsForDay(start);
+  //     _selectedEvents.value = getEventsForDay(start);
   //   } else if (end != null) {
-  //     _selectedEvents.value = _getEventsForDay(end);
+  //     _selectedEvents.value = getEventsForDay(end);
   //   }
   // }
 
@@ -103,7 +187,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             // rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
             // rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
+            eventLoader: getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: const CalendarStyle(
               // Use `CalendarStyle` to customize the UI
@@ -111,16 +195,19 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             ),
             onDaySelected: _onDaySelected,
             // onRangeSelected: _onRangeSelected,
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
+            // onFormatChanged: (format) {
+            //   if (_calendarFormat != format) {
+            //     setState(() {
+            //       _calendarFormat = format;
+            //     });
+            //   }
+            // },
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+            headerVisible: true,
+            daysOfWeekVisible: true,
           ),
           const SizedBox(height: 8.0),
           Expanded(
@@ -171,6 +258,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         _selectedDay!: [Event(_eventController.text)]
                       });
                       Navigator.pop(context);
+                      _selectedEvents.value = getEventsForDay(_selectedDay!);
                     },
                     child: const Text("Submit"),
                   ),
