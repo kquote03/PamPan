@@ -24,34 +24,37 @@ class _WelcomeNameState extends State<WelcomeName> {
       body: Column(
         children: [
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Pam wants to know more about you!",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "What would you like Pam to call you?",
-                  style: TextStyle(fontSize: 30),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: _controllerWelcomeName,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      fillColor: Colors.grey[200],
-
-                      // labelText: '',
-                    ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // const Text(
+                  //   "Pam wants to know more about you!",
+                  //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  //   textAlign: TextAlign.center,
+                  // ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "What would you like Pam to call you?",
+                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                )
-              ],
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _controllerWelcomeName,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        fillColor: Colors.grey[200],
+
+                        // labelText: '',
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -60,7 +63,7 @@ class _WelcomeNameState extends State<WelcomeName> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           textStyle: const TextStyle(fontSize: 25),
-          backgroundColor: const Color.fromARGB(218, 242, 174, 174),
+          backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () {
@@ -75,7 +78,11 @@ class _WelcomeNameState extends State<WelcomeName> {
         },
         child: const Text(
           "Continue",
+          style: TextStyle(color: Colors.black),
         ),
+      ),
+      bottomNavigationBar: const SizedBox(
+        height: 25,
       ),
     );
   }

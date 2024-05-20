@@ -45,15 +45,15 @@ class _WelcomePetsWhichState extends State<WelcomePetsWhich> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: MediaQuery.of(context).size.width * 0.15),
-              const Text(
-                "Pam wants to know more about you!",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
+              // const Text(
+              //   "Pam wants to know more about you!",
+              //   style: TextStyle(fontSize: 20),
+              //   textAlign: TextAlign.center,
+              // ),
               const SizedBox(height: 8),
               const Text(
                 "Which pets do you have?",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               for (String pet in pets)
@@ -92,7 +92,7 @@ class _WelcomePetsWhichState extends State<WelcomePetsWhich> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           textStyle: const TextStyle(fontSize: 25),
-          backgroundColor: const Color.fromARGB(218, 242, 174, 174),
+          backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () {
@@ -105,7 +105,13 @@ class _WelcomePetsWhichState extends State<WelcomePetsWhich> {
             ),
           );
         },
-        child: const Text("Continue"),
+        child: const Text(
+          "Continue",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      bottomNavigationBar: const SizedBox(
+        height: 25,
       ),
     );
   }

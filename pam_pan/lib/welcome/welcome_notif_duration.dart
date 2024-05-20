@@ -33,17 +33,17 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: MediaQuery.of(context).size.width * 0.15),
-            const Text(
-              "Pam wants to know more about you!",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
+            // const Text(
+            //   "Pam wants to know more about you!",
+            //   style: TextStyle(fontSize: 20),
+            //   textAlign: TextAlign.center,
+            // ),
             const SizedBox(height: 8),
             const Padding(
               padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 "How many days before an expiry date do you want Pam to remind you of it?",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -67,7 +67,7 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           textStyle: const TextStyle(fontSize: 25),
-          backgroundColor: const Color.fromARGB(218, 242, 174, 174),
+          backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () {
@@ -82,7 +82,11 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
         },
         child: const Text(
           "Continue",
+          style: TextStyle(color: Colors.black),
         ),
+      ),
+      bottomNavigationBar: const SizedBox(
+        height: 25,
       ),
     );
   }

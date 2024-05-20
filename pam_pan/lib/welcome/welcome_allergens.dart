@@ -54,7 +54,7 @@ class _WelcomeAllergensState extends State<WelcomeAllergens> {
               const SizedBox(height: 8),
               const Text(
                 "What allergens, if any, are you sensitive to?",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               for (String allergen in allergens)
@@ -93,7 +93,7 @@ class _WelcomeAllergensState extends State<WelcomeAllergens> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           textStyle: const TextStyle(fontSize: 25),
-          backgroundColor: const Color.fromARGB(218, 242, 174, 174),
+          backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () {
@@ -106,7 +106,13 @@ class _WelcomeAllergensState extends State<WelcomeAllergens> {
             ),
           );
         },
-        child: const Text("Continue"),
+        child: const Text(
+          "Continue",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      bottomNavigationBar: const SizedBox(
+        height: 25,
       ),
     );
   }

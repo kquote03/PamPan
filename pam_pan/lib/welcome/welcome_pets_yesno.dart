@@ -46,15 +46,15 @@ class _WelcomePetsYesNoState extends State<WelcomePetsYesNo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: MediaQuery.of(context).size.width * 0.25),
-              const Text(
-                "Pam wants to know more about you!",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
+              // const Text(
+              //   "Pam wants to know more about you!",
+              //   style: TextStyle(fontSize: 20),
+              //   textAlign: TextAlign.center,
+              // ),
               const SizedBox(height: 8),
               const Text(
                 "Do you have any pets?",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
@@ -78,14 +78,18 @@ class _WelcomePetsYesNoState extends State<WelcomePetsYesNo> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           textStyle: const TextStyle(fontSize: 25),
-          backgroundColor: const Color.fromARGB(218, 242, 174, 174),
+          backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: selectedOption.isNotEmpty ? continueAction : null,
         // onPressed: () {},
         child: const Text(
           "Continue",
+          style: TextStyle(color: Colors.black),
         ),
+      ),
+      bottomNavigationBar: const SizedBox(
+        height: 25,
       ),
     );
   }
