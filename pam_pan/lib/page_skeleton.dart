@@ -10,17 +10,22 @@ import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:pam_pan/notifications/tips.dart';
+import 'package:home_widget/home_widget.dart';
 
 class PageSkeleton extends StatefulWidget {
   const PageSkeleton({super.key});
-
   @override
-  State<PageSkeleton> createState() {
-    return _PageSkeleton();
-  }
+  State<PageSkeleton> createState() => _PageSkeleton();
+}
+
+@override
+State<PageSkeleton> createState() {
+  return _PageSkeleton();
 }
 
 class _PageSkeleton extends State<PageSkeleton> {
+  String appGroupId = 'group.pampan';
+  String iOSWidgetName = 'pampan';
   int index = 0;
 
   late Widget currentPage;
@@ -28,9 +33,17 @@ class _PageSkeleton extends State<PageSkeleton> {
 
   @override
   void initState() {
+    HomeWidget.setAppGroupId(appGroupId);
+    super.initState();
     listenNotifications();
     super.initState();
     currentPage = ButtonContentsManager.buttonContents[0];
+  }
+
+  updateWidgetFun() {
+    HomeWidget.saveWidgetData<String>('title', 'flutter');
+    HomeWidget.saveWidgetData<String>('description', 'app dev');
+    HomeWidget.updateWidget(iOSName: iOSWidgetName);
   }
 
   listenNotifications() {
@@ -171,6 +184,10 @@ class _PageSkeleton extends State<PageSkeleton> {
                     child: Placeholder(),
                   ),
                   const Text("yo"),
+                  ElevatedButton(
+                    onPressed: () => updateWidgetFun(),
+                    child: const Text('Update'),
+                  ),
                 ],
               ),
             ),
