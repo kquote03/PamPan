@@ -5,7 +5,7 @@ class Category {
   final Text nameText;
   final List<Widget>? items;
   final Widget icon;
-  final Function() goesTo;
+  final void Function()? goesTo;
 
   Category(this.nameText, this.icon, this.goesTo, {this.items});
 
