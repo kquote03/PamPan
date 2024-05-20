@@ -9,10 +9,14 @@ class ItemListPage extends StatefulWidget {
   final String category;
 
   @override
+  // ignore: no_logic_in_create_state
   State<ItemListPage> createState() => _ItemListPageState(category);
 }
 
 class _ItemListPageState extends State<ItemListPage> {
+  _ItemListPageState(this.category);
+  String category;
+
   List<Widget> _buildList(int keyIndex) {
     List<Widget> list = [];
 
@@ -47,9 +51,6 @@ Quantity/Amount:
     );
     return list;
   }
-
-  _ItemListPageState(this.category);
-  String category;
 
   @override
   Widget build(BuildContext context) {
