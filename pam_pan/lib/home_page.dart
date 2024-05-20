@@ -57,11 +57,11 @@ class HomePage extends StatelessWidget {
                       (index) {
                         return Container(
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              // width: 3,
-                              color: Colors.black,
-                            ),
-                          ),
+                              // border: Border.all(
+                              //   // width: 3,
+                              //   color: Colors.black,
+                              // ),
+                              ),
                           child: Center(
                             child: GestureDetector(
                               onTap: () {
