@@ -173,8 +173,16 @@ class _CalendarMonthState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
-        title: const Text('TableCalendar - Events'),
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        title: const Text("Donation"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Column(
         children: [

@@ -5,6 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/calendar/calendar.dart';
 import 'package:pam_pan/data/buttons_contents_manager.dart';
+import 'package:pam_pan/history_page.dart';
 import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
@@ -224,10 +225,13 @@ class _PageSkeleton extends State<PageSkeleton> {
                     icon: const Icon(Icons.notifications,
                         size: 35, color: Colors.black),
                     onPressed: () {
-                      LocalNotifications.showSimpleNotification(
-                        title: "Simple title",
-                        body: "Simple body",
-                        payload: "Simple payload",
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const HistoryPage();
+                          },
+                        ),
                       );
                     },
                   ),

@@ -1,27 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pam_pan/calendar/calendar.dart';
-import 'package:pam_pan/calendars(temp)/calendar_week_only.dart';
 import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
-
-final List<String> categoriesList = [
-  "Bread & Pastries",
-  "Dairy & Eggs",
-  "Herbs, Spices, & Condiments",
-  "Drinks & Beverages",
-  "Nuts & Seeds",
-  "Sweets",
-  "Grains & Noodles",
-  "Canned Food",
-  "Pet Food",
-  "Chicken",
-  "Cheese",
-  "Meats",
-  "Fruits",
-  "Fish & Seafood",
-  "Vegetables",
-  "Other",
-];
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
