@@ -6,7 +6,7 @@ import 'package:pam_pan/pantry/add_item_page.dart';
 class ItemListPage extends StatefulWidget {
   const ItemListPage(this.category, {super.key});
 
-  final String category;
+  final Text category;
 
   @override
   // ignore: no_logic_in_create_state
@@ -15,7 +15,7 @@ class ItemListPage extends StatefulWidget {
 
 class _ItemListPageState extends State<ItemListPage> {
   _ItemListPageState(this.category);
-  String category;
+  Text category;
 
   List<Widget> _buildList(int keyIndex) {
     List<Widget> list = [];
@@ -58,7 +58,7 @@ Quantity/Amount:
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        title: Text(category),
+        title: category,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,

@@ -21,29 +21,14 @@ class HomePage extends StatelessWidget {
               ),
           child: Center(
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return ItemListPage(category.nameString);
-                    },
-                  ),
-                );
-              },
+              onTap: category.goesTo,
               child: Column(
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   category.icon,
-                  Text(
-                    category.nameString,
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  category.nameText
                 ],
               ),
             ),
