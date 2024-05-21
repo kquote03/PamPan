@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-import 'package:pam_pan/page_skeleton.dart';
+import 'package:pam_pan/home_page.dart';
 
 class FrontPage extends StatefulWidget {
   const FrontPage({super.key});
@@ -87,7 +87,7 @@ class _FrontPageState extends State<FrontPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PageSkeleton(),
+                              builder: (context) => const HomePage(),
                             ),
                           );
                           if (_emailController.text.isEmpty ||

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:pam_pan/page_skeleton.dart';
+import 'package:pam_pan/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PageSkeleton()));
+                          builder: (context) => const HomePage()));
                   if (_emailController.text.isEmpty ||
                       _passwordController.text.isEmpty) {
                     setState(() {

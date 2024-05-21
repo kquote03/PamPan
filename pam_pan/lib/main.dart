@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/database/libdb.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
-import 'package:pam_pan/page_skeleton.dart';
+import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/welcome/welcome_name.dart';
 import 'package:sqflite/sqflite.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/page_skeleton.dart';
+import 'package:pam_pan/home_page.dart';
 import 'package:wheel_picker/wheel_picker.dart';
 
 class WelcomeNotifDuration extends StatefulWidget {
@@ -75,7 +75,7 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
             context,
             MaterialPageRoute(
                 builder: (context) {
-                  return const PageSkeleton();
+                  return const HomePage();
                 },
                 fullscreenDialog: true),
           );
