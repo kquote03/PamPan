@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/calendar/calendar.dart';
+import 'package:pam_pan/map_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
@@ -309,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const MiriamMap();
+                          return const MapPage();
                         },
                       ),
                     );
