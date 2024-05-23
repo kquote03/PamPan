@@ -48,13 +48,34 @@ class _MapPageState extends State<MapPage> {
           },
         ),
       ),
-      body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
+      body: _currentP == null
+          ? const Center(
+              child: Text("Loading..."),
+            )
+          : GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: CameraPosition(
+                target: _pGooglePlex,
+                zoom: 13,)
+                markers: {
+                Marker(
+                    markerId: MarkerId("_currentLocation"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _currentP!,
+                    ),
+                Marker(
+                    markerId: MarkerId("_sourceLocation"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _pGooglePlex),
+                Marker(
+                    markerId: MarkerId("_destinationLocation"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _pApplePark),    
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              }
+                },
+            ),
       bottomNavigationBar: NavigationBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         destinations: [
