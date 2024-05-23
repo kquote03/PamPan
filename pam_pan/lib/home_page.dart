@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/calendar/calendar.dart';
 import 'package:pam_pan/map_page.dart';
@@ -18,6 +19,7 @@ import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:pam_pan/notifications/tips.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,6 +33,8 @@ State<HomePage> createState() {
 }
 
 class _HomePageState extends State<HomePage> {
+  Location _locationController = new Location();
+
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
@@ -375,5 +379,21 @@ class _HomePageState extends State<HomePage> {
     await controller.animateCamera(
       CameraUpdate.newCameraPosition(_kLake),
     );
+  }
+
+  Future<void> getLocationUpdates() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await _locationController.serviceEnabled();
+    if (_serviceEnabled) {
+      _serviceEnabled = await _locationController.requestService();
+    } else {
+      return;
+    }
+    _permissionGranted = await _locationController.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await _locationController.requestPermission();
+    }
   }
 }
