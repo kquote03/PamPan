@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -11,6 +12,9 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/barcode_api.dart';
 import 'package:pam_pan/records.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
+
+var databases = Databases(client);
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({super.key});
@@ -222,7 +226,7 @@ class _AddItemPage extends State<AddItemPage> {
                         //TODO: Remove Test
                         print(await BarcodeApi()
                             .getFoodItemByUPC('8690504019091'));
-                        print(await DBInterface().getFoodItemList());
+                        //print(await DBInterface().getFoodItemList());
 
                         _showSimpleItemSuccessDialog(context);
                         _showAddingItemDialog(context);
@@ -423,8 +427,14 @@ class _AddItemPage extends State<AddItemPage> {
 
   void addFoodItem(String item, String expiryDate, String category,
       String allergens, String measurements, int quantity) {
-    DBInterface().insertFoodItem(
-        item, expiryDate, category, allergens, measurements, quantity);
+        var promise = databases.createDocument(
+    databaseId: '6650884f00137e1b1fcd',
+    collectionId: '6650886f0027a739c072',
+    documentId: ID.unique(),
+    data: { "name": item, "expiryDate": expiryDate, /*"categories": category,*/ "measurementUnit": measurements, "quantity": quantity }
+);
+//    DBInterface().insertFoodItem(
+//        item, expiryDate, category, allergens, measurements, quantity);
   }
 
   _showErrorModalDialog(context) {
