@@ -433,6 +433,9 @@ class _AddItemPage extends State<AddItemPage> {
           categories.add(i.value??'');
         }
         print(categories);
+        
+        // Add them to the databse, which btw
+        // TODO: no longer rely on hardcoded values.
       var promise = databases.createDocument(
         databaseId: '6650884f00137e1b1fcd',
         collectionId: '6650886f0027a739c072',
