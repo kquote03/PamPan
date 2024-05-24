@@ -52,15 +52,13 @@ dependencies:
   workmanager: ^0.5.2
   barcode_scan2: any
   wheel_picker: ^0.0.4
-
-
-
-
   path: any
   home_widget: ^0.6.0
   http: ^1.2.1
   firebase_core: ^2.31.1
-  firebase_vertexai: ^0.1.0+1
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
