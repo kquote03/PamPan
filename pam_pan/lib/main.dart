@@ -12,8 +12,13 @@ import 'package:pam_pan/welcome/welcome_name.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+<<<<<<< HEAD
 import 'package:appwrite/appwrite.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
+=======
+import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:firebase_core/firebase_core.dart';
+>>>>>>> 30b8cf1 (initial stages)
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +40,7 @@ void main() async {
             email: "email@example.com", password: "password123")
         .timeout(const Duration(seconds: 10));
 
+<<<<<<< HEAD
     var result = await account.get();
     print("Currently signed in as: " + (result?.email ?? "error"));
 
@@ -49,4 +55,15 @@ void main() async {
     if (!e.toString().contains("user_session_already_exists"))
       runApp(const MaterialApp(home: ConnectionError()));
   }
+=======
+  final model = FirebaseVertexAI.instance
+      .generativeModel(model: 'gemini-1.5-flash-preview-0514');
+
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WelcomeName(),
+    ),
+  );
+>>>>>>> 30b8cf1 (initial stages)
 }
