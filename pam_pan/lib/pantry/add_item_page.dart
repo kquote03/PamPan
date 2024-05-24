@@ -145,7 +145,7 @@ class _AddItemPage extends State<AddItemPage> {
                     options: const [
                       ValueItem(label: 'None', value: 'none'),
                       ValueItem(label: 'Milk', value: 'milk'),
-                      ValueItem(label: 'Eggs', value: 'fish'),
+                      ValueItem(label: 'Eggs', value: 'eggs'),
                       ValueItem(label: 'Fish', value: 'fish'),
                       ValueItem(label: 'Shellfish', value: 'shellfish'),
                       ValueItem(label: 'Nuts', value: 'nuts'),
