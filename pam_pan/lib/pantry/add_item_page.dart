@@ -223,11 +223,6 @@ class _AddItemPage extends State<AddItemPage> {
                           _controllerMeasurement.selectedOptions[0].label,
                           int.parse(_controllerQuantity.text),
                         );
-                        //TODO: Remove Test
-                        print(await BarcodeApi()
-                            .getFoodItemByUPC('8690504019091'));
-                        //print(await DBInterface().getFoodItemList());
-
                         _showSimpleItemSuccessDialog(context);
                         _showAddingItemDialog(context);
                         Timer(const Duration(seconds: 3), () {
