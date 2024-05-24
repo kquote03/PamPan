@@ -56,12 +56,17 @@ dependencies:
   home_widget: ^0.6.0
   http: ^1.2.1
   firebase_core: ^2.31.1
+<<<<<<< HEAD
   firebase_vertexai: ^0.1.0+1
   google_maps_flutter: ^2.6.1
   location: ^6.0.2
   flutter_polyline_points: ^2.0.0
   appwrite: ^12.0.3
   flutter_slidable: ^3.1.0
+=======
+
+
+>>>>>>> 0c7c10f (firebase initial configs)
 
 dev_dependencies:
   flutter_test:
