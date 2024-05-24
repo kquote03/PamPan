@@ -76,19 +76,17 @@ Account account = Account(client);
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () async {
-    //await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
-    //final user = await account.get();
-        await account.deleteSession(sessionId: 'current');
+    await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
 User result = await account.get();
 print(result.email);
-//          Navigator.push(
-//            context,
-//            MaterialPageRoute(
-//              builder: (context) {
-//                return const WelcomeAllergens();
-//              },
-//            ),
-//          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const WelcomeAllergens();
+              },
+            ),
+          );
         },
         child: const Text(
           "Continue",

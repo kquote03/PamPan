@@ -1,3 +1,4 @@
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
@@ -7,6 +8,8 @@ import 'package:pam_pan/profile/about_pam_page.dart';
 import 'package:pam_pan/profile/payment_methods_page.dart';
 import 'package:pam_pan/records.dart';
 import 'edit_profile_page.dart';
+import 'package:appwrite/appwrite.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
