@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
 
-import 'package:pam_pan/database/dbinterface.dart';
+import 'package:pam_pan/backend/dbinterface.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/barcode_api.dart';

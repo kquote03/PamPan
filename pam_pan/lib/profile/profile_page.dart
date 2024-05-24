@@ -9,7 +9,10 @@ import 'package:pam_pan/profile/payment_methods_page.dart';
 import 'package:pam_pan/records.dart';
 import 'edit_profile_page.dart';
 import 'package:appwrite/appwrite.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 
+User ?user;
+Account account = Account(client);
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -49,9 +52,21 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+    @override
+  void initState() {
+    super.initState();
+    _assignUser();
+  }
+
+    Future<void> _assignUser() async {
+      user = await account.get();
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.sizeOf(context).height;
+       double screenHeight = MediaQuery.sizeOf(context).height;
     return Builder(
       builder: (context) => Scaffold(
         appBar: AppBar(
@@ -87,11 +102,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  const Text(
-                    "'user'",
+                  Text(
+                    user?.email??"noll",
                     style: TextStyle(
                       fontSize: 20,
                     ),
+                    
                   ),
                 ],
               ),

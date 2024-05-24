@@ -2,12 +2,12 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_allergens.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 
+Account account = Account(client);
 
 class WelcomeName extends StatefulWidget {
-  const WelcomeName({super.key, required this.client});
-
-  final Client client;
+  const WelcomeName({super.key});
 
   @override
   State<WelcomeName> createState() => _WelcomeNameState();
@@ -25,9 +25,6 @@ class _WelcomeNameState extends State<WelcomeName> {
 
   @override
   Widget build(BuildContext context) {
-    final client = widget.client;
-Account account = Account(client);
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       body: Column(
@@ -76,7 +73,11 @@ Account account = Account(client);
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () async {
-    await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
+    try {
+  await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
+} on Exception catch (e) {
+  print(e);
+}
 User result = await account.get();
 print(result.email);
           Navigator.push(
