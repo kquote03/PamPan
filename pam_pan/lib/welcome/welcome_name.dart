@@ -1,10 +1,8 @@
-import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_allergens.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 
-Account account = Account(client);
 
 class WelcomeName extends StatefulWidget {
   const WelcomeName({super.key});

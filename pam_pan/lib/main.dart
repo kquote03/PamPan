@@ -16,11 +16,6 @@ import 'package:pam_pan/backend/appwrite_client.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotifications.init();
-client
-    .setEndpoint('http://localhost/v1')
-    .setProject('665039250035c9a58fe1')
-    .setSelfSigned(status: true); // For self signed certificates, only use for development
-
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
