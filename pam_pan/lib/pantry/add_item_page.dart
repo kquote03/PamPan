@@ -131,10 +131,10 @@ class _AddItemPage extends State<AddItemPage> {
                         const Color.fromARGB(255, 255, 250, 240),
                     focusedBorderColor:
                         const Color.fromARGB(255, 113, 216, 244),
-                    dropdownHeight: 450,
+                    dropdownHeight: 200,
                     optionTextStyle: const TextStyle(fontSize: 16),
                     selectedOptionIcon: const Icon(Icons.check_circle),
-                    selectionType: SelectionType.single,
+                    selectionType: SelectionType.multi,
                     hint: "Category",
                   ),
                   const SizedBox(height: 12),
@@ -218,7 +218,7 @@ class _AddItemPage extends State<AddItemPage> {
                         addFoodItem(
                           _controllerItemName.text,
                           _controllerExpiryDate.text,
-                          _controllerCategory.selectedOptions[0].label,
+                          _controllerCategory.selectedOptions,
                           _controllerAllergens.selectedOptions[0].label,
                           _controllerMeasurement.selectedOptions[0].label,
                           int.parse(_controllerQuantity.text),
@@ -425,14 +425,20 @@ class _AddItemPage extends State<AddItemPage> {
     return quantityCorrect;
   }
 
-  void addFoodItem(String item, String expiryDate, String category,
+  void addFoodItem(String item, String expiryDate, List<ValueItem<String>> category,
       String allergens, String measurements, int quantity) {
-        var promise = databases.createDocument(
-    databaseId: '6650884f00137e1b1fcd',
-    collectionId: '6650886f0027a739c072',
-    documentId: ID.unique(),
-    data: { "name": item, "expiryDate": expiryDate, "categories": ['$category'], "measurementUnit": measurements, "quantity": quantity }
-);
+        // Convert ValueItem to just the values.
+        List<String> categories = <String>[];
+        for(var i in category) {
+          categories.add(i.value??'');
+        }
+        print(categories);
+      var promise = databases.createDocument(
+        databaseId: '6650884f00137e1b1fcd',
+        collectionId: '6650886f0027a739c072',
+        documentId: ID.unique(),
+        data: { "name": item, "expiryDate": expiryDate, "categories": categories, "measurementUnit": measurements, "quantity": quantity }
+        );
 //    DBInterface().insertFoodItem(
 //        item, expiryDate, category, allergens, measurements, quantity);
   }
