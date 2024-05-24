@@ -420,8 +420,8 @@ class _AddItemPage extends State<AddItemPage> {
     return quantityCorrect;
   }
 
-  void addFoodItem(String item, String expiryDate, List<ValueItem<String>> category,
-      String allergens, String measurements, int quantity) {
+  Future<void> addFoodItem(String item, String expiryDate, List<ValueItem<String>> category,
+      String allergens, String measurements, int quantity) async {
         // Convert ValueItem to just the values.
         List<String> categories = <String>[];
         for(var i in category) {
@@ -435,7 +435,14 @@ class _AddItemPage extends State<AddItemPage> {
         databaseId: '6650884f00137e1b1fcd',
         collectionId: '6650886f0027a739c072',
         documentId: ID.unique(),
-        data: { "name": item, "expiryDate": expiryDate, "categories": categories, "measurementUnit": measurements, "quantity": quantity }
+        data: {
+          "name": item,
+          "expiryDate": expiryDate,
+          "categories": categories,
+          "measurementUnit": measurements,
+          "quantity": quantity,
+          "ownerId": (await account.get()).$id
+        }
         );
 //    DBInterface().insertFoodItem(
 //        item, expiryDate, category, allergens, measurements, quantity);
