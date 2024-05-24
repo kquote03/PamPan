@@ -59,6 +59,8 @@ dependencies:
   path: any
   home_widget: ^0.6.0
   http: ^1.2.1
+  firebase_core: ^2.31.1
+  firebase_vertexai: ^0.1.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "332461388821",
+    "project_id": "pampan-20d42",
+    "storage_bucket": "pampan-20d42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332461388821:android:25bc7777643c8b7fb88a1c",
+        "android_client_info": {
+          "package_name": "com.example.pam_pan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9jPoYANB_YGQbP-IHRaR4u5F8_-S32_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
