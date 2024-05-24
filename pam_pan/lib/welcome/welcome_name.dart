@@ -1,8 +1,13 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_allergens.dart';
 
+
 class WelcomeName extends StatefulWidget {
-  const WelcomeName({super.key});
+  const WelcomeName({super.key, required this.client});
+
+  final Client client;
 
   @override
   State<WelcomeName> createState() => _WelcomeNameState();
@@ -10,6 +15,7 @@ class WelcomeName extends StatefulWidget {
 
 class _WelcomeNameState extends State<WelcomeName> {
   final TextEditingController _controllerWelcomeName = TextEditingController();
+
 
   @override
   void dispose() {
@@ -19,6 +25,9 @@ class _WelcomeNameState extends State<WelcomeName> {
 
   @override
   Widget build(BuildContext context) {
+    final client = widget.client;
+Account account = Account(client);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       body: Column(
@@ -66,15 +75,20 @@ class _WelcomeNameState extends State<WelcomeName> {
           backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const WelcomeAllergens();
-              },
-            ),
-          );
+        onPressed: () async {
+    //await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
+    //final user = await account.get();
+        await account.deleteSession(sessionId: 'current');
+User result = await account.get();
+print(result.email);
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//              builder: (context) {
+//                return const WelcomeAllergens();
+//              },
+//            ),
+//          );
         },
         child: const Text(
           "Continue",

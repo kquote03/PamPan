@@ -9,15 +9,21 @@ import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/welcome/welcome_name.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:appwrite/appwrite.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotifications.init();
+Client client = Client();
+client
+    .setEndpoint('http://localhost/v1')
+    .setProject('665039250035c9a58fe1')
+    .setSelfSigned(status: true); // For self signed certificates, only use for development
 
   runApp(
-    const MaterialApp(
+    MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeName(),
+      home: WelcomeName(client: client),
     ),
   );
 }
