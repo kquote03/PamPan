@@ -4,23 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:location/location.dart';
+import 'package:pam_pan/consts.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/records.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
 
   @override
   State<MapPage> createState() => _MapPageState();
+
 }
 
 class _MapPageState extends State<MapPage> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  final Location _locationController = Location();
+   Location _locationController = Location();
 
+
+   static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848); 
+   static const LatLng _kGooglePlex = LatLng(37.3346, -122.0090); 
+
+  Map<PolylineId, Polyline> polylines = {};
   LatLng? _currentP;
 
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -31,7 +39,10 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
-    getLocationUpdates();
+    getLocationUpdates().then((_) => {getPolylinePoints().then((coordinates) => {
+      print(coordinates), 
+    }),
+    }, );
   }
 
   @override
@@ -53,6 +64,7 @@ class _MapPageState extends State<MapPage> {
               child: Text("Loading..."),
             )
           : GoogleMap(
+            onMapCreated: ((GoogleMapController _controller) => _mapController.complete(_controller)),
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(
                 target: _pGooglePlex,
@@ -75,6 +87,7 @@ class _MapPageState extends State<MapPage> {
                 _controller.complete(controller);
               }
                 },
+                polylines: Set<Polyline>.of(polylines.values),
             ),
       bottomNavigationBar: NavigationBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
@@ -154,6 +167,11 @@ class _MapPageState extends State<MapPage> {
       ),
     );
   }
+  Future<void> _cameraToPosition(LatLng pos) async {
+    final GoogleMapController controller = await _mapController.future; 
+    CameraPosition _newCameraPosition = CameraPosition(target: pos, zoom: 13);
+    await controller.animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition),); 
+  }
 
   Future<void> getLocationUpdates() async {
     bool _serviceEnabled;
@@ -181,11 +199,35 @@ class _MapPageState extends State<MapPage> {
             () {
               _currentP =
                   LatLng(currentLocation.latitude!, currentLocation.longitude!);
+                   _cameraToPosition(_currentP!); 
             },
           );
-          print(_currentP);
         }
       },
     );
+  }
+  Future<List<LatLng>> getPolylinePoints() async {
+    List<LatLng> polylineCoordinates = []; 
+    PolylinePoints polylinePoints = PolylinePoints(); 
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(GOOGLE_MAPS_API_KEY, PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude), PointLatLng(_pAppleParkx.latitude, _pApplePark.longitude), travelMode: TravelMode.driving,); 
+    if(result.points.isNotEmpty) {
+      result.points.forEach(PointLatLng point) {
+        polyLineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+    } else{
+      print(result.errorMessage);
+    }
+    return polylineCoordinates; 
+  }
+  void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
+    Polyline id = PolylineId("poly"); 
+    Polyline polyline = Polyline(
+    polylineId: id, 
+    color: Colors.black,
+    points: polylineCoordinates, 
+    width: 8);
+    setState(() {
+      polylines(id) = polyline; 
+    });
   }
 }

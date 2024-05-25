@@ -54,6 +54,7 @@ dependencies:
   wheel_picker: ^0.0.4
   google_maps_flutter: ^2.6.1
   location: ^6.0.2
+  flutter_polyline_points: ^2.0.0
 
 
 
