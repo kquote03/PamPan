@@ -134,42 +134,42 @@ class _AddItemPage extends State<AddItemPage> {
                     dropdownHeight: 200,
                     optionTextStyle: const TextStyle(fontSize: 16),
                     selectedOptionIcon: const Icon(Icons.check_circle),
-                    selectionType: SelectionType.multi,
+                    selectionType: SelectionType.single,
                     hint: "Category",
                   ),
                   const SizedBox(height: 12),
-                  MultiSelectDropDown<String>(
-                    controller: _controllerAllergens,
-                    onOptionSelected:
-                        (List<ValueItem<String>> selectedOptions) {},
-                    options: const [
-                      ValueItem(label: 'None', value: 'none'),
-                      ValueItem(label: 'Milk', value: 'milk'),
-                      ValueItem(label: 'Eggs', value: 'eggs'),
-                      ValueItem(label: 'Fish', value: 'fish'),
-                      ValueItem(label: 'Shellfish', value: 'shellfish'),
-                      ValueItem(label: 'Nuts', value: 'nuts'),
-                      ValueItem(label: 'Wheat', value: 'wheat'),
-                      ValueItem(label: 'Soybean', value: 'soybean'),
-                      ValueItem(label: 'Other', value: 'other'),
-                    ],
-                    disabledOptions: const [
-                      ValueItem(label: 'Other', value: 'other')
-                    ],
-                    borderColor: Colors.black45,
-                    borderWidth: 1,
-                    hintColor: Colors.black,
-                    borderRadius: 0,
-                    fieldBackgroundColor:
-                        const Color.fromARGB(255, 255, 250, 240),
-                    focusedBorderColor:
-                        const Color.fromARGB(255, 113, 216, 244),
-                    dropdownHeight: 450,
-                    optionTextStyle: const TextStyle(fontSize: 16),
-                    selectedOptionIcon: const Icon(Icons.check_circle),
-                    selectionType: SelectionType.multi,
-                    hint: "Allergens",
-                  ),
+                  //MultiSelectDropDown<String>(
+                  //  controller: _controllerAllergens,
+                  //  onOptionSelected:
+                  //      (List<ValueItem<String>> selectedOptions) {},
+                  //  options: const [
+                  //    ValueItem(label: 'None', value: 'none'),
+                  //    ValueItem(label: 'Milk', value: 'milk'),
+                  //    ValueItem(label: 'Eggs', value: 'eggs'),
+                  //    ValueItem(label: 'Fish', value: 'fish'),
+                  //    ValueItem(label: 'Shellfish', value: 'shellfish'),
+                  //    ValueItem(label: 'Nuts', value: 'nuts'),
+                  //    ValueItem(label: 'Wheat', value: 'wheat'),
+                  //    ValueItem(label: 'Soybean', value: 'soybean'),
+                  //    ValueItem(label: 'Other', value: 'other'),
+                  //  ],
+                  //  disabledOptions: const [
+                  //    ValueItem(label: 'Other', value: 'other')
+                  //  ],
+                  //  borderColor: Colors.black45,
+                  //  borderWidth: 1,
+                  //  hintColor: Colors.black,
+                  //  borderRadius: 0,
+                  //  fieldBackgroundColor:
+                  //      const Color.fromARGB(255, 255, 250, 240),
+                  //  focusedBorderColor:
+                  //      const Color.fromARGB(255, 113, 216, 244),
+                  //  dropdownHeight: 450,
+                  //  optionTextStyle: const TextStyle(fontSize: 16),
+                  //  selectedOptionIcon: const Icon(Icons.check_circle),
+                  //  selectionType: SelectionType.multi,
+                  //  hint: "Allergens",
+                  //),
                   const SizedBox(height: 12),
                   MultiSelectDropDown<String>(
                     controller: _controllerMeasurement,
@@ -420,7 +420,7 @@ class _AddItemPage extends State<AddItemPage> {
     return quantityCorrect;
   }
 
-  Future<void> addFoodItem(String item, String expiryDate, List<ValueItem<String>> category,
+  Future<void> addFoodItem(String item, String expiryDate, category,
       String allergens, String measurements, int quantity) async {
         // Convert ValueItem to just the values.
         List<String> categories = <String>[];
@@ -438,7 +438,7 @@ class _AddItemPage extends State<AddItemPage> {
         data: {
           "name": item,
           "expiryDate": expiryDate,
-          "categories": categories,
+          "category": category,
           "measurementUnit": measurements,
           "quantity": quantity,
         }
