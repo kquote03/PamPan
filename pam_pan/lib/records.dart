@@ -29,6 +29,7 @@ class _RecordsState extends State<Records> {
         );
       });
     } else {
+      print(items);
       setState(() {
         addItemsPage = SingleChildScrollView(
           child: Column(

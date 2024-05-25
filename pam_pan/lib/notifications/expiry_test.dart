@@ -32,6 +32,8 @@ class ExpiryTest {
 
     for (var i in documents.documents) {
       items.add([i.data['name'], i.data['quantity'].toString()]);
+      print([i.data['name'], i.data['quantity'].toString()]);
     }
+    print(items);
   }
 }
