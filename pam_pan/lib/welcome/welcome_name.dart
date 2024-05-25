@@ -72,6 +72,7 @@ class _WelcomeNameState extends State<WelcomeName> {
         ),
         onPressed: () async {
     try {
+      account.deleteSession(sessionId: 'current');
   await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
 } on Exception catch (e) {
   print(e);

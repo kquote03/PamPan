@@ -441,7 +441,6 @@ class _AddItemPage extends State<AddItemPage> {
           "categories": categories,
           "measurementUnit": measurements,
           "quantity": quantity,
-          "ownerId": (await account.get()).$id
         }
         );
 //    DBInterface().insertFoodItem(

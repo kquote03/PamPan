@@ -12,9 +12,11 @@ class Records extends StatefulWidget {
   State<Records> createState() => _RecordsState();
 }
 
+
 class _RecordsState extends State<Records> {
   @override
   Widget build(BuildContext context) {
+    ExpiryTest().query();
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -110,7 +112,7 @@ class _RecordsState extends State<Records> {
               ),
             ),
           ],
-        ),
+),
         bottomNavigationBar: NavigationBar(
           backgroundColor: const Color.fromARGB(255, 255, 250, 240),
           destinations: [
@@ -157,7 +159,7 @@ class _RecordsState extends State<Records> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
+                              builder: (context) {
                         return const AddItemPage();
                       },
                     ),
