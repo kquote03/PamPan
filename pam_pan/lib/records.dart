@@ -24,34 +24,35 @@ class _RecordsState extends State<Records> {
   void refresh() {
     if (items[0].isEmpty) {
       setState(() {
-        addItemsPage = const Center(child:Text("No Items."),);
+        addItemsPage = const Center(
+          child: Text("No Items."),
+        );
       });
-      
-    }
-    else{
+    } else {
       setState(() {
         addItemsPage = SingleChildScrollView(
-      child: Column(
-        children: [
-          for (List<String> item in items)
-            SizedBox(
-              height: 45,
-              child: Card(
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(item[1]),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.7),
-                      Text(item[0]),
-                    ],
+          child: Column(
+            children: [
+              for (List<String> item in items)
+                SizedBox(
+                  height: 45,
+                  child: Card(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(item[1]),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7),
+                          Text(item[0]),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-        ],
-      ),
-    );
+            ],
+          ),
+        );
       });
     }
   }
@@ -60,7 +61,38 @@ class _RecordsState extends State<Records> {
 
   @override
   void initState() {
-    addItemsPage = const Center(child:Text("No Items."),);
+    if (items[0].isEmpty) {
+      addItemsPage = const Center(
+        child: Text("No Items."),
+      );
+    } else {
+      addItemsPage = SingleChildScrollView(
+        child: Column(
+          children: [
+            for (List<String> item in items)
+              SizedBox(
+                height: 45,
+                child: Card(
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(item[1]),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7),
+                        Text(item[0]),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
+    }
+    addItemsPage = const Center(
+      child: Text("No Items."),
+    );
     super.initState();
   }
 

@@ -22,7 +22,7 @@ class ExpiryTest {
     return (to.difference(from).inHours / 24).round();
   }
 
-void query() async {
+  void query() async {
     var documents = await databases.listDocuments(
         databaseId: '6650884f00137e1b1fcd',
         collectionId: '6650886f0027a739c072',
@@ -30,10 +30,8 @@ void query() async {
           Query.select(["name", "quantity"])
         ]);
 
-
     for (var i in documents.documents) {
-      items.add([i.data['name'], i.data['quantity']]);
+      items.add([i.data['name'], i.data['quantity'].toString()]);
     }
   }
-
 }
