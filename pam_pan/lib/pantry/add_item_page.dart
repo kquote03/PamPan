@@ -218,8 +218,8 @@ class _AddItemPage extends State<AddItemPage> {
                         addFoodItem(
                           _controllerItemName.text,
                           _controllerExpiryDate.text,
-                          _controllerCategory.selectedOptions,
-                          _controllerAllergens.selectedOptions[0].label,
+                          _controllerCategory.selectedOptions.first.value,
+                          //_controllerAllergens.selectedOptions[0].label,
                           _controllerMeasurement.selectedOptions[0].label,
                           int.parse(_controllerQuantity.text),
                         );
@@ -421,13 +421,9 @@ class _AddItemPage extends State<AddItemPage> {
   }
 
   Future<void> addFoodItem(String item, String expiryDate, category,
-      String allergens, String measurements, int quantity) async {
+      /*String allergens,*/ String measurements, int quantity) async {
         // Convert ValueItem to just the values.
-        List<String> categories = <String>[];
-        for(var i in category) {
-          categories.add(i.value??'');
-        }
-        print(categories);
+        print(category);
         
         // Add them to the databse, which btw
         // TODO: no longer rely on hardcoded values.
@@ -438,7 +434,7 @@ class _AddItemPage extends State<AddItemPage> {
         data: {
           "name": item,
           "expiryDate": expiryDate,
-          "category": category,
+          "categories1": category,
           "measurementUnit": measurements,
           "quantity": quantity,
         }

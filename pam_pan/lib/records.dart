@@ -1,6 +1,8 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
@@ -12,11 +14,20 @@ class Records extends StatefulWidget {
   State<Records> createState() => _RecordsState();
 }
 
+final realtime = Realtime(client);
+
+final subscription = realtime.subscribe(['databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents']);
+
+
 
 class _RecordsState extends State<Records> {
   @override
   Widget build(BuildContext context) {
     ExpiryTest().query();
+subscription.stream.listen((response) {
+    // Callback will be executed on all account events.
+    print(response);
+});
     return DefaultTabController(
       length: 3,
       child: Scaffold(
