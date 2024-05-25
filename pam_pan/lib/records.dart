@@ -4,8 +4,26 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/home_page.dart';
-import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
+
+final databases = Databases(client);
+
+List<List<String>> items = [[]];
+
+  void query() async {
+    var documents = await databases.listDocuments(
+        databaseId: '6650884f00137e1b1fcd',
+        collectionId: '6650886f0027a739c072',
+        queries: [
+          Query.select(["name", "quantity"])
+        ]);
+
+    for (var i in documents.documents) {
+      items.add([i.data['name'], i.data['quantity'].toString()]);
+      print([i.data['name'], i.data['quantity'].toString()]);
+    }
+    print(items);
+  }
 
 class Records extends StatefulWidget {
   const Records({super.key});
@@ -99,7 +117,7 @@ class _RecordsState extends State<Records> {
 
   @override
   Widget build(BuildContext context) {
-    ExpiryTest().query();
+  query();
     subscription.stream.listen((response) {
       // Callback will be executed on all account events.
       print(response);

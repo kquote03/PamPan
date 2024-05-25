@@ -10,11 +10,26 @@ import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/records.dart';
-import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:pam_pan/notifications/tips.dart';
 import 'package:home_widget/home_widget.dart';
+
+//Taken from expiry_test
+  DateTime stringToDate(String date) {
+    return DateTime.parse(date);
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
+List<List<String>> sortList(List<List<String>> list) {
+    list.sort((a, b) => a[0].compareTo(b[0]));
+    return list;
+  }
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -141,15 +156,15 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.notifications,
                     size: 35, color: Colors.black),
                 onPressed: () {
-                  ExpiryTest.sortList(items);
+                  sortList(items);
                   for (int i = 0; i < items.length; i++) {
                     LocalNotifications.showScheduleNotification(
                       id: i,
                       title: "Uhoh! ${items[i][1]} is about to expire!",
                       body: "Quick! It will expire on ${items[i][0]}",
                       payload: "Scheduled payload",
-                      minutes: ExpiryTest.daysBetween(
-                          DateTime.now(), ExpiryTest.stringToDate(items[i][0])),
+                      minutes: daysBetween(
+                          DateTime.now(), stringToDate(items[i][0])),
                     );
                   }
                 },
