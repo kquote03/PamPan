@@ -4,19 +4,7 @@ import 'package:pam_pan/backend/appwrite_client.dart';
 
 final databases = Databases(client);
 
-
-List<List<String>> items = [
-  ["2024-05-16", "Item1", "750", "g"],
-  ["2024-05-17", "Item2", "6", "items"],
-  ["2024-05-18", "Item3", "4", "L"],
-  ["2024-05-19", "Item4", "350", "mL"],
-  ["2024-05-20", "Item5", "2", "Kg"],
-];
-// List<List<String>> addedItems = [
-//   [
-
-//   ]
-// ];
+List<List<String>> items = [[]];
 
 class ExpiryTest {
   static List<List<String>> sortList(List<List<String>> list) {
@@ -34,18 +22,18 @@ class ExpiryTest {
     return (to.difference(from).inHours / 24).round();
   }
 
-Future<void> query() async {
-            var documents = await databases.listDocuments(
-            databaseId: '6650884f00137e1b1fcd',
-            collectionId: '6650886f0027a739c072',
-            queries: [
-                Query.select(["name", "quantity"])
-            ]
-        );
+void query() async {
+    var documents = await databases.listDocuments(
+        databaseId: '6650884f00137e1b1fcd',
+        collectionId: '6650886f0027a739c072',
+        queries: [
+          Query.select(["name", "quantity"])
+        ]);
 
-        for(var i in documents.documents ){
-          print([i.data['name'], i.data['quantity']]);
-        }
 
-}
+    for (var i in documents.documents) {
+      items.add([i.data['name'], i.data['quantity']]);
+    }
+  }
+
 }

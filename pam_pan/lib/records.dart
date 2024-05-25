@@ -16,20 +16,64 @@ class Records extends StatefulWidget {
 
 final realtime = Realtime(client);
 
-final subscription = realtime.subscribe(['databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents']);
-
-
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
 
 class _RecordsState extends State<Records> {
+  void refresh() {
+    if (items[0].isEmpty) {
+      setState(() {
+        addItemsPage = const Center(child:Text("No Items."),);
+      });
+      
+    }
+    else{
+      setState(() {
+        addItemsPage = SingleChildScrollView(
+      child: Column(
+        children: [
+          for (List<String> item in items)
+            SizedBox(
+              height: 45,
+              child: Card(
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(item[1]),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.7),
+                      Text(item[0]),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+      });
+    }
+  }
+
+  late Widget addItemsPage;
+
+  @override
+  void initState() {
+    addItemsPage = const Center(child:Text("No Items."),);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     ExpiryTest().query();
-subscription.stream.listen((response) {
-    // Callback will be executed on all account events.
-    print(response);
-});
+    subscription.stream.listen((response) {
+      // Callback will be executed on all account events.
+      print(response);
+      refresh();
+    });
     return DefaultTabController(
-      length: 3,
+      length: 1,
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         appBar: AppBar(
@@ -44,86 +88,63 @@ subscription.stream.listen((response) {
           ),
           bottom: const TabBar(tabs: [
             Tab(text: "Added Items"),
-            Tab(text: "Expired Items"),
-            Tab(text: "Donations")
+            // Tab(text: "Expired Items"),
+            // Tab(text: "Donations")
           ]),
         ),
         body: TabBarView(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (List<String> item in items)
-                    SizedBox(
-                      height: 45,
-                      child: Card(
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(item[1]),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
-                              Text(item[0]),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (List<String> item in items)
-                    SizedBox(
-                      height: 45,
-                      child: Card(
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(item[1]),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
-                              Text(item[0]),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (List<String> item in items)
-                    SizedBox(
-                      height: 45,
-                      child: Card(
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(item[1]),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7),
-                              Text(item[0]),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
+            addItemsPage,
+            // SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            //       for (List<String> item in items)
+            //         SizedBox(
+            //           height: 45,
+            //           child: Card(
+            //             child: Center(
+            //               child: Row(
+            //                 mainAxisAlignment: MainAxisAlignment.center,
+            //                 children: [
+            //                   Text(item[1]),
+            //                   SizedBox(
+            //                       width:
+            //                           MediaQuery.of(context).size.width * 0.7),
+            //                   Text(item[0]),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //     ],
+            //   ),
+            // ),
+            // SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            //       for (List<String> item in items)
+            //         SizedBox(
+            //           height: 45,
+            //           child: Card(
+            //             child: Center(
+            //               child: Row(
+            //                 mainAxisAlignment: MainAxisAlignment.center,
+            //                 children: [
+            //                   Text(item[1]),
+            //                   SizedBox(
+            //                       width:
+            //                           MediaQuery.of(context).size.width * 0.7),
+            //                   Text(item[0]),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //     ],
+            //   ),
+            // ),
           ],
-),
+        ),
         bottomNavigationBar: NavigationBar(
           backgroundColor: const Color.fromARGB(255, 255, 250, 240),
           destinations: [
@@ -170,7 +191,7 @@ subscription.stream.listen((response) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                              builder: (context) {
+                      builder: (context) {
                         return const AddItemPage();
                       },
                     ),
