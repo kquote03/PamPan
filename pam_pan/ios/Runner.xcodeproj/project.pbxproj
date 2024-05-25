@@ -98,10 +98,6 @@
 		DEC19D272BFA5EFC004AD374 /* pampanExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pampanExtension.entitlements; sourceTree = "<group>"; };
 		DEEE73F82BF8A1BB000B6C99 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		DEEE73FA2BF8A1BC000B6C99 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		DEEE73FD2BF8A1BC000B6C99 /* PamWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PamWidgetBundle.swift; sourceTree = "<group>"; };
-		DEEE73FF2BF8A1BC000B6C99 /* PamWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PamWidget.swift; sourceTree = "<group>"; };
-		DEEE74012BF8A1C0000B6C99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DEEE74032BF8A1C0000B6C99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF10759D17580E0233F0A138 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -184,7 +180,6 @@
 				DEC19D0F2BFA4E9F004AD374 /* PamWidgetExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				DEEE73FC2BF8A1BC000B6C99 /* PamWidget */,
 				DEC19D182BFA5E41004AD374 /* pampan */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
@@ -228,17 +223,6 @@
 				DEC19D1F2BFA5E47004AD374 /* Info.plist */,
 			);
 			path = pampan;
-			sourceTree = "<group>";
-		};
-		DEEE73FC2BF8A1BC000B6C99 /* PamWidget */ = {
-			isa = PBXGroup;
-			children = (
-				DEEE73FD2BF8A1BC000B6C99 /* PamWidgetBundle.swift */,
-				DEEE73FF2BF8A1BC000B6C99 /* PamWidget.swift */,
-				DEEE74012BF8A1C0000B6C99 /* Assets.xcassets */,
-				DEEE74032BF8A1C0000B6C99 /* Info.plist */,
-			);
-			path = PamWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,6 +621,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JJTGTBR73;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.pamPan.RunnerTests;
@@ -655,6 +640,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JJTGTBR73;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.pamPan.RunnerTests;
@@ -671,6 +657,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JJTGTBR73;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.pamPan.RunnerTests;

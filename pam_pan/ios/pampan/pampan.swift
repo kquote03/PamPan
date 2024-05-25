@@ -11,12 +11,13 @@ import SwiftUI
 private let widgetGroupId = "group.pampan"
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), title: "Placeholder title", description: "Placeholder description")
+        SimpleEntry(date: Date(), title: "Placeholder title", description: "Placeholder description", filename:"No screenshot available")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let data = UserDefaults.init(suiteName: widgetGroupId)
-        let entry = SimpleEntry(date: Date(), title: data?.string(forKey: "title") ?? "No Title Set", description: data?.string(forKey: "description" ) ?? "No Message set")
+        let filename = data?.string(forKey: "filename") ?? "No screenshot available"
+        let entry = SimpleEntry(date: Date(), title: data?.string(forKey: "title") ?? "No Title Set", description: data?.string(forKey: "description" ) ?? "No Message set",filename: filename)
         completion(entry)
     }
 
@@ -28,7 +29,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, title: "Example title", description: "Example message")
+            let entry = SimpleEntry(date: entryDate, title: "Example title", description: "Example message", filename: "image")
             entries.append(entry)
         }
         let timeline = Timeline(entries: entries, policy: .atEnd)
@@ -40,13 +41,22 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     let title: String
     let description: String
+    let filename: String
 }
 
 struct pampanEntryView : View {
     var entry: Provider.Entry
-    
+    var ImageWidget: some View {
+        if let uiImage = UIImage(contentsOfFile: entry.filename){
+            let image = Image(uiImage: uiImage)
+            return AnyView(image)
+        }
+        print ("the image file coule not be loaded")
+        return AnyView(EmptyView())
+    }
     var body: some View {
         VStack{
+            ImageWidget
             Text(entry.date, style: .time)
             Text(entry.title)
             Text(entry.description)
@@ -66,10 +76,10 @@ struct pampan: Widget {
         .description("This is an example widget.")
     }
 }
-
+    
 struct pampan_Previews: PreviewProvider {
     static var previews: some View {
-        pampanEntryView(entry: SimpleEntry(date: Date(), title: "Example title", description: "Example message"))
+        pampanEntryView(entry: SimpleEntry(date: Date(), title: "Example title", description: "Example message", filename: "filename"))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

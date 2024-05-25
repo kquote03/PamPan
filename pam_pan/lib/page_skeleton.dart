@@ -24,6 +24,8 @@ State<PageSkeleton> createState() {
 }
 
 class _PageSkeleton extends State<PageSkeleton> {
+  final globalKey = GlobalKey();
+  String? imagepath;
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
@@ -41,8 +43,10 @@ class _PageSkeleton extends State<PageSkeleton> {
   }
 
   updateWidgetFun() {
-    HomeWidget.saveWidgetData<String>('title', 'flutter');
-    HomeWidget.saveWidgetData<String>('description', 'app dev');
+    print('Updated');
+    HomeWidget.saveWidgetData<String>('title', 'PamPan');
+    HomeWidget.saveWidgetData<String>('description', 'XP');
+    // HomeWidget.saveWidgetData<String>('filename', imagepath);
     HomeWidget.updateWidget(iOSName: iOSWidgetName);
   }
 
@@ -178,6 +182,7 @@ class _PageSkeleton extends State<PageSkeleton> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // ContentBldr(globalKey: globalKey),
                   currentPage,
                   const SizedBox(
                     height: 1500,
@@ -185,7 +190,17 @@ class _PageSkeleton extends State<PageSkeleton> {
                   ),
                   const Text("yo"),
                   ElevatedButton(
-                    onPressed: () => updateWidgetFun(),
+                    onPressed: () async {
+                      // var path =await HomeWidget.renderFlutterWidget(
+                      //   ContentBldr(globalKey: globalKey),
+                      //   key: 'filename',
+                      //   pixelRatio: 0.5
+                      // );
+                      // setState(() {
+                      //   imagepath = path as String?;
+                      // });
+                      updateWidgetFun();
+                    },
                     child: const Text('Update'),
                   ),
                 ],
@@ -266,3 +281,18 @@ class _PageSkeleton extends State<PageSkeleton> {
     );
   }
 }
+
+// class ContentBldr extends StatelessWidget {
+//   const ContentBldr({
+//     super.key,
+//     required this.globalKey,
+//   });
+//   final GlobalKey globalKey;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Image.asset(
+//       'assets/widget/widgets.jpeg',
+//     scale: 2,
+//     );
+//   }
+// }
