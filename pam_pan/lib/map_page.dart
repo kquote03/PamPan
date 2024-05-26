@@ -15,31 +15,30 @@ class MapPage extends StatefulWidget {
 
   @override
   State<MapPage> createState() => _MapPageState();
-
 }
 
 class _MapPageState extends State<MapPage> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-   Location _locationController = Location();
+  final Location _locationController = Location();
 
-
-   static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848); 
-   static const LatLng _kGooglePlex = LatLng(37.3346, -122.0090); 
+  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
 
   Map<PolylineId, Polyline> polylines = {};
   LatLng? _currentP;
 
-
-
   @override
   void initState() {
     super.initState();
-    getLocationUpdates().then((_) => {getPolylinePoints().then((coordinates) => {
-      print(coordinates), 
-    }),
-    }, );
+    getLocationUpdates().then(
+      (_) => {
+        getPolylinePoints().then((coordinates) => {
+              print(coordinates),
+            }),
+      },
+    );
   }
 
   @override
@@ -61,30 +60,30 @@ class _MapPageState extends State<MapPage> {
               child: Text("Loading..."),
             )
           : GoogleMap(
-            onMapCreated: ((GoogleMapController _controller) => _mapController.complete(_controller)),
+              onMapCreated: ((GoogleMapController controller) {
+                _controller.complete(controller);
+              }),
               mapType: MapType.normal,
-              initialCameraPosition: CameraPosition(
+              initialCameraPosition: const CameraPosition(
                 target: _pGooglePlex,
-                zoom: 13,)
-                markers: {
+                zoom: 13,
+              ),
+              markers: {
                 Marker(
-                    markerId: MarkerId("_currentLocation"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _currentP!,
-                    ),
-                Marker(
+                  markerId: const MarkerId("_currentLocation"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _currentP!,
+                ),
+                const Marker(
                     markerId: MarkerId("_sourceLocation"),
                     icon: BitmapDescriptor.defaultMarker,
                     position: _pGooglePlex),
-                Marker(
+                const Marker(
                     markerId: MarkerId("_destinationLocation"),
                     icon: BitmapDescriptor.defaultMarker,
-                    position: _pApplePark),    
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              }
-                },
-                polylines: Set<Polyline>.of(polylines.values),
+                    position: _pApplePark),
+              },
+              polylines: Set<Polyline>.of(polylines.values),
             ),
       bottomNavigationBar: NavigationBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
@@ -164,10 +163,13 @@ class _MapPageState extends State<MapPage> {
       ),
     );
   }
+
   Future<void> _cameraToPosition(LatLng pos) async {
-    final GoogleMapController controller = await _mapController.future; 
+    final GoogleMapController controller = await _controller.future;
     CameraPosition _newCameraPosition = CameraPosition(target: pos, zoom: 13);
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition),); 
+    await controller.animateCamera(
+      CameraUpdate.newCameraPosition(_newCameraPosition),
+    );
   }
 
   Future<void> getLocationUpdates() async {
@@ -196,35 +198,43 @@ class _MapPageState extends State<MapPage> {
             () {
               _currentP =
                   LatLng(currentLocation.latitude!, currentLocation.longitude!);
-                   _cameraToPosition(_currentP!); 
+              _cameraToPosition(_currentP!);
             },
           );
         }
       },
     );
   }
+
   Future<List<LatLng>> getPolylinePoints() async {
-    List<LatLng> polylineCoordinates = []; 
-    PolylinePoints polylinePoints = PolylinePoints(); 
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(GOOGLE_MAPS_API_KEY, PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude), PointLatLng(_pAppleParkx.latitude, _pApplePark.longitude), travelMode: TravelMode.driving,); 
+    List<LatLng> polylineCoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      GOOGLE_MAPS_API_KEY,
+      PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
+      PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
+      travelMode: TravelMode.driving,
+    );
     if(result.points.isNotEmpty) {
       result.points.forEach(PointLatLng point) {
-        polyLineCoordinates.add(LatLng(point.latitude, point.longitude));
-      }
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      };
     } else{
       print(result.errorMessage);
     }
-    return polylineCoordinates; 
+    return polylineCoordinates;
   }
+
   void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
-    Polyline id = PolylineId("poly") as Polyline; 
+    PolylineId id = const PolylineId("poly");
     Polyline polyline = Polyline(
-    polylineId: id, 
-    color: Colors.black,
-    points: polylineCoordinates, 
-    width: 8);
+      polylineId: id,
+      color: Colors.black,
+      points: polylineCoordinates,
+      width: 8,
+    );
     setState(() {
-      polylines(id) = polyline; 
+      polylines(id) = polyline;
     });
   }
 }
