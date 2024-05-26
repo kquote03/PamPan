@@ -2,14 +2,11 @@ import 'dart:async';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
-import 'package:pam_pan/MiriamMap/miriam_map.dart';
 // Old SQLite-based local database
 //import 'package:pam_pan/backend/dbinterface.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
-import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/barcode_api.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
