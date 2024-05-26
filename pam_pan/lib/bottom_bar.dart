@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
+import 'package:pam_pan/pantry/items_list_page.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({Key? key}) : super(key: key);
@@ -80,14 +81,14 @@ class CustomBottomNavigationBar extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              //Navigator.push(
-              //  context,
-              //  MaterialPageRoute(
-              //    builder: (context) {
-              //      return const Records();
-              //    },
-              //  ),
-              //);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ItemListPage("the whatever category.");
+                  },
+                ),
+              );
             },
           ),
           label: 'Records',

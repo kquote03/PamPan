@@ -1,19 +1,35 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/MiriamMap/miriam_map.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/bottom_bar.dart';
 
-/* TODO: REMOVE THIS TEMPORARY TEST ARRAY */
-List<List<String>> items = [
-  ["2024-05-16", "Item1", "750", "g"],
-  ["2024-05-17", "Item2", "6", "items"],
-  ["2024-05-18", "Item3", "4", "L"],
-  ["2024-05-19", "Item4", "350", "mL"],
-  ["2024-05-20", "Item5", "2", "Kg"],
-];
+final databases = Databases(client);
+final realtime = Realtime(client);
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
+
+Future<List<List<String>>> query() async {
+  var documents = await databases.listDocuments(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '6650886f0027a739c072',
+      queries: [
+        Query.select(["name", "quantity", "expiryDate"])
+      ]);
+  List<List<String>> items = [];
+
+  for (var i in documents.documents) {
+    items.add(
+        [i.data['name'], i.data['quantity'].toString(), i.data['expiryDate']]);
+    print(items);
+  }
+  return items;
+}
 
 class ItemListPage extends StatefulWidget {
   const ItemListPage(this.category, {super.key});
@@ -28,6 +44,20 @@ class ItemListPage extends StatefulWidget {
 class _ItemListPageState extends State<ItemListPage> {
   _ItemListPageState(this.category);
   String category;
+  List<List<String>> items = [];
+
+  @override
+  void initState() {
+    _asyncQuery();
+    super.initState();
+  }
+
+  _asyncQuery() async {
+    List<List<String>> fetchedItems = await query();
+    setState(() {
+      items = fetchedItems;
+    });
+  }
 
   List<Widget> _buildList(int keyIndex) {
     List<Widget> list = [];
@@ -49,9 +79,11 @@ Quantity/Amount:
                   const SizedBox(),
                   Text(
                     '''
-        ${items[keyIndex][0]}
-        ${items[keyIndex][2]} ${items[keyIndex][3]}
-        ''',
+        ${items[keyIndex][2]} 
+        ${items[keyIndex][1]}
+       ''',
+                    //${items[keyIndex][2]} ${items[keyIndex][3]}
+                    //''',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],
@@ -66,6 +98,13 @@ Quantity/Amount:
 
   @override
   Widget build(BuildContext context) {
+    subscription.stream.listen((response) {
+      // Callback will be executed on all account events.
+      setState(() {
+        _asyncQuery();
+        print(response);
+      });
+    });
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
@@ -108,7 +147,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  items[keyIndex][1],
+                  items[keyIndex][0],
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
