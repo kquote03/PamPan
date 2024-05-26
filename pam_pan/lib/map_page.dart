@@ -31,10 +31,7 @@ class _MapPageState extends State<MapPage> {
   Map<PolylineId, Polyline> polylines = {};
   LatLng? _currentP;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+
 
   @override
   void initState() {
@@ -220,7 +217,7 @@ class _MapPageState extends State<MapPage> {
     return polylineCoordinates; 
   }
   void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
-    Polyline id = PolylineId("poly"); 
+    Polyline id = PolylineId("poly") as Polyline; 
     Polyline polyline = Polyline(
     polylineId: id, 
     color: Colors.black,
