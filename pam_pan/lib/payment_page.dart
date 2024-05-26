@@ -2,11 +2,7 @@ import 'dart:async';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:pam_pan/MiriamMap/miriam_map.dart';
-import 'package:pam_pan/home_page.dart';
-import 'package:pam_pan/pantry/add_item_page.dart';
 import 'bottom_bar.dart';
 
 class PaymentPage extends StatefulWidget {

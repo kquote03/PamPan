@@ -2,10 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:pam_pan/MiriamMap/miriam_map.dart';
-import 'package:pam_pan/home_page.dart';
-import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:pam_pan/bottom_bar.dart';
 import 'utils.dart';

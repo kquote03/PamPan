@@ -1,11 +1,7 @@
 import 'dart:io';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
-import 'package:pam_pan/MiriamMap/miriam_map.dart';
-import 'package:pam_pan/home_page.dart';
-import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/bottom_bar.dart';
 import 'package:permission_handler/permission_handler.dart';
 
