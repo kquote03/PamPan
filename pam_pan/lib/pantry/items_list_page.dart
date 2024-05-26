@@ -143,7 +143,15 @@ Quantity/Amount:
                       },
                       icon: const Icon(Icons.edit),
                       color: Colors.white,
-                    )
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          deleteItemById(items[keyIndex]['\$id']);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ))
                   ]),
                 ],
               ),

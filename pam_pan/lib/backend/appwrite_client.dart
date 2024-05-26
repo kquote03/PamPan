@@ -63,3 +63,10 @@ Future<List<Map<String, dynamic>>> getItemsById(id) async {
   }
   return items;
 }
+
+void deleteItemById(id) async {
+  databases.deleteDocument(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '6650886f0027a739c072',
+      documentId: id);
+}
