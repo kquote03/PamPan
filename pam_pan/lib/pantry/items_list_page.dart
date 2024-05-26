@@ -11,18 +11,22 @@ final subscription = realtime.subscribe([
   'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
 ]);
 
-Future<List<List<String>>> query() async {
+Future<List<Map<String, dynamic>>> query() async {
   var documents = await databases.listDocuments(
       databaseId: '6650884f00137e1b1fcd',
       collectionId: '6650886f0027a739c072',
       queries: [
-        Query.select(["name", "quantity", "expiryDate"])
+        Query.select(["name", "quantity", "expiryDate", "\$id"])
       ]);
-  List<List<String>> items = [];
+  List<Map<String, dynamic>> items = [];
 
   for (var i in documents.documents) {
-    items.add(
-        [i.data['name'], i.data['quantity'].toString(), i.data['expiryDate']]);
+    items.add({
+      'name': i.data['name'],
+      'quantity': i.data['quantity'].toString(),
+      'expiryDate': i.data['expiryDate']
+    });
+    print(i.data);
   }
   return items;
 }
@@ -40,7 +44,7 @@ class ItemListPage extends StatefulWidget {
 class _ItemListPageState extends State<ItemListPage> {
   _ItemListPageState(this.category);
   String category;
-  List<List<String>> items = [];
+  List<Map<String, dynamic>> items = [];
 
   @override
   void initState() {
@@ -49,7 +53,7 @@ class _ItemListPageState extends State<ItemListPage> {
   }
 
   _asyncQuery() async {
-    List<List<String>> fetchedItems = await query();
+    List<Map<String, dynamic>> fetchedItems = await query();
     setState(() {
       items = fetchedItems;
     });
@@ -75,11 +79,9 @@ Quantity/Amount:
                   const SizedBox(),
                   Text(
                     '''
-        ${items[keyIndex][2]} 
-        ${items[keyIndex][1]}
-       ''',
-                    //${items[keyIndex][2]} ${items[keyIndex][3]}
-                    //''',
+                    ${items[keyIndex]['expiryDate']} 
+                    ${items[keyIndex]['quantity']}
+                    ''',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],
@@ -142,7 +144,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  items[keyIndex][0],
+                  items[keyIndex]['name'],
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
