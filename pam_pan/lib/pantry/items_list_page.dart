@@ -23,7 +23,6 @@ Future<List<List<String>>> query() async {
   for (var i in documents.documents) {
     items.add(
         [i.data['name'], i.data['quantity'].toString(), i.data['expiryDate']]);
-    print(items);
   }
   return items;
 }
@@ -99,7 +98,6 @@ Quantity/Amount:
       // Callback will be executed on all account events.
       setState(() {
         _asyncQuery();
-        print(response);
       });
     });
     return Scaffold(
