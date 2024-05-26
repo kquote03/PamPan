@@ -5,31 +5,10 @@ import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/bottom_bar.dart';
 
-final databases = Databases(client);
 final realtime = Realtime(client);
 final subscription = realtime.subscribe([
   'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
 ]);
-
-Future<List<Map<String, dynamic>>> query() async {
-  var documents = await databases.listDocuments(
-      databaseId: '6650884f00137e1b1fcd',
-      collectionId: '6650886f0027a739c072',
-      queries: [
-        Query.select(["name", "quantity", "expiryDate", "\$id"])
-      ]);
-  List<Map<String, dynamic>> items = [];
-
-  for (var i in documents.documents) {
-    items.add({
-      'name': i.data['name'],
-      'quantity': i.data['quantity'].toString(),
-      'expiryDate': i.data['expiryDate']
-    });
-    print(i.data);
-  }
-  return items;
-}
 
 class ItemListPage extends StatefulWidget {
   const ItemListPage(this.category, {super.key});
@@ -53,7 +32,7 @@ class _ItemListPageState extends State<ItemListPage> {
   }
 
   _asyncQuery() async {
-    List<Map<String, dynamic>> fetchedItems = await query();
+    List<Map<String, dynamic>> fetchedItems = await getItems();
     setState(() {
       items = fetchedItems;
     });
@@ -124,7 +103,7 @@ Quantity/Amount:
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const AddItemPage();
+                    return AddItemPage();
                   },
                 ),
               );
@@ -149,9 +128,23 @@ Quantity/Amount:
                   textAlign: TextAlign.center,
                 ),
                 children: <Widget>[
-                  Column(
-                    children: _buildList(keyIndex),
-                  ),
+                  Row(children: [
+                    Column(
+                      children: _buildList(keyIndex),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            print(items[keyIndex]['\$id']);
+                            return AddItemPage(id: items[keyIndex]['\$id']);
+                          },
+                        ));
+                      },
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white,
+                    )
+                  ]),
                 ],
               ),
             );

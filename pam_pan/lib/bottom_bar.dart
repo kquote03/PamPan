@@ -60,7 +60,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const AddItemPage();
+                    return AddItemPage();
                   },
                 ),
               );

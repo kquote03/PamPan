@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 // Old SQLite-based local database
@@ -12,9 +13,11 @@ import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
 
 var databases = Databases(client);
+bool isEditMode = false;
 
 class AddItemPage extends StatefulWidget {
-  const AddItemPage({super.key});
+  String? id;
+  AddItemPage({super.key, this.id});
 
   @override
   State<AddItemPage> createState() => _AddItemPage();
@@ -41,6 +44,38 @@ class _AddItemPage extends State<AddItemPage> {
     _controllerQuantity.dispose();
 
     super.dispose();
+  }
+
+  var items;
+
+  @override
+  void initState() {
+    super.initState();
+    isEditMode = false;
+    if (widget.id != null) {
+      isEditMode = true;
+      _getItemsAndSetControllers();
+    }
+  }
+
+  _getItemsAndSetControllers() async {
+    items = await getItemsById(widget.id);
+    print(items);
+    _controllerItemName.text = items[0]['name'];
+    _controllerExpiryDate.text = items[0]['expiryDate'];
+    try {
+      _controllerCategory.setSelectedOptions([
+        ValueItem(label: items[0]['categories'], value: items[0]['categories'])
+      ]);
+    } catch (e) {}
+    _controllerQuantity.text = items[0]['quantity'];
+    try {
+      _controllerMeasurement.setSelectedOptions([
+        ValueItem(
+            label: items[0]['measurementUnit'],
+            value: items[0]['measurementUnit'])
+      ]);
+    } catch (e) {}
   }
 
   @override
@@ -111,15 +146,15 @@ class _AddItemPage extends State<AddItemPage> {
                       onOptionSelected:
                           (List<ValueItem<String>> selectedOptions) {},
                       options: const [
-                        ValueItem(label: 'Bread', value: 'bread'),
-                        ValueItem(label: 'Dairy', value: 'dairy'),
-                        ValueItem(label: 'Cheese', value: 'cheese'),
-                        ValueItem(label: 'Meats', value: 'meats'),
-                        ValueItem(label: 'Fruits', value: 'fruits'),
-                        ValueItem(label: 'Vegetables', value: 'vegetables'),
-                        ValueItem(label: 'Fish', value: 'fish'),
-                        ValueItem(label: 'Party', value: 'party'),
-                        ValueItem(label: 'Other', value: 'other'),
+                        ValueItem(label: 'bread', value: 'bread'),
+                        ValueItem(label: 'dairy', value: 'dairy'),
+                        ValueItem(label: 'cheese', value: 'cheese'),
+                        ValueItem(label: 'meats', value: 'meats'),
+                        ValueItem(label: 'fruits', value: 'fruits'),
+                        ValueItem(label: 'vegetables', value: 'vegetables'),
+                        ValueItem(label: 'fish', value: 'fish'),
+                        ValueItem(label: 'party', value: 'party'),
+                        ValueItem(label: 'other', value: 'other'),
                       ],
                       borderColor: Colors.black45,
                       borderWidth: 1,
@@ -176,9 +211,9 @@ class _AddItemPage extends State<AddItemPage> {
                       options: const [
                         ValueItem(label: 'g', value: 'g'),
                         ValueItem(label: 'kg', value: 'kg'),
-                        ValueItem(label: 'mL', value: 'mL'),
-                        ValueItem(label: 'L', value: 'L'),
-                        ValueItem(label: 'Pieces', value: 'pieces'),
+                        ValueItem(label: 'ml', value: 'ml'),
+                        ValueItem(label: 'l', value: 'l'),
+                        ValueItem(label: 'pieces', value: 'pieces'),
                       ],
                       borderColor: Colors.black45,
                       borderWidth: 1,
@@ -213,14 +248,26 @@ class _AddItemPage extends State<AddItemPage> {
                         if (_itemNameChecker(_controllerItemName.text) &&
                             _quantityChecker() &&
                             _expiryDateChecker(_controllerExpiryDate.text)) {
-                          addFoodItem(
-                            _controllerItemName.text,
-                            _controllerExpiryDate.text,
-                            _controllerCategory.selectedOptions.first.value,
-                            //_controllerAllergens.selectedOptions[0].label,
-                            _controllerMeasurement.selectedOptions[0].label,
-                            int.parse(_controllerQuantity.text),
-                          );
+                          isEditMode
+                              ? editFoodItem(
+                                  _controllerItemName.text,
+                                  _controllerExpiryDate.text,
+                                  _controllerCategory
+                                      .selectedOptions.first.value,
+                                  //_controllerAllergens.selectedOptions[0].label,
+                                  _controllerMeasurement
+                                      .selectedOptions[0].label,
+                                  int.parse(_controllerQuantity.text))
+                              : addFoodItem(
+                                  _controllerItemName.text,
+                                  _controllerExpiryDate.text,
+                                  _controllerCategory
+                                      .selectedOptions.first.value,
+                                  //_controllerAllergens.selectedOptions[0].label,
+                                  _controllerMeasurement
+                                      .selectedOptions[0].label,
+                                  int.parse(_controllerQuantity.text),
+                                );
                           _showSimpleItemSuccessDialog(context);
                           _showAddingItemDialog(context);
                           Timer(const Duration(seconds: 3), () {
@@ -239,9 +286,9 @@ class _AddItemPage extends State<AddItemPage> {
                           });
                         }
                       },
-                      child: const Text(
-                        'Add Item',
-                        style: TextStyle(color: Colors.black),
+                      child: Text(
+                        isEditMode ? 'Edit Item' : 'Add Item',
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   ],
@@ -347,12 +394,32 @@ class _AddItemPage extends State<AddItemPage> {
         data: {
           "name": item,
           "expiryDate": expiryDate,
-          "categories1": category,
+          "categories": category,
           "measurementUnit": measurements,
           "quantity": quantity,
         });
 //    DBInterface().insertFoodItem(
 //        item, expiryDate, category, allergens, measurements, quantity);
+  }
+
+  Future<void> editFoodItem(String item, String expiryDate, categories2,
+      /*String allergens,*/ String measurements, int quantity) async {
+    // Convert ValueItem to just the values.
+    print(categories2);
+
+    // Add them to the databse, which btw
+    // TODO: no longer rely on hardcoded values.
+    var promise = databases.updateDocument(
+        databaseId: '6650884f00137e1b1fcd',
+        collectionId: '6650886f0027a739c072',
+        documentId: widget.id ?? 'ERROR',
+        data: {
+          "name": item,
+          "expiryDate": expiryDate,
+          "categories": categories2,
+          "measurementUnit": measurements,
+          "quantity": quantity,
+        });
   }
 
   _showErrorModalDialog(context) {
