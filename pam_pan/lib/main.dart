@@ -19,13 +19,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final model = FirebaseVertexAI.instance
-      .generativeModel(model: 'gemini-1.5-flash-preview-0514');
-
-  // final prompt = [Content.text('Write a story about a magic backpack.')];
-  // final response = await model.generateContent(prompt);
-  // print(response.text);
-
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
