@@ -29,6 +29,19 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
-        }
+        },
+        {
+            "name": "Flutter for web",
+            "type": "dart",
+            "request": "launch",
+            "cwd": "pam_pan",
+            "args": [
+              "-d",
+              "chrome"
+            ],
+            "env":{
+                "CHROME_EXECUTABLE": "/home/kenan1099/Apps/thorium/thorium"
+            }
+          }
     ]
 }

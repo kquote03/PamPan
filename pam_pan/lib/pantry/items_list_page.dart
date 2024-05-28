@@ -1,10 +1,14 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:pam_pan/MiriamMap/miriam_map.dart';
-import 'package:pam_pan/home_page.dart';
-import 'package:pam_pan/notifications/expiry_test.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
-import 'package:pam_pan/records.dart';
+import 'package:pam_pan/bottom_bar.dart';
+
+final realtime = Realtime(client);
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
 
 class ItemListPage extends StatefulWidget {
   const ItemListPage(this.category, {super.key});
@@ -19,6 +23,20 @@ class ItemListPage extends StatefulWidget {
 class _ItemListPageState extends State<ItemListPage> {
   _ItemListPageState(this.category);
   String category;
+  List<Map<String, dynamic>> items = [];
+
+  @override
+  void initState() {
+    _asyncQuery();
+    super.initState();
+  }
+
+  _asyncQuery() async {
+    List<Map<String, dynamic>> fetchedItems = await getItems();
+    setState(() {
+      items = fetchedItems;
+    });
+  }
 
   List<Widget> _buildList(int keyIndex) {
     List<Widget> list = [];
@@ -40,9 +58,9 @@ Quantity/Amount:
                   const SizedBox(),
                   Text(
                     '''
-        ${items[keyIndex][0]}
-        ${items[keyIndex][2]} ${items[keyIndex][3]}
-        ''',
+                    ${items[keyIndex]['expiryDate']} 
+                    ${items[keyIndex]['quantity']}
+                    ''',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],
@@ -57,6 +75,12 @@ Quantity/Amount:
 
   @override
   Widget build(BuildContext context) {
+    subscription.stream.listen((response) {
+      // Callback will be executed on all account events.
+      setState(() {
+        _asyncQuery();
+      });
+    });
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
@@ -79,7 +103,7 @@ Quantity/Amount:
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const AddItemPage();
+                    return AddItemPage();
                   },
                 ),
               );
@@ -99,105 +123,43 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  items[keyIndex][1],
+                  items[keyIndex]['name'],
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 children: <Widget>[
-                  Column(
-                    children: _buildList(keyIndex),
-                  ),
+                  Row(children: [
+                    Column(
+                      children: _buildList(keyIndex),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            print(items[keyIndex]['\$id']);
+                            return AddItemPage(id: items[keyIndex]['\$id']);
+                          },
+                        ));
+                      },
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          deleteItemById(items[keyIndex]['\$id']);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ))
+                  ]),
                 ],
               ),
             );
           },
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        destinations: [
-          NavigationDestination(
-            icon: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const HomePage();
-                    },
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.home,
-                size: 35,
-                color: Colors.black,
-              ),
-            ),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const MiriamMap();
-                    },
-                  ),
-                );
-              },
-              icon:
-                  const Icon(Icons.location_on, size: 35, color: Colors.black),
-            ),
-            label: 'Map',
-          ),
-          NavigationDestination(
-            icon: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const AddItemPage();
-                    },
-                  ),
-                );
-              },
-              icon: const Icon(Clarity.plus_circle_solid,
-                  size: 35, color: Colors.black),
-            ),
-            label: 'Camera',
-          ),
-          NavigationDestination(
-            icon: IconButton(
-              icon: const Icon(
-                Icons.receipt,
-                size: 35,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const Records();
-                    },
-                  ),
-                );
-              },
-            ),
-            label: 'Records',
-          ),
-        ],
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        height: 70,
-        // onDestinationSelected: (value) {},
-        selectedIndex: 0,
-        surfaceTintColor: const Color.fromARGB(255, 255, 255, 242),
-        indicatorColor: const Color.fromARGB(255, 255, 255, 242),
-      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
