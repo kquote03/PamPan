@@ -23,8 +23,19 @@ class _MapPageState extends State<MapPage> {
 
   final Location _locationController = Location();
 
-  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  static const LatLng _pGooglePlex =
+      LatLng(37.4223, -122.0848); //ill deal with these later
   static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
+  static const LatLng _animalRescue =
+      LatLng(24.274045415060066, 55.723430859715386);
+  static const LatLng _animalClinic =
+      LatLng(24.21383707793596, 55.62485235976167);
+  static const LatLng _emiratesRedCrescent1 =
+      LatLng(24.225490402081636, 55.69097981532366);
+  static const LatLng _emiratesRedCrescent2 =
+      LatLng(24.256517917521805, 55.741283642777795);
+  static const LatLng _mosque1 = LatLng(24.182793892101056, 55.710478992060516);
+  static const LatLng _mosque2 = LatLng(24.185565598092026, 55.717358732793436);
 
   Map<PolylineId, Polyline> polylines = {};
   LatLng? _currentP;
@@ -82,6 +93,30 @@ class _MapPageState extends State<MapPage> {
                     markerId: MarkerId("_destinationLocation"),
                     icon: BitmapDescriptor.defaultMarker,
                     position: _pApplePark),
+                const Marker(
+                    markerId: MarkerId("_animalRescueLocation"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _animalRescue),
+                const Marker(
+                    markerId: MarkerId("_animalClinicLocation"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _animalClinic),
+                const Marker(
+                    markerId: MarkerId("_redCrescentLocation1"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _emiratesRedCrescent1),
+                const Marker(
+                    markerId: MarkerId("_redCrescentLocation2"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _emiratesRedCrescent2),
+                const Marker(
+                    markerId: MarkerId("_mosque1Location"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _mosque1),
+                const Marker(
+                    markerId: MarkerId("_mosque2Location"),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: _mosque2),
               },
               polylines: Set<Polyline>.of(polylines.values),
             ),
