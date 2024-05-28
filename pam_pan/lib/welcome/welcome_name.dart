@@ -1,5 +1,8 @@
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_allergens.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
+
 
 class WelcomeName extends StatefulWidget {
   const WelcomeName({super.key});
@@ -10,6 +13,7 @@ class WelcomeName extends StatefulWidget {
 
 class _WelcomeNameState extends State<WelcomeName> {
   final TextEditingController _controllerWelcomeName = TextEditingController();
+
 
   @override
   void dispose() {
@@ -66,7 +70,15 @@ class _WelcomeNameState extends State<WelcomeName> {
           backgroundColor: const Color.fromARGB(218, 255, 255, 255),
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
-        onPressed: () {
+        onPressed: () async {
+    try {
+      //account.deleteSession(sessionId: 'current');
+  await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
+} on Exception catch (e) {
+  print(e);
+}
+User result = await account.get();
+print(result.email);
           Navigator.push(
             context,
             MaterialPageRoute(
