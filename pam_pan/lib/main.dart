@@ -9,8 +9,6 @@ import 'package:pam_pan/welcome/welcome_name.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:firebase_vertexai/firebase_vertexai.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
