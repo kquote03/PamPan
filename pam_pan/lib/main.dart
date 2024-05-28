@@ -1,6 +1,7 @@
 import 'dart:async';
 // import 'dart:js';..
 
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 // Old SQLite-based local database
 //import 'package:pam_pan/backend/libdb.dart';
@@ -25,6 +26,16 @@ void main() async {
         "Firebase Initialization Failed. AI-features will NOT work. Here's why:\n" +
             e.toString());
   }
+// Example user for appwrite
+  try {
+    //account.deleteSession(sessionId: 'current');
+    await account.createEmailPasswordSession(
+        email: "email@example.com", password: "password123");
+  } on Exception catch (e) {
+    print(e);
+  }
+  User result = await account.get();
+  print("Currently signed in as: " + result.email);
 
   runApp(
     const MaterialApp(
