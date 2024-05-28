@@ -215,11 +215,11 @@ class _MapPageState extends State<MapPage> {
       PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
       travelMode: TravelMode.driving,
     );
-    if(result.points.isNotEmpty) {
-      result.points.forEach(PointLatLng point) {
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      };
-    } else{
+      });
+    } else {
       print(result.errorMessage);
     }
     return polylineCoordinates;
@@ -234,7 +234,7 @@ class _MapPageState extends State<MapPage> {
       width: 8,
     );
     setState(() {
-      polylines(id) = polyline;
+      polylines[id] = polyline;
     });
   }
 }
