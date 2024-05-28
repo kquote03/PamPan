@@ -1,5 +1,5 @@
 import "package:pam_pan/food_item.dart";
-import "package:pam_pan/database/libdb.dart";
+import "package:pam_pan/backend/libdb.dart";
 
 class DBInterface {
   final db = LibDB().initializeDB();

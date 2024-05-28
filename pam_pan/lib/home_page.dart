@@ -1,20 +1,32 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:pam_pan/MiriamMap/miriam_map.dart';
 import 'package:pam_pan/calendar/calendar.dart';
-import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
-import 'package:pam_pan/records.dart';
-import 'package:pam_pan/notifications/expiry_test.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:pam_pan/notifications/tips.dart';
 import 'package:home_widget/home_widget.dart';
+import 'bottom_bar.dart';
+
+//Taken from expiry_test
+DateTime stringToDate(String date) {
+  return DateTime.parse(date);
+}
+
+int daysBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
+}
+
+List<List<String>> sortList(List<List<String>> list) {
+  list.sort((a, b) => a[0].compareTo(b[0]));
+  return list;
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -137,23 +149,24 @@ class _HomePageState extends State<HomePage> {
                   LocalNotifications.cancelAll();
                 },
               ),
-              IconButton(
-                icon: const Icon(Icons.notifications,
-                    size: 35, color: Colors.black),
-                onPressed: () {
-                  ExpiryTest.sortList(items);
-                  for (int i = 0; i < items.length; i++) {
-                    LocalNotifications.showScheduleNotification(
-                      id: i,
-                      title: "Uhoh! ${items[i][1]} is about to expire!",
-                      body: "Quick! It will expire on ${items[i][0]}",
-                      payload: "Scheduled payload",
-                      minutes: ExpiryTest.daysBetween(
-                          DateTime.now(), ExpiryTest.stringToDate(items[i][0])),
-                    );
-                  }
-                },
-              ),
+              //TODO: Implement database below
+              //IconButton(
+              //  icon: const Icon(Icons.notifications,
+              //      size: 35, color: Colors.black),
+              //  onPressed: () {
+              //    sortList(items);
+              //    for (int i = 0; i < items.length; i++) {
+              //      LocalNotifications.showScheduleNotification(
+              //        id: i,
+              //        title: "Uhoh! ${items[i][1]} is about to expire!",
+              //        body: "Quick! It will expire on ${items[i][0]}",
+              //        payload: "Scheduled payload",
+              //        minutes: daysBetween(
+              //            DateTime.now(), stringToDate(items[i][0])),
+              //      );
+              //    }
+              //  },
+              //),
               // IconButton(
               //   icon: const Icon(Icons.notifications,
               //       size: 35, color: Colors.black),
@@ -271,82 +284,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          bottomNavigationBar: NavigationBar(
-            backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-            destinations: [
-              NavigationDestination(
-                icon: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.home,
-                    size: 35,
-                    color: Colors.black,
-                  ),
-                ),
-                label: 'Home',
-              ),
-              NavigationDestination(
-                icon: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const MiriamMap();
-                        },
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.location_on,
-                      size: 35, color: Colors.black),
-                ),
-                label: 'Map',
-              ),
-              NavigationDestination(
-                icon: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const AddItemPage();
-                        },
-                      ),
-                    );
-                  },
-                  icon: const Icon(Clarity.plus_circle_solid,
-                      size: 35, color: Colors.black),
-                ),
-                label: 'Camera',
-              ),
-              NavigationDestination(
-                icon: IconButton(
-                  icon: const Icon(
-                    Icons.receipt,
-                    size: 35,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const Records();
-                        },
-                      ),
-                    );
-                  },
-                ),
-                label: 'Records',
-              ),
-            ],
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-            height: 70,
-            // onDestinationSelected: (value) {},
-            selectedIndex: 0,
-            surfaceTintColor: const Color.fromARGB(255, 255, 255, 242),
-            indicatorColor: const Color.fromARGB(255, 255, 255, 242),
-          ),
+          bottomNavigationBar: const CustomBottomNavigationBar(),
         ),
       ),
     );
