@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'dart:async';
-// import 'dart:js';
+// import 'dart:js';..
 
 import 'package:flutter/material.dart';
 // Old SQLite-based local database
@@ -19,7 +19,7 @@ void main() async {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeName(),
+      home: HomePage(),
     ),
   );
 }
