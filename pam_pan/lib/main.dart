@@ -16,10 +16,15 @@ import 'package:pam_pan/backend/appwrite_client.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotifications.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    print(
+        "Firebase Initialization Failed. AI-features will NOT work. Here's why:\n" +
+            e.toString());
+  }
 
   runApp(
     const MaterialApp(
