@@ -1,0 +1,48 @@
+Target dependency graph (19 targets)
+Flutter in Pods, no dependencies
+MTBBarcodeScanner in Pods, no dependencies
+SwiftProtobuf-SwiftProtobuf in Pods, no dependencies
+SwiftProtobuf in Pods, depends on:
+SwiftProtobuf-SwiftProtobuf in Pods (explicit)
+barcode_scan2 in Pods, depends on:
+Flutter in Pods (explicit)
+MTBBarcodeScanner in Pods (explicit)
+SwiftProtobuf in Pods (explicit)
+flutter_local_notifications-flutter_local_notifications_privacy in Pods, no dependencies
+flutter_local_notifications in Pods, depends on:
+Flutter in Pods (explicit)
+flutter_local_notifications-flutter_local_notifications_privacy in Pods (explicit)
+home_widget in Pods, depends on:
+Flutter in Pods (explicit)
+image_picker_ios-image_picker_ios_privacy in Pods, no dependencies
+image_picker_ios in Pods, depends on:
+Flutter in Pods (explicit)
+image_picker_ios-image_picker_ios_privacy in Pods (explicit)
+path_provider_foundation-path_provider_foundation_privacy in Pods, no dependencies
+path_provider_foundation in Pods, depends on:
+Flutter in Pods (explicit)
+path_provider_foundation-path_provider_foundation_privacy in Pods (explicit)
+permission_handler_apple-permission_handler_apple_privacy in Pods, no dependencies
+permission_handler_apple in Pods, depends on:
+Flutter in Pods (explicit)
+permission_handler_apple-permission_handler_apple_privacy in Pods (explicit)
+sqflite-sqflite_darwin_privacy in Pods, no dependencies
+sqflite in Pods, depends on:
+Flutter in Pods (explicit)
+sqflite-sqflite_darwin_privacy in Pods (explicit)
+workmanager in Pods, depends on:
+Flutter in Pods (explicit)
+Pods-Runner in Pods, depends on:
+Flutter in Pods (explicit)
+MTBBarcodeScanner in Pods (explicit)
+SwiftProtobuf in Pods (explicit)
+barcode_scan2 in Pods (explicit)
+flutter_local_notifications in Pods (explicit)
+home_widget in Pods (explicit)
+image_picker_ios in Pods (explicit)
+path_provider_foundation in Pods (explicit)
+permission_handler_apple in Pods (explicit)
+sqflite in Pods (explicit)
+workmanager in Pods (explicit)
+Pods-RunnerTests in Pods, depends on:
+Pods-Runner in Pods (explicit)
