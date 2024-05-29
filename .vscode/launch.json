@@ -37,7 +37,9 @@
             "cwd": "pam_pan",
             "args": [
               "-d",
-              "chrome"
+              "chrome",
+              "--web-browser-flag",
+              "--disable-web-security"
             ],
             "env":{
                 "CHROME_EXECUTABLE": "/home/kenan1099/Apps/thorium/thorium"
