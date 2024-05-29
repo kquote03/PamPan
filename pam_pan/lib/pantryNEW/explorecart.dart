@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/pantryNEW/colors.dart';
+// import 'package:pam_pan/pantryNEW/colors.dart';
 
 class ItemDescriptionCard extends StatelessWidget {
   final String image;
@@ -52,7 +52,7 @@ class ItemDescriptionCard extends StatelessWidget {
                               name,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: textColor,
+                                  color: Colors.black, //mainColor
                                   fontSize: 16),
                             ),
                           ),
@@ -62,20 +62,20 @@ class ItemDescriptionCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Text(
-                                  expiryDate,
+                                  "Expiry Date: $expiryDate",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: inActiveColor,
+                                      color: Colors.grey, //inActiveColor
                                       fontSize: 16),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Text(
-                                  "$quantity $measurementUnit",
+                                  "Quantity: $quantity $measurementUnit",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: inActiveColor,
+                                      color: Colors.grey,
                                       fontSize: 16),
                                 ),
                               ),
