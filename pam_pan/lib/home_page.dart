@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
-import 'package:pam_pan/calendar/calendar.dart';
 import 'package:pam_pan/map_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:intl/intl.dart';
-import 'package:pam_pan/calendar/calendar.dart';
 import 'package:pam_pan/pantry/category.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
@@ -113,46 +110,37 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon:
                 const Icon(Icons.calendar_month, size: 30, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const Calendar(2);
-                  },
-                ),
-              );
-            },
+            onPressed: () {},
           ),
-          IconButton(
-            icon:
-                const Icon(Icons.notifications, size: 35, color: Colors.black),
-            onPressed: () {
-              LocalNotifications.showSimpleNotification(
-                title: "Simple title",
-                body: "Simple body",
-                payload: "Simple payload",
-              );
-            },
-          ),
-          IconButton(
-            icon:
-                const Icon(Icons.notifications, size: 35, color: Colors.black),
-            onPressed: () {
-              String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
-              LocalNotifications.showPeriodicNotification(
-                title: "Pam got some tips for you!",
-                body: randomTip,
-                payload: randomTip,
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
-            onPressed: () {
-              LocalNotifications.cancelAll();
-            },
-          ),
+          // IconButton(
+          //   icon:
+          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
+          //   onPressed: () {
+          //     LocalNotifications.showSimpleNotification(
+          //       title: "Simple title",
+          //       body: "Simple body",
+          //       payload: "Simple payload",
+          //     );
+          //   },
+          // ),
+          // IconButton(
+          //   icon:
+          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
+          //   onPressed: () {
+          //     String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
+          //     LocalNotifications.showPeriodicNotification(
+          //       title: "Pam got some tips for you!",
+          //       body: randomTip,
+          //       payload: randomTip,
+          //     );
+          //   },
+          // ),
+          // IconButton(
+          //   icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
+          //   onPressed: () {
+          //     LocalNotifications.cancelAll();
+          //   },
+          // ),
 
           //TODO: Implement database below
           //IconButton(
@@ -200,7 +188,6 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Calendar(1),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
