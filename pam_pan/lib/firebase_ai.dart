@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_vertexai/firebase_vertexai.dart';
 
-class FirebaseAi {
+class FirebaseAI {
   final model = FirebaseVertexAI.instance
       .generativeModel(model: 'gemini-1.5-flash-preview-0514');
 
@@ -15,7 +15,7 @@ class FirebaseAi {
     //or is it Future<String?>
     final prompt = [Content.text(promptText)];
     final response = await model.generateContent(prompt);
-    return response.text;
+    print(response.text);
   }
 
   Future textWithStream(String promptText) async {
@@ -23,7 +23,7 @@ class FirebaseAi {
     final prompt = [Content.text(promptText)];
     final response = await model.generateContentStream(prompt);
     await for (final chunk in response) {
-      return chunk.text;
+      print(chunk.text);
     }
   }
 
