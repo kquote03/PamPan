@@ -4,9 +4,10 @@ import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/map_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/items_list_page.dart';
+import 'package:pam_pan/pantryNEW/pantry.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({Key? key}) : super(key: key);
+  const CustomBottomNavigationBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         NavigationDestination(
           icon: IconButton(
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -36,6 +38,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         NavigationDestination(
           icon: IconButton(
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -56,6 +59,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         NavigationDestination(
           icon: IconButton(
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -81,11 +85,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const ItemListPage("the whatever category.");
+                    // return const ItemListPage("the whatever category.");
+                    return const Pantry();
                   },
                 ),
               );

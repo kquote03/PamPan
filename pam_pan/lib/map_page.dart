@@ -59,12 +59,6 @@ class _MapPageState extends State<MapPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         title: const Text('Map'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: _currentP == null
           ? const Center(

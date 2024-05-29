@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pam_pan/bottom_bar.dart';
 
 class AboutPam extends StatelessWidget {
-  const AboutPam({Key? key}) : super(key: key);
+  const AboutPam({super.key});
 
   @override
   Widget build(BuildContext context) {

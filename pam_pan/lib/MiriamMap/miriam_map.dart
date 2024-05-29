@@ -19,12 +19,6 @@ class _MiriamMapState extends State<MiriamMap> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         title: const Text('Map'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Center(
         child: Column(

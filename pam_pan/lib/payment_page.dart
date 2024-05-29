@@ -36,12 +36,6 @@ class _PaymentPage extends State<PaymentPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         title: const Text("Donation"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
