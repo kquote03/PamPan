@@ -267,6 +267,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => updateWidgetFun(),
                     child: const Text('Update'),
                   ),
+                  const Text(""),
                 ],
               ),
             ),
