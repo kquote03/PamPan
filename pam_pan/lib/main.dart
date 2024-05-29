@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
+import 'package:pam_pan/connection_error.dart';
 // Old SQLite-based local database
 //import 'package:pam_pan/backend/libdb.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
@@ -29,10 +30,14 @@ void main() async {
 // Example user for appwrite
   try {
     //account.deleteSession(sessionId: 'current');
-    await account.createEmailPasswordSession(
-        email: "email@example.com", password: "password123");
+    await account
+        .createEmailPasswordSession(
+            email: "email@example.com", password: "password123")
+        .timeout(const Duration(seconds: 10));
   } on Exception catch (e) {
     print(e);
+    if (!e.toString().contains("user_session_already_exists"))
+      runApp(const MaterialApp(home: ConnectionError()));
   }
   User result = await account.get();
   print("Currently signed in as: " + result.email);
