@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pam_pan/bottom_bar.dart';
 // import 'package:pam_pan/pantryNEW/colors.dart';
 import 'package:pam_pan/pantryNEW/categories.dart';
-import 'package:pam_pan/pantryNEW/explorecart.dart';
+import 'package:pam_pan/pantryNEW/food_item.dart';
+import 'package:pam_pan/pantryNEW/item_description_card.dart';
+import 'package:searchable_listview/searchable_listview.dart';
 
 List<Widget> categories = [
   GestureDetector(
@@ -191,15 +193,30 @@ class _PantryState extends State<Pantry> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 13.0, left: 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: categories,
-                ),
-              ),
-            ),
+            // SearchableList<FoodItem>(
+            //   sortWidget: Icon(Icons.sort),
+            //   sortPredicate: (a, b) => a.expiryDate.compareTo(b.expiryDate),
+            //   itemBuilder: (item) {
+            //     return FoodItemRow(actor: item);
+            //   },
+            //   initialList: actors,
+            //   filter: (p0) {
+            //     return actors
+            //         .where((element) => element.name.contains(p0))
+            //         .toList();
+            //   },
+            //   inputDecoration: InputDecoration(
+            //     labelText: "Search Actor",
+            //     fillColor: Colors.white,
+            //     focusedBorder: OutlineInputBorder(
+            //       borderSide: const BorderSide(
+            //         color: Colors.blue,
+            //         width: 1.0,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            // ),
             GestureDetector(
               onTap: () {},
               child: const ItemDescriptionCard(
@@ -321,6 +338,24 @@ class _PantryState extends State<Pantry> {
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
+    );
+  }
+}
+
+class EmptyView extends StatelessWidget {
+  const EmptyView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+        Text('Pantry is empty :('),
+      ],
     );
   }
 }
