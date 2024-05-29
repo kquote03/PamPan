@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:pam_pan/food_item.dart';
 
 class BarcodeApi {
-  Future<FoodItem> getFoodItemByUPC(String upc) async {
+  Future<Map<String, dynamic>> getFoodItemByUPC(String upc) async {
     print(upc);
     final httpPackageUrl =
         Uri.parse("https://world.openfoodfacts.org/api/v0/product/$upc.json");
@@ -14,33 +14,23 @@ class BarcodeApi {
     return mapJsonToFoodItem(httpPackageJson);
   }
 
-  FoodItem mapJsonToFoodItem(Map<String, dynamic> jsonData) {
+  Map<String, dynamic> mapJsonToFoodItem(Map<String, dynamic> jsonData) {
+    Map<String, dynamic> tempMap = {};
     final productData = jsonData['product'];
 
     // Extract the required data from the JSON
-    final itemName = productData['product_name_en'] as String;
-    final expiryDate =
-        ''; // JSON doesn't contain expiry date, set to empty string
-    final barcode = productData['code'] as String;
-    final productionDate =
-        ''; // JSON doesn't contain production date, set to empty string
-    final canRefrigerate =
-        false; // JSON doesn't contain information about refrigeration, set to false
-    final measurementUnit = productData['quantity'].toString().split(' ').last;
-    final quantity =
-        int.parse(productData['quantity'].toString().split(' ').first);
-    final categoryName =
-        ''; // JSON doesn't contain category name, set to empty string
+    tempMap['itemName'] = productData['product_name_en'] as String;
+    tempMap['barcode'] = productData['code'] as String;
 
-    return FoodItem(
-      itemName: itemName,
-      expiryDate: expiryDate,
-      barcode: barcode,
-      productionDate: productionDate,
-      canRefrigerate: canRefrigerate,
-      measurementUnit: measurementUnit,
-      quantity: quantity,
-      categoryName: categoryName,
-    );
+    // Sometimes OpenFoodFacts will have a weird serving unit.
+    // I'm trying to control the chaos.
+    tempMap['measurementUnit'] = ['l', 'g', 'ml', 'kg', 'pieces']
+            .contains(productData['serving_quantity_unit'].toLowerCase())
+        ? productData['serving_quantity_unit'].toLowerCase()
+        : '';
+    tempMap['categoryName'] =
+        productData['categories_tags'][0].toString().replaceAll("en:", "");
+
+    return tempMap;
   }
 }
