@@ -1,4 +1,4 @@
-import "package:pam_pan/food_item.dart";
+import "package:pam_pan/pantryNEW/food_item.dart";
 import "package:pam_pan/backend/libdb.dart";
 
 class DBInterface {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:pam_pan/food_item.dart';
+import 'package:pam_pan/pantryNEW/food_item.dart';
 
 class BarcodeApi {
   Future<FoodItem> getFoodItemByUPC(String upc) async {

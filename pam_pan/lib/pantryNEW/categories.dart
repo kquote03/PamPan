@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/pantryNEW/colors.dart';
+// import 'package:pam_pan/pantryNEW/colors.dart';
 
 class Catogeries extends StatelessWidget {
   final Color color;
@@ -38,7 +38,7 @@ class Catogeries extends StatelessWidget {
                     text,
                     style: const TextStyle(
                         fontSize: 20,
-                        color: textColor,
+                        color: Colors.black, //mainColor
                         fontWeight: FontWeight.w500),
                   ),
                 )

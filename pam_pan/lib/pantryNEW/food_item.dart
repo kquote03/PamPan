@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:pam_pan/pantryNEW/colors.dart';
 
-class ItemDescriptionCard extends StatelessWidget {
-  final String image;
-  final String name;
+class FoodItem {
+  int? itemId;
+  final String itemName;
   final String expiryDate;
+  final String? barcode;
+  final String productionDate;
+  final bool canRefrigerate;
   final String measurementUnit;
-  final String quantity;
+  final int quantity;
+  final String categoryName;
 
-  const ItemDescriptionCard(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.expiryDate,
-      required this.measurementUnit,
-      required this.quantity});
+  FoodItem({
+    this.itemId,
+    required this.itemName,
+    required this.expiryDate,
+    this.barcode,
+    required this.productionDate,
+    required this.canRefrigerate,
+    required this.measurementUnit,
+    required this.quantity,
+    required this.categoryName,
+  });
+
+  // You can add methods here to perform operations on the FoodItem
+
+  @override
+  String toString() {
+    return 'FoodItem(itemId: $itemId, itemName: $itemName, expiryDate: $expiryDate, barcode: $barcode, productionDate: $productionDate, canRefrigerate: $canRefrigerate, measurementUnit: $measurementUnit, quantity: $quantity, categoryName: $categoryName)';
+  }
+}
+
+class FoodItemRow extends StatelessWidget {
+  final FoodItem foodItem;
+  final String image;
+  const FoodItemRow({required this.foodItem, required this.image, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +69,10 @@ class ItemDescriptionCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0, left: 8),
                             child: Text(
-                              name,
+                              foodItem.itemName,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: textColor,
+                                  color: Colors.black, //mainColor
                                   fontSize: 16),
                             ),
                           ),
@@ -62,20 +82,20 @@ class ItemDescriptionCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Text(
-                                  expiryDate,
+                                  "Expiry Date: ${foodItem.expiryDate}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: inActiveColor,
+                                      color: Colors.grey, //inActiveColor
                                       fontSize: 16),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Text(
-                                  "$quantity $measurementUnit",
+                                  "Quantity: ${foodItem.quantity} ${foodItem.measurementUnit}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: inActiveColor,
+                                      color: Colors.grey,
                                       fontSize: 16),
                                 ),
                               ),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pam_pan/bottom_bar.dart';
-import 'package:pam_pan/pantryNEW/colors.dart';
+// import 'package:pam_pan/pantryNEW/colors.dart';
 import 'package:pam_pan/pantryNEW/categories.dart';
-import 'package:pam_pan/pantryNEW/explorecart.dart';
+import 'package:pam_pan/pantryNEW/food_item.dart';
+import 'package:pam_pan/pantryNEW/item_description_card.dart';
+import 'package:searchable_listview/searchable_listview.dart';
 
 List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Bread & Pastries",
       images: "assets/categories/bread.png",
     ),
@@ -17,7 +18,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Dairy & Eggs",
       images: "assets/categories/dairy_eggs.png",
     ),
@@ -25,7 +26,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Cheese",
       images: "assets/categories/fromage.png",
     ),
@@ -33,7 +34,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Chicken",
       images: "assets/categories/chicken.png",
     ),
@@ -41,7 +42,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Meats",
       images: "assets/categories/meat.png",
     ),
@@ -49,7 +50,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Fruits",
       images: "assets/categories/fruits.png",
     ),
@@ -57,7 +58,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Vegetables",
       images: "assets/categories/veg.png",
     ),
@@ -65,7 +66,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Fish & Seafood",
       images: "assets/categories/fish.png",
     ),
@@ -73,7 +74,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Herbs, Spices, & Condiments",
       images: "assets/categories/herbs.png",
     ),
@@ -81,7 +82,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white,
       text: "Nuts & Seeds",
       images: "assets/categories/nuts.png",
     ),
@@ -89,7 +90,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Drinks & Beverages",
       images: "assets/categories/bevs.png",
     ),
@@ -97,7 +98,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Sweets",
       images: "assets/categories/sweets.png",
     ),
@@ -105,7 +106,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Grains & Noodles",
       images: "assets/categories/grains.png",
     ),
@@ -113,7 +114,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Canned Foods",
       images: "assets/categories/can.png",
     ),
@@ -121,7 +122,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Pet Food",
       images: "assets/categories/pet.png",
     ),
@@ -129,7 +130,7 @@ List<Widget> categories = [
   GestureDetector(
     onTap: () {},
     child: const Catogeries(
-      color: cardColor,
+      color: Colors.white, //cardColor
       text: "Other",
       images: "assets/categories/other.png",
     ),
@@ -170,7 +171,7 @@ class _PantryState extends State<Pantry> {
                         children: [
                           Icon(
                             Icons.search,
-                            color: inActiveColor,
+                            color: Colors.grey, //inActiveColor
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 10.0),
@@ -178,7 +179,7 @@ class _PantryState extends State<Pantry> {
                               "Search",
                               style: TextStyle(
                                 fontSize: 15,
-                                color: inActiveColor,
+                                color: Colors.grey, //inActiveColor
                               ),
                             ),
                           )
@@ -192,15 +193,30 @@ class _PantryState extends State<Pantry> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 13.0, left: 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: categories,
-                ),
-              ),
-            ),
+            // SearchableList<FoodItem>(
+            //   sortWidget: Icon(Icons.sort),
+            //   sortPredicate: (a, b) => a.expiryDate.compareTo(b.expiryDate),
+            //   itemBuilder: (item) {
+            //     return FoodItemRow(actor: item);
+            //   },
+            //   initialList: actors,
+            //   filter: (p0) {
+            //     return actors
+            //         .where((element) => element.name.contains(p0))
+            //         .toList();
+            //   },
+            //   inputDecoration: InputDecoration(
+            //     labelText: "Search Actor",
+            //     fillColor: Colors.white,
+            //     focusedBorder: OutlineInputBorder(
+            //       borderSide: const BorderSide(
+            //         color: Colors.blue,
+            //         width: 1.0,
+            //       ),
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            // ),
             GestureDetector(
               onTap: () {},
               child: const ItemDescriptionCard(
@@ -322,6 +338,24 @@ class _PantryState extends State<Pantry> {
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
+    );
+  }
+}
+
+class EmptyView extends StatelessWidget {
+  const EmptyView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+        Text('Pantry is empty :('),
+      ],
     );
   }
 }

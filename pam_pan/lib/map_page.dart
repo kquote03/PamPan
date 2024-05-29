@@ -41,6 +41,13 @@ class _MapPageState extends State<MapPage> {
   LatLng? _currentP;
 
   @override
+  void dispose() {
+    _controller.future.then((controller) => controller.dispose());
+    // _locationController.;
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     getLocationUpdates().then(
