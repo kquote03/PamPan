@@ -150,24 +150,13 @@ class _AddItemPage extends State<AddItemPage> {
                     ),
                     const SizedBox(height: 12),
                     DropdownMenu<String>(
+                        menuHeight: 400,
                         width: MediaQuery.of(context).size.width - (16 * 2),
                         controller: _controllerCategory,
                         dropdownMenuEntries: categoryList.map((category) {
                           return DropdownMenuEntry(
                               value: category, label: category);
                         }).toList(),
-                        //[
-                        //DropdownMenuEntry(label: 'bread', value: 'bread'),
-                        //DropdownMenuEntry(label: 'dairy', value: 'dairy'),
-                        //DropdownMenuEntry(label: 'cheese', value: 'cheese'),
-                        //DropdownMenuEntry(label: 'meats', value: 'meats'),
-                        //DropdownMenuEntry(label: 'fruits', value: 'fruits'),
-                        //DropdownMenuEntry(
-                        //    label: 'vegetables', value: 'vegetables'),
-                        //DropdownMenuEntry(label: 'fish', value: 'fish'),
-                        //DropdownMenuEntry(label: 'party', value: 'party'),
-                        //DropdownMenuEntry(label: 'other', value: 'other'),
-                        //],
                         hintText: "Category"),
                     //const SizedBox(height: 12),
                     //MultiSelectDropDown<String>(
