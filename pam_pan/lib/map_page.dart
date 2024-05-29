@@ -23,9 +23,9 @@ class _MapPageState extends State<MapPage> {
 
   final Location _locationController = Location();
 
-  static const LatLng _pGooglePlex =
-      LatLng(37.4223, -122.0848); //ill deal with these later
-  static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
+  //static const LatLng _pGooglePlex =
+  //    LatLng(37.4223, -122.0848); //ill deal with these later
+  //static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
   static const LatLng _animalRescue =
       LatLng(24.274045415060066, 55.723430859715386);
   static const LatLng _animalClinic =
@@ -38,7 +38,7 @@ class _MapPageState extends State<MapPage> {
   static const LatLng _mosque2 = LatLng(24.185565598092026, 55.717358732793436);
 
   Map<PolylineId, Polyline> polylines = {};
-  LatLng _currentP = LatLng(24.3455155, 54.5368051);
+  LatLng _currentP = const LatLng(24.3455155, 54.5368051);
 
   @override
   void initState() {
@@ -71,8 +71,8 @@ class _MapPageState extends State<MapPage> {
           _controller.complete(controller);
         }),
         mapType: MapType.normal,
-        initialCameraPosition: const CameraPosition(
-          target: _pGooglePlex,
+        initialCameraPosition: CameraPosition(
+          target: _currentP,
           zoom: 13,
         ),
         markers: {
@@ -81,14 +81,6 @@ class _MapPageState extends State<MapPage> {
             icon: BitmapDescriptor.defaultMarker,
             position: _currentP!,
           ),
-          const Marker(
-              markerId: MarkerId("_sourceLocation"),
-              icon: BitmapDescriptor.defaultMarker,
-              position: _pGooglePlex),
-          const Marker(
-              markerId: MarkerId("_destinationLocation"),
-              icon: BitmapDescriptor.defaultMarker,
-              position: _pApplePark),
           const Marker(
               markerId: MarkerId("_animalRescueLocation"),
               icon: BitmapDescriptor.defaultMarker,
@@ -154,7 +146,7 @@ class _MapPageState extends State<MapPage> {
             () {
               _currentP =
                   LatLng(currentLocation.latitude!, currentLocation.longitude!);
-              _cameraToPosition(_currentP!);
+              _cameraToPosition(_currentP);
             },
           );
         }
@@ -167,8 +159,11 @@ class _MapPageState extends State<MapPage> {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       GOOGLE_MAPS_API_KEY,
-      PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
-      PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
+      PointLatLng(_currentP.latitude, _currentP.longitude),
+      PointLatLng(
+          _emiratesRedCrescent1.latitude, _emiratesRedCrescent1.longitude),
+      //PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
+      //PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
       travelMode: TravelMode.driving,
     );
     if (result.points.isNotEmpty) {
