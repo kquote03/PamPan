@@ -24,7 +24,7 @@ class ItemDescriptionCard extends StatelessWidget {
       child: Stack(
         children: [
           SizedBox(
-            height: 75,
+            height: 100,
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -52,9 +52,11 @@ class ItemDescriptionCard extends StatelessWidget {
                             child: Text(
                               name,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, //mainColor
-                                  fontSize: 16),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black, //mainColor
+                                fontSize: 16,
+                              ),
+                              // overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           Row(
@@ -65,9 +67,11 @@ class ItemDescriptionCard extends StatelessWidget {
                                 child: Text(
                                   "Expiry Date: $expiryDate",
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey, //inActiveColor
-                                      fontSize: 16),
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey, //inActiveColor
+                                    fontSize: 16,
+                                  ),
+                                  // overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               Padding(
@@ -75,9 +79,11 @@ class ItemDescriptionCard extends StatelessWidget {
                                 child: Text(
                                   "Quantity: $quantity $measurementUnit",
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey,
-                                      fontSize: 16),
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                  // overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               const Icon(Icons.more_vert)

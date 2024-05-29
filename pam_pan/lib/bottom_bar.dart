@@ -92,7 +92,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) {
                     // return const ItemListPage("the whatever category.");
-                    return const SearchablePantry();
+                    return const Pantry();
                   },
                 ),
               );

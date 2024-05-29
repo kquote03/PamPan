@@ -27,8 +27,7 @@ class BarcodeApi {
     final canRefrigerate =
         false; // JSON doesn't contain information about refrigeration, set to false
     final measurementUnit = productData['quantity'].toString().split(' ').last;
-    final quantity =
-        int.parse(productData['quantity'].toString().split(' ').first);
+    final quantity = productData['quantity'].toString().split(' ').first;
     final categoryName =
         ''; // JSON doesn't contain category name, set to empty string
 

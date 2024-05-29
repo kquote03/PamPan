@@ -21,14 +21,14 @@ class DBInterface {
     if (result.isNotEmpty) {
       final row = result.first;
       return FoodItem(
-        itemId: row['Item_Id'] as int?,
+        itemId: row['Item_Id'] as String?,
         itemName: row['Item_Name'] as String,
         expiryDate: row['Expiry_Date'] as String,
         barcode: row['Barcode'] as String?,
         productionDate: row['ProductionDate'] as String,
         canRefrigerate: row['Can_Refrigerate'] == 1,
         measurementUnit: row['Measurement_Unit'] as String,
-        quantity: row['Quantity'] as int,
+        quantity: row['Quantity'] as String,
         categoryName: row['Category_Name'] as String,
       );
     }
@@ -43,14 +43,14 @@ class DBInterface {
 
     return result.map((row) {
       return FoodItem(
-        itemId: row['Item_Id'] as int?,
+        itemId: row['Item_Id'] as String?,
         itemName: row['Item_Name'] as String,
         expiryDate: row['Expiry_Date'] as String,
         barcode: row['Barcode'] as String?,
         productionDate: row['ProductionDate'] as String,
         canRefrigerate: row['Can_Refrigerate'] == 1,
         measurementUnit: row['Measurement_Unit'] as String,
-        quantity: row['Quantity'] as int,
+        quantity: row['Quantity'] as String,
         categoryName: row['Category_Name'] as String,
       );
     }).toList();

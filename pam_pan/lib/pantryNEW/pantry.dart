@@ -1,10 +1,15 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
-// import 'package:pam_pan/pantryNEW/colors.dart';
 import 'package:pam_pan/pantryNEW/categories.dart';
 import 'package:pam_pan/pantryNEW/food_item.dart';
 import 'package:pam_pan/pantryNEW/item_description_card.dart';
-import 'package:searchable_listview/searchable_listview.dart';
+
+final realtime = Realtime(client);
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
 
 List<Widget> categories = [
   GestureDetector(
@@ -144,8 +149,101 @@ class Pantry extends StatefulWidget {
 }
 
 class _PantryState extends State<Pantry> {
+  // List<Map<String, dynamic>> items = [];
+
+  final List<List<String>> categoriesList = [
+    ['bread', "Bread & Pastries"],
+    ['dairy_eggs', "Dairy & Eggs"],
+    ['fromage', "Cheese"],
+    ['chicken', "Chicken"],
+    ['meat', "Meats"],
+    ['fruits', "Fruits"],
+    ['veg', "Vegetables"],
+    ['fish', "Fish & Seafood"],
+    ['herbs', "Herbs, Spices, & Condiments"],
+    ['nuts', "Nuts & Seeds"],
+    ['bevs', "Drinks & Beverages"],
+    ['sweets', "Sweets"],
+    ['grains', "Grains & Noodles"],
+    ['can', "Canned Foods"],
+    ['pet', "Pet Food"],
+    ['other', "Other"],
+  ];
+
+  final List<FoodItem> allItems = [];
+
+  List<FoodItem> filteredItems = [];
+  String searchQuery = '';
+
+  @override
+  void initState() {
+    _asyncQuery();
+    super.initState();
+    filteredItems = allItems;
+  }
+
+  _asyncQuery() async {
+    List<Map<String, dynamic>> fetchedItems = await getItems();
+    setState(() {
+      for (int i = 0; i < fetchedItems.length; i++) {
+        allItems.add(
+          FoodItem(
+            itemId: fetchedItems[i]['\$id'],
+            itemName: fetchedItems[i]['name'],
+            expiryDate: fetchedItems[i]['expiryDate'],
+            measurementUnit: fetchedItems[i]['measurementUnit'],
+            quantity: fetchedItems[i]['quantity'],
+            categoryName: fetchedItems[i]['categories'],
+          ),
+        );
+      }
+    });
+  }
+
+  void filterItems() {
+    setState(
+      () {
+        filteredItems = allItems.where(
+          (foodItem) {
+            final matchesSearchQuery = foodItem.itemName
+                .toLowerCase()
+                .contains(searchQuery.toLowerCase());
+            return matchesSearchQuery;
+          },
+        ).toList();
+      },
+    );
+  }
+
+  // List<FoodItem> buildList() {
+  //   List<FoodItem> list = [];
+  //   for (int i = 0; i < items.length; i++) {
+  //     list.add(
+  //       FoodItem(
+  //         itemId: items[i]['\$id'],
+  //         itemName: items[i]['name'],
+  //         expiryDate: items[i]['expiryDate'],
+  //         measurementUnit: items[i]['measurementUnit'],
+  //         quantity: items[i]['quantity'],
+  //         categoryName: items[i]['categories'],
+  //       ),
+  //     );
+  //   }
+  //   return list;
+  // }
+
   @override
   Widget build(BuildContext context) {
+    subscription.stream.listen(
+      (response) {
+        // Callback will be executed on all account events.
+        setState(
+          () {
+            _asyncQuery();
+          },
+        );
+      },
+    );
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
@@ -164,25 +262,30 @@ class _PantryState extends State<Pantry> {
                 child: SizedBox(
                   height: 45,
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: const Center(
+                  child: Center(
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.search,
-                            color: Colors.grey, //inActiveColor
+                            color: Colors.grey,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              "Search",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey, //inActiveColor
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  hintText: 'Search',
+                                  border: InputBorder.none,
+                                ),
+                                onChanged: (query) {
+                                  searchQuery = query;
+                                  filterItems();
+                                },
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -193,146 +296,39 @@ class _PantryState extends State<Pantry> {
             const SizedBox(
               height: 10,
             ),
-            // SearchableList<FoodItem>(
-            //   sortWidget: Icon(Icons.sort),
-            //   sortPredicate: (a, b) => a.expiryDate.compareTo(b.expiryDate),
-            //   itemBuilder: (item) {
-            //     return FoodItemRow(actor: item);
-            //   },
-            //   initialList: actors,
-            //   filter: (p0) {
-            //     return actors
-            //         .where((element) => element.name.contains(p0))
-            //         .toList();
-            //   },
-            //   inputDecoration: InputDecoration(
-            //     labelText: "Search Actor",
-            //     fillColor: Colors.white,
-            //     focusedBorder: OutlineInputBorder(
-            //       borderSide: const BorderSide(
-            //         color: Colors.blue,
-            //         width: 1.0,
-            //       ),
-            //       borderRadius: BorderRadius.circular(10.0),
-            //     ),
-            //   ),
-            // ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                  image: "assets/categories/bread.png",
-                  name: "White bread",
-                  expiryDate: "2024-06-01",
-                  measurementUnit: "pieces",
-                  quantity: "5"),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/herbs.png",
-                name: "Paprika",
-                expiryDate: "2026-12-12",
-                measurementUnit: "g",
-                quantity: "50",
+            Padding(
+              padding: const EdgeInsets.only(top: 13.0, left: 10),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: categoriesList.map(
+                    (category) {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Catogeries(
+                          color: Colors.white,
+                          text: category[1],
+                          images: 'assets/categories/${category[0]}.png',
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
               ),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/grains.png",
-                name: "Basmati Rice",
-                expiryDate: "2025-01-01",
-                measurementUnit: "Kg",
-                quantity: "2",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/fish.png",
-                name: "Sushi",
-                expiryDate: "2024-06-15",
-                measurementUnit: "pieces",
-                quantity: "12",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                  image: "assets/categories/bread.png",
-                  name: "White bread",
-                  expiryDate: "2024-06-01",
-                  measurementUnit: "pieces",
-                  quantity: "5"),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/herbs.png",
-                name: "Paprika",
-                expiryDate: "2026-12-12",
-                measurementUnit: "g",
-                quantity: "50",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/grains.png",
-                name: "Basmati Rice",
-                expiryDate: "2025-01-01",
-                measurementUnit: "Kg",
-                quantity: "2",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/fish.png",
-                name: "Sushi",
-                expiryDate: "2024-06-15",
-                measurementUnit: "pieces",
-                quantity: "12",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                  image: "assets/categories/bread.png",
-                  name: "White bread",
-                  expiryDate: "2024-06-01",
-                  measurementUnit: "pieces",
-                  quantity: "5"),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/herbs.png",
-                name: "Paprika",
-                expiryDate: "2026-12-12",
-                measurementUnit: "g",
-                quantity: "50",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/grains.png",
-                name: "Basmati Rice",
-                expiryDate: "2025-01-01",
-                measurementUnit: "Kg",
-                quantity: "2",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: const ItemDescriptionCard(
-                image: "assets/categories/fish.png",
-                name: "Sushi",
-                expiryDate: "2024-06-15",
-                measurementUnit: "pieces",
-                quantity: "12",
-              ),
+            Column(
+              children: filteredItems.map((foodItem) {
+                return GestureDetector(
+                  onTap: () {},
+                  child: ItemDescriptionCard(
+                    image: 'assets/categories/bread.png',
+                    name: foodItem.itemName,
+                    expiryDate: foodItem.expiryDate,
+                    measurementUnit: foodItem.measurementUnit,
+                    quantity: foodItem.quantity,
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ),
@@ -342,20 +338,20 @@ class _PantryState extends State<Pantry> {
   }
 }
 
-class EmptyView extends StatelessWidget {
-  const EmptyView({super.key});
+// class EmptyView extends StatelessWidget {
+//   const EmptyView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.error,
-          color: Colors.red,
-        ),
-        Text('Pantry is empty :('),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         Icon(
+//           Icons.error,
+//           color: Colors.red,
+//         ),
+//         Text('Pantry is empty :('),
+//       ],
+//     );
+//   }
+// }
