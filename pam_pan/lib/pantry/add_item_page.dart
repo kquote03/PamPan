@@ -31,6 +31,7 @@ class _AddItemPage extends State<AddItemPage> {
       MultiSelectController();
   final _controllerMeasurement = TextEditingController();
   final TextEditingController _controllerQuantity = TextEditingController();
+  final List<String> categoryList = [];
 
   @override
   void dispose() {
@@ -54,6 +55,21 @@ class _AddItemPage extends State<AddItemPage> {
       isEditMode = true;
       _getItemsAndSetControllers();
     }
+    _getCategories();
+  }
+
+  Future<void> _getCategories() async {
+    for (var i in await getCategories()) {
+      categoryList.add(i);
+    }
+    // FOR THE RECORD
+    // I came accross this solution by TOTAL ACCIDENT
+    // I have a habit of frequently saving my work (trauma from losing work)
+    // and by that I mean I save after each line. (:w)
+    // vscode hot-reloads the app after each save.
+    // So I saved when having written the incomplete code, only for it to
+    // magically work. subhaaanallahh XD
+    setState(() {});
   }
 
   _getItemsAndSetControllers() async {
@@ -136,18 +152,22 @@ class _AddItemPage extends State<AddItemPage> {
                     DropdownMenu<String>(
                         width: MediaQuery.of(context).size.width - (16 * 2),
                         controller: _controllerCategory,
-                        dropdownMenuEntries: const [
-                          DropdownMenuEntry(label: 'bread', value: 'bread'),
-                          DropdownMenuEntry(label: 'dairy', value: 'dairy'),
-                          DropdownMenuEntry(label: 'cheese', value: 'cheese'),
-                          DropdownMenuEntry(label: 'meats', value: 'meats'),
-                          DropdownMenuEntry(label: 'fruits', value: 'fruits'),
-                          DropdownMenuEntry(
-                              label: 'vegetables', value: 'vegetables'),
-                          DropdownMenuEntry(label: 'fish', value: 'fish'),
-                          DropdownMenuEntry(label: 'party', value: 'party'),
-                          DropdownMenuEntry(label: 'other', value: 'other'),
-                        ],
+                        dropdownMenuEntries: categoryList.map((category) {
+                          return DropdownMenuEntry(
+                              value: category, label: category);
+                        }).toList(),
+                        //[
+                        //DropdownMenuEntry(label: 'bread', value: 'bread'),
+                        //DropdownMenuEntry(label: 'dairy', value: 'dairy'),
+                        //DropdownMenuEntry(label: 'cheese', value: 'cheese'),
+                        //DropdownMenuEntry(label: 'meats', value: 'meats'),
+                        //DropdownMenuEntry(label: 'fruits', value: 'fruits'),
+                        //DropdownMenuEntry(
+                        //    label: 'vegetables', value: 'vegetables'),
+                        //DropdownMenuEntry(label: 'fish', value: 'fish'),
+                        //DropdownMenuEntry(label: 'party', value: 'party'),
+                        //DropdownMenuEntry(label: 'other', value: 'other'),
+                        //],
                         hintText: "Category"),
                     //const SizedBox(height: 12),
                     //MultiSelectDropDown<String>(
@@ -344,8 +364,22 @@ class _AddItemPage extends State<AddItemPage> {
 
   Future<void> addFoodItem(String item, String expiryDate, category,
       /*String allergens,*/ String measurements, int quantity) async {
-    // Convert ValueItem to just the values.
     print(category);
+
+    if ((await databases.listDocuments(
+            databaseId: '6650884f00137e1b1fcd',
+            collectionId: '665089ef003013ad1543',
+            queries: [Query.search('name', category)]))
+        .documents
+        .isEmpty) {
+      databases.createDocument(
+          databaseId: '6650884f00137e1b1fcd',
+          collectionId: '665089ef003013ad1543',
+          documentId: category,
+          data: {
+            "name": category,
+          });
+    }
 
     // Add them to the databse, which btw
     // TODO: no longer rely on hardcoded values.
