@@ -1,19 +1,9 @@
-import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:location/location.dart';
-import 'package:pam_pan/map_page.dart';
-import 'package:pam_pan/pantry/add_item_page.dart';
-import 'package:intl/intl.dart';
-import 'package:pam_pan/pantry/category.dart';
-import 'package:pam_pan/pantry/items_list_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
-import 'package:pam_pan/notifications/tips.dart';
 import 'package:home_widget/home_widget.dart';
 import 'bottom_bar.dart';
 
@@ -191,73 +181,73 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
-                    child: SizedBox(
+                    child: const SizedBox(
                       height: 600,
                       child: DecoratedBox(
                         decoration: const BoxDecoration(
                             color: Color.fromARGB(103, 93, 51, 16)),
-                        child: Center(
-                          child: Scrollbar(
-                            // trackVisibility: true,
-                            // thumbVisibility: true,
-                            // scrollbarOrientation: ScrollbarOrientation.left,
+                        // child: Center(
+                        //   child: Scrollbar(
+                        //     // trackVisibility: true,
+                        //     // thumbVisibility: true,
+                        //     // scrollbarOrientation: ScrollbarOrientation.left,
 
-                            child: GridView.count(
-                              crossAxisCount: 4,
-                              // mainAxisSpacing: 7,
-                              // crossAxisSpacing:5,
-                              scrollDirection: Axis.horizontal,
-                              childAspectRatio: 1.4,
-                              children: List.generate(
-                                categories.length,
-                                (index) {
-                                  return Container(
-                                    decoration: const BoxDecoration(
-                                        // border: Border.all(
-                                        //   // width: 3,
-                                        //   color: Colors.black,
-                                        // ),
-                                        ),
-                                    child: Center(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) {
-                                                return ItemListPage(
-                                                    categories[index]
-                                                        .nameString);
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                            ),
-                                            categories[index].icon,
-                                            Text(
-                                              categories[index].nameString,
-                                              style: const TextStyle(
-                                                fontSize: 15,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                        //     child: GridView.count(
+                        //       crossAxisCount: 4,
+                        //       // mainAxisSpacing: 7,
+                        //       // crossAxisSpacing:5,
+                        //       scrollDirection: Axis.horizontal,
+                        //       childAspectRatio: 1.4,
+                        //       // children: List.generate(
+                        //         // categories.length,
+                        //         (index) {
+                        //           return Container(
+                        //             decoration: const BoxDecoration(
+                        //                 // border: Border.all(
+                        //                 //   // width: 3,
+                        //                 //   color: Colors.black,
+                        //                 // ),
+                        //                 ),
+                        //             child: Center(
+                        //               child: GestureDetector(
+                        //                 onTap: () {
+                        //                   Navigator.push(
+                        //                     context,
+                        //                     MaterialPageRoute(
+                        //                       builder: (context) {
+                        //                         return ItemListPage(
+                        //                             categories[index]
+                        //                                 .nameString);
+                        //                       },
+                        //                     ),
+                        //                   );
+                        //                 },
+                        //                 child: Column(
+                        //                   children: [
+                        //                     SizedBox(
+                        //                       height: MediaQuery.of(context)
+                        //                               .size
+                        //                               .height *
+                        //                           0.02,
+                        //                     ),
+                        //                     categories[index].icon,
+                        //                     Text(
+                        //                       categories[index].nameString,
+                        //                       style: const TextStyle(
+                        //                         fontSize: 15,
+                        //                       ),
+                        //                       textAlign: TextAlign.center,
+                        //                     ),
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           );
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ),
                     ),
                   ),

@@ -1,4 +1,4 @@
-import "package:pam_pan/pantryNEW/food_item.dart";
+import "package:pam_pan/pantry/food_item.dart";
 import "package:pam_pan/backend/libdb.dart";
 
 class DBInterface {
@@ -21,7 +21,7 @@ class DBInterface {
     if (result.isNotEmpty) {
       final row = result.first;
       return FoodItem(
-        itemId: row['Item_Id'] as String?,
+        itemId: row['Item_Id'] as int?,
         itemName: row['Item_Name'] as String,
         expiryDate: row['Expiry_Date'] as String,
         barcode: row['Barcode'] as String?,
@@ -43,7 +43,7 @@ class DBInterface {
 
     return result.map((row) {
       return FoodItem(
-        itemId: row['Item_Id'] as String?,
+        itemId: row['Item_Id'] as int?,
         itemName: row['Item_Name'] as String,
         expiryDate: row['Expiry_Date'] as String,
         barcode: row['Barcode'] as String?,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FoodItem {
-  String? itemId;
+  int? itemId;
   final String itemName;
   final String expiryDate;
   final String? barcode;

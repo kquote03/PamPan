@@ -3,9 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/map_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
-import 'package:pam_pan/pantry/items_list_page.dart';
-import 'package:pam_pan/pantryNEW/pantry.dart';
-import 'package:pam_pan/pantryNEW/search_pantry.dart';
+import 'package:pam_pan/pantry/pantry.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
