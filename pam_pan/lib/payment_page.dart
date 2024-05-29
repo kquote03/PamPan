@@ -41,23 +41,12 @@ class _PaymentPage extends State<PaymentPage> {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
                 ),
-                "Donating to help the hungry. A worthy endevour.",
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-                "Any donations go to the United Nation's World Food Programme (WFP).",
-                textAlign: TextAlign.justify,
+                "All donations go to the United Nation's World Food Programme (WFP)",
               ),
             ),
             Padding(
@@ -65,17 +54,47 @@ class _PaymentPage extends State<PaymentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  const Text('Card Owner'),
+                  const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerCardName,
-                    decoration: const InputDecoration(
-                      labelText: 'Card Name',
+                    decoration: InputDecoration(
+                      hintText: 'John Smith',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5.5),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.person,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  const Text('Card Number'),
+                  const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerCardNumber,
-                    decoration: const InputDecoration(
-                      labelText: 'Card Number',
+                    decoration: InputDecoration(
                       hintText: 'XXXX XXXX XXXX XXXX',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5.5),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.credit_card,
+                        color: Colors.black,
+                      ),
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: [
@@ -87,41 +106,96 @@ class _PaymentPage extends State<PaymentPage> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: TextFormField(
-                          controller: _controllerDate,
-                          decoration: const InputDecoration(
-                            labelText: 'Expiration Date',
-                            hintText: 'MM/YY',
-                          ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(5),
-                            _ExpirationDateInputFormatter(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const Text('Expiration Date'),
+                            const SizedBox(height: 3),
+                            TextFormField(
+                              controller: _controllerDate,
+                              decoration: InputDecoration(
+                                hintText: 'MM/YY',
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(5.5),
+                                ),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(5),
+                                _ExpirationDateInputFormatter(),
+                              ],
+                            ),
                           ],
                         ),
                       ),
                       const SizedBox(width: 16.0),
                       Expanded(
-                        child: TextFormField(
-                          controller: _controllerCVC,
-                          decoration: const InputDecoration(
-                            labelText: 'CVC',
-                            hintText: 'XXX',
-                          ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(3),
-                            _CVCInputFormatter(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const Text('CVC'),
+                            const SizedBox(height: 3),
+                            TextFormField(
+                              controller: _controllerCVC,
+                              decoration: InputDecoration(
+                                hintText: 'XXX',
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(5.5),
+                                ),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.lock_outline,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(3),
+                                _CVCInputFormatter(),
+                              ],
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 16),
+                  const Text('Amount(AED)'),
+                  const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerAmount,
-                    decoration: const InputDecoration(
-                      labelText: 'Amount (in Dirhams)',
-                      hintText: 'AED XXX.XX',
+                    decoration: InputDecoration(
+                      hintText: 'AED 000.00',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5.5),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.payments_outlined,
+                        color: Colors.black,
+                      ),
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: [
@@ -132,33 +206,54 @@ class _PaymentPage extends State<PaymentPage> {
                     ],
                   ),
                   const SizedBox(height: 32.0),
-                  TextButton(
-                    onPressed: () {
-                      if (_creditCardChecker() ==
-                          "Donation successful. Thank you. The hungry children thank you.") {
-                        _showSimpleModalDialog2(context);
-                        _showSimpleModalDialog1(context);
-                        Timer(
-                          const Duration(seconds: 3),
-                          () {
-                            Navigator.of(context, rootNavigator: true).pop();
-                          },
-                        );
-                      } else {
-                        _showErrorModalDialog(context);
-                        _showSimpleModalDialog1(context);
-                        Timer(
-                          const Duration(seconds: 3),
-                          () {
-                            Navigator.of(context, rootNavigator: true).pop();
-                          },
-                        );
-                      }
-                    },
-                    child: const Text(
-                      'Process Donation',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          if (_creditCardChecker() ==
+                              "Donation successful! Thank you.") {
+                            _showSimpleModalDialog2(context);
+                            _showSimpleModalDialog1(context);
+                            Timer(
+                              const Duration(seconds: 1),
+                              () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                              },
+                            );
+                          } else {
+                            _showErrorModalDialog(context);
+                            _showSimpleModalDialog1(context);
+                            Timer(
+                              const Duration(seconds: 1),
+                              () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                              },
+                            );
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all<Color>(Colors.black),
+                          overlayColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                              return const Color.fromARGB(255, 219, 219, 219);
+                            },
+                          ),
+                          shape: WidgetStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.5),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Process Donation',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -229,38 +324,17 @@ class _PaymentPage extends State<PaymentPage> {
     }
 
     String output = "basic";
-
-    // if (!cardNameCorrect) {
-    //   output += "\nName wrong lol";
-    // }
-
-    // if (!cardNumberCorrect) {
-    //   output += "\nNumber wrong lol";
-    // }
-
-    // if (!dateCorrect) {
-    //   output += "\nDate wrong lol";
-    // }
-
-    // if (!cvcCorrect) {
-    //   output += "\nCvc wrong lol";
-    // }
-
-    // if (!amountCorrect) {
-    //   output += "\nAmount wrong lol";
-    // }
-
     if (!(cardNameCorrect &&
         cardNumberCorrect &&
         dateCorrect &&
         cvcCorrect &&
         amountCorrect)) {
       output =
-          "Invalid input: Errors in one (or more) text fields. Please try again.";
+          "Invalid input(s): Errors in one (or more) text fields. Please try again.";
     }
 
     if (output == "basic") {
-      output = "Donation successful. Thank you. The hungry children thank you.";
+      output = "Donation successful! Thank you.";
     }
 
     return output;
@@ -290,31 +364,32 @@ class _PaymentPage extends State<PaymentPage> {
         context: context,
         builder: (BuildContext builderContext) {
           return Dialog(
+            backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
+                borderRadius: BorderRadius.circular(5.5)),
             child: Container(
-              constraints: const BoxConstraints(maxHeight: 350),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
+              constraints: const BoxConstraints(maxHeight: 210),
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    const Column(
+                    Column(
                       children: [
-                        Text('Payment Processing'),
+                        Text(
+                          'Payment Processing',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.black, 
+                          ),
+                        ),
+                        SizedBox(height: 20),
                         Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+),
+                          
                         ),
                       ],
-                    ),
-                    RichText(
-                      textAlign: TextAlign.justify,
-                      text: const TextSpan(
-                          text: "ok",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: Colors.black,
-                              wordSpacing: 1)),
                     ),
                   ],
                 ),
