@@ -287,7 +287,8 @@ class _PaymentPage extends State<PaymentPage> {
     }
   }
 
-  void _showModalDialog(BuildContext context, String title, String message, String buttonText) {
+  void _showModalDialog(
+      BuildContext context, String title, String message, String buttonText) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
@@ -314,13 +315,12 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        message,
-                        style: const TextStyle(fontSize: 16),
-                        textAlign: TextAlign.center,
-                      ),
+                  Center(
+                    // Center the message text
+                    child: Text(
+                      message,
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   const SizedBox(height: 20),
