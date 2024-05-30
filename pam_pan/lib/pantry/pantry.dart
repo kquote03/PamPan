@@ -152,8 +152,6 @@ class Pantry extends StatefulWidget {
 }
 
 class _PantryState extends State<Pantry> {
-  // List<Map<String, dynamic>> items = [];
-
   final List<List<String>> categoriesList = [
     ['bread', "Bread & Pastries"],
     ['dairy_eggs', "Dairy & Eggs"],
@@ -206,21 +204,6 @@ class _PantryState extends State<Pantry> {
     );
   }
 
-  // void filterItems() {
-  //   setState(
-  //     () {
-  //       filteredItems = allItems.where(
-  //         (foodItem) {
-  //           final matchesSearchQuery = foodItem.itemName
-  //               .toLowerCase()
-  //               .contains(searchQuery.toLowerCase());
-  //           return matchesSearchQuery;
-  //         },
-  //       ).toList();
-  //     },
-  //   );
-  // }
-
   void filterItems() {
     setState(
       () {
@@ -229,8 +212,7 @@ class _PantryState extends State<Pantry> {
             final matchesSearchQuery = foodItem.itemName
                 .toLowerCase()
                 .contains(searchQuery.toLowerCase());
-            // final matchesCategory = selectedCategories.isEmpty ||
-            //     foodItem.categoryName == selectedCategories;
+
             final matchesCategory = selectedCategories.isEmpty ||
                 selectedCategories.contains(foodItem.categoryName);
 
@@ -251,23 +233,6 @@ class _PantryState extends State<Pantry> {
       filterItems();
     });
   }
-
-  // List<FoodItem> buildList() {
-  //   List<FoodItem> list = [];
-  //   for (int i = 0; i < items.length; i++) {
-  //     list.add(
-  //       FoodItem(
-  //         itemId: items[i]['\$id'],
-  //         itemName: items[i]['name'],
-  //         expiryDate: items[i]['expiryDate'],
-  //         measurementUnit: items[i]['measurementUnit'],
-  //         quantity: items[i]['quantity'],
-  //         categoryName: items[i]['categories'],
-  //       ),
-  //     );
-  //   }
-  //   return list;
-  // }
 
   @override
   Widget build(BuildContext context) {
