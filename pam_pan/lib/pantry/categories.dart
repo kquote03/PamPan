@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 class Catogeries extends StatelessWidget {
   final Color color;
   final String text;
-  final String images;
+  final String? image;
+
   const Catogeries(
-      {super.key,
-      required this.color,
-      required this.text,
-      required this.images});
+      {super.key, required this.color, required this.text, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +24,13 @@ class Catogeries extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  images,
-                  scale: 17,
-                  // height: 30,
-                  // width: 30,
-                ),
+                if (image != null)
+                  Image.asset(
+                    image!,
+                    scale: 17,
+                    // height: 30,
+                    // width: 30,
+                  ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: Text(
