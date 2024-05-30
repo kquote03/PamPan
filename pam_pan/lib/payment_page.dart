@@ -342,21 +342,69 @@ class _PaymentPage extends State<PaymentPage> {
 
   _showErrorModalDialog(context) {
     showDialog(
-        context: context,
-        builder: (BuildContext builderContext) {
-          return AlertDialog(
-            title: const Text("ERROR"),
-            content: Text(_creditCardChecker()),
-            actions: <Widget>[
-              ElevatedButton(
-                child: const Text("OK"),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop();
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext builderContext) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+            height: 200,
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  "ERROR",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  _creditCardChecker(),
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.end, // Aligns the child to the right
+                  children: [
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all<Color>(Colors.black),
+                        overlayColor: WidgetStateProperty.resolveWith<Color>(
+                          (Set<WidgetState> states) {
+                            return const Color.fromARGB(255, 219, 219, 219);
+                          },
+                        ),
+                        shape: WidgetStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.5),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      child: const Text(
+                        'Done',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   _showSimpleModalDialog1(context) {
@@ -368,7 +416,7 @@ class _PaymentPage extends State<PaymentPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
-              constraints: const BoxConstraints(maxHeight: 210),
+              constraints: const BoxConstraints(maxHeight: 200),
               child: const Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Column(
@@ -383,12 +431,11 @@ class _PaymentPage extends State<PaymentPage> {
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 50),
                         Center(
                           child: CircularProgressIndicator.adaptive(
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(Colors.black),
-                                
                           ),
                         ),
                       ],
