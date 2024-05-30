@@ -22,16 +22,23 @@ class BarcodeApi {
     tempMap['itemName'] = productData['product_name_en'] as String;
     tempMap['barcode'] = productData['code'] as String;
 
-
     // Sometimes OpenFoodFacts will have a weird serving unit.
     // I'm trying to control the chaos.
-    tempMap['measurementUnit'] = ['l', 'g', 'ml', 'kg', 'pieces']
-            .contains(productData['serving_quantity_unit'].toLowerCase())
-        ? productData['serving_quantity_unit'].toLowerCase()
-        : '';
-    tempMap['categoryName'] =
-        productData['categories_tags'][0].toString().replaceAll("en:", "");
+    try {
+      tempMap['measurementUnit'] = ['l', 'g', 'ml', 'kg', 'pieces']
+              .contains(productData['serving_quantity_unit'].toLowerCase())
+          ? productData['serving_quantity_unit'].toLowerCase()
+          : '';
+    } catch (e) {
+      tempMap['measurementUnit'] = "";
+    }
 
+    try {
+      tempMap['categoryName'] =
+          productData['categories_tags'][0].toString().replaceAll("en:", "");
+    } catch (e) {
+      tempMap['categoryName'] = "";
+    }
     return tempMap;
   }
 }
