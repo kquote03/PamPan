@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/profile/profile_page.dart';
@@ -29,18 +30,49 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-@override
-State<HomePage> createState() {
-  return _HomePageState();
-}
-
 class _HomePageState extends State<HomePage> {
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
-
-  late Widget currentPage;
+  List<Color> colours = [
+    const Color.fromARGB(255, 197, 234, 250),
+    const Color(0xFFA2CFFE),
+    const Color(0xFF9DD9F3),
+  ];
   Random random = Random();
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
+  // List<String> carousel1Text
+  List<Widget>? carousel1 = [1, 2, 3].map(
+    (i) {
+      return Builder(
+        builder: (BuildContext context) {
+          return SizedBox(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 197, 234, 250),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(10, 10),
+                    blurStyle: BlurStyle.normal,
+                  ),
+                ],
+              ),
+              child: Text(
+                'text $i',
+                style: const TextStyle(fontSize: 16.0),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  ).toList();
 
   @override
   void initState() {
@@ -131,7 +163,6 @@ class _HomePageState extends State<HomePage> {
           //     LocalNotifications.cancelAll();
           //   },
           // ),
-
           //TODO: Implement database below
           //IconButton(
           //  icon: const Icon(Icons.notifications,
@@ -167,103 +198,142 @@ class _HomePageState extends State<HomePage> {
           // ),
         ],
       ),
-      body: Scrollbar(
-        interactive: true,
-        thickness: 7,
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const SizedBox(
-                      height: 600,
-                      child: DecoratedBox(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(103, 93, 51, 16)),
-                        // child: Center(
-                        //   child: Scrollbar(
-                        //     // trackVisibility: true,
-                        //     // thumbVisibility: true,
-                        //     // scrollbarOrientation: ScrollbarOrientation.left,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarouselSlider(
+                carouselController: _controller,
+                options: CarouselOptions(
+                  // height: 400,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.95,
+                  initialPage: 0,
+                  enableInfiniteScroll: false,
+                  reverse: false,
+                  // autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.2,
+                  onPageChanged: (index, reason) {
+                    setState(
+                      () {
+                        _current = index;
+                      },
+                    );
+                  },
+                  scrollDirection: Axis.horizontal,
+                ),
+                items: carousel1),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: carousel1!.map((entry) {
+            //     return GestureDetector(
+            //       onTap: () => _controller.animateToPage(entry),
+            //       child: Container(
+            //         width: 12.0,
+            //         height: 12.0,
+            //         margin: const EdgeInsets.symmetric(
+            //             vertical: 8.0, horizontal: 4.0),
+            //         decoration: BoxDecoration(
+            //             shape: BoxShape.circle,
+            //             color: (Theme.of(context).brightness == Brightness.dark
+            //                     ? Colors.white
+            //                     : Colors.black)
+            //                 .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+            //       ),
+            //     );
+            //   }).toList(),
+            // ),
 
-                        //     child: GridView.count(
-                        //       crossAxisCount: 4,
-                        //       // mainAxisSpacing: 7,
-                        //       // crossAxisSpacing:5,
-                        //       scrollDirection: Axis.horizontal,
-                        //       childAspectRatio: 1.4,
-                        //       // children: List.generate(
-                        //         // categories.length,
-                        //         (index) {
-                        //           return Container(
-                        //             decoration: const BoxDecoration(
-                        //                 // border: Border.all(
-                        //                 //   // width: 3,
-                        //                 //   color: Colors.black,
-                        //                 // ),
-                        //                 ),
-                        //             child: Center(
-                        //               child: GestureDetector(
-                        //                 onTap: () {
-                        //                   Navigator.push(
-                        //                     context,
-                        //                     MaterialPageRoute(
-                        //                       builder: (context) {
-                        //                         return ItemListPage(
-                        //                             categories[index]
-                        //                                 .nameString);
-                        //                       },
-                        //                     ),
-                        //                   );
-                        //                 },
-                        //                 child: Column(
-                        //                   children: [
-                        //                     SizedBox(
-                        //                       height: MediaQuery.of(context)
-                        //                               .size
-                        //                               .height *
-                        //                           0.02,
-                        //                     ),
-                        //                     categories[index].icon,
-                        //                     Text(
-                        //                       categories[index].nameString,
-                        //                       style: const TextStyle(
-                        //                         fontSize: 15,
-                        //                       ),
-                        //                       textAlign: TextAlign.center,
-                        //                     ),
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           );
-                        //         },
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 1500,
-                child: Placeholder(),
-              ),
-              const Text("yo"),
-              ElevatedButton(
-                onPressed: () => updateWidgetFun(),
-                child: const Text('Update'),
-              ),
-            ],
-          ),
+            // Column(
+            //   children: [
+            //     const Padding(
+            //       padding: EdgeInsets.all(8.0),
+            //     ),
+            //     Container(
+            //       padding: const EdgeInsets.all(8),
+            //       child: const SizedBox(
+            //         height: 600,
+            //         child: DecoratedBox(
+            //           decoration: const BoxDecoration(
+            //               color: Color.fromARGB(103, 93, 51, 16)),
+            //           child: Center(
+            //             child: Scrollbar(
+            //               trackVisibility: true,
+            //               thumbVisibility: true,
+            //               scrollbarOrientation: ScrollbarOrientation.left,
+            //               child: GridView.count(
+            //                 crossAxisCount: 4,
+            //                 // mainAxisSpacing: 7,
+            //                 // crossAxisSpacing:5,
+            //                 scrollDirection: Axis.horizontal,
+            //                 childAspectRatio: 1.4,
+            //                 // children: List.generate(
+            //                   // categories.length,
+            //                   (index) {
+            //                     return Container(
+            //                       decoration: const BoxDecoration(
+            //                           // border: Border.all(
+            //                           //   // width: 3,
+            //                           //   color: Colors.black,
+            //                           // ),
+            //                           ),
+            //                       child: Center(
+            //                         child: GestureDetector(
+            //                           onTap: () {
+            //                             Navigator.push(
+            //                               context,
+            //                               MaterialPageRoute(
+            //                                 builder: (context) {
+            //                                   return ItemListPage(
+            //                                       categories[index]
+            //                                           .nameString);
+            //                                 },
+            //                               ),
+            //                             );
+            //                           },
+            //                           child: Column(
+            //                             children: [
+            //                               SizedBox(
+            //                                 height: MediaQuery.of(context)
+            //                                         .size
+            //                                         .height *
+            //                                     0.02,
+            //                               ),
+            //                               categories[index].icon,
+            //                               Text(
+            //                                 categories[index].nameString,
+            //                                 style: const TextStyle(
+            //                                   fontSize: 15,
+            //                                 ),
+            //                                 textAlign: TextAlign.center,
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ),
+            //                       ),
+            //                     );
+            //                   },
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            const SizedBox(
+              height: 1500,
+            ),
+            const Text("yo"),
+            ElevatedButton(
+              onPressed: () => updateWidgetFun(),
+              child: const Text('Update'),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
