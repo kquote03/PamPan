@@ -4,6 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/bottom_bar.dart';
+import 'package:pam_pan/pantry/food_item.dart';
 
 final realtime = Realtime(client);
 final subscription = realtime.subscribe([
@@ -23,7 +24,7 @@ class ItemListPage extends StatefulWidget {
 class _ItemListPageState extends State<ItemListPage> {
   _ItemListPageState(this.category);
   String category;
-  List<Map<String, dynamic>> items = [];
+  List<FoodItem> items = [];
 
   @override
   void initState() {
@@ -32,7 +33,7 @@ class _ItemListPageState extends State<ItemListPage> {
   }
 
   _asyncQuery() async {
-    List<Map<String, dynamic>> fetchedItems = await getItems();
+    List<FoodItem> fetchedItems = await getItems();
     setState(() {
       items = fetchedItems;
     });
@@ -58,8 +59,8 @@ Quantity/Amount:
                   const SizedBox(),
                   Text(
                     '''
-                    ${items[keyIndex]['expiryDate']} 
-                    ${items[keyIndex]['quantity']}
+                    ${items[keyIndex].expiryDate} 
+                    ${items[keyIndex].quantity.toString()}
                     ''',
                     style: const TextStyle(color: Colors.white),
                   ),
@@ -123,7 +124,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  items[keyIndex]['name'],
+                  items[keyIndex].itemName,
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -136,8 +137,8 @@ Quantity/Amount:
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            print(items[keyIndex]['\$id']);
-                            return AddItemPage(id: items[keyIndex]['\$id']);
+                            print(items[keyIndex].itemId);
+                            return AddItemPage(id: items[keyIndex].itemId);
                           },
                         ));
                       },
@@ -146,7 +147,7 @@ Quantity/Amount:
                     ),
                     IconButton(
                         onPressed: () {
-                          deleteItemById(items[keyIndex]['\$id']);
+                          deleteItemById(items[keyIndex].itemId);
                         },
                         icon: const Icon(
                           Icons.delete,

@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/pantry/food_item.dart';
 
 Client client = Client()
     .setEndpoint('http://100.125.122.55/v1')
@@ -11,7 +12,7 @@ Client client = Client()
 Account account = Account(client);
 final databases = Databases(client);
 
-Future<List<Map<String, dynamic>>> getItems() async {
+Future<List<FoodItem>> getItems() async {
   var documents = await databases.listDocuments(
       databaseId: '6650884f00137e1b1fcd',
       collectionId: '6650886f0027a739c072',
@@ -25,40 +26,38 @@ Future<List<Map<String, dynamic>>> getItems() async {
           "\$id"
         ])
       ]);
-  List<Map<String, dynamic>> items = [];
+  List<FoodItem> items = [];
 
   for (var i in documents.documents) {
-    items.add({
-      '\$id': i.data['\$id'],
-      'name': i.data['name'],
-      'quantity': i.data['quantity'].toString(),
-      'expiryDate':
-          DateFormat('yyyy-MM-dd').format(DateTime.parse(i.data['expiryDate'])),
-      'measurementUnit': i.data['measurementUnit'],
-      'categories': i.data['categories']['name']
-    });
+    items.add(FoodItem(
+        itemId: i.data['\$id'],
+        itemName: i.data['name'],
+        expiryDate: DateFormat('yyyy-MM-dd')
+            .format(DateTime.parse(i.data['expiryDate'])),
+        measurementUnit: i.data['measurementUnit'],
+        quantity: i.data['quantity'],
+        categoryName: i.data['categories']['name']));
     print(items);
   }
   return items;
 }
 
-Future<List<Map<String, dynamic>>> getItemsById(id) async {
+Future<List<FoodItem>> getItemsById(id) async {
   var documents = await databases.listDocuments(
       databaseId: '6650884f00137e1b1fcd',
       collectionId: '6650886f0027a739c072',
       queries: [Query.equal('\$id', id)]);
-  List<Map<String, dynamic>> items = [];
+  List<FoodItem> items = [];
 
   for (var i in documents.documents) {
-    items.add({
-      '\$id': i.data['\$id'],
-      'name': i.data['name'],
-      'quantity': i.data['quantity'].toString(),
-      'expiryDate':
-          DateFormat('yyyy-MM-dd').format(DateTime.parse(i.data['expiryDate'])),
-      'measurementUnit': i.data['measurementUnit'],
-      'categories': i.data['categories']['name']
-    });
+    items.add(FoodItem(
+        itemId: i.data['\$id'],
+        itemName: i.data['name'],
+        expiryDate: DateFormat('yyyy-MM-dd')
+            .format(DateTime.parse(i.data['expiryDate'])),
+        measurementUnit: i.data['measurementUnit'],
+        quantity: i.data['quantity'],
+        categoryName: i.data['categories']['name']));
     print(items);
   }
   return items;

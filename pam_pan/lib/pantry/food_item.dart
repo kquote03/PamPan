@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class FoodItem {
-  int? itemId;
+  final String itemId;
   final String itemName;
   final String expiryDate;
   final String? barcode;
   final String? productionDate;
   final bool? canRefrigerate;
   final String measurementUnit;
-  final String quantity;
+  final int quantity;
   final String categoryName;
 
   FoodItem({
-    this.itemId,
+    required this.itemId,
     required this.itemName,
     required this.expiryDate,
     this.barcode,
@@ -27,7 +27,7 @@ class FoodItem {
 
   @override
   String toString() {
-    return 'FoodItem(itemId: $itemId, itemName: $itemName, expiryDate: $expiryDate, measurementUnit: $measurementUnit, quantity: $quantity, categoryName: $categoryName)';
+    return 'FoodItem(itemId: $itemId, itemName: $itemName, expiryDate: $expiryDate, measurementUnit: $measurementUnit, quantity: ${quantity.toString()}, categoryName: $categoryName)';
   }
 }
 
@@ -92,7 +92,7 @@ class FoodItemRow extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        "Quantity: ${foodItem.quantity} ${foodItem.measurementUnit}",
+                        "Quantity: ${foodItem.quantity.toString()} ${foodItem.measurementUnit}",
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.grey,
