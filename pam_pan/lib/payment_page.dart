@@ -56,7 +56,7 @@ class _PaymentPage extends State<PaymentPage> {
                   TextFormField(
                     controller: _controllerCardName,
                     decoration: InputDecoration(
-                      hintText: 'John Smith',
+                      hintText: 'Charles Smith',
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(5.5),
@@ -374,12 +374,14 @@ class _PaymentPage extends State<PaymentPage> {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
-        return Dialog(
+        return AlertDialog(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20),
           ),
-          child: Container(
-            constraints: const BoxConstraints(maxHeight: 350),
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+            constraints: const BoxConstraints(maxHeight: 200),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -394,8 +396,25 @@ class _PaymentPage extends State<PaymentPage> {
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).pop();
                     },
-                    child: const Text("Close"),
-                  )
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all<Color>(Colors.black),
+                      overlayColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
+                          return const Color.fromARGB(255, 219, 219, 219);
+                        },
+                      ),
+                      shape:WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.5),
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      'Close',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ),
