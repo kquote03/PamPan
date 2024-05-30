@@ -7,6 +7,7 @@ import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:pam_pan/records.dart';
 import 'bottom_bar.dart';
 
 //Taken from expiry_test
@@ -158,23 +159,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const ProfilePage();
-                },
-              ),
-            );
-          },
-          icon: const Icon(
-            Icons.person,
-            size: 35,
-            color: Colors.black,
-          ),
-        ),
         actions: [
           Text(
             DateFormat.MMMM().format(DateTime.now()),
@@ -361,6 +345,48 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               onPressed: () => updateWidgetFun(),
               child: const Text('Update'),
+            ),
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        child: Column(
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            const Expanded(child: SizedBox()),
+            ListTile(
+              title: const Text('Records'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const Records();
+                    },
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Settings'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text(
+                'Log out',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {},
             ),
           ],
         ),
