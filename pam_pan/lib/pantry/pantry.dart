@@ -193,7 +193,7 @@ class _PantryState extends State<Pantry> {
         for (int i = 0; i < fetchedItems.length; i++) {
           allItems.add(
             FoodItem(
-              itemId: fetchedItems[i]['\$id'],
+              // itemId: fetchedItems[i]['\$id'],
               itemName: fetchedItems[i]['name'],
               expiryDate: fetchedItems[i]['expiryDate'],
               measurementUnit: fetchedItems[i]['measurementUnit'],
