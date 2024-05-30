@@ -2,7 +2,12 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/login%20and%20signup/login.dart';
+import 'package:pam_pan/login%20and%20signup/signup.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
+import 'package:pam_pan/payment_page.dart';
+import 'package:pam_pan/profile/edit_profile_page.dart';
+import 'package:pam_pan/profile/help.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
@@ -144,7 +149,19 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context) => AddItemPage()),
                           );
                         },
-                        child: const Text('Click me'),
+                        child: const Text('Add items'),
+                      ),
+                    if (index == 2) // Only show the button on the first page
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navigate to the new page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PaymentPage()),
+                          );
+                        },
+                        child: const Text('Donate cashmonneh'),
                       ),
                   ],
                 ),
@@ -168,6 +185,32 @@ class _HomePageState extends State<HomePage> {
             icon:
                 const Icon(Icons.calendar_month, size: 30, color: Colors.black),
             onPressed: () {},
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const LoginPage();
+                  },
+                ),
+              );
+            },
+            child: const Text("Login"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SignUpPage();
+                  },
+                ),
+              );
+            },
+            child: const Text("Signup"),
           ),
           // IconButton(
           //   icon:
@@ -353,11 +396,76 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         child: Column(
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+            SizedBox(
+              height: 250,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors
+                      .blue, //TODO use user-chosen theme colour to decide this.
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Insert username here',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              'Insert email here',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Notifications: 5 days before expiry date.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EditProfilePage()),
+                        );
+                      },
+                      child: const Text('Edit Profile'),
+                    ),
+                  ],
+                ),
               ),
-              child: Text('Drawer Header'),
             ),
             const Expanded(child: SizedBox()),
             ListTile(
@@ -376,6 +484,19 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: const Text('Settings'),
               onTap: () {},
+            ),
+            ListTile(
+              title: const Text('Help'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const HelpPage();
+                    },
+                  ),
+                );
+              },
             ),
             ListTile(
               title: const Text(

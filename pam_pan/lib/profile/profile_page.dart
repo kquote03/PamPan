@@ -1,8 +1,8 @@
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/profile/about_pam_page.dart';
-import 'package:pam_pan/profile/payment_methods_page.dart';
-import 'edit_profile_page.dart';
+import 'package:pam_pan/profile/USELESS_payment_methods_page.dart';
+import 'OLD_edit_profile_page.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
@@ -98,7 +98,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-
               Expanded(
                 child: SizedBox(
                   height: screenHeight * 0.3,
