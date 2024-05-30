@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
-import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/categories.dart';
 import 'package:pam_pan/pantry/food_item.dart';
 import 'package:pam_pan/pantry/item_description_card.dart';
@@ -153,8 +152,6 @@ class Pantry extends StatefulWidget {
 }
 
 class _PantryState extends State<Pantry> {
-  // List<Map<String, dynamic>> items = [];
-
   final List<List<String>> categoriesList = [
     ['bread', "Bread & Pastries"],
     ['dairy_eggs', "Dairy & Eggs"],
@@ -178,6 +175,7 @@ class _PantryState extends State<Pantry> {
 
   List<FoodItem> filteredItems = [];
   String searchQuery = '';
+  List<String> selectedCategories = [];
 
   @override
   void initState() {
@@ -214,40 +212,35 @@ class _PantryState extends State<Pantry> {
             final matchesSearchQuery = foodItem.itemName
                 .toLowerCase()
                 .contains(searchQuery.toLowerCase());
-            return matchesSearchQuery;
+
+            final matchesCategory = selectedCategories.isEmpty ||
+                selectedCategories.contains(foodItem.categoryName);
+
+            return matchesSearchQuery && matchesCategory;
           },
         ).toList();
       },
     );
   }
 
-  // List<FoodItem> buildList() {
-  //   List<FoodItem> list = [];
-  //   for (int i = 0; i < items.length; i++) {
-  //     list.add(
-  //       FoodItem(
-  //         itemId: items[i]['\$id'],
-  //         itemName: items[i]['name'],
-  //         expiryDate: items[i]['expiryDate'],
-  //         measurementUnit: items[i]['measurementUnit'],
-  //         quantity: items[i]['quantity'],
-  //         categoryName: items[i]['categories'],
-  //       ),
-  //     );
-  //   }
-  //   return list;
-  // }
+  void selectCategory(String category) {
+    setState(() {
+      if (selectedCategories.contains(category)) {
+        selectedCategories.remove(category);
+      } else {
+        selectedCategories.add(category);
+      }
+      filterItems();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     subscription.stream.listen(
       (response) {
-        // Callback will be executed on all account events.
-        setState(
-          () {
-            _asyncQuery();
-          },
-        );
+        setState(() {
+          _asyncQuery();
+        });
       },
     );
     return Scaffold(
@@ -310,9 +303,13 @@ class _PantryState extends State<Pantry> {
                   children: categoriesList.map(
                     (category) {
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          selectCategory(category[0]);
+                        },
                         child: Catogeries(
-                          color: Colors.white,
+                          color: selectedCategories.contains(category[0])
+                              ? Colors.blue
+                              : Colors.white,
                           text: category[1],
                           images: 'assets/categories/${category[0]}.png',
                         ),
