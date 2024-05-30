@@ -30,6 +30,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+List<String> carouselText = [
+  "hello",
+  "haha",
+  "hi",
+];
+
 class _HomePageState extends State<HomePage> {
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
@@ -42,8 +48,8 @@ class _HomePageState extends State<HomePage> {
   Random random = Random();
   int _current = 0;
   final CarouselController _controller = CarouselController();
-  // List<String> carousel1Text
-  List<Widget>? carousel1 = [1, 2, 3].map(
+
+  List<Widget>? carousel1 = carouselText.map(
     (i) {
       return Builder(
         builder: (BuildContext context) {
@@ -64,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               child: Text(
-                'text $i',
+                i,
                 style: const TextStyle(fontSize: 16.0),
               ),
             ),
@@ -202,50 +208,58 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             CarouselSlider(
-                carouselController: _controller,
-                options: CarouselOptions(
-                  // height: 400,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.95,
-                  initialPage: 0,
-                  enableInfiniteScroll: false,
-                  reverse: false,
-                  // autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.2,
-                  onPageChanged: (index, reason) {
-                    setState(
-                      () {
-                        _current = index;
-                      },
-                    );
-                  },
-                  scrollDirection: Axis.horizontal,
-                ),
-                items: carousel1),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: carousel1!.map((entry) {
-            //     return GestureDetector(
-            //       onTap: () => _controller.animateToPage(entry),
-            //       child: Container(
-            //         width: 12.0,
-            //         height: 12.0,
-            //         margin: const EdgeInsets.symmetric(
-            //             vertical: 8.0, horizontal: 4.0),
-            //         decoration: BoxDecoration(
-            //             shape: BoxShape.circle,
-            //             color: (Theme.of(context).brightness == Brightness.dark
-            //                     ? Colors.white
-            //                     : Colors.black)
-            //                 .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-            //       ),
-            //     );
-            //   }).toList(),
-            // ),
+              carouselController: _controller,
+              options: CarouselOptions(
+                // height: 400,
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.95,
+                initialPage: 0,
+                enableInfiniteScroll: false,
+                reverse: false,
+                // autoPlay: true,
+                // autoPlayInterval: constDuration(seconds: 3),
+                // autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.2,
+                onPageChanged: (index, reason) {
+                  setState(
+                    () {
+                      _current = index;
+                    },
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+              ),
+              items: carousel1,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: carouselText.asMap().entries.map(
+                (carousel) {
+                  return GestureDetector(
+                    onTap: () => _controller.animateToPage(carousel.key),
+                    child: Container(
+                      width: 6,
+                      height: 6,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black)
+                            .withOpacity(
+                          _current == carousel.key ? 0.9 : 0.4,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ).toList(),
+            ),
 
             // Column(
             //   children: [
