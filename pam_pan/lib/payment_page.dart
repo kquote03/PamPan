@@ -365,8 +365,8 @@ class _PaymentPage extends State<PaymentPage> {
         builder: (BuildContext builderContext) {
           return Dialog(
             backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.5)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
               constraints: const BoxConstraints(maxHeight: 210),
               child: const Padding(
@@ -376,18 +376,20 @@ class _PaymentPage extends State<PaymentPage> {
                     Column(
                       children: [
                         Text(
-                          'Payment Processing',
+                          'Processing Payment',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
-                            color: Colors.black, 
+                            color: Colors.black,
                           ),
                         ),
                         SizedBox(height: 20),
                         Center(
-                          child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-),
-                          
+                          child: CircularProgressIndicator.adaptive(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.black),
+                                
+                          ),
                         ),
                       ],
                     ),
@@ -518,16 +520,3 @@ class _ExpirationDateInputFormatter extends TextInputFormatter {
     return buffer.toString();
   }
 }
-
-// class _AmountInputFormatter extends TextInputFormatter {
-//   @override
-//   TextEditingValue formatEditUpdate(
-//       TextEditingValue oldValue, TextEditingValue newValue) {
-//     final text = newValue.text
-//         .replaceAll(RegExp(r'[^0-9.]'), ''); // Allow only digits and .
-//     return TextEditingValue(
-//       text: text,
-//       selection: TextSelection.collapsed(offset: text.length),
-//     );
-//   }
-// }
