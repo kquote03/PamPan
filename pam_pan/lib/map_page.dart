@@ -41,6 +41,13 @@ class _MapPageState extends State<MapPage> {
   LatLng _currentP = const LatLng(24.3455155, 54.5368051);
 
   @override
+  void dispose() {
+    _controller.future.then((controller) => controller.dispose());
+    // _locationController.;
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     getLocationUpdates().then(
@@ -59,12 +66,6 @@ class _MapPageState extends State<MapPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         title: const Text('Map'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: GoogleMap(
         onMapCreated: ((GoogleMapController controller) {

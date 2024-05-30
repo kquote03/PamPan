@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:pam_pan/food_item.dart';
+import 'package:pam_pan/pantry/food_item.dart';
 
 class BarcodeApi {
   Future<Map<String, dynamic>> getFoodItemByUPC(String upc) async {
@@ -21,6 +21,7 @@ class BarcodeApi {
     // Extract the required data from the JSON
     tempMap['itemName'] = productData['product_name_en'] as String;
     tempMap['barcode'] = productData['code'] as String;
+
 
     // Sometimes OpenFoodFacts will have a weird serving unit.
     // I'm trying to control the chaos.
