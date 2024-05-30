@@ -1,117 +1,143 @@
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'event.dart';
 
-class Calendarm extends StatelessWidget {
-  Calendarm({super.key});
+class CalendarPage extends StatefulWidget {
+  const CalendarPage({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Calendar Demo', home: MyHomePage());
+  State<CalendarPage> createState() => _CalendarPage();
+}
+
+class _CalendarPage extends State<CalendarPage> {
+  CalendarFormat _calendarFormat = CalendarFormat.week;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  Map<DateTime, List<Event>> events = {};
+  TextEditingController _eventController = TextEditingController();
+  late final ValueNotifier<List<Event>> _selectedEvents;
+
+  @override
+  void initState() {
+    super.initState();
+    _calendarFormat =
+        CalendarFormat.month; // Ensure calendar opens in month view initially
+    _selectedEvents = ValueNotifier([]);
   }
-}
 
-/// The hove page which hosts the calendar
-class MyHomePage extends StatefulWidget {
-  /// Creates the home page to display teh calendar widget.
-  const MyHomePage({Key? key}) : super(key: key);
+  List<Event> _getEventsForDay(DateTime day) {
+    return events[day] ?? [];
+  }
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SfCalendar(
-        view: CalendarView.month,
-        dataSource: MeetingDataSource(_getDataSource()),
-        // Provide both parameters in the function signature
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text("Event Name"),
+                content: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextField(controller: _eventController),
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_selectedDay != null) {
+                        events.update(
+                          _selectedDay!,
+                          (value) => value..add(Event(_eventController.text)),
+                          ifAbsent: () => [Event(_eventController.text)],
+                        );
+                      }
+                      Navigator.of(context).pop();
+                      _selectedEvents.value = _getEventsForDay(_selectedDay!);
+                    },
+                    child: Text("Submit"),
+                  )
+                ],
+              );
+            },
+          );
+        },
+      ),
+      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Column(
+        children: [
+          TableCalendar(
+            firstDay: DateTime(2020, 1, 1),
+            lastDay: DateTime(2222, 12, 31),
+            focusedDay: DateTime.now(),
+            calendarFormat: _calendarFormat,
+            eventLoader: _getEventsForDay,
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              if (!isSameDay(_selectedDay, selectedDay)) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
+                  _selectedEvents.value = _getEventsForDay(selectedDay);
+                });
+              }
+            },
+            onFormatChanged: (format) {
+              if (_calendarFormat != format) {
+                // Call `setState()` when updating calendar format
+                setState(() {
+                  _calendarFormat = format;
+                });
+              }
+            },
+            onPageChanged: (focusedDay) {
+              setState(() {
+                _focusedDay = focusedDay;
+              });
+            },
+          ),
+          SizedBox(height: 8.0),
+          Expanded(
+            child: ValueListenableBuilder<List<Event>>(
+              valueListenable: _selectedEvents,
+              builder: (context, value, _) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: value.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: ListTile(
+                          onTap: () => print('${value[index]}'),
+                          title: Text('${value[index]}'),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }
-}
-
-List<Meeting> _getDataSource() {
-  final List<Meeting> meetings = <Meeting>[];
-  final DateTime today = DateTime.now();
-  final DateTime startTime = DateTime(today.year, today.month, today.day, 9);
-  final DateTime endTime = startTime.add(const Duration(hours: 2));
-  meetings.add(Meeting(
-      'Conference', startTime, endTime, const Color(0xFF0F8644), false));
-  return meetings;
-}
-
-/// An object to set the appointment collection data source to calendar, which
-/// used to map the custom appointment data to the calendar appointment, and
-/// allows to add, remove or reset the appointment collection.
-class MeetingDataSource extends CalendarDataSource {
-  /// Creates a meeting data source, which used to set the appointment
-  /// collection to the calendar
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
-
-  @override
-  Future<void> handleLoadMore(DateTime startDate, DateTime endDate) async {
-    // TODO: implement handleLoadMore
-    return super.handleLoadMore(startDate, endDate);
-  }
-
-  @override
-  DateTime getStartTime(int index) {
-    return _getMeetingData(index).from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return _getMeetingData(index).to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return _getMeetingData(index).eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return _getMeetingData(index).background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return _getMeetingData(index).isAllDay;
-  }
-
-  Meeting _getMeetingData(int index) {
-    final dynamic meeting = appointments![index];
-    late final Meeting meetingData;
-    if (meeting is Meeting) {
-      meetingData = meeting;
-    }
-
-    return meetingData;
-  }
-}
-
-/// Custom business object class which contains properties to hold the detailed
-/// information about the event data which will be rendered in calendar.
-class Meeting {
-  /// Creates a meeting class with required details.
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-  /// Event name which is equivalent to subject property of [Appointment].
-  String eventName;
-
-  /// From which is equivalent to start time property of [Appointment].
-  DateTime from;
-
-  /// To which is equivalent to end time property of [Appointment].
-  DateTime to;
-
-  /// Background which is equivalent to color property of [Appointment].
-  Color background;
-
-  /// IsAllDay which is equivalent to isAllDay property of [Appointment].
-  bool isAllDay;
 }
