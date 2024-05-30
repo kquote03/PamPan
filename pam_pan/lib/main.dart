@@ -28,7 +28,6 @@ void main() async {
             e.toString());
   }
 // Example user for appwrite
-  User? result;
   try {
     //account.deleteSession(sessionId: 'current');
     await account
@@ -36,18 +35,18 @@ void main() async {
             email: "email@example.com", password: "password123")
         .timeout(const Duration(seconds: 10));
 
-    result = await account.get();
+    var result = await account.get();
+    print("Currently signed in as: " + (result?.email ?? "error"));
+
+    runApp(
+      const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+      ),
+    );
   } on Exception catch (e) {
     print(e);
     if (!e.toString().contains("user_session_already_exists"))
       runApp(const MaterialApp(home: ConnectionError()));
   }
-  print("Currently signed in as: " + (result?.email ?? "error"));
-
-  runApp(
-    const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    ),
-  );
 }
