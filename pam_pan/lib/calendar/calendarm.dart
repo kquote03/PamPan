@@ -3,7 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'event.dart';
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({Key? key}) : super(key: key);
+  const CalendarPage({super.key});
 
   @override
   State<CalendarPage> createState() => _CalendarPage();
@@ -126,8 +126,8 @@ class _CalendarPage extends State<CalendarPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ListTile(
-                          onTap: () => print('${value[index]}'),
-                          title: Text('${value[index]}'),
+                          onTap: () {},
+                          title: Text('${value[index].title}'),
                         ),
                       );
                     },
