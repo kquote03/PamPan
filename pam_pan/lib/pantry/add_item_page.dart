@@ -26,13 +26,12 @@ class AddItemPage extends StatefulWidget {
 class _AddItemPage extends State<AddItemPage> {
   final TextEditingController _controllerItemName = TextEditingController();
   final TextEditingController _controllerExpiryDate = TextEditingController();
-  final MultiSelectController<String> _controllerCategory =
-      MultiSelectController();
+  final TextEditingController _controllerCategory = TextEditingController();
   final MultiSelectController<String> _controllerAllergens =
       MultiSelectController();
-  final MultiSelectController<String> _controllerMeasurement =
-      MultiSelectController();
+  final _controllerMeasurement = TextEditingController();
   final TextEditingController _controllerQuantity = TextEditingController();
+  final List<String> categoryList = [];
 
   @override
   void dispose() {
@@ -56,6 +55,21 @@ class _AddItemPage extends State<AddItemPage> {
       isEditMode = true;
       _getItemsAndSetControllers();
     }
+    _getCategories();
+  }
+
+  Future<void> _getCategories() async {
+    for (var i in await getCategories()) {
+      categoryList.add(i);
+    }
+    // FOR THE RECORD
+    // I came accross this solution by TOTAL ACCIDENT
+    // I have a habit of frequently saving my work (trauma from losing work)
+    // and by that I mean I save after each line. (:w)
+    // vscode hot-reloads the app after each save.
+    // So I saved when having written the incomplete code, only for it to
+    // magically work. subhaaanallahh XD
+    setState(() {});
   }
 
   _getItemsAndSetControllers() async {
@@ -64,17 +78,11 @@ class _AddItemPage extends State<AddItemPage> {
     _controllerItemName.text = items[0]['name'];
     _controllerExpiryDate.text = items[0]['expiryDate'];
     try {
-      _controllerCategory.setSelectedOptions([
-        ValueItem(label: items[0]['categories'], value: items[0]['categories'])
-      ]);
+      _controllerCategory.text = items[0]['categories'];
     } catch (e) {}
     _controllerQuantity.text = items[0]['quantity'];
     try {
-      _controllerMeasurement.setSelectedOptions([
-        ValueItem(
-            label: items[0]['measurementUnit'],
-            value: items[0]['measurementUnit'])
-      ]);
+      _controllerMeasurement.text = items[0]['measurementUnit'];
     } catch (e) {}
   }
 
@@ -141,36 +149,16 @@ class _AddItemPage extends State<AddItemPage> {
                       inputFormatters: [_ExpiryDateInputFormatter()],
                     ),
                     const SizedBox(height: 12),
-                    MultiSelectDropDown<String>(
-                      controller: _controllerCategory,
-                      onOptionSelected:
-                          (List<ValueItem<String>> selectedOptions) {},
-                      options: const [
-                        ValueItem(label: 'bread', value: 'bread'),
-                        ValueItem(label: 'dairy', value: 'dairy'),
-                        ValueItem(label: 'cheese', value: 'cheese'),
-                        ValueItem(label: 'meats', value: 'meats'),
-                        ValueItem(label: 'fruits', value: 'fruits'),
-                        ValueItem(label: 'vegetables', value: 'vegetables'),
-                        ValueItem(label: 'fish', value: 'fish'),
-                        ValueItem(label: 'party', value: 'party'),
-                        ValueItem(label: 'other', value: 'other'),
-                      ],
-                      borderColor: Colors.black45,
-                      borderWidth: 1,
-                      hintColor: Colors.black,
-                      borderRadius: 0,
-                      fieldBackgroundColor:
-                          const Color.fromARGB(255, 255, 250, 240),
-                      focusedBorderColor:
-                          const Color.fromARGB(255, 113, 216, 244),
-                      dropdownHeight: 200,
-                      optionTextStyle: const TextStyle(fontSize: 16),
-                      selectedOptionIcon: const Icon(Icons.check_circle),
-                      selectionType: SelectionType.single,
-                      hint: "Category",
-                    ),
-                    const SizedBox(height: 12),
+                    DropdownMenu<String>(
+                        menuHeight: 400,
+                        width: MediaQuery.of(context).size.width - (16 * 2),
+                        controller: _controllerCategory,
+                        dropdownMenuEntries: categoryList.map((category) {
+                          return DropdownMenuEntry(
+                              value: category, label: category);
+                        }).toList(),
+                        hintText: "Category"),
+                    //const SizedBox(height: 12),
                     //MultiSelectDropDown<String>(
                     //  controller: _controllerAllergens,
                     //  onOptionSelected:
@@ -204,30 +192,17 @@ class _AddItemPage extends State<AddItemPage> {
                     //  hint: "Allergens",
                     //),
                     const SizedBox(height: 12),
-                    MultiSelectDropDown<String>(
+                    DropdownMenu<String>(
+                      width: MediaQuery.of(context).size.width - (16 * 2),
                       controller: _controllerMeasurement,
-                      onOptionSelected:
-                          (List<ValueItem<String>> selectedOptions) {},
-                      options: const [
-                        ValueItem(label: 'g', value: 'g'),
-                        ValueItem(label: 'kg', value: 'kg'),
-                        ValueItem(label: 'ml', value: 'ml'),
-                        ValueItem(label: 'l', value: 'l'),
-                        ValueItem(label: 'pieces', value: 'pieces'),
+                      dropdownMenuEntries: const [
+                        DropdownMenuEntry(label: 'g', value: 'g'),
+                        DropdownMenuEntry(label: 'kg', value: 'kg'),
+                        DropdownMenuEntry(label: 'ml', value: 'ml'),
+                        DropdownMenuEntry(label: 'l', value: 'l'),
+                        DropdownMenuEntry(label: 'pieces', value: 'pieces'),
                       ],
-                      borderColor: Colors.black45,
-                      borderWidth: 1,
-                      borderRadius: 0,
-                      hintColor: Colors.black,
-                      fieldBackgroundColor:
-                          const Color.fromARGB(255, 255, 250, 240),
-                      focusedBorderColor:
-                          const Color.fromARGB(255, 113, 216, 244),
-                      dropdownHeight: 250,
-                      optionTextStyle: const TextStyle(fontSize: 16),
-                      selectedOptionIcon: const Icon(Icons.check_circle),
-                      selectionType: SelectionType.single,
-                      hint: "Measurement Unit",
+                      hintText: "Measurement Unit",
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
@@ -252,20 +227,16 @@ class _AddItemPage extends State<AddItemPage> {
                               ? editFoodItem(
                                   _controllerItemName.text,
                                   _controllerExpiryDate.text,
-                                  _controllerCategory
-                                      .selectedOptions.first.value,
+                                  _controllerCategory.text,
                                   //_controllerAllergens.selectedOptions[0].label,
-                                  _controllerMeasurement
-                                      .selectedOptions[0].label,
+                                  _controllerMeasurement.text,
                                   int.parse(_controllerQuantity.text))
                               : addFoodItem(
                                   _controllerItemName.text,
                                   _controllerExpiryDate.text,
-                                  _controllerCategory
-                                      .selectedOptions.first.value,
+                                  _controllerCategory.text,
                                   //_controllerAllergens.selectedOptions[0].label,
-                                  _controllerMeasurement
-                                      .selectedOptions[0].label,
+                                  _controllerMeasurement.text,
                                   int.parse(_controllerQuantity.text),
                                 );
                           _showSimpleItemSuccessDialog(context);
@@ -382,8 +353,22 @@ class _AddItemPage extends State<AddItemPage> {
 
   Future<void> addFoodItem(String item, String expiryDate, category,
       /*String allergens,*/ String measurements, int quantity) async {
-    // Convert ValueItem to just the values.
     print(category);
+
+    if ((await databases.listDocuments(
+            databaseId: '6650884f00137e1b1fcd',
+            collectionId: '665089ef003013ad1543',
+            queries: [Query.search('name', category)]))
+        .documents
+        .isEmpty) {
+      databases.createDocument(
+          databaseId: '6650884f00137e1b1fcd',
+          collectionId: '665089ef003013ad1543',
+          documentId: category,
+          data: {
+            "name": category,
+          });
+    }
 
     // Add them to the databse, which btw
     // TODO: no longer rely on hardcoded values.
@@ -529,9 +514,11 @@ class _AddItemPage extends State<AddItemPage> {
   void _barcodeClick() async {
     // Launches the barcode reader, then (inshallah) will interface with the API
     // Then finally fills the fields with the data from the API.
-    _controllerItemName.text = (await BarcodeApi()
-            .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent))
-        .itemName;
+    var fooditem = (await BarcodeApi()
+        .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
+    _controllerItemName.text = fooditem['itemName'];
+    _controllerMeasurement.text = fooditem['measurementUnit'];
+    _controllerCategory.text = fooditem['categoryName'];
   }
 }
 

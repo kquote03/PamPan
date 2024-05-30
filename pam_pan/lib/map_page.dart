@@ -23,9 +23,9 @@ class _MapPageState extends State<MapPage> {
 
   final Location _locationController = Location();
 
-  static const LatLng _pGooglePlex =
-      LatLng(37.4223, -122.0848); //ill deal with these later
-  static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
+  //static const LatLng _pGooglePlex =
+  //    LatLng(37.4223, -122.0848); //ill deal with these later
+  //static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
   static const LatLng _animalRescue =
       LatLng(24.274045415060066, 55.723430859715386);
   static const LatLng _animalClinic =
@@ -38,7 +38,7 @@ class _MapPageState extends State<MapPage> {
   static const LatLng _mosque2 = LatLng(24.185565598092026, 55.717358732793436);
 
   Map<PolylineId, Polyline> polylines = {};
-  LatLng? _currentP;
+  LatLng _currentP = const LatLng(24.3455155, 54.5368051);
 
   @override
   void dispose() {
@@ -67,60 +67,48 @@ class _MapPageState extends State<MapPage> {
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
         title: const Text('Map'),
       ),
-      body: _currentP == null
-          ? const Center(
-              child: Text("Loading..."),
-            )
-          : GoogleMap(
-              onMapCreated: ((GoogleMapController controller) {
-                _controller.complete(controller);
-              }),
-              mapType: MapType.normal,
-              initialCameraPosition: const CameraPosition(
-                target: _pGooglePlex,
-                zoom: 13,
-              ),
-              markers: {
-                Marker(
-                  markerId: const MarkerId("_currentLocation"),
-                  icon: BitmapDescriptor.defaultMarker,
-                  position: _currentP!,
-                ),
-                const Marker(
-                    markerId: MarkerId("_sourceLocation"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _pGooglePlex),
-                const Marker(
-                    markerId: MarkerId("_destinationLocation"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _pApplePark),
-                const Marker(
-                    markerId: MarkerId("_animalRescueLocation"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _animalRescue),
-                const Marker(
-                    markerId: MarkerId("_animalClinicLocation"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _animalClinic),
-                const Marker(
-                    markerId: MarkerId("_redCrescentLocation1"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _emiratesRedCrescent1),
-                const Marker(
-                    markerId: MarkerId("_redCrescentLocation2"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _emiratesRedCrescent2),
-                const Marker(
-                    markerId: MarkerId("_mosque1Location"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _mosque1),
-                const Marker(
-                    markerId: MarkerId("_mosque2Location"),
-                    icon: BitmapDescriptor.defaultMarker,
-                    position: _mosque2),
-              },
-              polylines: Set<Polyline>.of(polylines.values),
-            ),
+      body: GoogleMap(
+        onMapCreated: ((GoogleMapController controller) {
+          _controller.complete(controller);
+        }),
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: _currentP,
+          zoom: 13,
+        ),
+        markers: {
+          Marker(
+            markerId: const MarkerId("_currentLocation"),
+            icon: BitmapDescriptor.defaultMarker,
+            position: _currentP!,
+          ),
+          const Marker(
+              markerId: MarkerId("_animalRescueLocation"),
+              icon: BitmapDescriptor.defaultMarker,
+              position: _animalRescue),
+          const Marker(
+              markerId: MarkerId("_animalClinicLocation"),
+              icon: BitmapDescriptor.defaultMarker,
+              position: _animalClinic),
+          const Marker(
+              markerId: MarkerId("_redCrescentLocation1"),
+              icon: BitmapDescriptor.defaultMarker,
+              position: _emiratesRedCrescent1),
+          const Marker(
+              markerId: MarkerId("_redCrescentLocation2"),
+              icon: BitmapDescriptor.defaultMarker,
+              position: _emiratesRedCrescent2),
+          const Marker(
+              markerId: MarkerId("_mosque1Location"),
+              icon: BitmapDescriptor.defaultMarker,
+              position: _mosque1),
+          const Marker(
+              markerId: MarkerId("_mosque2Location"),
+              icon: BitmapDescriptor.defaultMarker,
+              position: _mosque2),
+        },
+        polylines: Set<Polyline>.of(polylines.values),
+      ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
@@ -159,7 +147,7 @@ class _MapPageState extends State<MapPage> {
             () {
               _currentP =
                   LatLng(currentLocation.latitude!, currentLocation.longitude!);
-              _cameraToPosition(_currentP!);
+              _cameraToPosition(_currentP);
             },
           );
         }
@@ -172,8 +160,11 @@ class _MapPageState extends State<MapPage> {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       GOOGLE_MAPS_API_KEY,
-      PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
-      PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
+      PointLatLng(_currentP.latitude, _currentP.longitude),
+      PointLatLng(
+          _emiratesRedCrescent1.latitude, _emiratesRedCrescent1.longitude),
+      //PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
+      //PointLatLng(_pApplePark.latitude, _pApplePark.longitude),
       travelMode: TravelMode.driving,
     );
     if (result.points.isNotEmpty) {

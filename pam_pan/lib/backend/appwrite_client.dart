@@ -64,6 +64,21 @@ Future<List<Map<String, dynamic>>> getItemsById(id) async {
   return items;
 }
 
+Future<List<String>> getCategories() async {
+  var documents = await databases.listDocuments(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '665089ef003013ad1543',
+      queries: [
+        Query.select(["name"])
+      ]);
+
+  List<String> categoryList = [];
+  for (var i in documents.documents) {
+    categoryList.add(i.data['name']);
+  }
+  return categoryList;
+}
+
 void deleteItemById(id) async {
   databases.deleteDocument(
       databaseId: '6650884f00137e1b1fcd',
