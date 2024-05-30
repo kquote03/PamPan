@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
+import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/categories.dart';
 import 'package:pam_pan/pantry/food_item.dart';
 import 'package:pam_pan/pantry/item_description_card.dart';
@@ -191,7 +192,7 @@ class _PantryState extends State<Pantry> {
         for (int i = 0; i < fetchedItems.length; i++) {
           allItems.add(
             FoodItem(
-              // itemId: fetchedItems[i]['\$id'],
+              itemId: fetchedItems[i]['\$id'],
               itemName: fetchedItems[i]['name'],
               expiryDate: fetchedItems[i]['expiryDate'],
               measurementUnit: fetchedItems[i]['measurementUnit'],
@@ -335,7 +336,7 @@ class _PantryState extends State<Pantry> {
                       // A SlidableAction can have an icon and/or a label.
                       SlidableAction(
                         onPressed: (BuildContext context) {
-                          // deleteItemById(foodItem.itemId);
+                          deleteItemById(foodItem.itemId);
                         },
                         backgroundColor: const Color(0xFFFE4A49),
                         foregroundColor: Colors.white,
@@ -344,15 +345,15 @@ class _PantryState extends State<Pantry> {
                       ),
                       SlidableAction(
                         onPressed: (BuildContext context) {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) {
-                          //       print(foodItem.itemId);
-                          //       return AddItemPage(id: "${foodItem.itemId}");
-                          //     },
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                print(foodItem.itemId);
+                                return AddItemPage(id: "${foodItem.itemId}");
+                              },
+                            ),
+                          );
                         },
                         backgroundColor: const Color(0xFF21B7CA),
                         foregroundColor: Colors.white,
