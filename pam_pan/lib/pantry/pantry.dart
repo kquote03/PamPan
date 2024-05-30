@@ -172,7 +172,9 @@ class _PantryState extends State<Pantry> {
     ['other', "Other"],
   ];
 
-  final List<FoodItem> allItems = [];
+  List<FoodItem> currentItems = [];
+
+  List<FoodItem> allItems = [];
 
   List<FoodItem> filteredItems = [];
   String searchQuery = '';
@@ -182,27 +184,14 @@ class _PantryState extends State<Pantry> {
   void initState() {
     _asyncQuery();
     super.initState();
-    filteredItems = allItems;
   }
 
   _asyncQuery() async {
-    List<Map<String, dynamic>> fetchedItems = await getItems();
-    setState(
-      () {
-        for (int i = 0; i < fetchedItems.length; i++) {
-          allItems.add(
-            FoodItem(
-              itemId: fetchedItems[i]['\$id'],
-              itemName: fetchedItems[i]['name'],
-              expiryDate: fetchedItems[i]['expiryDate'],
-              measurementUnit: fetchedItems[i]['measurementUnit'],
-              quantity: fetchedItems[i]['quantity'],
-              categoryName: fetchedItems[i]['categories'],
-            ),
-          );
-        }
-      },
-    );
+    List<FoodItem> fetchedItems = await getItems();
+    setState(() {
+      allItems = fetchedItems;
+      currentItems = allItems;
+    });
   }
 
   void filterItems() {
@@ -220,6 +209,7 @@ class _PantryState extends State<Pantry> {
             return matchesSearchQuery && matchesCategory;
           },
         ).toList();
+        currentItems = filteredItems;
       },
     );
   }
@@ -244,6 +234,8 @@ class _PantryState extends State<Pantry> {
         });
       },
     );
+
+    print(allItems);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
@@ -321,7 +313,7 @@ class _PantryState extends State<Pantry> {
               ),
             ),
             Column(
-              children: filteredItems.map((foodItem) {
+              children: currentItems.map((foodItem) {
                 return Slidable(
                   key: ValueKey(Random()),
                   startActionPane: ActionPane(
@@ -367,7 +359,7 @@ class _PantryState extends State<Pantry> {
                     name: foodItem.itemName,
                     expiryDate: foodItem.expiryDate,
                     measurementUnit: foodItem.measurementUnit,
-                    quantity: foodItem.quantity,
+                    quantity: foodItem.quantity.toString(),
                   ),
                 );
               }).toList(),

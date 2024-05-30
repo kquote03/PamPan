@@ -29,7 +29,7 @@ void main() async {
   }
 // Example user for appwrite
   try {
-    //account.deleteSession(sessionId: 'current');
+    account.deleteSession(sessionId: 'current');
     await account
         .createEmailPasswordSession(
             email: "email@example.com", password: "password123")
@@ -44,7 +44,7 @@ void main() async {
         home: HomePage(),
       ),
     );
-  } on Exception catch (e) {
+  } on AppwriteException catch (e) {
     print(e);
     if (!e.toString().contains("user_session_already_exists"))
       runApp(const MaterialApp(home: ConnectionError()));
