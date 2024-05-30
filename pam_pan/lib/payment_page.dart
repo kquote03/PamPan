@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'bottom_bar.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -18,7 +16,6 @@ class _PaymentPage extends State<PaymentPage> {
   final TextEditingController _controllerDate = TextEditingController();
   final TextEditingController _controllerCVC = TextEditingController();
   final TextEditingController _controllerAmount = TextEditingController();
-
   @override
   void dispose() {
     _controllerCardName.dispose();
@@ -182,7 +179,7 @@ class _PaymentPage extends State<PaymentPage> {
                   TextFormField(
                     controller: _controllerAmount,
                     decoration: InputDecoration(
-                      hintText: 'AED 000.00',
+                      hintText: 'AED 0.00',
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(5.5),
@@ -211,28 +208,7 @@ class _PaymentPage extends State<PaymentPage> {
                     children: <Widget>[
                       TextButton(
                         onPressed: () {
-                          if (_creditCardChecker() ==
-                              "Donation successful! Thank you.") {
-                            _showSimpleModalDialog2(context);
-                            _showSimpleModalDialog1(context);
-                            Timer(
-                              const Duration(seconds: 1),
-                              () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                              },
-                            );
-                          } else {
-                            _showErrorModalDialog(context);
-                            _showSimpleModalDialog1(context);
-                            Timer(
-                              const Duration(seconds: 1),
-                              () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                              },
-                            );
-                          }
+                          _processDonation(context);
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -266,81 +242,51 @@ class _PaymentPage extends State<PaymentPage> {
   }
 
   String _creditCardChecker() {
-    bool cardNameCorrect = false;
-    if (_controllerCardName.text.isNotEmpty) {
-      cardNameCorrect = true;
-    }
+    bool cardNameCorrect = _controllerCardName.text.isNotEmpty;
+    bool cardNumberCorrect = _controllerCardNumber.text.length == 19;
 
-    bool cardNumberCorrect = false;
-    if (_controllerCardNumber.text.length == 19) {
-      cardNumberCorrect = true;
-    }
-
+    // Parse expiration date
     int dateMM;
     int dateYY;
-
     if (_controllerDate.text.isNotEmpty && _controllerDate.text.length == 5) {
-      dateMM = int.parse(_controllerDate.text[0] + _controllerDate.text[1]);
-      dateYY = int.parse(_controllerDate.text[3] + _controllerDate.text[4]);
+      dateMM = int.parse(_controllerDate.text.substring(0, 2));
+      dateYY = int.parse(_controllerDate.text.substring(3, 5));
     } else {
       dateMM = -1;
       dateYY = -1;
     }
 
-    bool dateCorrect = false;
+    // Validate expiration date
+    bool dateCorrect = dateMM >= 1 && dateMM <= 12 && dateYY >= 0;
+    if (dateCorrect) {
+      DateTime currentDate = DateTime.now();
+      int currentMonth = currentDate.month;
+      int currentYear = int.parse(currentDate.year.toString().substring(2));
+      dateCorrect = dateYY > currentYear ||
+          (dateYY == currentYear && dateMM >= currentMonth);
+    }
 
-    DateTime currentDate = DateTime.now();
-    var formatterMonth = DateFormat('MM');
-    var formatterYear = DateFormat('yy');
-    String formattedMonth = formatterMonth.format(currentDate);
-    String formattedYear = formatterYear.format(currentDate);
-    int currentMonth = int.parse(formattedMonth);
-    int currentYear = int.parse(formattedYear);
+    bool cvcCorrect = _controllerCVC.text.length == 3;
 
-    if (1 <= dateMM && dateMM <= 12 && dateYY >= currentYear) {
-      dateCorrect = true;
+    RegExp amountRegExp = RegExp(r'^AED \d+\.\d{2}$');
+    bool amountCorrect = amountRegExp.hasMatch(_controllerAmount.text);
+
+    if (!cardNameCorrect) {
+      return "Please enter the card owner's name.";
+    } else if (!cardNumberCorrect) {
+      return "Please enter a valid card number.";
+    } else if (!dateCorrect) {
+      return "Please enter a valid expiration date.";
+    } else if (!cvcCorrect) {
+      return "Please enter a valid CVC.";
+    } else if (!amountCorrect) {
+      return "Please enter a valid amount in AED format (e.g., AED 123.45).";
     } else {
-      dateCorrect = false;
+      return "Donation successful! Thank you.";
     }
-
-    if (dateYY == currentYear) {
-      if (dateMM < currentMonth) {
-        dateCorrect = false;
-      }
-    }
-
-    bool cvcCorrect = false;
-
-    if (_controllerCVC.text.length == 3) {
-      cvcCorrect = true;
-    }
-
-    RegExp myRegExp = RegExp('AED 0.00');
-
-    bool amountCorrect = false;
-    if (_controllerAmount.text.isNotEmpty &&
-        !_controllerAmount.text.startsWith(myRegExp)) {
-      amountCorrect = true;
-    }
-
-    String output = "basic";
-    if (!(cardNameCorrect &&
-        cardNumberCorrect &&
-        dateCorrect &&
-        cvcCorrect &&
-        amountCorrect)) {
-      output =
-          "Invalid input(s): Errors in one (or more) text fields. Please try again.";
-    }
-
-    if (output == "basic") {
-      output = "Donation successful! Thank you.";
-    }
-
-    return output;
   }
 
-  _showErrorModalDialog(context) {
+  _showErrorModalDialog(context, String errorMessage) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
@@ -366,13 +312,12 @@ class _PaymentPage extends State<PaymentPage> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  _creditCardChecker(),
+                  errorMessage,
                   style: const TextStyle(fontSize: 16),
                 ),
                 const Spacer(),
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.end, // Aligns the child to the right
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
                       style: ButtonStyle(
@@ -398,7 +343,7 @@ class _PaymentPage extends State<PaymentPage> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -407,87 +352,57 @@ class _PaymentPage extends State<PaymentPage> {
     );
   }
 
-  _showSimpleModalDialog1(context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext builderContext) {
-          return Dialog(
-            backgroundColor: Colors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Container(
-              constraints: const BoxConstraints(maxHeight: 200),
-              child: const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          'Processing Payment',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 50),
-                        Center(
-                          child: CircularProgressIndicator.adaptive(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.black),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
+  _processDonation(BuildContext context) {
+    String errorMessage = _creditCardChecker();
+    if (errorMessage == "Donation successful! Thank you.") {
+      // Clear text fields
+      _controllerCardName.clear();
+      _controllerCardNumber.clear();
+      _controllerDate.clear();
+      _controllerCVC.clear();
+      _controllerAmount.clear();
+
+      // Show success dialog
+      _showSuccessModalDialog(context, errorMessage);
+    } else {
+      // Show error dialog
+      _showErrorModalDialog(context, errorMessage);
+    }
   }
 
-  _showSimpleModalDialog2(context) {
+  _showSuccessModalDialog(context, String message) {
     showDialog(
-        context: context,
-        builder: (BuildContext builderContext) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            child: Container(
-              constraints: const BoxConstraints(maxHeight: 350),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        _creditCardChecker(),
-                        style: const TextStyle(fontSize: 24),
-                      ),
+      context: context,
+      builder: (BuildContext builderContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      message,
+                      style: const TextStyle(fontSize: 24),
                     ),
-                    RichText(
-                      textAlign: TextAlign.justify,
-                      text: const TextSpan(
-                          text: "ok",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: Colors.black,
-                              wordSpacing: 1)),
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        child: const Text("Close"))
-                  ],
-                ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                    child: const Text("Close"),
+                  )
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
 
