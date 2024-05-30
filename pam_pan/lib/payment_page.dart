@@ -16,6 +16,7 @@ class _PaymentPage extends State<PaymentPage> {
   final TextEditingController _controllerDate = TextEditingController();
   final TextEditingController _controllerCVC = TextEditingController();
   final TextEditingController _controllerAmount = TextEditingController();
+
   @override
   void dispose() {
     _controllerCardName.dispose();
@@ -286,91 +287,7 @@ class _PaymentPage extends State<PaymentPage> {
     }
   }
 
-  _showErrorModalDialog(context, String errorMessage) {
-    showDialog(
-      context: context,
-      builder: (BuildContext builderContext) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          contentPadding: EdgeInsets.zero,
-          content: Container(
-            height: 200,
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  "ERROR",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  errorMessage,
-                  style: const TextStyle(fontSize: 16),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.black),
-                        overlayColor: WidgetStateProperty.resolveWith<Color>(
-                          (Set<WidgetState> states) {
-                            return const Color.fromARGB(255, 219, 219, 219);
-                          },
-                        ),
-                        shape: WidgetStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.5),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
-                      child: const Text(
-                        'Done',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  _processDonation(BuildContext context) {
-    String errorMessage = _creditCardChecker();
-    if (errorMessage == "Donation successful! Thank you.") {
-      // Clear text fields
-      _controllerCardName.clear();
-      _controllerCardNumber.clear();
-      _controllerDate.clear();
-      _controllerCVC.clear();
-      _controllerAmount.clear();
-
-      // Show success dialog
-      _showSuccessModalDialog(context, errorMessage);
-    } else {
-      // Show error dialog
-      _showErrorModalDialog(context, errorMessage);
-    }
-  }
-
-  _showSuccessModalDialog(context, String message) {
+  void _showModalDialog(BuildContext context, String title, String message, String buttonText) {
     showDialog(
       context: context,
       builder: (BuildContext builderContext) {
@@ -385,35 +302,55 @@ class _PaymentPage extends State<PaymentPage> {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Text(
-                      message,
-                      style: const TextStyle(fontSize: 24),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.black,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all<Color>(Colors.black),
-                      overlayColor: WidgetStateProperty.resolveWith<Color>(
-                        (Set<WidgetState> states) {
-                          return const Color.fromARGB(255, 219, 219, 219);
-                        },
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        message,
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
                       ),
-                      shape:WidgetStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.5),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all<Color>(Colors.black),
+                          overlayColor: WidgetStateProperty.resolveWith<Color>(
+                            (Set<WidgetState> states) {
+                              return const Color.fromARGB(255, 219, 219, 219);
+                            },
+                          ),
+                          shape: WidgetStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.5),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        child: Text(
+                          buttonText,
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                    ),
-                    child: const Text(
-                      'Close',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    ],
                   ),
                 ],
               ),
@@ -422,6 +359,24 @@ class _PaymentPage extends State<PaymentPage> {
         );
       },
     );
+  }
+
+  void _processDonation(BuildContext context) {
+    String result = _creditCardChecker();
+    if (result == "Donation successful! Thank you.") {
+      _showModalDialog(context, "SUCCESS", result, "Close");
+      _clearTextFields();
+    } else {
+      _showModalDialog(context, "ERROR", result, "Done");
+    }
+  }
+
+  void _clearTextFields() {
+    _controllerCardName.clear();
+    _controllerCardNumber.clear();
+    _controllerDate.clear();
+    _controllerCVC.clear();
+    _controllerAmount.clear();
   }
 }
 
