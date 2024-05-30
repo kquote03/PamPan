@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
@@ -49,33 +50,33 @@ class _HomePageState extends State<HomePage> {
   int _currentCarousel = 0;
   final CarouselController _carousalController = CarouselController();
 
-  List<Widget>? carousel1 = carouselContents.map(
-    (i) {
-      return Builder(
-        builder: (BuildContext context) {
-          return SizedBox(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 197, 234, 250),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(10, 10),
-                    blurStyle: BlurStyle.normal,
-                  ),
-                ],
-              ),
-              child: i,
-            ),
-          );
-        },
-      );
-    },
-  ).toList();
+  // List<Widget>? carousel1 = carouselContents.map(
+  //   (i) {
+  //     return Builder(
+  //       builder: (BuildContext context) {
+  //         return SizedBox(
+  //           child: Container(
+  //             width: MediaQuery.of(context).size.width,
+  //             margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+  //             decoration: BoxDecoration(
+  //               color: const Color.fromARGB(255, 197, 234, 250),
+  //               boxShadow: [
+  //                 BoxShadow(
+  //                   color: Colors.grey.withOpacity(0.5),
+  //                   spreadRadius: 5,
+  //                   blurRadius: 7,
+  //                   offset: const Offset(10, 10),
+  //                   blurStyle: BlurStyle.normal,
+  //                 ),
+  //               ],
+  //             ),
+  //             child: i,
+  //           ),
+  //         );
+  //       },
+  //     );
+  //   },
+  // ).toList();
 
   @override
   void initState() {
@@ -106,6 +107,53 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(context) {
+    List<Widget> carouselItems = carouselContents.asMap().entries.map(
+      (entry) {
+        int index = entry.key;
+        Widget content = entry.value;
+        return Builder(
+          builder: (BuildContext context) {
+            return SizedBox(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 197, 234, 250),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(10, 10),
+                      blurStyle: BlurStyle.normal,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    content,
+                    if (index == 0) // Only show the button on the first page
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navigate to the new page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddItemPage()),
+                          );
+                        },
+                        child: const Text('Click me'),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    ).toList();
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
@@ -228,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 scrollDirection: Axis.horizontal,
               ),
-              items: carousel1,
+              items: carouselItems,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -306,85 +354,6 @@ class _HomePageState extends State<HomePage> {
                 },
               ).toList(),
             ),
-
-            // Column(
-            //   children: [
-            //     const Padding(
-            //       padding: EdgeInsets.all(8.0),
-            //     ),
-            //     Container(
-            //       padding: const EdgeInsets.all(8),
-            //       child: const SizedBox(
-            //         height: 600,
-            //         child: DecoratedBox(
-            //           decoration: const BoxDecoration(
-            //               color: Color.fromARGB(103, 93, 51, 16)),
-            //           child: Center(
-            //             child: Scrollbar(
-            //               trackVisibility: true,
-            //               thumbVisibility: true,
-            //               scrollbarOrientation: ScrollbarOrientation.left,
-            //               child: GridView.count(
-            //                 crossAxisCount: 4,
-            //                 // mainAxisSpacing: 7,
-            //                 // crossAxisSpacing:5,
-            //                 scrollDirection: Axis.horizontal,
-            //                 childAspectRatio: 1.4,
-            //                 // children: List.generate(
-            //                   // categories.length,
-            //                   (index) {
-            //                     return Container(
-            //                       decoration: const BoxDecoration(
-            //                           // border: Border.all(
-            //                           //   // width: 3,
-            //                           //   color: Colors.black,
-            //                           // ),
-            //                           ),
-            //                       child: Center(
-            //                         child: GestureDetector(
-            //                           onTap: () {
-            //                             Navigator.push(
-            //                               context,
-            //                               MaterialPageRoute(
-            //                                 builder: (context) {
-            //                                   return ItemListPage(
-            //                                       categories[index]
-            //                                           .nameString);
-            //                                 },
-            //                               ),
-            //                             );
-            //                           },
-            //                           child: Column(
-            //                             children: [
-            //                               SizedBox(
-            //                                 height: MediaQuery.of(context)
-            //                                         .size
-            //                                         .height *
-            //                                     0.02,
-            //                               ),
-            //                               categories[index].icon,
-            //                               Text(
-            //                                 categories[index].nameString,
-            //                                 style: const TextStyle(
-            //                                   fontSize: 15,
-            //                                 ),
-            //                                 textAlign: TextAlign.center,
-            //                               ),
-            //                             ],
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     );
-            //                   },
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             const SizedBox(
               height: 1500,
             ),
