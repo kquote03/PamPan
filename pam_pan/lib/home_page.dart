@@ -30,10 +30,10 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-List<String> carouselText = [
-  "hello",
-  "haha",
-  "hi",
+List<Widget> carouselContents = [
+  const Text("text1"),
+  const Text("text2"),
+  const Text("text3"),
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -46,10 +46,10 @@ class _HomePageState extends State<HomePage> {
     const Color(0xFF9DD9F3),
   ];
   Random random = Random();
-  int _current = 0;
-  final CarouselController _controller = CarouselController();
+  int _currentCarousel = 0;
+  final CarouselController _carousalController = CarouselController();
 
-  List<Widget>? carousel1 = carouselText.map(
+  List<Widget>? carousel1 = carouselContents.map(
     (i) {
       return Builder(
         builder: (BuildContext context) {
@@ -69,10 +69,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              child: Text(
-                i,
-                style: const TextStyle(fontSize: 16.0),
-              ),
+              child: i,
             ),
           );
         },
@@ -208,7 +205,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             CarouselSlider(
-              carouselController: _controller,
+              carouselController: _carousalController,
               options: CarouselOptions(
                 // height: 400,
                 aspectRatio: 16 / 9,
@@ -225,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                 onPageChanged: (index, reason) {
                   setState(
                     () {
-                      _current = index;
+                      _currentCarousel = index;
                     },
                   );
                 },
@@ -235,10 +232,11 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: carouselText.asMap().entries.map(
+              children: carouselContents.asMap().entries.map(
                 (carousel) {
                   return GestureDetector(
-                    onTap: () => _controller.animateToPage(carousel.key),
+                    onTap: () =>
+                        _carousalController.animateToPage(carousel.key),
                     child: Container(
                       width: 6,
                       height: 6,
@@ -252,10 +250,58 @@ class _HomePageState extends State<HomePage> {
                                 ? Colors.white
                                 : Colors.black)
                             .withOpacity(
-                          _current == carousel.key ? 0.9 : 0.4,
+                          _currentCarousel == carousel.key ? 0.9 : 0.4,
                         ),
                       ),
                     ),
+                  );
+                },
+              ).toList(),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            CarouselSlider(
+              options: CarouselOptions(
+                // height: 400,
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.95,
+                initialPage: 0,
+                enableInfiniteScroll: false,
+                reverse: false,
+                // autoPlay: true,
+                // autoPlayInterval: constDuration(seconds: 3),
+                // autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.2,
+                scrollDirection: Axis.horizontal,
+              ),
+              items: [1].map(
+                (i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 197, 234, 250),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(10, 10),
+                              blurStyle: BlurStyle.normal,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'text $i',
+                          style: const TextStyle(fontSize: 16.0),
+                        ),
+                      );
+                    },
                   );
                 },
               ).toList(),
