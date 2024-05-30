@@ -6,6 +6,7 @@ import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:home_widget/home_widget.dart';
 import 'bottom_bar.dart';
+import 'package:pam_pan/calendar/calendarm.dart';
 
 //Taken from expiry_test
 DateTime stringToDate(String date) {
@@ -100,7 +101,16 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon:
                 const Icon(Icons.calendar_month, size: 30, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Calendarm();
+                  },
+                ),
+              );
+            },
           ),
           // IconButton(
           //   icon:
