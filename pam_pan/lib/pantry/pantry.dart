@@ -199,7 +199,7 @@ class _PantryState extends State<Pantry> {
       () {
         filteredItems = allItems.where(
           (foodItem) {
-            final matchesSearchQuery = foodItem.itemName
+            final matchesSearchQuery = foodItem.itemName!
                 .toLowerCase()
                 .contains(searchQuery.toLowerCase());
 

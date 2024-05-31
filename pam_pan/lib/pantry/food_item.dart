@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class FoodItem {
-  final String? itemId;
-  final String itemName;
-  final String? expiryDate;
-  final String? barcode;
-  final String? productionDate;
-  final bool? canRefrigerate;
-  final String? measurementUnit;
-  final int? quantity;
-  final String? categoryName;
+  String? itemId;
+  String? itemName;
+  String? expiryDate;
+  String? barcode;
+  String? productionDate;
+  bool? canRefrigerate;
+  String? measurementUnit;
+  int? quantity;
+  String? categoryName;
 
   FoodItem({
     this.itemId,
-    required this.itemName,
+    this.itemName,
     this.expiryDate,
     this.barcode,
     this.productionDate,
@@ -22,6 +22,13 @@ class FoodItem {
     this.quantity,
     this.categoryName,
   });
+
+  FoodItem.fromGeminiJson(Map json) {
+    itemName = json['itemName'];
+    expiryDate = json['expiryDate'];
+    categoryName = json['category'];
+    measurementUnit = json['measurementUnit'];
+  }
 
   // You can add methods here to perform operations on the FoodItem
 
@@ -68,7 +75,7 @@ class FoodItemRow extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, left: 8),
                   child: Text(
-                    foodItem.itemName,
+                    foodItem.itemName ?? "",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black, //mainColor

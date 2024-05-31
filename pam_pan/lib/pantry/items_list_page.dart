@@ -124,7 +124,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  items[keyIndex].itemName,
+                  items[keyIndex].itemName ?? "",
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
