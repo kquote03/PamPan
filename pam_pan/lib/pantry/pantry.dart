@@ -225,7 +225,7 @@ class _PantryState extends State<Pantry> {
                   ),
                   child: ItemDescriptionCard(
                     image:
-                        'assets/categories/${foodItem.categoryName ?? "bread"}.png',
+                        'assets/categories/${foodItem.categoryName ?? "other"}.png',
                     name: foodItem.itemName ?? "",
                     expiryDate: foodItem.expiryDate ?? "",
                     measurementUnit: foodItem.measurementUnit ?? "",
