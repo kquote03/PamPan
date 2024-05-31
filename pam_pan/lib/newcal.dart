@@ -1,8 +1,19 @@
+import 'dart:math';
+
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
+import 'package:pam_pan/home_page.dart';
+import 'package:pam_pan/pantry/food_item.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+final realtime = Realtime(client);
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
+
 class NewCalendar extends StatefulWidget {
-  const NewCalendar({Key? key}) : super(key: key);
+  const NewCalendar({super.key});
 
   @override
   State<NewCalendar> createState() => _NewCalendarState();
@@ -13,26 +24,68 @@ List<Appointment> appointments = [];
 class _NewCalendarState extends State<NewCalendar> {
   final CalendarController _controller = CalendarController();
 
-  @override 
+  List<FoodItem> _itemsList = [];
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  _asyncQuery() async {
+    List<FoodItem> fetchedItems = await getItems();
+    setState(
+      () {
+        _itemsList = fetchedItems;
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _asyncQuery();
+  }
+
+  List<Color> colours = [
+    Colors.black,
+    Colors.green,
+    Colors.yellow,
+    Colors.red,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.blue,
+    Colors.indigo,
+  ];
+
   @override
   Widget build(BuildContext context) {
+    if (_itemsList.isNotEmpty) {
+      for (int i = 0; i < _itemsList.length; i++) {
+        appointments.add(
+          Appointment(
+            startTime: stringToDate(_itemsList[i].expiryDate!),
+            endTime: stringToDate(_itemsList[i].expiryDate!),
+            isAllDay: true,
+            color: colours[Random().nextInt(colours.length)],
+            subject: _itemsList[i].toString(),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         title: const Text('Calendar'),
-
       ),
       body: SfCalendar(
         controller: _controller,
         view: CalendarView.month,
         headerStyle: const CalendarHeaderStyle(
-          backgroundColor: Colors.white, 
+          backgroundColor: Colors.white,
           textStyle: TextStyle(fontSize: 25),
         ),
         monthViewSettings: const MonthViewSettings(
@@ -59,7 +112,6 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
           ),
           monthCellStyle: MonthCellStyle(
-            
             backgroundColor: Colors.white,
             trailingDatesBackgroundColor: Color.fromARGB(230, 243, 238, 238),
             leadingDatesBackgroundColor: Color.fromARGB(230, 243, 238, 238),
@@ -70,7 +122,6 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
             // ignore: deprecated_member_use
             todayTextStyle: TextStyle(
-
               fontSize: 12,
               fontWeight: FontWeight.bold,
               fontFamily: 'Arial',
@@ -93,24 +144,6 @@ class _NewCalendarState extends State<NewCalendar> {
   }
 
   _AppointmentDataSource _getCalendarDataSource() {
-    DateTime date;
-    if (_controller.selectedDate == null) {
-      date = DateTime.now().add(const Duration(minutes: 10));
-    } else {
-      date = _controller.selectedDate!.add(const Duration(minutes: 10));
-    }
-    appointments.add(
-      Appointment(
-        startTime: _controller.selectedDate ?? DateTime.now(),
-        endTime: (_controller.selectedDate ?? DateTime.now())
-            .add(const Duration(minutes: 10)),
-        subject: 'Ass',
-        color: const Color.fromARGB(255, 255, 255, 255),
-        startTimeZone: '',
-        endTimeZone: '',
-        isAllDay: true,
-      ),
-    );
     return _AppointmentDataSource(appointments);
   }
 }

@@ -38,7 +38,6 @@ List<List<String>> sortList(List<List<String>> list) {
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
-  List<String> recentlyAddedItems = [];
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -65,10 +64,6 @@ class _HomePageState extends State<HomePage> {
     setState(
       () {
         _recentlyAddedItems = fetchedItems;
-        // for (int i = 0; i < widget.recentlyAddedItems.length; i++) {
-        // widget.recentlyAddedItems[i] =
-        //     "${_recentlyAddedItems[i].itemName!} ${_recentlyAddedItems[i].expiryDate!}";
-        // }
         _recentlyAddedItem1 = _recentlyAddedItems[0].toString();
         _recentlyAddedItem2 = _recentlyAddedItems[1].toString();
         _recentlyAddedItem3 = _recentlyAddedItems[2].toString();

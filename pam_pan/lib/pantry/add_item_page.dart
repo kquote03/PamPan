@@ -144,11 +144,11 @@ class _AddItemPage extends State<AddItemPage> {
                         labelText: "Expiry Date",
                         hintText: "YYYY-MM-DD",
                       ),
-                      validator: (String? value) {
-                        !_expiryDateChecker(value)
-                            ? "Please insert a valid expiry date"
-                            : null;
-                      },
+                      // validator: (String? value) {
+                      //   !_expiryDateChecker(value)
+                      //       ? "Please insert a valid expiry date"
+                      //       : null;
+                      // },
                       keyboardType: TextInputType.datetime,
                       controller: _controllerExpiryDate,
                       inputFormatters: [_ExpiryDateInputFormatter()],
@@ -226,14 +226,13 @@ class _AddItemPage extends State<AddItemPage> {
                     TextButton(
                       onPressed: () async {
                         if (_itemNameChecker(_controllerItemName.text) &&
-                            _quantityChecker() &&
-                            _expiryDateChecker(_controllerExpiryDate.text)) {
+                            _quantityChecker()) {
                           isEditMode
                               ? editFoodItem(
                                   _controllerItemName.text,
                                   _controllerExpiryDate.text,
                                   _controllerCategory.text,
-                                  //_controllerAllergens.selectedOptions[0].label,
+                                  // _controllerAllergens.selectedOptions[0].label,
                                   _controllerMeasurement.text,
                                   int.parse(_controllerQuantity.text))
                               : addFoodItem(
