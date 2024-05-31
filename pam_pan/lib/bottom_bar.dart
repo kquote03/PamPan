@@ -15,7 +15,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+      backgroundColor: Colors.white,
       destinations: [
         NavigationDestination(
           icon: IconButton(
@@ -78,7 +78,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         NavigationDestination(
           icon: IconButton(
             icon: const Icon(
-              Icons.receipt,
+              Icons.shelves,
               size: 35,
               color: Colors.black,
             ),
@@ -112,8 +112,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       height: 70,
       selectedIndex: 0,
-      surfaceTintColor: const Color.fromARGB(255, 255, 255, 242),
-      indicatorColor: const Color.fromARGB(255, 255, 255, 242),
+      surfaceTintColor: Colors.white,
+      indicatorColor: Colors.white,
     );
   }
 }

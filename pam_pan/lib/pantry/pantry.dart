@@ -103,7 +103,7 @@ class _PantryState extends State<Pantry> {
           },
           child: Catogeries(
             color: selectedCategories.contains(category[0])
-                ? Colors.blue
+                ? const Color.fromARGB(255, 214, 201, 243)
                 : Colors.white,
             //TODO: Bringback Nice Text
             text: category[0],
@@ -127,9 +127,9 @@ class _PantryState extends State<Pantry> {
     //);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        backgroundColor: Colors.white,
         title: const Text("Pam's Pantry"),
       ),
       body: SingleChildScrollView(
@@ -139,6 +139,7 @@ class _PantryState extends State<Pantry> {
           children: [
             Center(
               child: Card(
+                color: const Color.fromARGB(255, 253, 249, 249),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 child: SizedBox(

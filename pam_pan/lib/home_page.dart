@@ -53,11 +53,7 @@ class _HomePageState extends State<HomePage> {
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
-  List<Color> colours = [
-    const Color.fromARGB(255, 197, 234, 250),
-    const Color(0xFFA2CFFE),
-    const Color(0xFF9DD9F3),
-  ];
+
   Random random = Random();
   int _currentCarousel = 0;
   final CarouselController _carousalController = CarouselController();
@@ -162,8 +158,9 @@ class _HomePageState extends State<HomePage> {
     ).toList();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        backgroundColor: Colors.white,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(

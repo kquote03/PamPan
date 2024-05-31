@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class NewCalendar extends StatefulWidget {
-  const NewCalendar({super.key});
+  const NewCalendar({Key? key}) : super(key: key);
 
   @override
   State<NewCalendar> createState() => _NewCalendarState();
@@ -13,7 +13,7 @@ List<Appointment> appointments = [];
 class _NewCalendarState extends State<NewCalendar> {
   final CalendarController _controller = CalendarController();
 
-  @override
+  @override 
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -25,16 +25,21 @@ class _NewCalendarState extends State<NewCalendar> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        title: const Text('Calendar'),
+
       ),
       body: SfCalendar(
         controller: _controller,
         view: CalendarView.month,
+        headerStyle: const CalendarHeaderStyle(
+          backgroundColor: Colors.white, 
+          textStyle: TextStyle(fontSize: 25),
+        ),
         monthViewSettings: const MonthViewSettings(
           showAgenda: true,
           appointmentDisplayCount: 5,
           navigationDirection: MonthNavigationDirection.horizontal,
           agendaStyle: AgendaStyle(
-            backgroundColor: Color.fromARGB(238, 255, 255, 255),
             appointmentTextStyle: TextStyle(
               fontSize: 14,
               fontStyle: FontStyle.italic,
@@ -54,6 +59,7 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
           ),
           monthCellStyle: MonthCellStyle(
+            
             backgroundColor: Colors.white,
             trailingDatesBackgroundColor: Color.fromARGB(230, 243, 238, 238),
             leadingDatesBackgroundColor: Color.fromARGB(230, 243, 238, 238),
@@ -64,6 +70,7 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
             // ignore: deprecated_member_use
             todayTextStyle: TextStyle(
+
               fontSize: 12,
               fontWeight: FontWeight.bold,
               fontFamily: 'Arial',
@@ -79,7 +86,6 @@ class _NewCalendarState extends State<NewCalendar> {
               fontFamily: 'Arial',
             ),
           ),
-          
         ),
         dataSource: _getCalendarDataSource(),
       ),
