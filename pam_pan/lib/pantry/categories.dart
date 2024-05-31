@@ -15,7 +15,7 @@ class Catogeries extends StatelessWidget {
       color: color,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: SizedBox(
-        height: 60,
+        height: 50,
         // width: MediaQuery.of(context).size.width * 0.29,
         child: Center(
           child: Padding(
@@ -36,7 +36,7 @@ class Catogeries extends StatelessWidget {
                   child: Text(
                     text,
                     style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 17,
                         color: Colors.black, //mainColor
                         fontWeight: FontWeight.w500),
                   ),

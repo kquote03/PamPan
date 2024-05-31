@@ -7,6 +7,11 @@ PODS:
     - Flutter
     - MTBBarcodeScanner
     - SwiftProtobuf
+  - better_open_file (0.0.1):
+    - Flutter
+  - camerawesome (0.0.1):
+    - Flutter
+    - JPSVolumeButtonHandler
   - device_info_plus (0.0.1):
     - Flutter
   - Firebase/Auth (10.25.0):
@@ -90,6 +95,7 @@ PODS:
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
+  - JPSVolumeButtonHandler (1.0.5)
   - location (0.0.1):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
@@ -113,6 +119,8 @@ PODS:
 
 DEPENDENCIES:
   - barcode_scan2 (from `.symlinks/plugins/barcode_scan2/ios`)
+  - better_open_file (from `.symlinks/plugins/better_open_file/ios`)
+  - camerawesome (from `.symlinks/plugins/camerawesome/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_app_check (from `.symlinks/plugins/firebase_app_check/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
@@ -143,6 +151,7 @@ SPEC REPOS:
     - GoogleMaps
     - GoogleUtilities
     - GTMSessionFetcher
+    - JPSVolumeButtonHandler
     - MTBBarcodeScanner
     - PromisesObjC
     - RecaptchaInterop
@@ -151,6 +160,10 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   barcode_scan2:
     :path: ".symlinks/plugins/barcode_scan2/ios"
+  better_open_file:
+    :path: ".symlinks/plugins/better_open_file/ios"
+  camerawesome:
+    :path: ".symlinks/plugins/camerawesome/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_app_check:
@@ -189,6 +202,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppCheckCore: db04d539b37794558391bc56bc65e2440b01a195
   barcode_scan2: 0af2bb63c81b4565aab6cd78278e4c0fa136dbb0
+  better_open_file: 03cf320415d4d3f46b6e00adc4a567d76c1a399d
+  camerawesome: 1e06540f60158809bc70f398ed1ac2cf93fe4188
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   Firebase: 0312a2352584f782ea56f66d91606891d4607f06
   firebase_app_check: 717089a2df93747620263dd6c8e444bde5699b7e
@@ -208,6 +223,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
   home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
+  JPSVolumeButtonHandler: 53110330c9168ed325def93eabff39f0fe3e8082
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   package_info_plus: 58f0028419748fad15bf008b270aaa8e54380b1c

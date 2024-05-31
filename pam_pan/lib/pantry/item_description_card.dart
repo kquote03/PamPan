@@ -20,18 +20,19 @@ class ItemDescriptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+     
+      padding: const EdgeInsets.fromLTRB(4.0,2.0,4.0,0),
       child: Stack(
         children: [
           SizedBox(
-            height: 100,
+             height:90,
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(8.0,0,8,8),
               child: Row(
                 children: [
                   Container(
-                    height: 120,
+                    height: 100,
                     width: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
@@ -59,36 +60,31 @@ class ItemDescriptionCard extends StatelessWidget {
                               // overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  "Expiry Date: $expiryDate",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey, //inActiveColor
-                                    fontSize: 16,
-                                  ),
-                                  // overflow: TextOverflow.ellipsis,
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Expiry Date: $expiryDate",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey, //inActiveColor
+                                fontSize: 16,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  "Quantity: $quantity $measurementUnit",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
-                                    fontSize: 16,
-                                  ),
-                                  // overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              const Icon(Icons.more_vert)
-                            ],
+                              // overflow: TextOverflow.ellipsis,
+                            ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Quantity: $quantity $measurementUnit",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
+                              // overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        
                         ],
                       ),
                     ),

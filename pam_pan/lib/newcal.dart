@@ -22,9 +22,9 @@ class _NewCalendarState extends State<NewCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: SfCalendar(
         controller: _controller,
@@ -34,11 +34,11 @@ class _NewCalendarState extends State<NewCalendar> {
           appointmentDisplayCount: 5,
           navigationDirection: MonthNavigationDirection.horizontal,
           agendaStyle: AgendaStyle(
-            backgroundColor: Color.fromARGB(239, 102, 204, 204),
+            backgroundColor: Color.fromARGB(238, 255, 255, 255),
             appointmentTextStyle: TextStyle(
               fontSize: 14,
               fontStyle: FontStyle.italic,
-              color: Color.fromARGB(238, 255, 204, 0),
+              color: Colors.black,
             ),
             dateTextStyle: TextStyle(
               fontStyle: FontStyle.italic,
@@ -54,10 +54,10 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
           ),
           monthCellStyle: MonthCellStyle(
-            backgroundColor: Color.fromARGB(129, 41, 52, 98),
-            trailingDatesBackgroundColor: Color.fromARGB(129, 33, 102, 131),
-            leadingDatesBackgroundColor: Color.fromARGB(129, 33, 101, 131),
-            todayBackgroundColor: Color.fromARGB(129, 247, 190, 22),
+            backgroundColor: Colors.white,
+            trailingDatesBackgroundColor: Color.fromARGB(230, 243, 238, 238),
+            leadingDatesBackgroundColor: Color.fromARGB(230, 243, 238, 238),
+            todayBackgroundColor: Color.fromARGB(129, 255, 255, 255),
             textStyle: TextStyle(
               fontSize: 12,
               fontFamily: 'Arial',
@@ -79,56 +79,9 @@ class _NewCalendarState extends State<NewCalendar> {
               fontFamily: 'Arial',
             ),
           ),
+          
         ),
         dataSource: _getCalendarDataSource(),
-      ),
-      bottomNavigationBar: NavigationBar(
-        destinations: [
-          TextButton(
-            onPressed: () {
-              setState(
-                () {
-                  final Appointment app = Appointment(
-                      startTime: _controller.displayDate!,
-                      endTime: _controller.displayDate!.add(
-                        const Duration(hours: 2),
-                      ),
-                      isAllDay: true,
-                      subject: 'Add Appointment',
-                      color: Colors.pink);
-                  _getCalendarDataSource().appointments?.add(app);
-                  _getCalendarDataSource().notifyListeners(
-                    CalendarDataSourceAction.add,
-                    <Appointment>[app],
-                  );
-                },
-              );
-            },
-            child: const Text("Add"),
-          ),
-          TextButton(
-            onPressed: () {
-              final Appointment removeAppointment =
-                  _getCalendarDataSource().appointments![0];
-              _getCalendarDataSource().appointments?.remove(removeAppointment);
-              _getCalendarDataSource().notifyListeners(
-                CalendarDataSourceAction.remove,
-                <Appointment>[removeAppointment],
-              );
-            },
-            child: const Text("Remove"),
-          ),
-          TextButton(
-            onPressed: () {
-              _getCalendarDataSource().appointments?.clear();
-              _getCalendarDataSource().notifyListeners(
-                CalendarDataSourceAction.reset,
-                _getCalendarDataSource().appointments!,
-              );
-            },
-            child: const Text("Reset"),
-          ),
-        ],
       ),
     );
   }
@@ -146,7 +99,7 @@ class _NewCalendarState extends State<NewCalendar> {
         endTime: (_controller.selectedDate ?? DateTime.now())
             .add(const Duration(minutes: 10)),
         subject: 'Ass',
-        color: Colors.blue,
+        color: const Color.fromARGB(255, 255, 255, 255),
         startTimeZone: '',
         endTimeZone: '',
         isAllDay: true,
