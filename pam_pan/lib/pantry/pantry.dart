@@ -188,7 +188,9 @@ class _PantryState extends State<Pantry> {
                     motion: const ScrollMotion(),
 
                     // A pane can dismiss the Slidable.
-                    dismissible: DismissiblePane(onDismissed: () {}),
+                    dismissible: DismissiblePane(onDismissed: () {
+                      deleteItemById(foodItem.itemId);
+                    }),
 
                     // All actions are defined in the children parameter.
                     children: [
@@ -222,7 +224,8 @@ class _PantryState extends State<Pantry> {
                     ],
                   ),
                   child: ItemDescriptionCard(
-                    image: 'assets/categories/bread.png',
+                    image:
+                        'assets/categories/${foodItem.categoryName ?? "bread"}.png',
                     name: foodItem.itemName ?? "",
                     expiryDate: foodItem.expiryDate ?? "",
                     measurementUnit: foodItem.measurementUnit ?? "",

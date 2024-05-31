@@ -20,28 +20,33 @@ class ItemDescriptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-     
-      padding: const EdgeInsets.fromLTRB(4.0,2.0,4.0,0),
+      padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 0),
       child: Stack(
         children: [
           SizedBox(
-             height:90,
+            height: 90,
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,0,8,8),
+              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 8),
               child: Row(
                 children: [
                   Container(
-                    height: 100,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                      height: 100,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Image.asset(
+                        image!,
+                        scale: 17,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset(
+                            'assets/categories/other.png',
+                            scale: 17,
+                          );
+                        },
+                      )),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -84,7 +89,6 @@ class ItemDescriptionCard extends StatelessWidget {
                               // overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                        
                         ],
                       ),
                     ),
