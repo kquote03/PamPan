@@ -177,22 +177,94 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      const Text("text2"),
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("text3"),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PaymentPage()),
-              );
-            },
-            child: const Text('Donate cashmonneh'),
+          const Text(
+            "Hewwo",
+            style: TextStyle(fontSize: 40),
+          ),
+          Text(
+            _recentlyAddedItem1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem3,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem4,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
           ),
         ],
       ),
-      // const Text("text3"),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Hewwo",
+            style: TextStyle(fontSize: 40),
+          ),
+          Text(
+            _recentlyAddedItem1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem3,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem4,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const PaymentPage();
+                      },
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.add_circle_sharp,
+                  size: 35,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ].asMap().entries.map(
       (entry) {
         int index = entry.key;
