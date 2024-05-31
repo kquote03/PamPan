@@ -10,6 +10,7 @@ import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/categories.dart';
 import 'package:pam_pan/pantry/food_item.dart';
 import 'package:pam_pan/pantry/item_description_card.dart';
+import 'package:uuid/uuid.dart';
 
 final realtime = Realtime(client);
 final subscription = realtime.subscribe([
@@ -181,7 +182,7 @@ class _PantryState extends State<Pantry> {
             Column(
               children: currentItems.map((foodItem) {
                 return Slidable(
-                  key: ValueKey(Random()),
+                  key: ValueKey(Uuid().v4()),
                   startActionPane: ActionPane(
                     // A motion is a widget used to control how the pane animates.
                     motion: const ScrollMotion(),
