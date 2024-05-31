@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
@@ -354,7 +355,8 @@ class _PantryState extends State<Pantry> {
                         onPressed: (BuildContext context) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
+                              allowSnapshotting: false,
                               builder: (context) {
                                 print(foodItem.itemId);
                                 return AddItemPage(id: "${foodItem.itemId}");

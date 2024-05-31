@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -92,8 +93,10 @@ class _HomePageState extends State<HomePage> {
       (event) {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => NotificationsPage(payload: event),
+          CupertinoPageRoute(
+            builder: (context) {
+              return NotificationsPage(payload: event);
+            },
           ),
         );
       },
@@ -134,8 +137,11 @@ class _HomePageState extends State<HomePage> {
                           // Navigate to the new page
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => AddItemPage()),
+                            CupertinoPageRoute(
+                              builder: (context) {
+                                return AddItemPage();
+                              },
+                            ),
                           );
                         },
                         child: const Text('Add items'),
@@ -146,8 +152,11 @@ class _HomePageState extends State<HomePage> {
                           // Navigate to the new page
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const PaymentPage()),
+                            CupertinoPageRoute(
+                              builder: (context) {
+                                return const PaymentPage();
+                              },
+                            ),
                           );
                         },
                         child: const Text('Donate cashmonneh'),
@@ -190,7 +199,8 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     return const NewCalendar();
                   },
@@ -202,7 +212,8 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     return const LoginPage();
                   },
@@ -215,7 +226,8 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     return const SignUpPage();
                   },
@@ -409,8 +421,12 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const EditProfilePage()),
+                          CupertinoPageRoute(
+                            allowSnapshotting: false,
+                            builder: (context) {
+                              return const EditProfilePage();
+                            },
+                          ),
                         );
                       },
                       child: const Text('Edit Profile'),
@@ -425,7 +441,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
+                    allowSnapshotting: false,
                     builder: (context) {
                       return const Records();
                     },
@@ -442,7 +459,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
+                    allowSnapshotting: false,
                     builder: (context) {
                       return const HelpPage();
                     },

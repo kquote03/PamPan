@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/bottom_bar.dart';
@@ -84,7 +85,8 @@ class PaymentMethod extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
+                          allowSnapshotting: false,
                           builder: (context) {
                             return const PaymentPage();
                           },

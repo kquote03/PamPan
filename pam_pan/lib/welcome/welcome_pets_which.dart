@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_notif_duration.dart';
 
@@ -98,7 +99,8 @@ class _WelcomePetsWhichState extends State<WelcomePetsWhich> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
+              allowSnapshotting: false,
               builder: (context) {
                 return const WelcomeNotifDuration();
               },

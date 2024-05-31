@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/profile/about_pam_page.dart';
@@ -78,7 +79,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    CupertinoPageRoute(
+                      allowSnapshotting: false,
                       builder: (context) => const EditProfile(),
                     ),
                   );
@@ -112,7 +114,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
+                              allowSnapshotting: false,
                               builder: (context) => const PaymentMethod(),
                             ),
                           );
@@ -160,7 +163,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
+                              allowSnapshotting: false,
                               builder: (context) => const AboutPam(),
                             ),
                           );

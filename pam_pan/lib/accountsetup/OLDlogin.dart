@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:pam_pan/home_page.dart';
@@ -62,9 +63,13 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) {
+                        return const HomePage();
+                      },
+                    ),
+                  );
                   if (_emailController.text.isEmpty ||
                       _passwordController.text.isEmpty) {
                     setState(() {

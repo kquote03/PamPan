@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -86,8 +87,10 @@ class _FrontPageState extends State<FrontPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
+                            CupertinoPageRoute(
+                              builder: (context) {
+                                return const HomePage();
+                              },
                             ),
                           );
                           if (_emailController.text.isEmpty ||

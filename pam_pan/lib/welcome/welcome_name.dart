@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_allergens.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
-
 
 class WelcomeName extends StatefulWidget {
   const WelcomeName({super.key});
@@ -13,7 +13,6 @@ class WelcomeName extends StatefulWidget {
 
 class _WelcomeNameState extends State<WelcomeName> {
   final TextEditingController _controllerWelcomeName = TextEditingController();
-
 
   @override
   void dispose() {
@@ -71,17 +70,19 @@ class _WelcomeNameState extends State<WelcomeName> {
           fixedSize: Size(MediaQuery.of(context).size.width * 0.75, 50),
         ),
         onPressed: () async {
-    try {
-      //account.deleteSession(sessionId: 'current');
-  await account.createEmailPasswordSession(email: "email@example.com", password: "password123");
-} on Exception catch (e) {
-  print(e);
-}
-User result = await account.get();
-print(result.email);
+          try {
+            //account.deleteSession(sessionId: 'current');
+            await account.createEmailPasswordSession(
+                email: "email@example.com", password: "password123");
+          } on Exception catch (e) {
+            print(e);
+          }
+          User result = await account.get();
+          print(result.email);
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
+              allowSnapshotting: false,
               builder: (context) {
                 return const WelcomeAllergens();
               },

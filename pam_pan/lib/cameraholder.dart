@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:camerawesome/camerawesome_plugin.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/dispimage.dart';
 import 'package:pam_pan/firebase_ai.dart';
@@ -39,22 +40,26 @@ class Cameraholder extends StatelessWidget {
             event.captureRequest.when(
               single: (single) async {
                 // Show progress bar i guess
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const Scaffold(
-                    body: Center(
-                      child: SizedBox(
-                        height: 100,
-                        child: Column(
-                          children: [
-                            CircularProgressIndicator(),
-                            Text("🔎 🧶 Pam is noting down the details...")
-                          ],
+                Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    allowSnapshotting: false,
+                    builder: (context) {
+                      return const Scaffold(
+                        body: Center(
+                          child: SizedBox(
+                            height: 100,
+                            child: Column(
+                              children: [
+                                CircularProgressIndicator(),
+                                Text("🔎 🧶 Pam is noting down the details...")
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                }));
+                      );
+                    },
+                  ),
+                );
 
                 debugPrint(
                     'Picture size: ${(await single.file?.readAsBytes())?.length}');
@@ -70,7 +75,8 @@ class Cameraholder extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    CupertinoPageRoute(
+                      allowSnapshotting: false,
                       builder: (context) {
                         return AddItemPage(
                           fooditem: foodItem,
@@ -82,7 +88,8 @@ class Cameraholder extends StatelessWidget {
                   //Navigator.pop(context);
                   //Navigator.push(
                   //  context,
-                  //  MaterialPageRoute(
+                  //  CupertinoPageRoute(
+                  // allowSnapshotting: false,
                   //    builder: (context) {
                   //      return Dispimage(image: Image.memory(imagev));
                   //    },
@@ -158,7 +165,8 @@ class Cameraholder extends StatelessWidget {
       //      Navigator.pop(context);
       //      Navigator.push(
       //        context,
-      //        MaterialPageRoute(
+      //        CupertinoPageRoute(
+      // allowSnapshotting: false,
       //          builder: (context) {
       //            return Dispimage(image: Image.memory(imagev));
       //          },
@@ -166,7 +174,7 @@ class Cameraholder extends StatelessWidget {
       //      );
       //    });
 
-      //    //Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //    //Navigator.push(context, CupertinoPageRoute(allowSnapshotting: false,builder: (context) {
       //    //  single.file!.readAsBytes().then((value) {
       //    //    return Dispimage(image: Image.memory(value));
       //    //  });

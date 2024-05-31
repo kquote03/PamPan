@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -102,7 +103,8 @@ Quantity/Amount:
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     return AddItemPage();
                   },
@@ -135,12 +137,16 @@ Quantity/Amount:
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            print(items[keyIndex].itemId);
-                            return AddItemPage(id: items[keyIndex].itemId);
-                          },
-                        ));
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            allowSnapshotting: false,
+                            builder: (context) {
+                              print(items[keyIndex].itemId);
+                              return AddItemPage(id: items[keyIndex].itemId);
+                            },
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.edit),
                       color: Colors.white,

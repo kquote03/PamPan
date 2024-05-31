@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_notif_duration.dart';
 import 'package:pam_pan/welcome/welcome_pets_which.dart';
@@ -22,12 +23,18 @@ class _WelcomePetsYesNoState extends State<WelcomePetsYesNo> {
     if (selectedOption == 'Yes') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const WelcomePetsWhich()),
+        CupertinoPageRoute(
+          allowSnapshotting: false,
+          builder: (context) => const WelcomePetsWhich(),
+        ),
       );
     } else if (selectedOption == 'No') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const WelcomeNotifDuration()),
+        CupertinoPageRoute(
+          allowSnapshotting: false,
+          builder: (context) => const WelcomeNotifDuration(),
+        ),
       );
     }
   }

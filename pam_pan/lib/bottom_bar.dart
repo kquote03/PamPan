@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:better_open_file/better_open_file.dart';
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     return const HomePage();
                   },
@@ -44,7 +46,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     return const MapPage();
                   },
@@ -63,9 +66,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: IconButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Cameraholder();
-              }));
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
+                  builder: (context) {
+                    return Cameraholder();
+                  },
+                ),
+              );
             },
             icon: const Icon(
               Icons.camera_enhance,
@@ -97,7 +106,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
+                  allowSnapshotting: false,
                   builder: (context) {
                     // return const ItemListPage("the whatever category.");
                     return const Pantry();

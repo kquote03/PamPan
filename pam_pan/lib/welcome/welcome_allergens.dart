@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/welcome/welcome_pets_yesno.dart';
 
@@ -99,7 +100,8 @@ class _WelcomeAllergensState extends State<WelcomeAllergens> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
+              allowSnapshotting: false,
               builder: (context) {
                 return const WelcomePetsYesNo();
               },

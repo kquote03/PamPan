@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:wheel_picker/wheel_picker.dart';
@@ -73,7 +74,8 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
+                allowSnapshotting: false,
                 builder: (context) {
                   return const HomePage();
                 },
