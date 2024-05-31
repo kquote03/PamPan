@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FoodItem {
   final String? itemId;
   final String itemName;
-  final String expiryDate;
+  final String? expiryDate;
   final String? barcode;
   final String? productionDate;
   final bool? canRefrigerate;
@@ -14,7 +14,7 @@ class FoodItem {
   FoodItem({
     this.itemId,
     required this.itemName,
-    required this.expiryDate,
+    this.expiryDate,
     this.barcode,
     this.productionDate,
     this.canRefrigerate,
