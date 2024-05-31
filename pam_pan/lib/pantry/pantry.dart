@@ -112,20 +112,6 @@ class _PantryState extends State<Pantry> {
         );
       },
     ).toList();
-
-    // TODO: Decide if we will continue with category page
-    //categoriesListMapped.add(
-    //  GestureDetector(
-    //    onTap: () {
-    //      //TODO: create an add category page.
-    //    },
-    //    child: const Catogeries(
-    //      color: Colors.yellow,
-    //      text: "Add More",
-    //    ),
-    //  ),
-    //);
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

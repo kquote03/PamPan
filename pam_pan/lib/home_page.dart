@@ -233,43 +233,6 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const LoginPage();
-                  },
-                ),
-              );
-            },
-            child: const Text("Login"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const SignUpPage();
-                  },
-                ),
-              );
-            },
-            child: const Text("Signup"),
-          ),
-          IconButton(
-            icon:
-                const Icon(Icons.notifications, size: 35, color: Colors.black),
-            onPressed: () {
-              LocalNotifications.showSimpleNotification(
-                title: "Simple title",
-                body: "Simple body",
-                payload: "Simple payload",
-              );
-            },
-          ),
           IconButton(
             icon:
                 const Icon(Icons.notifications, size: 35, color: Colors.black),
