@@ -1,14 +1,16 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 import 'package:pam_pan/login%20and%20signup/signup.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/edit_profile_page.dart';
 import 'package:pam_pan/profile/help.dart';
-import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:home_widget/home_widget.dart';
@@ -44,6 +46,8 @@ List<Widget> carouselContents = [
 ];
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<SliderDrawerState> _sliderDrawerKey =
+      GlobalKey<SliderDrawerState>();
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
@@ -55,40 +59,23 @@ class _HomePageState extends State<HomePage> {
   Random random = Random();
   int _currentCarousel = 0;
   final CarouselController _carousalController = CarouselController();
-
-  // List<Widget>? carousel1 = carouselContents.map(
-  //   (i) {
-  //     return Builder(
-  //       builder: (BuildContext context) {
-  //         return SizedBox(
-  //           child: Container(
-  //             width: MediaQuery.of(context).size.width,
-  //             margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-  //             decoration: BoxDecoration(
-  //               color: const Color.fromARGB(255, 197, 234, 250),
-  //               boxShadow: [
-  //                 BoxShadow(
-  //                   color: Colors.grey.withOpacity(0.5),
-  //                   spreadRadius: 5,
-  //                   blurRadius: 7,
-  //                   offset: const Offset(10, 10),
-  //                   blurStyle: BlurStyle.normal,
-  //                 ),
-  //               ],
-  //             ),
-  //             child: i,
-  //           ),
-  //         );
-  //       },
-  //     );
-  //   },
-  // ).toList();
+  File? _profileImage;
 
   @override
   void initState() {
     HomeWidget.setAppGroupId(appGroupId);
     super.initState();
     listenNotifications();
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
   }
 
   updateWidgetFun() {
@@ -173,9 +160,23 @@ class _HomePageState extends State<HomePage> {
     ).toList();
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              iconSize: 30,
+              icon: _profileImage == null
+                  ? const Icon(Icons.account_circle)
+                  : CircleAvatar(
+                      backgroundImage: FileImage(_profileImage!),
+                    ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           Text(
             DateFormat.MMMM().format(DateTime.now()),
@@ -212,68 +213,6 @@ class _HomePageState extends State<HomePage> {
             },
             child: const Text("Signup"),
           ),
-          // IconButton(
-          //   icon:
-          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     LocalNotifications.showSimpleNotification(
-          //       title: "Simple title",
-          //       body: "Simple body",
-          //       payload: "Simple payload",
-          //     );
-          //   },
-          // ),
-          // IconButton(
-          //   icon:
-          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
-          //     LocalNotifications.showPeriodicNotification(
-          //       title: "Pam got some tips for you!",
-          //       body: randomTip,
-          //       payload: randomTip,
-          //     );
-          //   },
-          // ),
-          // IconButton(
-          //   icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     LocalNotifications.cancelAll();
-          //   },
-          // ),
-          //TODO: Implement database below
-          //IconButton(
-          //  icon: const Icon(Icons.notifications,
-          //      size: 35, color: Colors.black),
-          //  onPressed: () {
-          //    sortList(items);
-          //    for (int i = 0; i < items.length; i++) {
-          //      LocalNotifications.showScheduleNotification(
-          //        id: i,
-          //        title: "Uhoh! ${items[i][1]} is about to expire!",
-          //        body: "Quick! It will expire on ${items[i][0]}",
-          //        payload: "Scheduled payload",
-          //        minutes: daysBetween(
-          //            DateTime.now(), stringToDate(items[i][0])),
-          //      );
-          //    }
-          //  },
-          //),
-          // IconButton(
-          //   icon: const Icon(Icons.notifications,
-          //       size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     for (int i = 1; i < 5; i++) {
-          //       LocalNotifications.showScheduleNotification(
-          //         id: i,
-          //         title: "Scheduled title",
-          //         body: "Scheduled body",
-          //         payload: "Scheduled payload",
-          //         minutes: i,
-          //       );
-          //     }
-          //   },
-          // ),
         ],
       ),
       body: SingleChildScrollView(
@@ -282,15 +221,11 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                // height: 400,
                 aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
                 reverse: false,
-                // autoPlay: true,
-                // autoPlayInterval: constDuration(seconds: 3),
-                // autoPlayAnimationDuration: Duration(milliseconds: 800),
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enlargeCenterPage: true,
                 enlargeFactor: 0.2,
@@ -338,15 +273,11 @@ class _HomePageState extends State<HomePage> {
             ),
             CarouselSlider(
               options: CarouselOptions(
-                // height: 400,
                 aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
                 reverse: false,
-                // autoPlay: true,
-                // autoPlayInterval: constDuration(seconds: 3),
-                // autoPlayAnimationDuration: Duration(milliseconds: 800),
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enlargeCenterPage: true,
                 enlargeFactor: 0.2,
@@ -400,49 +331,59 @@ class _HomePageState extends State<HomePage> {
               height: 250,
               child: DrawerHeader(
                 decoration: const BoxDecoration(
-                  color: Colors
-                      .blue, //TODO use user-chosen theme colour to decide this.
+                  color: Colors.blue,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.person,
-                            size: 40,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Insert username here',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
+                    GestureDetector(
+                      onTap: _pickImage,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              image: _profileImage == null
+                                  ? null
+                                  : DecorationImage(
+                                      image: FileImage(_profileImage!),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
-                            Text(
-                              'Insert email here',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
+                            child: _profileImage == null
+                                ? const Icon(
+                                    Icons.account_circle,
+                                    size: 40,
+                                    color: Colors.grey,
+                                  )
+                                : null,
+                          ),
+                          const SizedBox(width: 10),
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Insert username here',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              Text(
+                                'Insert email here',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 10),
                     const Text(
