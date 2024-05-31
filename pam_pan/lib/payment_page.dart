@@ -31,12 +31,12 @@ class _PaymentPage extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        backgroundColor: Colors.white,
         title: Text(
           "Donation",
-          style: GoogleFonts.roboto(),
+          style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
       body: SingleChildScrollView(
@@ -45,9 +45,9 @@ class _PaymentPage extends State<PaymentPage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "All donations go to the United Nation's World Food Programme (WFP)",
-                style: GoogleFonts.roboto(
-                  fontSize: 20,
+                "All donations go to the United Nation's World Food Programme (WFP).",
+                style: GoogleFonts.mukta(
+                  fontSize: 22,
                 ),
               ),
             ),
@@ -56,7 +56,7 @@ class _PaymentPage extends State<PaymentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text('Card Owner', style: GoogleFonts.roboto()),
+                  Text('Card Owner', style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerCardName,
@@ -78,7 +78,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text('Card Number', style: GoogleFonts.roboto()),
+                  Text('Card Number', style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerCardNumber,
@@ -112,7 +112,7 @@ class _PaymentPage extends State<PaymentPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text('Expiration Date',
-                                style: GoogleFonts.roboto()),
+                                style: GoogleFonts.mukta(fontSize: 17)),
                             const SizedBox(height: 3),
                             TextFormField(
                               controller: _controllerDate,
@@ -147,7 +147,7 @@ class _PaymentPage extends State<PaymentPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('CVC', style: GoogleFonts.roboto()),
+                            Text('CVC', style: GoogleFonts.mukta(fontSize: 17)),
                             const SizedBox(height: 3),
                             TextFormField(
                               controller: _controllerCVC,
@@ -180,7 +180,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Text('Amount(AED)', style: GoogleFonts.roboto()),
+                  Text('Amount(AED)', style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerAmount,
@@ -219,8 +219,7 @@ class _PaymentPage extends State<PaymentPage> {
                         style: ButtonStyle(
                           backgroundColor:
                               WidgetStateProperty.all<Color>(Colors.black),
-                          overlayColor:
-                              WidgetStateProperty.resolveWith<Color>(
+                          overlayColor: WidgetStateProperty.resolveWith<Color>(
                             (Set<WidgetState> states) {
                               return const Color.fromARGB(255, 219, 219, 219);
                             },
@@ -231,9 +230,11 @@ class _PaymentPage extends State<PaymentPage> {
                             ),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Process Donation',
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.mukta(
+                            color: Colors.white, fontSize: 17,
+                          ),
                         ),
                       ),
                     ],
@@ -337,8 +338,7 @@ class _PaymentPage extends State<PaymentPage> {
                         style: ButtonStyle(
                           backgroundColor:
                               WidgetStateProperty.all<Color>(Colors.black),
-                          overlayColor:
-                              WidgetStateProperty.resolveWith<Color>(
+                          overlayColor: WidgetStateProperty.resolveWith<Color>(
                             (Set<WidgetState> states) {
                               return const Color.fromARGB(255, 219, 219, 219);
                             },
