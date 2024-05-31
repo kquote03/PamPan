@@ -63,14 +63,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: IconButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AddItemPage();
-                  },
-                ),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Cameraholder();
+              }));
             },
             icon: const Icon(
               Icons.camera_enhance,
@@ -97,23 +92,19 @@ class CustomBottomNavigationBar extends StatelessWidget {
               //     });
               //   },
               // );
+
+              //},
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Cameraholder();
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    // return const ItemListPage("the whatever category.");
+                    return const Pantry();
+                  },
+                ),
+              );
             },
-            //},
-            //Navigator.pop(context);
-            //Navigator.push(
-            //  context,
-            //  MaterialPageRoute(
-            //    builder: (context) {
-            //      // return const ItemListPage("the whatever category.");
-            //      return const Pantry();
-            //    },
-            //  ),
-            //);
-            //},
           ),
           label: 'Records',
         ),
