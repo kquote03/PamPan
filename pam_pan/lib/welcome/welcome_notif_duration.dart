@@ -75,7 +75,7 @@ class _WelcomeNotifDurationState extends State<WelcomeNotifDuration> {
             context,
             MaterialPageRoute(
                 builder: (context) {
-                  return const HomePage();
+                  return HomePage();
                 },
                 fullscreenDialog: true),
           );

@@ -87,7 +87,7 @@ class _FrontPageState extends State<FrontPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HomePage(),
+                              builder: (context) => HomePage(),
                             ),
                           );
                           if (_emailController.text.isEmpty ||
