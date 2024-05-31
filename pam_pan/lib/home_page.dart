@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:appwrite/appwrite.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,6 +36,11 @@ List<List<String>> sortList(List<List<String>> list) {
   list.sort((a, b) => a[0].compareTo(b[0]));
   return list;
 }
+
+final realtime = Realtime(client);
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
