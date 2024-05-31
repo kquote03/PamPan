@@ -4,6 +4,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/connection_error.dart';
 import 'package:pam_pan/firebase_ai.dart';
+import 'package:pam_pan/leaderboard/profile_page.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 // Old SQLite-based local database
 //import 'package:pam_pan/backend/libdb.dart';
@@ -45,9 +46,9 @@ void main() async {
   try {
     final user = await account.get();
     runApp(
-      MaterialApp(
+      const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: LeaderboardPage(),
       ),
     );
   } catch (e) {
