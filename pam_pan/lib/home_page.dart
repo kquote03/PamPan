@@ -46,8 +46,6 @@ List<Widget> carouselContents = [
 ];
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<SliderDrawerState> _sliderDrawerKey =
-      GlobalKey<SliderDrawerState>();
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
@@ -394,16 +392,16 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EditProfilePage()),
-                        );
-                      },
-                      child: const Text('Edit Profile'),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => const EditProfilePage()),
+                    //     );
+                    //   },
+                    //   child: const Text('Edit Profile'),
+                    // ),
                   ],
                 ),
               ),
