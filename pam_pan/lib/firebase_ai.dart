@@ -5,13 +5,17 @@ import 'package:firebase_vertexai/firebase_vertexai.dart';
 
 class FirebaseAI {
   // Made temperature 0 to reduce randomness
-  final model = FirebaseVertexAI.instance.generativeModel(
+  late final expiryModel = FirebaseVertexAI.instance.generativeModel(
       model: 'gemini-1.5-flash-preview-0514',
       generationConfig: GenerationConfig(
           temperature: 0,
           topP: 0.1,
           topK: 1,
           responseMimeType: "application/json"));
+
+  late final recipeModel = FirebaseVertexAI.instance.generativeModel(
+    model: 'gemini-1.5-flash-preview-0514',
+  );
 
   // important links:
   // https://firebase.google.com/docs/vertex-ai/text-gen-from-multimodal?platform=flutter
@@ -21,17 +25,21 @@ class FirebaseAI {
   Future textWithoutStream(String promptText) async {
     //or is it Future<String?>
     final prompt = [Content.text(promptText)];
-    final response = await model.generateContent(prompt);
+    final response = await expiryModel.generateContent(prompt);
     print(response.text);
   }
 
-  Future textWithStream(String promptText) async {
+  Future textWithStream(String promptText,
+      {bool isExpiryScanning = false}) async {
     //or is it Future<String?>
     final prompt = [Content.text(promptText)];
-    final response = await model.generateContentStream(prompt);
-    await for (final chunk in response) {
-      print(chunk.text);
-    }
+    final response = isExpiryScanning
+        ? await expiryModel.generateContentStream(prompt)
+        : await recipeModel.generateContentStream(prompt);
+    //await for (final chunk in response) {
+    //  print(chunk.text);
+    //}
+    return response;
   }
 
   Future oneImageTextWithoutStream(
@@ -40,7 +48,7 @@ class FirebaseAI {
     final prompt = TextPart(promptText);
     final image = await File(imagePath).readAsBytes();
     final imagePart = DataPart(imageMime, image);
-    final response = await model.generateContent([
+    final response = await expiryModel.generateContent([
       Content.multi([prompt, imagePart])
     ]);
     return response.text;
@@ -52,7 +60,7 @@ class FirebaseAI {
     final prompt = TextPart(promptText);
     final image = imageBytes;
     final imagePart = DataPart(imageMime, image);
-    final response = await model.generateContent([
+    final response = await expiryModel.generateContent([
       Content.multi([prompt, imagePart])
     ]);
     return response.text;
@@ -64,7 +72,7 @@ class FirebaseAI {
     final prompt = TextPart(promptText);
     final image = await File(imagePath).readAsBytes();
     final imagePart = DataPart(imageMime, image);
-    final response = await model.generateContentStream([
+    final response = await expiryModel.generateContentStream([
       Content.multi([prompt, imagePart])
     ]);
     await for (final chunk in response) {
@@ -83,7 +91,7 @@ class FirebaseAI {
       DataPart(imageMime1, firstImage),
       DataPart(imageMime2, secondImage),
     ];
-    final response = await model.generateContent([
+    final response = await expiryModel.generateContent([
       Content.multi([prompt, ...imageParts])
     ]);
     return response.text;
@@ -100,7 +108,7 @@ class FirebaseAI {
       DataPart(imageMime1, firstImage),
       DataPart(imageMime2, secondImage),
     ];
-    final response = await model.generateContentStream([
+    final response = await expiryModel.generateContentStream([
       Content.multi([prompt, ...imageParts])
     ]);
     await for (final chunk in response) {

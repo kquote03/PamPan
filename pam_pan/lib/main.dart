@@ -2,6 +2,7 @@ import 'dart:async';
 // import 'dart:js';..
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
+import 'package:pam_pan/ai/recipe_page.dart';
 import 'package:pam_pan/connection_error.dart';
 import 'package:pam_pan/firebase_ai.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
@@ -47,7 +48,7 @@ void main() async {
     runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: RecipePage(),
       ),
     );
   } catch (e) {
