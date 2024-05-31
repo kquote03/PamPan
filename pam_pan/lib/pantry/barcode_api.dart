@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:pam_pan/pantry/food_item.dart';
 
 class BarcodeApi {
-  Future<Map<String, dynamic>> getFoodItemByUPC(String upc) async {
+  Future<FoodItem> getFoodItemByUPC(String upc) async {
     print(upc);
     final httpPackageUrl =
         Uri.parse("https://world.openfoodfacts.org/api/v0/product/$upc.json");
@@ -14,14 +14,22 @@ class BarcodeApi {
     return mapJsonToFoodItem(httpPackageJson);
   }
 
-  Map<String, dynamic> mapJsonToFoodItem(Map<String, dynamic> jsonData) {
+  FoodItem mapJsonToFoodItem(Map<String, dynamic> jsonData) {
+    // Extract the required data from the JSON
+
     Map<String, dynamic> tempMap = {};
     final productData = jsonData['product'];
-
     // Extract the required data from the JSON
-    tempMap['itemName'] = productData['product_name_en'] as String;
-    tempMap['barcode'] = productData['code'] as String;
-
+    try {
+      tempMap['itemName'] = productData['product_name_en'] as String;
+    } catch (e) {
+      tempMap['itemName'] = "";
+    }
+    try {
+      tempMap['barcode'] = productData['code'] as String;
+    } catch (e) {
+      tempMap['barcode'] = "";
+    }
     // Sometimes OpenFoodFacts will have a weird serving unit.
     // I'm trying to control the chaos.
     try {
@@ -39,6 +47,11 @@ class BarcodeApi {
     } catch (e) {
       tempMap['categoryName'] = "";
     }
-    return tempMap;
+
+    return FoodItem(
+        itemName: tempMap['itemName'],
+        barcode: tempMap['barcode'],
+        measurementUnit: tempMap['measurementUnit'],
+        categoryName: tempMap['categoryName']);
   }
 }

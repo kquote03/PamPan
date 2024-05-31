@@ -1,5 +1,9 @@
+import 'package:better_open_file/better_open_file.dart';
+import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pam_pan/cameraholder.dart';
+import 'package:pam_pan/dispimage.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/map_page.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
@@ -59,17 +63,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: IconButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AddItemPage();
-                  },
-                ),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Cameraholder();
+              }));
             },
             icon: const Icon(
-              Clarity.plus_circle_solid,
+              Icons.camera_enhance,
               size: 35,
               color: Colors.black,
             ),
@@ -84,6 +83,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
+              //CameraAwesomeBuilder.awesome(
+              //   saveConfig: SaveConfig.photo(),
+              //   onMediaTap: (mediaCapture) {
+              //     mediaCapture.captureRequest.when(single: (single) async {
+              //       Dispimage(
+              //           image: Image.memory(await single.file!.readAsBytes()));
+              //     });
+              //   },
+              // );
+
+              //},
               Navigator.pop(context);
               Navigator.push(
                 context,
