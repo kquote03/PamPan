@@ -1,6 +1,5 @@
 import 'dart:async';
 // import 'dart:js';..
-
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/connection_error.dart';
@@ -10,7 +9,9 @@ import 'package:pam_pan/firebase_ai.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/home_page.dart';
 import 'package:pam_pan/welcome/welcome_name.dart';
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:appwrite/appwrite.dart';

@@ -6,11 +6,14 @@ class ConnectionError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: const Icon(
+    return const Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Icon(
           Icons.wifi_off,
           size: 100,
-        ));
+        ),
+      ),
+    );
   }
 }

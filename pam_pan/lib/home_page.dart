@@ -1,10 +1,20 @@
+import 'dart:io';
 import 'dart:math';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pam_pan/profile/profile_page.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pam_pan/login%20and%20signup/login.dart';
+import 'package:pam_pan/login%20and%20signup/signup.dart';
+import 'package:pam_pan/pantry/add_item_page.dart';
+import 'package:pam_pan/payment_page.dart';
+import 'package:pam_pan/profile/edit_profile_page.dart';
+import 'package:pam_pan/profile/help.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:pam_pan/records.dart';
 import 'bottom_bar.dart';
 
 //Taken from expiry_test
@@ -29,24 +39,43 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-@override
-State<HomePage> createState() {
-  return _HomePageState();
-}
+List<Widget> carouselContents = [
+  const Text("text1"),
+  const Text("text2"),
+  const Text("text3"),
+];
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<SliderDrawerState> _sliderDrawerKey =
+      GlobalKey<SliderDrawerState>();
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
-
-  late Widget currentPage;
+  List<Color> colours = [
+    const Color.fromARGB(255, 197, 234, 250),
+    const Color(0xFFA2CFFE),
+    const Color(0xFF9DD9F3),
+  ];
   Random random = Random();
+  int _currentCarousel = 0;
+  final CarouselController _carousalController = CarouselController();
+  File? _profileImage;
 
   @override
   void initState() {
     HomeWidget.setAppGroupId(appGroupId);
     super.initState();
     listenNotifications();
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
   }
 
   updateWidgetFun() {
@@ -71,26 +100,82 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const ProfilePage();
-                },
+    List<Widget> carouselItems = carouselContents.asMap().entries.map(
+      (entry) {
+        int index = entry.key;
+        Widget content = entry.value;
+        return Builder(
+          builder: (BuildContext context) {
+            return SizedBox(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 197, 234, 250),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(10, 10),
+                      blurStyle: BlurStyle.normal,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    content,
+                    if (index == 0) // Only show the button on the first page
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navigate to the new page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddItemPage()),
+                          );
+                        },
+                        child: const Text('Add items'),
+                      ),
+                    if (index == 2) // Only show the button on the first page
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navigate to the new page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PaymentPage()),
+                          );
+                        },
+                        child: const Text('Donate cashmonneh'),
+                      ),
+                  ],
+                ),
               ),
             );
           },
-          icon: const Icon(
-            Icons.person,
-            size: 35,
-            color: Colors.black,
-          ),
+        );
+      },
+    ).toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              iconSize: 30,
+              icon: _profileImage == null
+                  ? const Icon(Icons.account_circle)
+                  : CircleAvatar(
+                      backgroundImage: FileImage(_profileImage!),
+                    ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
         ),
         actions: [
           Text(
@@ -102,169 +187,270 @@ class _HomePageState extends State<HomePage> {
                 const Icon(Icons.calendar_month, size: 30, color: Colors.black),
             onPressed: () {},
           ),
-          // IconButton(
-          //   icon:
-          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     LocalNotifications.showSimpleNotification(
-          //       title: "Simple title",
-          //       body: "Simple body",
-          //       payload: "Simple payload",
-          //     );
-          //   },
-          // ),
-          // IconButton(
-          //   icon:
-          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
-          //     LocalNotifications.showPeriodicNotification(
-          //       title: "Pam got some tips for you!",
-          //       body: randomTip,
-          //       payload: randomTip,
-          //     );
-          //   },
-          // ),
-          // IconButton(
-          //   icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     LocalNotifications.cancelAll();
-          //   },
-          // ),
-
-          //TODO: Implement database below
-          //IconButton(
-          //  icon: const Icon(Icons.notifications,
-          //      size: 35, color: Colors.black),
-          //  onPressed: () {
-          //    sortList(items);
-          //    for (int i = 0; i < items.length; i++) {
-          //      LocalNotifications.showScheduleNotification(
-          //        id: i,
-          //        title: "Uhoh! ${items[i][1]} is about to expire!",
-          //        body: "Quick! It will expire on ${items[i][0]}",
-          //        payload: "Scheduled payload",
-          //        minutes: daysBetween(
-          //            DateTime.now(), stringToDate(items[i][0])),
-          //      );
-          //    }
-          //  },
-          //),
-          // IconButton(
-          //   icon: const Icon(Icons.notifications,
-          //       size: 35, color: Colors.black),
-          //   onPressed: () {
-          //     for (int i = 1; i < 5; i++) {
-          //       LocalNotifications.showScheduleNotification(
-          //         id: i,
-          //         title: "Scheduled title",
-          //         body: "Scheduled body",
-          //         payload: "Scheduled payload",
-          //         minutes: i,
-          //       );
-          //     }
-          //   },
-          // ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const LoginPage();
+                  },
+                ),
+              );
+            },
+            child: const Text("Login"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SignUpPage();
+                  },
+                ),
+              );
+            },
+            child: const Text("Signup"),
+          ),
         ],
       ),
-      body: Scrollbar(
-        interactive: true,
-        thickness: 7,
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const SizedBox(
-                      height: 600,
-                      child: DecoratedBox(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(103, 93, 51, 16)),
-                        // child: Center(
-                        //   child: Scrollbar(
-                        //     // trackVisibility: true,
-                        //     // thumbVisibility: true,
-                        //     // scrollbarOrientation: ScrollbarOrientation.left,
-
-                        //     child: GridView.count(
-                        //       crossAxisCount: 4,
-                        //       // mainAxisSpacing: 7,
-                        //       // crossAxisSpacing:5,
-                        //       scrollDirection: Axis.horizontal,
-                        //       childAspectRatio: 1.4,
-                        //       // children: List.generate(
-                        //         // categories.length,
-                        //         (index) {
-                        //           return Container(
-                        //             decoration: const BoxDecoration(
-                        //                 // border: Border.all(
-                        //                 //   // width: 3,
-                        //                 //   color: Colors.black,
-                        //                 // ),
-                        //                 ),
-                        //             child: Center(
-                        //               child: GestureDetector(
-                        //                 onTap: () {
-                        //                   Navigator.push(
-                        //                     context,
-                        //                     MaterialPageRoute(
-                        //                       builder: (context) {
-                        //                         return ItemListPage(
-                        //                             categories[index]
-                        //                                 .nameString);
-                        //                       },
-                        //                     ),
-                        //                   );
-                        //                 },
-                        //                 child: Column(
-                        //                   children: [
-                        //                     SizedBox(
-                        //                       height: MediaQuery.of(context)
-                        //                               .size
-                        //                               .height *
-                        //                           0.02,
-                        //                     ),
-                        //                     categories[index].icon,
-                        //                     Text(
-                        //                       categories[index].nameString,
-                        //                       style: const TextStyle(
-                        //                         fontSize: 15,
-                        //                       ),
-                        //                       textAlign: TextAlign.center,
-                        //                     ),
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           );
-                        //         },
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarouselSlider(
+              carouselController: _carousalController,
+              options: CarouselOptions(
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.95,
+                initialPage: 0,
+                enableInfiniteScroll: false,
+                reverse: false,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.2,
+                onPageChanged: (index, reason) {
+                  setState(
+                    () {
+                      _currentCarousel = index;
+                    },
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+              ),
+              items: carouselItems,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: carouselContents.asMap().entries.map(
+                (carousel) {
+                  return GestureDetector(
+                    onTap: () =>
+                        _carousalController.animateToPage(carousel.key),
+                    child: Container(
+                      width: 6,
+                      height: 6,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black)
+                            .withOpacity(
+                          _currentCarousel == carousel.key ? 0.9 : 0.4,
+                        ),
                       ),
                     ),
+                  );
+                },
+              ).toList(),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            CarouselSlider(
+              options: CarouselOptions(
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.95,
+                initialPage: 0,
+                enableInfiniteScroll: false,
+                reverse: false,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.2,
+                scrollDirection: Axis.horizontal,
+              ),
+              items: [1].map(
+                (i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 197, 234, 250),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(10, 10),
+                              blurStyle: BlurStyle.normal,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'text $i',
+                          style: const TextStyle(fontSize: 16.0),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ).toList(),
+            ),
+            const SizedBox(
+              height: 1500,
+            ),
+            const Text("yo"),
+            ElevatedButton(
+              onPressed: () => updateWidgetFun(),
+              child: const Text('Update'),
+            ),
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 250,
+              child: DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: _pickImage,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              image: _profileImage == null
+                                  ? null
+                                  : DecorationImage(
+                                      image: FileImage(_profileImage!),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                            child: _profileImage == null
+                                ? const Icon(
+                                    Icons.account_circle,
+                                    size: 40,
+                                    color: Colors.grey,
+                                  )
+                                : null,
+                          ),
+                          const SizedBox(width: 10),
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Insert username here',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                'Insert email here',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Notifications: 5 days before expiry date.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EditProfilePage()),
+                        );
+                      },
+                      child: const Text('Edit Profile'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Expanded(child: SizedBox()),
+            ListTile(
+              title: const Text('Records'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const Records();
+                    },
                   ),
-                  const Text(""),
-                ],
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Settings'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text('Help'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const HelpPage();
+                    },
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'Log out',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(
-                height: 1500,
-                child: Placeholder(),
-              ),
-              const Text("yo"),
-              ElevatedButton(
-                onPressed: () => updateWidgetFun(),
-                child: const Text('Update'),
-              ),
-            ],
-          ),
+              onTap: () {},
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),

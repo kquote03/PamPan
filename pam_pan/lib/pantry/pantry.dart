@@ -21,7 +21,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Bread & Pastries",
-      images: "assets/categories/bread.png",
+      image: "assets/categories/bread.png",
     ),
   ),
   GestureDetector(
@@ -29,7 +29,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Dairy & Eggs",
-      images: "assets/categories/dairy_eggs.png",
+      image: "assets/categories/dairy_eggs.png",
     ),
   ),
   GestureDetector(
@@ -37,7 +37,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Cheese",
-      images: "assets/categories/fromage.png",
+      image: "assets/categories/fromage.png",
     ),
   ),
   GestureDetector(
@@ -45,7 +45,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Chicken",
-      images: "assets/categories/chicken.png",
+      image: "assets/categories/chicken.png",
     ),
   ),
   GestureDetector(
@@ -53,7 +53,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Meats",
-      images: "assets/categories/meat.png",
+      image: "assets/categories/meat.png",
     ),
   ),
   GestureDetector(
@@ -61,7 +61,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Fruits",
-      images: "assets/categories/fruits.png",
+      image: "assets/categories/fruits.png",
     ),
   ),
   GestureDetector(
@@ -69,7 +69,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Vegetables",
-      images: "assets/categories/veg.png",
+      image: "assets/categories/veg.png",
     ),
   ),
   GestureDetector(
@@ -77,7 +77,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Fish & Seafood",
-      images: "assets/categories/fish.png",
+      image: "assets/categories/fish.png",
     ),
   ),
   GestureDetector(
@@ -85,7 +85,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Herbs, Spices, & Condiments",
-      images: "assets/categories/herbs.png",
+      image: "assets/categories/herbs.png",
     ),
   ),
   GestureDetector(
@@ -93,7 +93,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white,
       text: "Nuts & Seeds",
-      images: "assets/categories/nuts.png",
+      image: "assets/categories/nuts.png",
     ),
   ),
   GestureDetector(
@@ -101,7 +101,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Drinks & Beverages",
-      images: "assets/categories/bevs.png",
+      image: "assets/categories/bevs.png",
     ),
   ),
   GestureDetector(
@@ -109,7 +109,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Sweets",
-      images: "assets/categories/sweets.png",
+      image: "assets/categories/sweets.png",
     ),
   ),
   GestureDetector(
@@ -117,7 +117,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Grains & Noodles",
-      images: "assets/categories/grains.png",
+      image: "assets/categories/grains.png",
     ),
   ),
   GestureDetector(
@@ -125,7 +125,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Canned Foods",
-      images: "assets/categories/can.png",
+      image: "assets/categories/can.png",
     ),
   ),
   GestureDetector(
@@ -133,7 +133,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Pet Food",
-      images: "assets/categories/pet.png",
+      image: "assets/categories/pet.png",
     ),
   ),
   GestureDetector(
@@ -141,7 +141,7 @@ List<Widget> categories = [
     child: const Catogeries(
       color: Colors.white, //cardColor
       text: "Other",
-      images: "assets/categories/other.png",
+      image: "assets/categories/other.png",
     ),
   ),
 ];
@@ -236,6 +236,36 @@ class _PantryState extends State<Pantry> {
     );
 
     print(allItems);
+
+    List<GestureDetector> categoriesListMapped = categoriesList.map(
+      (category) {
+        return GestureDetector(
+          onTap: () {
+            selectCategory(category[0]);
+          },
+          child: Catogeries(
+            color: selectedCategories.contains(category[0])
+                ? Colors.blue
+                : Colors.white,
+            text: category[1],
+            image: 'assets/categories/${category[0]}.png',
+          ),
+        );
+      },
+    ).toList();
+
+    categoriesListMapped.add(
+      GestureDetector(
+        onTap: () {
+          //TODO: create an add category page.
+        },
+        child: const Catogeries(
+          color: Colors.yellow,
+          text: "Add More",
+        ),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
@@ -293,22 +323,7 @@ class _PantryState extends State<Pantry> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: categoriesList.map(
-                    (category) {
-                      return GestureDetector(
-                        onTap: () {
-                          selectCategory(category[0]);
-                        },
-                        child: Catogeries(
-                          color: selectedCategories.contains(category[0])
-                              ? Colors.blue
-                              : Colors.white,
-                          text: category[1],
-                          images: 'assets/categories/${category[0]}.png',
-                        ),
-                      );
-                    },
-                  ).toList(),
+                  children: categoriesListMapped,
                 ),
               ),
             ),

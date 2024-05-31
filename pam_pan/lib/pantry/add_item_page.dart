@@ -47,7 +47,7 @@ class _AddItemPage extends State<AddItemPage> {
     super.dispose();
   }
 
-  var items;
+  List<FoodItem> items = [];
 
   @override
   void initState() {
@@ -80,14 +80,14 @@ class _AddItemPage extends State<AddItemPage> {
   _getItemsAndSetControllers() async {
     items = await getItemsById(widget.id);
     print(items);
-    _controllerItemName.text = items[0]['name'];
-    _controllerExpiryDate.text = items[0]['expiryDate'];
+    _controllerItemName.text = items[0].itemName;
+    _controllerExpiryDate.text = items[0].expiryDate;
     try {
-      _controllerCategory.text = items[0]['categories'];
+      _controllerCategory.text = items[0].categoryName;
     } catch (e) {}
-    _controllerQuantity.text = items[0]['quantity'];
+    _controllerQuantity.text = items[0].quantity.toString();
     try {
-      _controllerMeasurement.text = items[0]['measurementUnit'];
+      _controllerMeasurement.text = items[0].measurementUnit;
     } catch (e) {}
   }
 
