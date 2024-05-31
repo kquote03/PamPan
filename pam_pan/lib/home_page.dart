@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 import 'package:pam_pan/login%20and%20signup/signup.dart';
 import 'package:pam_pan/newcal.dart';
+import 'package:pam_pan/notifications/tips.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category_edit_page.dart';
 import 'package:pam_pan/payment_page.dart';
@@ -222,6 +223,52 @@ class _HomePageState extends State<HomePage> {
               );
             },
             child: const Text("Signup"),
+          ),
+          IconButton(
+            icon:
+                const Icon(Icons.notifications, size: 35, color: Colors.black),
+            onPressed: () {
+              LocalNotifications.showSimpleNotification(
+                title: "Simple title",
+                body: "Simple body",
+                payload: "Simple payload",
+              );
+            },
+          ),
+          IconButton(
+            icon:
+                const Icon(Icons.notifications, size: 35, color: Colors.black),
+            onPressed: () {
+              String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
+              LocalNotifications.showPeriodicNotification(
+                title: "Pam got some tips for you!",
+                body: randomTip,
+                payload: randomTip,
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
+            onPressed: () {
+              LocalNotifications.cancelAll();
+            },
+          ),
+          IconButton(
+            icon:
+                const Icon(Icons.notifications, size: 35, color: Colors.black),
+            onPressed: () {
+              sortList(items);
+              for (int i = 0; i < items.length; i++) {
+                LocalNotifications.showScheduleNotification(
+                  id: i,
+                  title: "Uhoh! ${items[i][1]} is about to expire!",
+                  body: "Quick! It will expire on ${items[i][0]}",
+                  payload: "Scheduled payload",
+                  minutes:
+                      daysBetween(DateTime.now(), stringToDate(items[i][0])),
+                );
+              }
+            },
           ),
         ],
       ),
