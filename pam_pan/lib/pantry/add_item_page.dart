@@ -18,7 +18,8 @@ bool isEditMode = false;
 
 class AddItemPage extends StatefulWidget {
   String? id;
-  AddItemPage({super.key, this.id});
+  FoodItem? fooditem;
+  AddItemPage({super.key, this.id, this.fooditem});
 
   @override
   State<AddItemPage> createState() => _AddItemPage();
@@ -46,7 +47,7 @@ class _AddItemPage extends State<AddItemPage> {
     super.dispose();
   }
 
-  List<FoodItem> items = [];
+  var items;
 
   @override
   void initState() {
@@ -55,6 +56,9 @@ class _AddItemPage extends State<AddItemPage> {
     if (widget.id != null) {
       isEditMode = true;
       _getItemsAndSetControllers();
+    } else if (widget.fooditem != null) {
+      isEditMode = true;
+      _setItemDetails(widget.fooditem!);
     }
     _getCategories();
   }
@@ -76,14 +80,14 @@ class _AddItemPage extends State<AddItemPage> {
   _getItemsAndSetControllers() async {
     items = await getItemsById(widget.id);
     print(items);
-    _controllerItemName.text = items[0].itemName;
-    _controllerExpiryDate.text = items[0].expiryDate;
+    _controllerItemName.text = items[0]['name'];
+    _controllerExpiryDate.text = items[0]['expiryDate'];
     try {
-      _controllerCategory.text = items[0].categoryName;
+      _controllerCategory.text = items[0]['categories'];
     } catch (e) {}
-    _controllerQuantity.text = items[0].quantity.toString();
+    _controllerQuantity.text = items[0]['quantity'];
     try {
-      _controllerMeasurement.text = items[0].measurementUnit;
+      _controllerMeasurement.text = items[0]['measurementUnit'];
     } catch (e) {}
   }
 
@@ -515,11 +519,28 @@ class _AddItemPage extends State<AddItemPage> {
   void _barcodeClick() async {
     // Launches the barcode reader, then (inshallah) will interface with the API
     // Then finally fills the fields with the data from the API.
-    var fooditem = (await BarcodeApi()
-        .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
-    _controllerItemName.text = fooditem['itemName'];
-    _controllerMeasurement.text = fooditem['measurementUnit'];
-    _controllerCategory.text = fooditem['categoryName'];
+    var fooditem =
+        (await BarcodeApi().getFoodItemByUPC((await BarcodeScanner.scan(
+                options: ScanOptions(restrictFormat: [
+      BarcodeFormat.code39,
+      BarcodeFormat.code93,
+      BarcodeFormat.ean8,
+      BarcodeFormat.ean13,
+      BarcodeFormat.code128,
+      BarcodeFormat.interleaved2of5,
+      BarcodeFormat.upce,
+      BarcodeFormat.pdf417,
+    ])))
+            .rawContent));
+    print(fooditem);
+    _setItemDetails(fooditem);
+  }
+
+  void _setItemDetails(FoodItem fooditem) {
+    _controllerItemName.text = fooditem.itemName ?? "";
+    _controllerMeasurement.text = fooditem.measurementUnit ?? "";
+    _controllerCategory.text = fooditem.categoryName ?? "";
+    _controllerExpiryDate.text = fooditem.expiryDate ?? "";
   }
 }
 
