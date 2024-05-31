@@ -249,7 +249,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             icon:
-                const Icon(Icons.calendar_month, size: 30, color: Colors.black),
+                const Icon(Icons.calendar_month, size: 35, color: Colors.black),
             onPressed: () {
               Navigator.push(
                 context,
@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
                 'Pantry View',
                 style: GoogleFonts.mukta(
@@ -412,9 +412,20 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        backgroundColor: Colors.white,
         child: Column(
           children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black, // Border color
+                    width: 1.0, // Border width
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 250,
               child: DrawerHeader(
@@ -430,8 +441,8 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Container(
-                            width: 50,
-                            height: 50,
+                            width: 40,
+                            height: 40,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
@@ -482,16 +493,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => const EditProfilePage()),
-                    //     );
-                    //   },
-                    //   child: const Text('Edit Profile'),
-                    // ),
                   ],
                 ),
               ),
@@ -551,9 +552,11 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 account.deleteSession(sessionId: 'current');
-                while (Navigator.canPop(context)) Navigator.pop(context);
+                while (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LoginPage();
+                  return const LoginPage();
                 }));
               },
             ),
