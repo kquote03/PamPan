@@ -129,38 +129,40 @@ class _HomePageState extends State<HomePage> {
             _recentlyAddedItem1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
             _recentlyAddedItem2,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
             _recentlyAddedItem3,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
             _recentlyAddedItem4,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  // Navigate to the new page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddItemPage()),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AddItemPage();
+                  }));
                 },
-                child: const Text('Add items'),
+                icon: const Icon(
+                  Icons.add_circle_sharp,
+                  size: 35,
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
@@ -172,7 +174,6 @@ class _HomePageState extends State<HomePage> {
           const Text("text3"),
           ElevatedButton(
             onPressed: () {
-              // Navigate to the new page
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const PaymentPage()),
@@ -193,17 +194,11 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 197, 234, 250),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(10, 10),
-                      blurStyle: BlurStyle.normal,
-                    ),
-                  ],
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 214, 201, 243),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -227,7 +222,7 @@ class _HomePageState extends State<HomePage> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              iconSize: 30,
+              iconSize: 35,
               icon: _profileImage == null
                   ? const Icon(Icons.account_circle)
                   : CircleAvatar(
@@ -299,23 +294,22 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Pantry View',
-              style:
-                  GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 20),
+            Container(
+              margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: Text(
+                'Pantry View',
+                style: GoogleFonts.mukta(
+                    fontWeight: FontWeight.bold, fontSize: 20),
+              ),
             ),
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
                 height: 275,
-                // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
                 reverse: false,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                enlargeFactor: 0.2,
                 onPageChanged: (index, reason) {
                   setState(
                     () {
@@ -378,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 197, 234, 250),
+                          color: const Color.fromARGB(255, 214, 201, 243),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
