@@ -129,25 +129,25 @@ class _HomePageState extends State<HomePage> {
             _recentlyAddedItem1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
             _recentlyAddedItem2,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
             _recentlyAddedItem3,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
             _recentlyAddedItem4,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 30)),
+                textStyle: const TextStyle(fontSize: 25)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              iconSize: 30,
+              iconSize: 35,
               icon: _profileImage == null
                   ? const Icon(Icons.account_circle)
                   : CircleAvatar(
@@ -299,10 +299,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Pantry View',
-              style:
-                  GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 20),
+            Container(
+              margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: Text(
+                'Pantry View',
+                style: GoogleFonts.mukta(
+                    fontWeight: FontWeight.bold, fontSize: 20),
+              ),
             ),
             CarouselSlider(
               carouselController: _carousalController,
