@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,18 +34,21 @@ class _PaymentPage extends State<PaymentPage> {
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        title: const Text("Donation"),
+        title: Text(
+          "Donation",
+          style: GoogleFonts.roboto(),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Text(
-                style: TextStyle(
+                "All donations go to the United Nation's World Food Programme (WFP)",
+                style: GoogleFonts.roboto(
                   fontSize: 20,
                 ),
-                "All donations go to the United Nation's World Food Programme (WFP)",
               ),
             ),
             Padding(
@@ -52,7 +56,7 @@ class _PaymentPage extends State<PaymentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const Text('Card Owner'),
+                  Text('Card Owner', style: GoogleFonts.roboto()),
                   const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerCardName,
@@ -74,7 +78,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text('Card Number'),
+                  Text('Card Number', style: GoogleFonts.roboto()),
                   const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerCardNumber,
@@ -107,7 +111,8 @@ class _PaymentPage extends State<PaymentPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text('Expiration Date'),
+                            Text('Expiration Date',
+                                style: GoogleFonts.roboto()),
                             const SizedBox(height: 3),
                             TextFormField(
                               controller: _controllerDate,
@@ -142,7 +147,7 @@ class _PaymentPage extends State<PaymentPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text('CVC'),
+                            Text('CVC', style: GoogleFonts.roboto()),
                             const SizedBox(height: 3),
                             TextFormField(
                               controller: _controllerCVC,
@@ -175,7 +180,7 @@ class _PaymentPage extends State<PaymentPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text('Amount(AED)'),
+                  Text('Amount(AED)', style: GoogleFonts.roboto()),
                   const SizedBox(height: 3),
                   TextFormField(
                     controller: _controllerAmount,
@@ -214,7 +219,8 @@ class _PaymentPage extends State<PaymentPage> {
                         style: ButtonStyle(
                           backgroundColor:
                               WidgetStateProperty.all<Color>(Colors.black),
-                          overlayColor: WidgetStateProperty.resolveWith<Color>(
+                          overlayColor:
+                              WidgetStateProperty.resolveWith<Color>(
                             (Set<WidgetState> states) {
                               return const Color.fromARGB(255, 219, 219, 219);
                             },
@@ -331,7 +337,8 @@ class _PaymentPage extends State<PaymentPage> {
                         style: ButtonStyle(
                           backgroundColor:
                               WidgetStateProperty.all<Color>(Colors.black),
-                          overlayColor: WidgetStateProperty.resolveWith<Color>(
+                          overlayColor:
+                              WidgetStateProperty.resolveWith<Color>(
                             (Set<WidgetState> states) {
                               return const Color.fromARGB(255, 219, 219, 219);
                             },

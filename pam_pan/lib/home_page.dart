@@ -131,23 +131,23 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             _recentlyAddedItem1,
-            style:
-                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 30)),
           ),
           Text(
             _recentlyAddedItem2,
-            style:
-                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 30)),
           ),
           Text(
             _recentlyAddedItem3,
-            style:
-                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 30)),
           ),
           Text(
             _recentlyAddedItem4,
-            style:
-                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 30)),
           ),
           ElevatedButton(
             onPressed: () {
