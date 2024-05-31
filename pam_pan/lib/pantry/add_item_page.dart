@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
@@ -94,110 +95,100 @@ class _AddItemPage extends State<AddItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-          title: const Text('Add Items'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Add Items",
+          style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      children: <Widget>[
-                        Flexible(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Item Name",
-                              hintText: "Please enter the name of your item",
-                            ),
-                            validator: (String? value) {
-                              _itemNameChecker(value)
-                                  ? 'Please enter a valid name'
-                                  : null;
-                            },
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            controller: _controllerItemName,
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: _barcodeClick,
-                            icon: const Icon(Icons.barcode_reader))
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Expiry Date",
-                        hintText: "YYYY-MM-DD",
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+  crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: [
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Item Name', style: GoogleFonts.mukta(fontSize: 17)),
+        const SizedBox(height: 3),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Please enter the name of your item",
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                ),
+                validator: (String? value) {
+                  return _itemNameChecker(value)
+                      ? 'Please enter a valid name'
+                      : null;
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: _controllerItemName,
+              ),
+            ),
+            IconButton(
+              onPressed: _barcodeClick,
+              icon: const Icon(Icons.barcode_reader),
+            ),
+          ],
+        ),
+      ],
+    ),
+                  const SizedBox(height: 12),
+                  Text('Expiry Date', style: GoogleFonts.mukta(fontSize: 17)),
+                  const SizedBox(height: 3),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "YYYY-MM-DD",
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(),
                       ),
-                      validator: (String? value) {
-                        !_expiryDateChecker(value)
-                            ? "Please insert a valid expiry date"
-                            : null;
-                      },
-                      keyboardType: TextInputType.datetime,
-                      controller: _controllerExpiryDate,
-                      inputFormatters: [_ExpiryDateInputFormatter()],
                     ),
-                    const SizedBox(height: 12),
-                    DropdownMenu<String>(
-                        menuHeight: 400,
-                        width: MediaQuery.of(context).size.width - (16 * 2),
-                        controller: _controllerCategory,
-                        dropdownMenuEntries: categoryList.map((category) {
-                          return DropdownMenuEntry(
-                              value: category, label: category);
-                        }).toList(),
-                        hintText: "Category"),
-                    //const SizedBox(height: 12),
-                    //MultiSelectDropDown<String>(
-                    //  controller: _controllerAllergens,
-                    //  onOptionSelected:
-                    //      (List<ValueItem<String>> selectedOptions) {},
-                    //  options: const [
-                    //    ValueItem(label: 'None', value: 'none'),
-                    //    ValueItem(label: 'Milk', value: 'milk'),
-                    //    ValueItem(label: 'Eggs', value: 'eggs'),
-                    //    ValueItem(label: 'Fish', value: 'fish'),
-                    //    ValueItem(label: 'Shellfish', value: 'shellfish'),
-                    //    ValueItem(label: 'Nuts', value: 'nuts'),
-                    //    ValueItem(label: 'Wheat', value: 'wheat'),
-                    //    ValueItem(label: 'Soybean', value: 'soybean'),
-                    //    ValueItem(label: 'Other', value: 'other'),
-                    //  ],
-                    //  disabledOptions: const [
-                    //    ValueItem(label: 'Other', value: 'other')
-                    //  ],
-                    //  borderColor: Colors.black45,
-                    //  borderWidth: 1,
-                    //  hintColor: Colors.black,
-                    //  borderRadius: 0,
-                    //  fieldBackgroundColor:
-                    //      const Color.fromARGB(255, 255, 250, 240),
-                    //  focusedBorderColor:
-                    //      const Color.fromARGB(255, 113, 216, 244),
-                    //  dropdownHeight: 450,
-                    //  optionTextStyle: const TextStyle(fontSize: 16),
-                    //  selectedOptionIcon: const Icon(Icons.check_circle),
-                    //  selectionType: SelectionType.multi,
-                    //  hint: "Allergens",
-                    //),
-                    const SizedBox(height: 12),
-                    DropdownMenu<String>(
+                    validator: (String? value) {
+                      !_expiryDateChecker(value)
+                          ? "Please insert a valid expiry date"
+                          : null;
+                    },
+                    keyboardType: TextInputType.datetime,
+                    controller: _controllerExpiryDate,
+                    inputFormatters: [_ExpiryDateInputFormatter()],
+                  ),
+                  const SizedBox(height: 12),
+                  Text('Category', style: GoogleFonts.mukta(fontSize: 17)),
+                  const SizedBox(height: 3),
+                 
+                  DropdownMenu<String>(
+       
+                      menuHeight: 400,
+                      width: MediaQuery.of(context).size.width - (16 * 2),
+                      controller: _controllerCategory,
+                      dropdownMenuEntries: categoryList.map((category) {
+                        return DropdownMenuEntry(
+                            value: category, label: category);
+                      }).toList(),
+                      hintText: "Select a Category"),
+                  const SizedBox(height: 12),
+                  Text('Measurment Unit',
+                      style: GoogleFonts.mukta(fontSize: 17)),
+                  const SizedBox(height: 3),
+                  DropdownMenu<String>(
                       width: MediaQuery.of(context).size.width - (16 * 2),
                       controller: _controllerMeasurement,
                       dropdownMenuEntries: const [
@@ -206,74 +197,91 @@ class _AddItemPage extends State<AddItemPage> {
                         DropdownMenuEntry(label: 'ml', value: 'ml'),
                         DropdownMenuEntry(label: 'l', value: 'l'),
                         DropdownMenuEntry(label: 'pieces', value: 'pieces'),
+                        
                       ],
                       hintText: "Measurement Unit",
                     ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Quantity",
-                        hintText: "#",
-                      ),
-                      keyboardType: TextInputType.number,
-                      controller: _controllerQuantity,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(3),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    TextButton(
-                      onPressed: () async {
-                        if (_itemNameChecker(_controllerItemName.text) &&
-                            _quantityChecker() &&
-                            _expiryDateChecker(_controllerExpiryDate.text)) {
-                          isEditMode
-                              ? editFoodItem(
-                                  _controllerItemName.text,
-                                  _controllerExpiryDate.text,
-                                  _controllerCategory.text,
-                                  //_controllerAllergens.selectedOptions[0].label,
-                                  _controllerMeasurement.text,
-                                  int.parse(_controllerQuantity.text))
-                              : addFoodItem(
-                                  _controllerItemName.text,
-                                  _controllerExpiryDate.text,
-                                  _controllerCategory.text,
-                                  //_controllerAllergens.selectedOptions[0].label,
-                                  _controllerMeasurement.text,
-                                  int.parse(_controllerQuantity.text),
-                                );
-                          _showSimpleItemSuccessDialog(context);
-                          _showAddingItemDialog(context);
-                          Timer(const Duration(seconds: 3), () {
-                            Navigator.of(context, rootNavigator: true).pop();
-                          });
-                          // events.addAll({
-                          //   DateTime.parse(_controllerExpiryDate.text): [
-                          //     Event(_controllerItemName.text)
-                          //   ]
-                          // });
-                        } else {
-                          _showErrorModalDialog(context);
-                          _showAddingItemDialog(context);
-                          Timer(const Duration(seconds: 3), () {
-                            Navigator.of(context, rootNavigator: true).pop();
-                          });
-                        }
-                      },
-                      child: Text(
-                        isEditMode ? 'Edit Item' : 'Add Item',
-                        style: const TextStyle(color: Colors.black),
+                  const SizedBox(height: 12),
+                  Text('Quantity', style: GoogleFonts.mukta(fontSize: 17)),
+                  const SizedBox(height: 3),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "#",
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(),
                       ),
                     ),
-                  ],
-                ),
+                    keyboardType: TextInputType.number,
+                    controller: _controllerQuantity,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(3),
+                    ],
+                  ),
+                  const SizedBox(height: 15.0),
+                  TextButton(
+                    onPressed: () async {
+                      if (_itemNameChecker(_controllerItemName.text) &&
+                          _quantityChecker() &&
+                          _expiryDateChecker(_controllerExpiryDate.text)) {
+                        isEditMode
+                            ? editFoodItem(
+                                _controllerItemName.text,
+                                _controllerExpiryDate.text,
+                                _controllerCategory.text,
+                                //_controllerAllergens.selectedOptions[0].label,
+                                _controllerMeasurement.text,
+                                int.parse(_controllerQuantity.text))
+                            : addFoodItem(
+                                _controllerItemName.text,
+                                _controllerExpiryDate.text,
+                                _controllerCategory.text,
+                                //_controllerAllergens.selectedOptions[0].label,
+                                _controllerMeasurement.text,
+                                int.parse(_controllerQuantity.text),
+                              );
+                        _showSimpleItemSuccessDialog(context);
+                        _showAddingItemDialog(context);
+                        Timer(const Duration(seconds: 3), () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        });
+                      } else {
+                        _showErrorModalDialog(context);
+                        _showAddingItemDialog(context);
+                        Timer(const Duration(seconds: 3), () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        });
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all<Color>(Colors.black),
+                      overlayColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
+                          return const Color.fromARGB(255, 219, 219, 219);
+                        },
+                      ),
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.5),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Add Item',
+                      style: GoogleFonts.mukta(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        bottomNavigationBar: const CustomBottomNavigationBar());
+      ),
+    );
   }
 
   bool _itemNameChecker(String? value) {
@@ -521,7 +529,7 @@ class _AddItemPage extends State<AddItemPage> {
     // Then finally fills the fields with the data from the API.
     var fooditem =
         (await BarcodeApi().getFoodItemByUPC((await BarcodeScanner.scan(
-                options: ScanOptions(restrictFormat: [
+                options: const ScanOptions(restrictFormat: [
       BarcodeFormat.code39,
       BarcodeFormat.code93,
       BarcodeFormat.ean8,
