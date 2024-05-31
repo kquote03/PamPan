@@ -4,9 +4,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/calendar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 import 'package:pam_pan/login%20and%20signup/signup.dart';
+import 'package:pam_pan/newcal.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category_edit_page.dart';
 import 'package:pam_pan/payment_page.dart';
@@ -47,8 +49,6 @@ List<Widget> carouselContents = [
 ];
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<SliderDrawerState> _sliderDrawerKey =
-      GlobalKey<SliderDrawerState>();
   String appGroupId = 'group.pampan';
   String iOSWidgetName = 'pampan';
   int index = 0;
@@ -186,7 +186,16 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon:
                 const Icon(Icons.calendar_month, size: 30, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const NewCalendar();
+                  },
+                ),
+              );
+            },
           ),
           TextButton(
             onPressed: () {
@@ -395,16 +404,16 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EditProfilePage()),
-                        );
-                      },
-                      child: const Text('Edit Profile'),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => const EditProfilePage()),
+                    //     );
+                    //   },
+                    //   child: const Text('Edit Profile'),
+                    // ),
                   ],
                 ),
               ),
