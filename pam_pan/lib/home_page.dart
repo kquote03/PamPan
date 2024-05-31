@@ -2,13 +2,14 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/calendar.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 import 'package:pam_pan/login%20and%20signup/signup.dart';
+import 'package:pam_pan/newcal.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/edit_profile_page.dart';
 import 'package:pam_pan/profile/help.dart';
-import 'package:pam_pan/profile/profile_page.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:home_widget/home_widget.dart';
@@ -55,34 +56,6 @@ class _HomePageState extends State<HomePage> {
   Random random = Random();
   int _currentCarousel = 0;
   final CarouselController _carousalController = CarouselController();
-
-  // List<Widget>? carousel1 = carouselContents.map(
-  //   (i) {
-  //     return Builder(
-  //       builder: (BuildContext context) {
-  //         return SizedBox(
-  //           child: Container(
-  //             width: MediaQuery.of(context).size.width,
-  //             margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-  //             decoration: BoxDecoration(
-  //               color: const Color.fromARGB(255, 197, 234, 250),
-  //               boxShadow: [
-  //                 BoxShadow(
-  //                   color: Colors.grey.withOpacity(0.5),
-  //                   spreadRadius: 5,
-  //                   blurRadius: 7,
-  //                   offset: const Offset(10, 10),
-  //                   blurStyle: BlurStyle.normal,
-  //                 ),
-  //               ],
-  //             ),
-  //             child: i,
-  //           ),
-  //         );
-  //       },
-  //     );
-  //   },
-  // ).toList();
 
   @override
   void initState() {
@@ -184,7 +157,16 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon:
                 const Icon(Icons.calendar_month, size: 30, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const NewCalendar();
+                  },
+                ),
+              );
+            },
           ),
           TextButton(
             onPressed: () {

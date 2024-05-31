@@ -96,7 +96,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               );
             },
           ),
-          label: 'Records',
+          label: 'Pantry',
         ),
       ],
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,

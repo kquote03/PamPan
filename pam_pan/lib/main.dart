@@ -25,8 +25,9 @@ void main() async {
     );
   } catch (e) {
     print(
-        "Firebase Initialization Failed. AI-features will NOT work. Here's why:\n" +
-            e.toString());
+      "Firebase Initialization Failed. AI-features will NOT work. Here's why:\n" +
+          e.toString(),
+    );
   }
 // Example user for appwrite
   try {
