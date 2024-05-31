@@ -8,6 +8,8 @@ class NewCalendar extends StatefulWidget {
   State<NewCalendar> createState() => _NewCalendarState();
 }
 
+List<Appointment> appointments = [];
+
 class _NewCalendarState extends State<NewCalendar> {
   final CalendarController _controller = CalendarController();
 
@@ -15,45 +17,6 @@ class _NewCalendarState extends State<NewCalendar> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  void buttonClicked(int index) {
-    if (index == 1) {
-      setState(
-        () {
-          final Appointment app = Appointment(
-              startTime: _controller.displayDate!,
-              endTime: _controller.displayDate!.add(
-                const Duration(hours: 2),
-              ),
-              subject: 'Add Appointment',
-              color: Colors.pink);
-          _getCalendarDataSource().appointments!.add(app);
-          _getCalendarDataSource().notifyListeners(
-            CalendarDataSourceAction.add,
-            <Appointment>[app],
-          );
-        },
-      );
-    } else if (index == 2) {
-      setState(
-        () {
-          final Appointment removeAppointment =
-              _getCalendarDataSource().appointments![0];
-          _getCalendarDataSource().appointments!.remove(removeAppointment);
-          _getCalendarDataSource().notifyListeners(
-            CalendarDataSourceAction.remove,
-            <Appointment>[removeAppointment],
-          );
-        },
-      );
-    } else if (index == 3) {
-      _getCalendarDataSource().appointments!.clear();
-      _getCalendarDataSource().notifyListeners(
-        CalendarDataSourceAction.reset,
-        _getCalendarDataSource().appointments!,
-      );
-    }
   }
 
   @override
@@ -123,19 +86,45 @@ class _NewCalendarState extends State<NewCalendar> {
         destinations: [
           TextButton(
             onPressed: () {
-              buttonClicked(1);
+              setState(
+                () {
+                  final Appointment app = Appointment(
+                      startTime: _controller.displayDate!,
+                      endTime: _controller.displayDate!.add(
+                        const Duration(hours: 2),
+                      ),
+                      isAllDay: true,
+                      subject: 'Add Appointment',
+                      color: Colors.pink);
+                  _getCalendarDataSource().appointments?.add(app);
+                  _getCalendarDataSource().notifyListeners(
+                    CalendarDataSourceAction.add,
+                    <Appointment>[app],
+                  );
+                },
+              );
+            },
+            child: const Text("Add"),
+          ),
+          TextButton(
+            onPressed: () {
+              final Appointment removeAppointment =
+                  _getCalendarDataSource().appointments![0];
+              _getCalendarDataSource().appointments?.remove(removeAppointment);
+              _getCalendarDataSource().notifyListeners(
+                CalendarDataSourceAction.remove,
+                <Appointment>[removeAppointment],
+              );
             },
             child: const Text("Remove"),
           ),
           TextButton(
             onPressed: () {
-              buttonClicked(2);
-            },
-            child: const Text("Remove"),
-          ),
-          TextButton(
-            onPressed: () {
-              buttonClicked(3);
+              _getCalendarDataSource().appointments?.clear();
+              _getCalendarDataSource().notifyListeners(
+                CalendarDataSourceAction.reset,
+                _getCalendarDataSource().appointments!,
+              );
             },
             child: const Text("Reset"),
           ),
@@ -145,11 +134,17 @@ class _NewCalendarState extends State<NewCalendar> {
   }
 
   _AppointmentDataSource _getCalendarDataSource() {
-    List<Appointment> appointments = <Appointment>[];
+    DateTime date;
+    if (_controller.selectedDate == null) {
+      date = DateTime.now().add(const Duration(minutes: 10));
+    } else {
+      date = _controller.selectedDate!.add(const Duration(minutes: 10));
+    }
     appointments.add(
       Appointment(
-        startTime: DateTime.now(),
-        endTime: DateTime.now().add(const Duration(minutes: 10)),
+        startTime: _controller.selectedDate ?? DateTime.now(),
+        endTime: (_controller.selectedDate ?? DateTime.now())
+            .add(const Duration(minutes: 10)),
         subject: 'Ass',
         color: Colors.blue,
         startTimeZone: '',
