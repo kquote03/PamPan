@@ -126,12 +126,10 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 Text(widget.text),
-                const Expanded(
-                  child: Row(
-                    children: [
-                      Divider(),
-                    ],
-                  ),
+                const Row(
+                  children: [
+                    Divider(),
+                  ],
                 ),
               ],
             ),
