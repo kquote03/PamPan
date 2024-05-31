@@ -125,6 +125,10 @@ class _HomePageState extends State<HomePage> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            "Hewwo",
+            style: TextStyle(fontSize: 40),
+          ),
           Text(
             _recentlyAddedItem1,
             overflow: TextOverflow.ellipsis,
@@ -154,9 +158,14 @@ class _HomePageState extends State<HomePage> {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AddItemPage();
-                  }));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AddItemPage();
+                      },
+                    ),
+                  );
                 },
                 icon: const Icon(
                   Icons.add_circle_sharp,
@@ -190,23 +199,22 @@ class _HomePageState extends State<HomePage> {
         Widget content = entry.value;
         return Builder(
           builder: (BuildContext context) {
-            return SizedBox(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 214, 201, 243),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
+            return Container(
+              // height: 100,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 214, 201, 243),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [content],
-                  ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [content],
                 ),
               ),
             );
@@ -306,6 +314,8 @@ class _HomePageState extends State<HomePage> {
               carouselController: _carousalController,
               options: CarouselOptions(
                 height: 275,
+                // padEnds: false,
+                // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
@@ -331,10 +341,7 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 6,
                       height: 6,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 4.0,
-                      ),
+                      margin: const EdgeInsets.fromLTRB(4, 8, 4, 2),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: (Theme.of(context).brightness == Brightness.dark
