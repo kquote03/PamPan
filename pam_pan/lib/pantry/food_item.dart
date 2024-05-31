@@ -34,7 +34,7 @@ class FoodItem {
 
   @override
   String toString() {
-    return 'FoodItem(itemId: $itemId, itemName: $itemName, expiryDate: $expiryDate, measurementUnit: $measurementUnit, quantity: ${quantity.toString()}, categoryName: $categoryName)';
+    return '$itemName';
   }
 }
 

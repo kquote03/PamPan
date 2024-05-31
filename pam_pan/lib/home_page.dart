@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/calendar.dart';
@@ -40,7 +41,7 @@ List<List<String>> sortList(List<List<String>> list) {
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
-  String text = "";
+  List<String> recentlyAddedItems = [];
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -60,18 +61,27 @@ class _HomePageState extends State<HomePage> {
   final CarouselController _carousalController = CarouselController();
   File? _profileImage;
 
-  List<FoodItem> nearlyExpiredItems = [
-    //FoodItem(itemName: "loding", expiryDate: "loding")
-  ];
+  List<FoodItem> _recentlyAddedItems = [];
+  String _recentlyAddedItem1 = "";
+  String _recentlyAddedItem2 = "";
+  String _recentlyAddedItem3 = "";
+  String _recentlyAddedItem4 = "";
 
   _asyncQuery() async {
-    List<FoodItem> fetchedItems = await getNearlyExpiredItems();
+    List<FoodItem> fetchedItems = await getNearlyExpiredItems(limit: 4);
     setState(
       () {
-        nearlyExpiredItems = fetchedItems;
-        widget.text =
-            "${nearlyExpiredItems[0].itemName!} ${nearlyExpiredItems[0].expiryDate!}";
-        print(nearlyExpiredItems);
+        _recentlyAddedItems = fetchedItems;
+        // for (int i = 0; i < widget.recentlyAddedItems.length; i++) {
+        // widget.recentlyAddedItems[i] =
+        //     "${_recentlyAddedItems[i].itemName!} ${_recentlyAddedItems[i].expiryDate!}";
+        // }
+        _recentlyAddedItem1 = _recentlyAddedItems[0].toString();
+        _recentlyAddedItem2 = _recentlyAddedItems[1].toString();
+        _recentlyAddedItem3 = _recentlyAddedItems[2].toString();
+        _recentlyAddedItem4 = _recentlyAddedItems[3].toString();
+
+        print(_recentlyAddedItems);
       },
     );
   }
@@ -119,22 +129,40 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(context) {
     List<Widget> carouselItems = [
-      Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Column(
-              children: [
-                Text(widget.text),
-                const Row(
-                  children: [
-                    Divider(),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            _recentlyAddedItem1,
+            style:
+                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+          ),
+          Text(
+            _recentlyAddedItem2,
+            style:
+                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+          ),
+          Text(
+            _recentlyAddedItem3,
+            style:
+                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+          ),
+          Text(
+            _recentlyAddedItem4,
+            style:
+                GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Navigate to the new page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddItemPage()),
+              );
+            },
+            child: const Text('Add items'),
+          ),
+        ],
       ),
       const Text("text1"),
       const Text("text2"),
@@ -161,35 +189,30 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    content,
-                    if (index == 0) // Only show the button on the first page
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to the new page
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddItemPage()),
-                          );
-                        },
-                        child: const Text('Add items'),
-                      ),
-                    if (index == 2) // Only show the button on the first page
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to the new page
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const PaymentPage()),
-                          );
-                        },
-                        child: const Text('Donate cashmonneh'),
-                      ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      content,
+                      if (index == 0) // Only show the button on the first page
+
+                        if (index ==
+                            2) // Only show the button on the first page
+                          ElevatedButton(
+                            onPressed: () {
+                              // Navigate to the new page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const PaymentPage()),
+                              );
+                            },
+                            child: const Text('Donate cashmonneh'),
+                          ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -269,7 +292,8 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                aspectRatio: 16 / 9,
+                height: 275,
+                // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
