@@ -36,7 +36,7 @@ Future<List<FoodItem>> getItems() async {
             .format(DateTime.parse(i.data['expiryDate'])),
         measurementUnit: i.data['measurementUnit'],
         quantity: i.data['quantity'],
-        categoryName: i.data['categories']['name']));
+        categoryName: i.data['categories']?['name']));
     print(items);
   }
   return items;
