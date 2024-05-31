@@ -78,7 +78,29 @@ Future<List<String>> getCategories() async {
   return categoryList;
 }
 
+Future<List<String>> getCustomCategories() async {
+  var documents = await databases.listDocuments(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '665089ef003013ad1543',
+      queries: [
+        Query.select(["name"])
+      ]);
+
+  List<String> categoryList = [];
+  for (var i in documents.documents) {
+    categoryList.add(i.data['name']);
+  }
+  return categoryList;
+}
+
 void deleteItemById(id) async {
+  databases.deleteDocument(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '6650886f0027a739c072',
+      documentId: id);
+}
+
+void deleteCategoryById(id) async {
   databases.deleteDocument(
       databaseId: '6650884f00137e1b1fcd',
       collectionId: '6650886f0027a739c072',

@@ -8,23 +8,20 @@ import 'package:pam_pan/pantry/food_item.dart';
 
 final realtime = Realtime(client);
 final subscription = realtime.subscribe([
-  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+  'databases.6650884f00137e1b1fcd.collections.665089ef003013ad1543.documents'
 ]);
 
-class ItemListPage extends StatefulWidget {
-  const ItemListPage(this.category, {super.key});
-
-  final String category;
+class CategoryListPage extends StatefulWidget {
+  const CategoryListPage({super.key});
 
   @override
   // ignore: no_logic_in_create_state
-  State<ItemListPage> createState() => _ItemListPageState(category);
+  State<CategoryListPage> createState() => _CategoryListPageState();
 }
 
-class _ItemListPageState extends State<ItemListPage> {
-  _ItemListPageState(this.category);
-  String category;
-  List<FoodItem> items = [];
+class _CategoryListPageState extends State<CategoryListPage> {
+  _CategoryListPageState();
+  List<String> categories = [];
 
   @override
   void initState() {
@@ -33,9 +30,9 @@ class _ItemListPageState extends State<ItemListPage> {
   }
 
   _asyncQuery() async {
-    List<FoodItem> fetchedItems = await getItems();
+    var fetchedCategories = await getCategories();
     setState(() {
-      items = fetchedItems;
+      categories = fetchedCategories;
     });
   }
 
@@ -49,7 +46,7 @@ class _ItemListPageState extends State<ItemListPage> {
             children: [
               Row(
                 children: [
-                  const Text(
+                  /*const Text(
                     '''
 Expiry Date:
 Quantity/Amount:
@@ -60,10 +57,9 @@ Quantity/Amount:
                   Text(
                     '''
                     ${items[keyIndex].expiryDate} 
-                    ${items[keyIndex].quantity.toString()}
                     ''',
                     style: const TextStyle(color: Colors.white),
-                  ),
+                  ),*/
                 ],
               ),
             ],
@@ -86,7 +82,7 @@ Quantity/Amount:
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 250, 240),
-        title: Text(category),
+        title: const Text("Current categories"),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -115,7 +111,7 @@ Quantity/Amount:
       body: Container(
         color: const Color.fromARGB(255, 255, 250, 240),
         child: ListView.builder(
-          itemCount: items.length,
+          itemCount: categories.length,
           itemBuilder: (BuildContext context, int keyIndex) {
             return Card(
               color: const Color.fromARGB(255, 71, 50, 39),
@@ -124,7 +120,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  items[keyIndex].itemName ?? "",
+                  categories[keyIndex] ?? "",
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -135,19 +131,18 @@ Quantity/Amount:
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            print(items[keyIndex].itemId);
-                            return AddItemPage(id: items[keyIndex].itemId);
-                          },
-                        ));
+                        //Navigator.push(context, MaterialPageRoute(
+                        //  builder: (context) {
+                        //    print(categories[keyIndex]);
+                        //  },
+                        //));
                       },
                       icon: const Icon(Icons.edit),
                       color: Colors.white,
                     ),
                     IconButton(
                         onPressed: () {
-                          deleteItemById(items[keyIndex].itemId);
+                          deleteItemById(categories[keyIndex]);
                         },
                         icon: const Icon(
                           Icons.delete,

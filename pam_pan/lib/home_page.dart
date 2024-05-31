@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 import 'package:pam_pan/login%20and%20signup/signup.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
+import 'package:pam_pan/pantry/category_edit_page.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/edit_profile_page.dart';
 import 'package:pam_pan/profile/help.dart';
@@ -417,6 +418,19 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(
                     builder: (context) {
                       return const Records();
+                    },
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Edit Categories'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const CategoryListPage();
                     },
                   ),
                 );

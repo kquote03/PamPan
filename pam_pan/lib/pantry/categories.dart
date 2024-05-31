@@ -28,8 +28,18 @@ class Catogeries extends StatelessWidget {
                   Image.asset(
                     image!,
                     scale: 17,
-                    // height: 30,
-                    // width: 30,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return Image.asset(
+                        'assets/categories/other.png',
+                        scale: 17,
+                      );
+                    },
+                  )
+                else
+                  Image.asset(
+                    'assets/categories/other.png',
+                    scale: 17,
                   ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
