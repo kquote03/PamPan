@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/calendar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
@@ -11,6 +12,7 @@ import 'package:pam_pan/login%20and%20signup/signup.dart';
 import 'package:pam_pan/newcal.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category_edit_page.dart';
+import 'package:pam_pan/pantry/food_item.dart';
 import 'package:pam_pan/payment_page.dart';
 import 'package:pam_pan/profile/edit_profile_page.dart';
 import 'package:pam_pan/profile/help.dart';
@@ -37,16 +39,12 @@ List<List<String>> sortList(List<List<String>> list) {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  String text = "";
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
-List<Widget> carouselContents = [
-  const Text("text1"),
-  const Text("text2"),
-  const Text("text3"),
-];
 
 class _HomePageState extends State<HomePage> {
   String appGroupId = 'group.pampan';
@@ -62,20 +60,39 @@ class _HomePageState extends State<HomePage> {
   final CarouselController _carousalController = CarouselController();
   File? _profileImage;
 
+  List<FoodItem> nearlyExpiredItems = [
+    //FoodItem(itemName: "loding", expiryDate: "loding")
+  ];
+
+  _asyncQuery() async {
+    List<FoodItem> fetchedItems = await getNearlyExpiredItems();
+    setState(
+      () {
+        nearlyExpiredItems = fetchedItems;
+        widget.text =
+            "${nearlyExpiredItems[0].itemName!} ${nearlyExpiredItems[0].expiryDate!}";
+        print(nearlyExpiredItems);
+      },
+    );
+  }
+
   @override
   void initState() {
     HomeWidget.setAppGroupId(appGroupId);
     super.initState();
     listenNotifications();
+    _asyncQuery();
   }
 
   Future<void> _pickImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setState(() {
-        _profileImage = File(pickedFile.path);
-      });
+      setState(
+        () {
+          _profileImage = File(pickedFile.path);
+        },
+      );
     }
   }
 
@@ -101,7 +118,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(context) {
-    List<Widget> carouselItems = carouselContents.asMap().entries.map(
+    List<Widget> carouselItems = [
+      Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Column(
+              children: [
+                Text(widget.text),
+                const Row(
+                  children: [
+                    Divider(),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+      const Text("text1"),
+      const Text("text2"),
+      // const Text("text3"),
+    ].asMap().entries.map(
       (entry) {
         int index = entry.key;
         Widget content = entry.value;
@@ -252,7 +290,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: carouselContents.asMap().entries.map(
+              children: carouselItems.asMap().entries.map(
                 (carousel) {
                   return GestureDetector(
                     onTap: () =>
@@ -471,7 +509,13 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                account.deleteSession(sessionId: 'current');
+                while (Navigator.canPop(context)) Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }));
+              },
             ),
           ],
         ),
