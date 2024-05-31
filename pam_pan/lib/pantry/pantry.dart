@@ -356,9 +356,9 @@ class _PantryState extends State<Pantry> {
                   ),
                   child: ItemDescriptionCard(
                     image: 'assets/categories/bread.png',
-                    name: foodItem.itemName,
-                    expiryDate: foodItem.expiryDate,
-                    measurementUnit: foodItem.measurementUnit,
+                    name: foodItem.itemName ?? "",
+                    expiryDate: foodItem.expiryDate ?? "",
+                    measurementUnit: foodItem.measurementUnit ?? "",
                     quantity: foodItem.quantity.toString(),
                   ),
                 );

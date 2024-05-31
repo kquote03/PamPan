@@ -11,13 +11,15 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:pam_pan/pantry/barcode_api.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
+import 'package:pam_pan/pantry/food_item.dart';
 
 var databases = Databases(client);
 bool isEditMode = false;
 
 class AddItemPage extends StatefulWidget {
   String? id;
-  AddItemPage({super.key, this.id});
+  FoodItem? fooditem;
+  AddItemPage({super.key, this.id, this.fooditem});
 
   @override
   State<AddItemPage> createState() => _AddItemPage();
@@ -516,9 +518,9 @@ class _AddItemPage extends State<AddItemPage> {
     // Then finally fills the fields with the data from the API.
     var fooditem = (await BarcodeApi()
         .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
-    _controllerItemName.text = fooditem['itemName'];
-    _controllerMeasurement.text = fooditem['measurementUnit'];
-    _controllerCategory.text = fooditem['categoryName'];
+    _controllerItemName.text = fooditem.itemName ?? "";
+    _controllerMeasurement.text = fooditem.measurementUnit ?? "";
+    _controllerCategory.text = fooditem.categoryName ?? "";
   }
 }
 
