@@ -15,137 +15,6 @@ final subscription = realtime.subscribe([
   'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
 ]);
 
-List<Widget> categories = [
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Bread & Pastries",
-      image: "assets/categories/bread.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Dairy & Eggs",
-      image: "assets/categories/dairy_eggs.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Cheese",
-      image: "assets/categories/fromage.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Chicken",
-      image: "assets/categories/chicken.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Meats",
-      image: "assets/categories/meat.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Fruits",
-      image: "assets/categories/fruits.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Vegetables",
-      image: "assets/categories/veg.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Fish & Seafood",
-      image: "assets/categories/fish.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Herbs, Spices, & Condiments",
-      image: "assets/categories/herbs.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white,
-      text: "Nuts & Seeds",
-      image: "assets/categories/nuts.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Drinks & Beverages",
-      image: "assets/categories/bevs.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Sweets",
-      image: "assets/categories/sweets.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Grains & Noodles",
-      image: "assets/categories/grains.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Canned Foods",
-      image: "assets/categories/can.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Pet Food",
-      image: "assets/categories/pet.png",
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Catogeries(
-      color: Colors.white, //cardColor
-      text: "Other",
-      image: "assets/categories/other.png",
-    ),
-  ),
-];
-
 class Pantry extends StatefulWidget {
   const Pantry({super.key});
   @override
@@ -153,24 +22,7 @@ class Pantry extends StatefulWidget {
 }
 
 class _PantryState extends State<Pantry> {
-  final List<List<String>> categoriesList = [
-    ['bread', "Bread & Pastries"],
-    ['dairy_eggs', "Dairy & Eggs"],
-    ['fromage', "Cheese"],
-    ['chicken', "Chicken"],
-    ['meat', "Meats"],
-    ['fruits', "Fruits"],
-    ['veg', "Vegetables"],
-    ['fish', "Fish & Seafood"],
-    ['herbs', "Herbs, Spices, & Condiments"],
-    ['nuts', "Nuts & Seeds"],
-    ['bevs', "Drinks & Beverages"],
-    ['sweets', "Sweets"],
-    ['grains', "Grains & Noodles"],
-    ['can', "Canned Foods"],
-    ['pet', "Pet Food"],
-    ['other', "Other"],
-  ];
+  List<List<String>> categoriesList = [];
 
   List<FoodItem> currentItems = [];
 
@@ -188,9 +40,15 @@ class _PantryState extends State<Pantry> {
 
   _asyncQuery() async {
     List<FoodItem> fetchedItems = await getItems();
+    List<String> fetchedCategories = await getCategories();
     setState(() {
       allItems = fetchedItems;
       currentItems = allItems;
+      List<List<String>> templist = [];
+      for (var i in fetchedCategories) {
+        templist.add([i, ""]);
+      }
+      categoriesList = templist;
     });
   }
 
@@ -247,24 +105,26 @@ class _PantryState extends State<Pantry> {
             color: selectedCategories.contains(category[0])
                 ? Colors.blue
                 : Colors.white,
-            text: category[1],
+            //TODO: Bringback Nice Text
+            text: category[0],
             image: 'assets/categories/${category[0]}.png',
           ),
         );
       },
     ).toList();
 
-    categoriesListMapped.add(
-      GestureDetector(
-        onTap: () {
-          //TODO: create an add category page.
-        },
-        child: const Catogeries(
-          color: Colors.yellow,
-          text: "Add More",
-        ),
-      ),
-    );
+    // TODO: Decide if we will continue with category page
+    //categoriesListMapped.add(
+    //  GestureDetector(
+    //    onTap: () {
+    //      //TODO: create an add category page.
+    //    },
+    //    child: const Catogeries(
+    //      color: Colors.yellow,
+    //      text: "Add More",
+    //    ),
+    //  ),
+    //);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 250, 240),
