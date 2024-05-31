@@ -21,7 +21,7 @@ class BarcodeApi {
     final productData = jsonData['product'];
     // Extract the required data from the JSON
     try {
-      tempMap['itemName'] = productData['product_name_en'] as String;
+      tempMap['itemName'] = productData['product_name'] as String;
     } catch (e) {
       tempMap['itemName'] = "";
     }
