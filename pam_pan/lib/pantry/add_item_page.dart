@@ -519,8 +519,20 @@ class _AddItemPage extends State<AddItemPage> {
   void _barcodeClick() async {
     // Launches the barcode reader, then (inshallah) will interface with the API
     // Then finally fills the fields with the data from the API.
-    var fooditem = (await BarcodeApi()
-        .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
+    var fooditem =
+        (await BarcodeApi().getFoodItemByUPC((await BarcodeScanner.scan(
+                options: ScanOptions(restrictFormat: [
+      BarcodeFormat.code39,
+      BarcodeFormat.code93,
+      BarcodeFormat.ean8,
+      BarcodeFormat.ean13,
+      BarcodeFormat.code128,
+      BarcodeFormat.interleaved2of5,
+      BarcodeFormat.upce,
+      BarcodeFormat.pdf417,
+    ])))
+            .rawContent));
+    print(fooditem);
     _setItemDetails(fooditem);
   }
 

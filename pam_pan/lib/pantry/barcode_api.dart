@@ -15,20 +15,43 @@ class BarcodeApi {
   }
 
   FoodItem mapJsonToFoodItem(Map<String, dynamic> jsonData) {
-    final productData = jsonData['product'];
-
     // Extract the required data from the JSON
 
+    Map<String, dynamic> tempMap = {};
+    final productData = jsonData['product'];
+    // Extract the required data from the JSON
+    try {
+      tempMap['itemName'] = productData['product_name_en'] as String;
+    } catch (e) {
+      tempMap['itemName'] = "";
+    }
+    try {
+      tempMap['barcode'] = productData['code'] as String;
+    } catch (e) {
+      tempMap['barcode'] = "";
+    }
+    // Sometimes OpenFoodFacts will have a weird serving unit.
+    // I'm trying to control the chaos.
+    try {
+      tempMap['measurementUnit'] = ['l', 'g', 'ml', 'kg', 'pieces']
+              .contains(productData['serving_quantity_unit'].toLowerCase())
+          ? productData['serving_quantity_unit'].toLowerCase()
+          : '';
+    } catch (e) {
+      tempMap['measurementUnit'] = "";
+    }
+
+    try {
+      tempMap['categoryName'] =
+          productData['categories_tags'][0].toString().replaceAll("en:", "");
+    } catch (e) {
+      tempMap['categoryName'] = "";
+    }
+
     return FoodItem(
-        itemName: productData['product_name_en'] as String,
-        barcode: productData['code'] as String,
-        measurementUnit: ['l', 'g', 'ml', 'kg', 'pieces']
-                .contains(productData['serving_quantity_unit'].toLowerCase())
-            ? productData['serving_quantity_unit'].toLowerCase()
-            : '',
-        categoryName: productData['categories_tags'][0]
-                .toString()
-                .replaceAll("en:", "") ??
-            "");
+        itemName: tempMap['itemName'],
+        barcode: tempMap['barcode'],
+        measurementUnit: tempMap['measurementUnit'],
+        categoryName: tempMap['categoryName']);
   }
 }
