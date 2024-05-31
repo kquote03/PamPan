@@ -18,7 +18,8 @@ bool isEditMode = false;
 
 class AddItemPage extends StatefulWidget {
   String? id;
-  AddItemPage({super.key, this.id});
+  FoodItem? fooditem;
+  AddItemPage({super.key, this.id, this.fooditem});
 
   @override
   State<AddItemPage> createState() => _AddItemPage();
@@ -55,6 +56,9 @@ class _AddItemPage extends State<AddItemPage> {
     if (widget.id != null) {
       isEditMode = true;
       _getItemsAndSetControllers();
+    } else if (widget.fooditem != null) {
+      isEditMode = true;
+      _setItemDetails(widget.fooditem!);
     }
     _getCategories();
   }
@@ -517,9 +521,14 @@ class _AddItemPage extends State<AddItemPage> {
     // Then finally fills the fields with the data from the API.
     var fooditem = (await BarcodeApi()
         .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
-    _controllerItemName.text = fooditem['itemName'];
-    _controllerMeasurement.text = fooditem['measurementUnit'];
-    _controllerCategory.text = fooditem['categoryName'];
+    _setItemDetails(fooditem);
+  }
+
+  void _setItemDetails(FoodItem fooditem) {
+    _controllerItemName.text = fooditem.itemName ?? "";
+    _controllerMeasurement.text = fooditem.measurementUnit ?? "";
+    _controllerCategory.text = fooditem.categoryName ?? "";
+    _controllerExpiryDate.text = fooditem.expiryDate ?? "";
   }
 }
 

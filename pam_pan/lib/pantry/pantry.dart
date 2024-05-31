@@ -199,7 +199,7 @@ class _PantryState extends State<Pantry> {
       () {
         filteredItems = allItems.where(
           (foodItem) {
-            final matchesSearchQuery = foodItem.itemName
+            final matchesSearchQuery = foodItem.itemName!
                 .toLowerCase()
                 .contains(searchQuery.toLowerCase());
 
@@ -371,9 +371,9 @@ class _PantryState extends State<Pantry> {
                   ),
                   child: ItemDescriptionCard(
                     image: 'assets/categories/bread.png',
-                    name: foodItem.itemName,
-                    expiryDate: foodItem.expiryDate,
-                    measurementUnit: foodItem.measurementUnit,
+                    name: foodItem.itemName ?? "",
+                    expiryDate: foodItem.expiryDate ?? "",
+                    measurementUnit: foodItem.measurementUnit ?? "",
                     quantity: foodItem.quantity.toString(),
                   ),
                 );
