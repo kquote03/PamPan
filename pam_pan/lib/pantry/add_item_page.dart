@@ -33,7 +33,7 @@ class _AddItemPage extends State<AddItemPage> {
       MultiSelectController();
   final _controllerMeasurement = TextEditingController();
   final TextEditingController _controllerQuantity = TextEditingController();
-  final List<String> categoryList = [];
+  final List<Map<String, String>> categoryList = [];
 
   @override
   void dispose() {
@@ -65,7 +65,7 @@ class _AddItemPage extends State<AddItemPage> {
 
   Future<void> _getCategories() async {
     for (var i in await getCategories()) {
-      categoryList.add(i);
+      categoryList.add({'id': i['\$id'] ?? "", 'name': i['name'] ?? ""});
     }
     // FOR THE RECORD
     // I came accross this solution by TOTAL ACCIDENT
@@ -160,7 +160,8 @@ class _AddItemPage extends State<AddItemPage> {
                         controller: _controllerCategory,
                         dropdownMenuEntries: categoryList.map((category) {
                           return DropdownMenuEntry(
-                              value: category, label: category);
+                              value: category['id'] ?? "",
+                              label: category['name'] ?? "");
                         }).toList(),
                         hintText: "Category"),
                     //const SizedBox(height: 12),
@@ -232,14 +233,14 @@ class _AddItemPage extends State<AddItemPage> {
                               ? editFoodItem(
                                   _controllerItemName.text,
                                   _controllerExpiryDate.text,
-                                  _controllerCategory.text,
+                                  _controllerCategory.value,
                                   //_controllerAllergens.selectedOptions[0].label,
                                   _controllerMeasurement.text,
                                   int.parse(_controllerQuantity.text))
                               : addFoodItem(
                                   _controllerItemName.text,
                                   _controllerExpiryDate.text,
-                                  _controllerCategory.text,
+                                  _controllerCategory.value,
                                   //_controllerAllergens.selectedOptions[0].label,
                                   _controllerMeasurement.text,
                                   int.parse(_controllerQuantity.text),

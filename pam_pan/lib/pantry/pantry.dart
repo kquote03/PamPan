@@ -24,7 +24,7 @@ class Pantry extends StatefulWidget {
 }
 
 class _PantryState extends State<Pantry> {
-  List<List<String>> categoriesList = [];
+  List<Map<String, String>> categoriesList = [];
 
   List<FoodItem> currentItems = [];
 
@@ -42,13 +42,13 @@ class _PantryState extends State<Pantry> {
 
   _asyncQuery() async {
     List<FoodItem> fetchedItems = await getItems();
-    List<String> fetchedCategories = await getCategories();
+    List<Map<String, String>> fetchedCategories = await getCategories();
     setState(() {
       allItems = fetchedItems;
       currentItems = allItems;
-      List<List<String>> templist = [];
+      List<Map<String, String>> templist = [];
       for (var i in fetchedCategories) {
-        templist.add([i, ""]);
+        templist.add(i);
       }
       categoriesList = templist;
     });
@@ -101,15 +101,15 @@ class _PantryState extends State<Pantry> {
       (category) {
         return GestureDetector(
           onTap: () {
-            selectCategory(category[0]);
+            selectCategory(category['id'] ?? "");
           },
           child: Catogeries(
-            color: selectedCategories.contains(category[0])
+            color: selectedCategories.contains(category['id'])
                 ? const Color.fromARGB(255, 214, 201, 243)
                 : Colors.white,
             //TODO: Bringback Nice Text
-            text: category[0],
-            image: 'assets/categories/${category[0]}.png',
+            text: category['name'] ?? "",
+            image: 'assets/categories/${category['id']}.png',
           ),
         );
       },

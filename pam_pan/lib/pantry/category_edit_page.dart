@@ -21,7 +21,7 @@ class CategoryListPage extends StatefulWidget {
 
 class _CategoryListPageState extends State<CategoryListPage> {
   _CategoryListPageState();
-  List<String> categories = [];
+  List<Map<String, String>> categories = [];
 
   @override
   void initState() {
@@ -120,7 +120,7 @@ Quantity/Amount:
                 iconColor: Colors.white,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
-                  categories[keyIndex] ?? "",
+                  categories[keyIndex]['name'] ?? "",
                   style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
