@@ -49,6 +49,10 @@ class _HomePageState extends State<HomePage> {
   String iOSWidgetName = 'pampan';
   int index = 0;
 
+  String? username;
+  String? email;
+  String? notificationDays;
+
   Random random = Random();
   int _currentCarousel = 0;
   final CarouselController _carousalController = CarouselController();
@@ -62,6 +66,10 @@ class _HomePageState extends State<HomePage> {
 
   _asyncQuery() async {
     List<FoodItem> fetchedItems = await getNearlyExpiredItems(limit: 4);
+    var usernameFuture = (await account.get()).name;
+    var emailFuture = (await account.get()).email;
+    var notificationDaysFuture =
+        (await account.get()).prefs.data['notificationDays'];
     setState(
       () {
         _recentlyAddedItems = fetchedItems;
@@ -75,6 +83,10 @@ class _HomePageState extends State<HomePage> {
         _recentlyAddedItem4 = _recentlyAddedItems[3].toString();
 
         print(_recentlyAddedItems);
+
+        username = usernameFuture;
+        email = emailFuture;
+        notificationDays = notificationDaysFuture;
       },
     );
   }
@@ -444,18 +456,18 @@ class _HomePageState extends State<HomePage> {
                                 : null,
                           ),
                           const SizedBox(width: 10),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Insert username here',
+                                username ?? "Null",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
                               ),
                               Text(
-                                'Insert email here',
+                                email ?? "Null",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -467,8 +479,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      'Notifications: 5 days before expiry date.',
+                    Text(
+                      'Notifications: ${notificationDays?.toString() ?? "NaN"} days before expiry date.',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
