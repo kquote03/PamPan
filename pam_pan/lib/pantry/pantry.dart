@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:pam_pan/bottom_bar.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
@@ -116,7 +117,10 @@ class _PantryState extends State<Pantry> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("Pam's Pantry"),
+        title: Text(
+          "Pam's Pantry",
+          style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

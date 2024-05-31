@@ -1,22 +1,18 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
-import 'package:pam_pan/calendar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
-import 'package:pam_pan/login%20and%20signup/signup.dart';
 import 'package:pam_pan/newcal.dart';
 import 'package:pam_pan/notifications/tips.dart';
 import 'package:pam_pan/pantry/add_item_page.dart';
 import 'package:pam_pan/pantry/category_edit_page.dart';
 import 'package:pam_pan/pantry/food_item.dart';
 import 'package:pam_pan/payment_page.dart';
-import 'package:pam_pan/profile/edit_profile_page.dart';
 import 'package:pam_pan/profile/help.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
@@ -297,7 +293,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              'Pantry View',
+              style:
+                  GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
