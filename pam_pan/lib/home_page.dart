@@ -127,21 +127,25 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             _recentlyAddedItem1,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 30)),
           ),
           Text(
             _recentlyAddedItem2,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 30)),
           ),
           Text(
             _recentlyAddedItem3,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 30)),
           ),
           Text(
             _recentlyAddedItem4,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 30)),
           ),
