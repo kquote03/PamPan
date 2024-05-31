@@ -149,20 +149,39 @@ class _HomePageState extends State<HomePage> {
             style:
                 GoogleFonts.homemadeApple(textStyle: TextStyle(fontSize: 30)),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to the new page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddItemPage()),
+                  );
+                },
+                child: const Text('Add items'),
+              ),
+            ],
+          ),
+        ],
+      ),
+      const Text("text2"),
+      Column(
+        children: [
+          const Text("text3"),
           ElevatedButton(
             onPressed: () {
               // Navigate to the new page
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddItemPage()),
+                MaterialPageRoute(builder: (context) => const PaymentPage()),
               );
             },
-            child: const Text('Add items'),
+            child: const Text('Donate cashmonneh'),
           ),
         ],
       ),
-      const Text("text1"),
-      const Text("text2"),
       // const Text("text3"),
     ].asMap().entries.map(
       (entry) {
@@ -191,24 +210,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      content,
-                      if (index == 0) // Only show the button on the first page
-
-                        if (index ==
-                            2) // Only show the button on the first page
-                          ElevatedButton(
-                            onPressed: () {
-                              // Navigate to the new page
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const PaymentPage()),
-                              );
-                            },
-                            child: const Text('Donate cashmonneh'),
-                          ),
-                    ],
+                    children: [content],
                   ),
                 ),
               ),
