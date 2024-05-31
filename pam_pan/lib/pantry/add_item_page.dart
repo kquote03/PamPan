@@ -521,9 +521,14 @@ class _AddItemPage extends State<AddItemPage> {
     // Then finally fills the fields with the data from the API.
     var fooditem = (await BarcodeApi()
         .getFoodItemByUPC((await BarcodeScanner.scan()).rawContent));
+    _setItemDetails(fooditem);
+  }
+
+  void _setItemDetails(FoodItem fooditem) {
     _controllerItemName.text = fooditem.itemName ?? "";
     _controllerMeasurement.text = fooditem.measurementUnit ?? "";
     _controllerCategory.text = fooditem.categoryName ?? "";
+    _controllerExpiryDate.text = fooditem.expiryDate ?? "";
   }
 }
 
