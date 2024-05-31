@@ -152,15 +152,17 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  // Navigate to the new page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddItemPage()),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AddItemPage();
+                  }));
                 },
-                child: const Text('Add items'),
+                icon: const Icon(
+                  Icons.add_circle_sharp,
+                  size: 35,
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
@@ -172,7 +174,6 @@ class _HomePageState extends State<HomePage> {
           const Text("text3"),
           ElevatedButton(
             onPressed: () {
-              // Navigate to the new page
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const PaymentPage()),
@@ -193,17 +194,11 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 197, 234, 250),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(10, 10),
-                      blurStyle: BlurStyle.normal,
-                    ),
-                  ],
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 214, 201, 243),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -311,14 +306,10 @@ class _HomePageState extends State<HomePage> {
               carouselController: _carousalController,
               options: CarouselOptions(
                 height: 275,
-                // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
                 reverse: false,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                enlargeFactor: 0.2,
                 onPageChanged: (index, reason) {
                   setState(
                     () {
@@ -381,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 197, 234, 250),
+                          color: const Color.fromARGB(255, 214, 201, 243),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
