@@ -7,9 +7,9 @@ class FoodItem {
   final String? barcode;
   final String? productionDate;
   final bool? canRefrigerate;
-  final String measurementUnit;
-  final int quantity;
-  final String categoryName;
+  final String? measurementUnit;
+  final int? quantity;
+  final String? categoryName;
 
   FoodItem({
     this.itemId,
@@ -18,9 +18,9 @@ class FoodItem {
     this.barcode,
     this.productionDate,
     this.canRefrigerate,
-    required this.measurementUnit,
-    required this.quantity,
-    required this.categoryName,
+    this.measurementUnit,
+    this.quantity,
+    this.categoryName,
   });
 
   // You can add methods here to perform operations on the FoodItem
