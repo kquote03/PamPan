@@ -77,8 +77,15 @@ class _HomePageState extends State<HomePage> {
   String? _recentlyAddedItem3;
   String? _recentlyAddedItem4;
 
+  List<FoodItem> _nearExpiryItems = [];
+  String? _nearExpiryItem1;
+  String? _nearExpiryItem2;
+  String? _nearExpiryItem3;
+  String? _nearExpiryItem4;
+
   _asyncQuery() async {
-    List<FoodItem> fetchedItems = await getNearlyExpiredItems(limit: 4);
+    List<FoodItem> fetchedRecentItems = await getRecentlyAddedItems(limit: 4);
+    List<FoodItem> fetchedExpiryItems = await getNearlyExpiredItems(limit: 4);
     var usernameFuture = (await account.get()).name;
     var emailFuture = (await account.get()).email;
     var notificationDaysFuture =
@@ -89,11 +96,17 @@ class _HomePageState extends State<HomePage> {
         email = emailFuture;
         notificationDays = notificationDaysFuture;
         try {
-          _recentlyAddedItems = fetchedItems;
+          _recentlyAddedItems = fetchedRecentItems;
           _recentlyAddedItem1 = _recentlyAddedItems[0]?.toString() ?? "";
           _recentlyAddedItem2 = _recentlyAddedItems[1]?.toString() ?? "";
           _recentlyAddedItem3 = _recentlyAddedItems[2]?.toString() ?? "";
           _recentlyAddedItem4 = _recentlyAddedItems[3]?.toString() ?? "";
+
+          _nearExpiryItems = fetchedExpiryItems;
+          _nearExpiryItem1 = _nearExpiryItems[0]?.toString() ?? "";
+          _nearExpiryItem2 = _nearExpiryItems[1]?.toString() ?? "";
+          _nearExpiryItem3 = _nearExpiryItems[2]?.toString() ?? "";
+          _nearExpiryItem4 = _nearExpiryItems[3]?.toString() ?? "";
         } catch (e) {}
         print(_recentlyAddedItems);
       },
@@ -210,29 +223,29 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Hewwo",
+            "Near Expiry",
             style: TextStyle(fontSize: 40),
           ),
           Text(
-            _recentlyAddedItem1 ?? "",
+            _nearExpiryItem1 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem2 ?? "",
+            _nearExpiryItem2 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem3 ?? "",
+            _nearExpiryItem3 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem4 ?? "",
+            _nearExpiryItem4 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),

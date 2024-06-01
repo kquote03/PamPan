@@ -165,7 +165,7 @@ Future<List<FoodItem>> getNearlyExpiredItems({int? limit}) async {
           "\$id"
         ]),
         Query.limit(limit ?? 3),
-        Query.orderDesc('\$createdAt')
+        Query.orderAsc('expiryDate')
       ]);
   List<FoodItem> items = [];
 
