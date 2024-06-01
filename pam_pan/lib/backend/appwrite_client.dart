@@ -29,14 +29,20 @@ Future<List<FoodItem>> getItems() async {
   List<FoodItem> items = [];
 
   for (var i in documents.documents) {
-    items.add(FoodItem(
+    items.add(
+      FoodItem(
         itemId: i.data['\$id'],
         itemName: i.data['name'],
-        expiryDate: DateFormat('yyyy-MM-dd')
-            .format(DateTime.parse(i.data['expiryDate'])),
+        expiryDate: DateFormat('yyyy-MM-dd').format(
+          DateTime.parse(
+            i.data['expiryDate'],
+          ),
+        ),
         measurementUnit: i.data['measurementUnit'],
         quantity: i.data['quantity'],
+
         categoryName: i.data['categories']?["\$id"]));
+
     print(items);
   }
   return items;

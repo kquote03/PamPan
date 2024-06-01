@@ -34,7 +34,7 @@ class FoodItem {
 
   @override
   String toString() {
-    return '$itemName';
+    return '$itemName $expiryDate';
   }
 }
 

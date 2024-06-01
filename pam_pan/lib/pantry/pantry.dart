@@ -1,3 +1,4 @@
+
 import 'dart:math';
 
 import 'package:appwrite/appwrite.dart';
@@ -118,66 +119,61 @@ class _PantryState extends State<Pantry> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          "Pam's Pantry",
-          style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            "Pam's Pantry",
+            style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Card(
-                color: const Color.fromARGB(255, 253, 249, 249),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: SizedBox(
-                  height: 45,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  hintText: 'Search',
-                                  border: InputBorder.none,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Card(
+                  color: const Color.fromARGB(255, 253, 249, 249),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: SizedBox(
+                    height: 45,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.search,
+                              color: Colors.grey,
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Search',
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (query) {
+                                    searchQuery = query;
+                                    filterItems();
+                                  },
                                 ),
-                                onChanged: (query) {
-                                  searchQuery = query;
-                                  filterItems();
-                                },
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 13.0, left: 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: categoriesListMapped,
-                ),
+              const SizedBox(
+                height: 10,
               ),
+
             ),
             Column(
               children: currentItems.map((foodItem) {
@@ -236,26 +232,7 @@ class _PantryState extends State<Pantry> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
-    );
+        bottomNavigationBar: const CustomBottomNavigationBar(),
+      );
+    }
   }
-}
-
-// class EmptyView extends StatelessWidget {
-//   const EmptyView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Icon(
-//           Icons.error,
-//           color: Colors.red,
-//         ),
-//         Text('Pantry is empty :('),
-//       ],
-//     );
-//   }
-// }
