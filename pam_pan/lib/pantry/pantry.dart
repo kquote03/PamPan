@@ -114,6 +114,7 @@ class _PantryState extends State<Pantry> {
         );
       },
     ).toList();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -241,21 +242,3 @@ class _PantryState extends State<Pantry> {
     );
   }
 }
-
-// class EmptyView extends StatelessWidget {
-//   const EmptyView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         Icon(
-//           Icons.error,
-//           color: Colors.red,
-//         ),
-//         Text('Pantry is empty :('),
-//       ],
-//     );
-//   }
-// }

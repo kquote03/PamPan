@@ -208,32 +208,35 @@ class _PaymentPage extends State<PaymentPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 32.0),
+                  const SizedBox(height: 15.0),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          _processDonation(context);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all<Color>(Colors.black),
-                          overlayColor: WidgetStateProperty.resolveWith<Color>(
-                            (Set<WidgetState> states) {
-                              return const Color.fromARGB(255, 219, 219, 219);
-                            },
-                          ),
-                          shape: WidgetStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.5),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {
+                            _processDonation(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                return const Color.fromARGB(255, 219, 219, 219);
+                              },
+                            ),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.5),
+                              ),
                             ),
                           ),
-                        ),
-                        child: Text(
-                          'Process Donation',
-                          style: GoogleFonts.mukta(
-                            color: Colors.white, fontSize: 17,
+                          child: Text(
+                            'Process Donation',
+                            style: GoogleFonts.mukta(
+                              color: Colors.white,
+                              fontSize: 17,
+                            ),
                           ),
                         ),
                       ),
@@ -245,7 +248,6 @@ class _PaymentPage extends State<PaymentPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 

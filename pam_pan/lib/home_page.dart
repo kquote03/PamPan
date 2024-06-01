@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:appwrite/appwrite.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,6 +43,11 @@ List<List<String>> sortList(List<List<String>> list) {
   return list;
 }
 
+final realtime = Realtime(client);
+final subscription = realtime.subscribe([
+  'databases.6650884f00137e1b1fcd.collections.6650886f0027a739c072.documents'
+]);
+
 class HomePage extends StatefulWidget {
   HomePage({super.key});
   List<String> recentlyAddedItems = [];
@@ -79,10 +85,6 @@ class _HomePageState extends State<HomePage> {
     setState(
       () {
         _recentlyAddedItems = fetchedItems;
-        // for (int i = 0; i < widget.recentlyAddedItems.length; i++) {
-        // widget.recentlyAddedItems[i] =
-        //     "${_recentlyAddedItems[i].itemName!} ${_recentlyAddedItems[i].expiryDate!}";
-        // }
         _recentlyAddedItem1 = _recentlyAddedItems[0].toString();
         _recentlyAddedItem2 = _recentlyAddedItems[1].toString();
         _recentlyAddedItem3 = _recentlyAddedItems[2].toString();
@@ -139,10 +141,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(context) {
+    subscription.stream.listen(
+      (response) {
+        setState(
+          () {
+            _asyncQuery();
+          },
+        );
+      },
+    );
     List<Widget> carouselItems = [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            "Hewwo",
+            style: TextStyle(fontSize: 40),
+          ),
           Text(
             _recentlyAddedItem1,
             overflow: TextOverflow.ellipsis,
@@ -172,9 +187,14 @@ class _HomePageState extends State<HomePage> {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AddItemPage();
-                  }));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AddItemPage();
+                      },
+                    ),
+                  );
                 },
                 icon: const Icon(
                   Icons.add_circle_sharp,
@@ -186,45 +206,116 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      const Text("text2"),
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("text3"),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PaymentPage()),
-              );
-            },
-            child: const Text('Donate cashmonneh'),
+          const Text(
+            "Hewwo",
+            style: TextStyle(fontSize: 40),
+          ),
+          Text(
+            _recentlyAddedItem1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem3,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem4,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
           ),
         ],
       ),
-      // const Text("text3"),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Hewwo",
+            style: TextStyle(fontSize: 40),
+          ),
+          Text(
+            _recentlyAddedItem1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem3,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Text(
+            _recentlyAddedItem4,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.homemadeApple(
+                textStyle: const TextStyle(fontSize: 25)),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const PaymentPage();
+                      },
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.add_circle_sharp,
+                  size: 35,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ].asMap().entries.map(
       (entry) {
         int index = entry.key;
         Widget content = entry.value;
         return Builder(
           builder: (BuildContext context) {
-            return SizedBox(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 214, 201, 243),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
+            return Container(
+              // height: 100,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 214, 201, 243),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [content],
-                  ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [content],
                 ),
               ),
             );
@@ -259,7 +350,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             icon:
-                const Icon(Icons.calendar_month, size: 30, color: Colors.black),
+                const Icon(Icons.calendar_month, size: 35, color: Colors.black),
             onPressed: () {
               Navigator.push(
                 context,
@@ -313,7 +404,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
                 'Pantry View',
                 style: GoogleFonts.mukta(
@@ -324,6 +415,8 @@ class _HomePageState extends State<HomePage> {
               carouselController: _carousalController,
               options: CarouselOptions(
                 height: 275,
+                // padEnds: false,
+                // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
                 initialPage: 0,
                 enableInfiniteScroll: false,
@@ -349,10 +442,7 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 6,
                       height: 6,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 4.0,
-                      ),
+                      margin: const EdgeInsets.fromLTRB(4, 8, 4, 2),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: (Theme.of(context).brightness == Brightness.dark
@@ -464,9 +554,20 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: const Color.fromARGB(255, 255, 250, 240),
+        backgroundColor: Colors.white,
         child: Column(
           children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black, // Border color
+                    width: 1.0, // Border width
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 250,
               child: DrawerHeader(
@@ -482,8 +583,8 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         children: [
                           Container(
-                            width: 50,
-                            height: 50,
+                            width: 40,
+                            height: 40,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
@@ -534,16 +635,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => const EditProfilePage()),
-                    //     );
-                    //   },
-                    //   child: const Text('Edit Profile'),
-                    // ),
                   ],
                 ),
               ),
@@ -603,9 +694,11 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 account.deleteSession(sessionId: 'current');
-                while (Navigator.canPop(context)) Navigator.pop(context);
+                while (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LoginPage();
+                  return const LoginPage();
                 }));
               },
             ),
