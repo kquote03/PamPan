@@ -72,10 +72,10 @@ class _HomePageState extends State<HomePage> {
   File? _profileImage;
 
   List<FoodItem> _recentlyAddedItems = [];
-  String _recentlyAddedItem1 = "";
-  String _recentlyAddedItem2 = "";
-  String _recentlyAddedItem3 = "";
-  String _recentlyAddedItem4 = "";
+  String? _recentlyAddedItem1;
+  String? _recentlyAddedItem2;
+  String? _recentlyAddedItem3;
+  String? _recentlyAddedItem4;
 
   _asyncQuery() async {
     List<FoodItem> fetchedItems = await getNearlyExpiredItems(limit: 4);
@@ -85,17 +85,17 @@ class _HomePageState extends State<HomePage> {
         (await account.get()).prefs.data['notificationDays'];
     setState(
       () {
-        _recentlyAddedItems = fetchedItems;
-        _recentlyAddedItem1 = _recentlyAddedItems[0].toString();
-        _recentlyAddedItem2 = _recentlyAddedItems[1].toString();
-        _recentlyAddedItem3 = _recentlyAddedItems[2].toString();
-        _recentlyAddedItem4 = _recentlyAddedItems[3].toString();
-
-        print(_recentlyAddedItems);
-
         username = usernameFuture;
         email = emailFuture;
         notificationDays = notificationDaysFuture;
+        try {
+          _recentlyAddedItems = fetchedItems;
+          _recentlyAddedItem1 = _recentlyAddedItems[0]?.toString() ?? "";
+          _recentlyAddedItem2 = _recentlyAddedItems[1]?.toString() ?? "";
+          _recentlyAddedItem3 = _recentlyAddedItems[2]?.toString() ?? "";
+          _recentlyAddedItem4 = _recentlyAddedItems[3]?.toString() ?? "";
+        } catch (e) {}
+        print(_recentlyAddedItems);
       },
     );
   }
@@ -163,22 +163,22 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Text(
-            "Snickers",
+            _recentlyAddedItem1 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
-            "Milk",
+            _recentlyAddedItem2 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
-            "Apple",
+            _recentlyAddedItem3 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
-            "Ketchup",
+            _recentlyAddedItem4 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
@@ -214,25 +214,25 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: 40),
           ),
           Text(
-            _recentlyAddedItem1,
+            _recentlyAddedItem1 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem2,
+            _recentlyAddedItem2 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem3,
+            _recentlyAddedItem3 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem4,
+            _recentlyAddedItem4 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
@@ -247,25 +247,25 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: 40),
           ),
           Text(
-            _recentlyAddedItem1,
+            _recentlyAddedItem1 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem2,
+            _recentlyAddedItem2 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem3,
+            _recentlyAddedItem3 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem4,
+            _recentlyAddedItem4 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
@@ -502,6 +502,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: Text(
+                "Pam's recommendation",
+                style: GoogleFonts.mukta(
+                    fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
