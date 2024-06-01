@@ -12,7 +12,9 @@ class FirebaseAI {
           topP: 0.1,
           topK: 1,
           responseMimeType: "application/json"));
-
+  final model2 = FirebaseVertexAI.instance.generativeModel(
+    model: 'gemini-1.5-flash-preview-0514',
+  );
   // important links:
   // https://firebase.google.com/docs/vertex-ai/text-gen-from-multimodal?platform=flutter
   // https://firebase.google.com/docs/vertex-ai/count-tokens?platform=flutter
@@ -21,14 +23,14 @@ class FirebaseAI {
   Future textWithoutStream(String promptText) async {
     //or is it Future<String?>
     final prompt = [Content.text(promptText)];
-    final response = await model.generateContent(prompt);
+    final response = await model2.generateContent(prompt);
     return response.text;
   }
 
   Future textWithStream(String promptText) async {
     //or is it Future<String?>
     final prompt = [Content.text(promptText)];
-    final response = await model.generateContentStream(prompt);
+    final response = await model2.generateContentStream(prompt);
     await for (final chunk in response) {
       print(chunk.text);
     }
