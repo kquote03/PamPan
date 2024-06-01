@@ -35,7 +35,7 @@ class _RecordsState extends State<Records> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title:  Text("Records",
-             style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25)),
+             style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 25)),
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black),

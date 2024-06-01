@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     listenNotifications();
     _asyncQuery();
-    _scheduleExpiryNotifications();
+    // _scheduleExpiryNotifications();
   }
 
   Future<void> _pickImage() async {
@@ -155,33 +155,35 @@ class _HomePageState extends State<HomePage> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Hewwo",
-            style: TextStyle(fontSize: 40),
+          Text(
+            "Recently added items",
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
           ),
           Text(
             _recentlyAddedItem1,
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+             style: GoogleFonts.lato(
+                textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
             _recentlyAddedItem2,
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+             style: GoogleFonts.lato(
+                textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
             _recentlyAddedItem3,
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+             style: GoogleFonts.lato(
+                textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
             _recentlyAddedItem4,
             overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+             style: GoogleFonts.lato(
+                textStyle: const TextStyle(fontSize: 20)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -408,7 +410,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
                 'Pantry View',
-                style: GoogleFonts.mukta(
+                style: GoogleFonts.lato(
                     fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
@@ -465,14 +467,14 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
                 'Current Leaderboard',
-                style: GoogleFonts.mukta(
+                style: GoogleFonts.lato(
                     fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             Card(
               child: ListTile(
                 tileColor: Colors.amber[50],
-                leading: Text(
+                leading: const Text(
                   '🥇',
                   style: TextStyle(fontSize: 24),
                 ),
@@ -483,7 +485,7 @@ class _HomePageState extends State<HomePage> {
             Card(
               child: ListTile(
                 tileColor: Colors.grey[50],
-                leading: Text(
+                leading: const Text(
                   '🥈',
                   style: TextStyle(fontSize: 24),
                 ),
@@ -494,7 +496,7 @@ class _HomePageState extends State<HomePage> {
             Card(
               child: ListTile(
                 tileColor: Colors.brown[50],
-                leading: Text(
+                leading: const Text(
                   '🥉',
                   style: TextStyle(fontSize: 24),
                 ),
@@ -635,7 +637,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -715,16 +716,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _scheduleExpiryNotifications() {
-    sortList(items);
-    for (int i = 0; i < items.length; i++) {
-      LocalNotifications.showScheduleNotification(
-        id: i,
-        title: "Uhoh! ${items[i][1]} is about to expire!",
-        body: "Quick! It will expire on ${items[i][0]}",
-        payload: "Scheduled payload",
-        minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
-      );
-    }
-  }
+  // void _scheduleExpiryNotifications() {
+  //   sortList(items);
+  //   for (int i = 0; i < items.length; i++) {
+  //     LocalNotifications.showScheduleNotification(
+  //       id: i,
+  //       title: "Uhoh! ${items[i][1]} is about to expire!",
+  //       body: "Quick! It will expire on ${items[i][0]}",
+  //       payload: "Scheduled payload",
+  //       minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
+  //     );
+  //   }
+  // }
 }

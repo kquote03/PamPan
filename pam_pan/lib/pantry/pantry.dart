@@ -121,7 +121,7 @@ class _PantryState extends State<Pantry> {
         backgroundColor: Colors.white,
         title: Text(
           "Pam's Pantry",
-          style: GoogleFonts.mukta(fontWeight: FontWeight.bold, fontSize: 25),
+          style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
       body: SingleChildScrollView(
