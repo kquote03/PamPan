@@ -65,7 +65,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
           NavigationDestination(
             icon: IconButton(
               onPressed: () {
-                Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Cameraholder();
                 }));
