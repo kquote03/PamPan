@@ -218,14 +218,14 @@ class _PaymentPage extends State<PaymentPage> {
                           },
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
+                                WidgetStateProperty.all<Color>(Colors.black),
                             overlayColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
+                                WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
                                 return const Color.fromARGB(255, 219, 219, 219);
                               },
                             ),
-                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                            shape: WidgetStateProperty.all<OutlinedBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.5),
                               ),
