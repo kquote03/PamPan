@@ -26,9 +26,9 @@ import 'package:pam_pan/records.dart';
 import 'bottom_bar.dart';
 
 List<Map<String, dynamic>> leaderboardData = [
-  {'name': 'Mohammed Ahmed', 'exp': 1000},
-  {'name': 'Mariam Kahmees', 'exp': 999},
-  {'name': 'Khalid Abdalla', 'exp': 700}
+  {'name': 'Mohammed Khamis', 'exp': 1000},
+  {'name': 'Rami Mohammed', 'exp': 999},
+  {'name': 'Rula Mohammed', 'exp': 700}
 ];
 
 //Taken from expiry_test
