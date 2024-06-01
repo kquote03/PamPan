@@ -175,13 +175,15 @@ class _AddItemPage extends State<AddItemPage> {
                   const SizedBox(height: 3),
                   DropdownMenu<String>(
                       menuHeight: 400,
-
                       width: MediaQuery.of(context).size.width - (16 * 2),
                       controller: _controllerCategory,
-                      dropdownMenuEntries: categoryList.map((category) {
-                        return DropdownMenuEntry(
-                            value: category, label: category);
-                      }).toList(),
+                      dropdownMenuEntries: categoryList.map(
+                        (category) {
+                          return DropdownMenuEntry(
+                              value: category['id'] ?? "",
+                              label: category['name'] ?? "");
+                        },
+                      ).toList(),
                       hintText: "Select a Category"),
                   const SizedBox(height: 12),
                   Text('Measurment Unit',
@@ -270,7 +272,6 @@ class _AddItemPage extends State<AddItemPage> {
                       style: GoogleFonts.mukta(
                         color: Colors.white,
                         fontSize: 17,
-
                       ),
                     ),
                   ),
