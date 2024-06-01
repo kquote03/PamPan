@@ -11,7 +11,6 @@ import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:pam_pan/pantry/barcode_api.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
-import 'package:pam_pan/bottom_bar.dart';
 import 'package:pam_pan/pantry/food_item.dart';
 
 var databases = Databases(client);
