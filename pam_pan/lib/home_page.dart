@@ -102,10 +102,10 @@ class _HomePageState extends State<HomePage> {
         notificationDays = notificationDaysFuture;
         try {
           _recentlyAddedItems = fetchedRecentItems;
-          _recentlyAddedItem1 = _recentlyAddedItems[0]?.toString() ?? "";
-          _recentlyAddedItem2 = _recentlyAddedItems[1]?.toString() ?? "";
-          _recentlyAddedItem3 = _recentlyAddedItems[2]?.toString() ?? "";
-          _recentlyAddedItem4 = _recentlyAddedItems[3]?.toString() ?? "";
+          _recentlyAddedItem1 = _recentlyAddedItems[0]?.itemName ?? "";
+          _recentlyAddedItem2 = _recentlyAddedItems[1]?.itemName ?? "";
+          _recentlyAddedItem3 = _recentlyAddedItems[2]?.itemName ?? "";
+          _recentlyAddedItem4 = _recentlyAddedItems[3]?.itemName ?? "";
 
           _nearExpiryItems = fetchedExpiryItems;
           _nearExpiryItem1 = _nearExpiryItems[0]?.toString() ?? "";
@@ -174,35 +174,60 @@ class _HomePageState extends State<HomePage> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Recently added items",
-            style: GoogleFonts.lato(
-              textStyle: const TextStyle(fontSize: 20),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              "Recently added items",
+              style: GoogleFonts.lato(
+                textStyle:
+                    const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-          Text(
-            _recentlyAddedItem1 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem1 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _recentlyAddedItem2 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem2 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _recentlyAddedItem3 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem3 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _recentlyAddedItem4 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
+          Padding(
+            padding: const EdgeInsets.only(left: 17, bottom: 4),
+            child: Text(
+              _recentlyAddedItem3 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 17)),
+            ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                margin: const EdgeInsets.only(left: 17, bottom: 4),
+                child: Text(
+                  _recentlyAddedItem3 ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.lato(
+                      textStyle: const TextStyle(fontSize: 17)),
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.push(
@@ -216,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 icon: const Icon(
                   Icons.add_circle_sharp,
-                  size: 35,
+                  size: 40,
                   color: Colors.black,
                 ),
               ),
@@ -227,66 +252,94 @@ class _HomePageState extends State<HomePage> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Near Expiry",
-            style: TextStyle(fontSize: 40),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              "Near Expiry",
+              style: GoogleFonts.lato(
+                textStyle:
+                    const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
-          Text(
-            _nearExpiryItem1 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _nearExpiryItem1 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _nearExpiryItem2 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _nearExpiryItem2 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _nearExpiryItem3 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _nearExpiryItem3 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _nearExpiryItem4 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _nearExpiryItem4 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
         ],
       ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Hewwo",
-            style: TextStyle(fontSize: 40),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Text(
+              "Recently Donated",
+              style: GoogleFonts.lato(
+                textStyle:
+                    const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
-          Text(
-            _recentlyAddedItem1 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem1 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _recentlyAddedItem2 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem2 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _recentlyAddedItem3 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem3 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
-          Text(
-            _recentlyAddedItem4 ?? "",
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.homemadeApple(
-                textStyle: const TextStyle(fontSize: 25)),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, bottom: 4),
+            child: Text(
+              _recentlyAddedItem4 ?? "",
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -304,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 icon: const Icon(
                   Icons.add_circle_sharp,
-                  size: 35,
+                  size: 40,
                   color: Colors.black,
                 ),
               ),
@@ -432,7 +485,7 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                height: 275,
+                height: 220,
                 // padEnds: false,
                 // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
@@ -476,7 +529,7 @@ class _HomePageState extends State<HomePage> {
               ).toList(),
             ),
             const SizedBox(
-              height: 50,
+              height: 15,
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -567,9 +620,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return RecipeResponsePage(
-                                FirebaseAI().textWithoutStream(prompt)
-                                    as String); //TODO i think this is wrong.
+                            return RecipeResposePage();
                           },
                         ),
                       );
