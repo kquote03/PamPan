@@ -501,9 +501,6 @@ class _HomePageState extends State<HomePage> {
                 trailing: Text(leaderboardData[2]['exp'].toString()),
               ),
             ),
-<<<<<<< HEAD
-            const SizedBox(height: 20),
-=======
             SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -513,7 +510,6 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
->>>>>>> 6a2cc5b8b922b1129e7c6d94211a110885b05531
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

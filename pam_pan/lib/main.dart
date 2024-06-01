@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:pam_pan/connection_error.dart';
-import 'package:pam_pan/firebase_ai.dart';
-import 'package:pam_pan/login%20and%20signup/login.dart';
 // Old SQLite-based local database
 //import 'package:pam_pan/backend/libdb.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
@@ -17,8 +15,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
-import 'package:firebase_vertexai/firebase_vertexai.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,33 +25,29 @@ void main() async {
     );
   } catch (e) {
     print(
-      "Firebase Initialization Failed. AI-features will NOT work. Here's why:\n" +
-          e.toString(),
-    );
+        "Firebase Initialization Failed. AI-features will NOT work. Here's why:\n" +
+            e.toString());
   }
 // Example user for appwrite
-  //await account
-  //    .createEmailPasswordSession(
-  //        email: "email@example.com", password: "password123")
-  //    .timeout(const Duration(seconds: 10));
-
-  //var result = await account.get();
-  //print("Currently signed in as: " + (result?.email ?? "error"));
-
   try {
-    final user = await account.get();
+    account.deleteSession(sessionId: 'current');
+    await account
+        .createEmailPasswordSession(
+            email: "email@example.com", password: "password123")
+        .timeout(const Duration(seconds: 10));
+
+    var result = await account.get();
+    print("Currently signed in as: " + (result?.email ?? "error"));
+
     runApp(
-      MaterialApp(
+       MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),
       ),
     );
-  } catch (e) {
-    runApp(
-      const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginPage(),
-      ),
-    );
+  } on AppwriteException catch (e) {
+    print(e);
+    if (!e.toString().contains("user_session_already_exists"))
+      runApp(const MaterialApp(home: ConnectionError()));
   }
 }
