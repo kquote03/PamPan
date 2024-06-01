@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:appwrite/appwrite.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -504,54 +505,66 @@ class _HomePageState extends State<HomePage> {
                 trailing: Text(leaderboardData[2]['exp'].toString()),
               ),
             ),
-            //CarouselSlider(
-            //  options: CarouselOptions(
-            //    aspectRatio: 16 / 9,
-            //    viewportFraction: 0.95,
-            //    initialPage: 0,
-            //    enableInfiniteScroll: false,
-            //    reverse: false,
-            //    autoPlayCurve: Curves.fastOutSlowIn,
-            //    enlargeCenterPage: true,
-            //    enlargeFactor: 0.2,
-            //    scrollDirection: Axis.horizontal,
-            //  ),
-            //  items: [1].map(
-            //    (i) {
-            //      return Builder(
-            //        builder: (BuildContext context) {
-            //          return Container(
-            //            width: MediaQuery.of(context).size.width,
-            //            margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-            //            decoration: BoxDecoration(
-            //              color: const Color.fromARGB(255, 214, 201, 243),
-            //              boxShadow: [
-            //                BoxShadow(
-            //                  color: Colors.grey.withOpacity(0.5),
-            //                  spreadRadius: 5,
-            //                  blurRadius: 7,
-            //                  offset: const Offset(10, 10),
-            //                  blurStyle: BlurStyle.normal,
-            //                ),
-            //              ],
-            //            ),
-            //            child: Text(
-            //              'text $i',
-            //              style: const TextStyle(fontSize: 16.0),
-            //            ),
-            //          );
-            //        },
-            //      );
-            //    },
-            //  ).toList(),
-            //),
-            const SizedBox(
-              height: 1500,
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        'assets/profile/pam_profile.png',
+                      ),
+                    ),
+                  ],
+                ),
+                const BubbleSpecialThree(
+                  text:
+                      "Hey! Do you want a recipe out of ol' Pam's cook book? I'll help you use your items before they expire",
+                  color: Color(0xFFE8E8EE),
+                  tail: false,
+                  isSender: false,
+                ),
+              ],
             ),
-            const Text("yo"),
-            ElevatedButton(
-              onPressed: () => updateWidgetFun(),
-              child: const Text('Update'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: TextButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all<Color>(Colors.black),
+                      overlayColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
+                          return const Color.fromARGB(255, 219, 219, 219);
+                        },
+                      ),
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.5),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Recipe!',
+                      style: GoogleFonts.mukta(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         ),
@@ -716,16 +729,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // void _scheduleExpiryNotifications() {
-  //   sortList(items);
-  //   for (int i = 0; i < items.length; i++) {
-  //     LocalNotifications.showScheduleNotification(
-  //       id: i,
-  //       title: "Uhoh! ${items[i][1]} is about to expire!",
-  //       body: "Quick! It will expire on ${items[i][0]}",
-  //       payload: "Scheduled payload",
-  //       minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
-  //     );
-  //   }
-  // }
+  void _scheduleExpiryNotifications() {
+    sortList(items);
+    for (int i = 0; i < items.length; i++) {
+      LocalNotifications.showScheduleNotification(
+        id: i,
+        title: "Uhoh! ${items[i][1]} is about to expire!",
+        body: "Quick! It will expire on ${items[i][0]}",
+        payload: "Scheduled payload",
+        minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
+      );
+    }
+  }
 }
