@@ -82,6 +82,14 @@ Future<List<Map<String, String>>> getCategories() async {
   return categoryList;
 }
 
+Future<void> updateCategory(String id, String newName) async {
+  var documents = await databases.updateDocument(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '665089ef003013ad1543',
+      documentId: id,
+      data: {"\$id": newName, "name": newName});
+}
+
 Future<List<String>> getCustomCategories() async {
   var documents = await databases.listDocuments(
       databaseId: '6650884f00137e1b1fcd',
@@ -107,7 +115,7 @@ void deleteItemById(id) async {
 void deleteCategoryById(id) async {
   databases.deleteDocument(
       databaseId: '6650884f00137e1b1fcd',
-      collectionId: '6650886f0027a739c072',
+      collectionId: '665089ef003013ad1543',
       documentId: id);
 }
 
@@ -157,7 +165,7 @@ Future<List<FoodItem>> getNearlyExpiredItems({int? limit}) async {
           "\$id"
         ]),
         Query.limit(limit ?? 3),
-        Query.orderDesc('\$createdAt')
+        Query.orderAsc('expiryDate')
       ]);
   List<FoodItem> items = [];
 
@@ -173,4 +181,14 @@ Future<List<FoodItem>> getNearlyExpiredItems({int? limit}) async {
     print(items);
   }
   return items;
+}
+
+Future<void> createCategory(category) async {
+  await databases.createDocument(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '665089ef003013ad1543',
+      documentId: category,
+      data: {
+        "name": category,
+      });
 }

@@ -374,13 +374,7 @@ class _AddItemPage extends State<AddItemPage> {
             queries: [Query.search('name', category)]))
         .documents
         .isEmpty) {
-      databases.createDocument(
-          databaseId: '6650884f00137e1b1fcd',
-          collectionId: '665089ef003013ad1543',
-          documentId: category,
-          data: {
-            "name": category,
-          });
+      createCategory(category);
     }
 
     // Add them to the databse, which btw

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pam_pan/backend/appwrite_client.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pam_pan/firebase_ai.dart';
 import 'package:pam_pan/login%20and%20signup/login.dart';
 import 'package:pam_pan/newcal.dart';
 import 'package:pam_pan/notifications/tips.dart';
@@ -19,6 +20,7 @@ import 'package:pam_pan/profile/help.dart';
 import 'package:pam_pan/notifications/local_notifications.dart';
 import 'package:pam_pan/notifications/notifications_page.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:pam_pan/recipe_response_page.dart';
 import 'package:pam_pan/records.dart';
 import 'bottom_bar.dart';
 
@@ -76,9 +78,22 @@ class _HomePageState extends State<HomePage> {
   String? _recentlyAddedItem2;
   String? _recentlyAddedItem3;
   String? _recentlyAddedItem4;
+<<<<<<< HEAD
 
+  List<FoodItem> _nearExpiryItems = [];
+  String? _nearExpiryItem1;
+  String? _nearExpiryItem2;
+  String? _nearExpiryItem3;
+  String? _nearExpiryItem4;
+
+=======
+  String prompt =
+      """You are the mascot of a food-related app called Pam, and you help manage your user's pantries by tracking how close every food item's expiry date is. The user is called Khalil. Come up with a simple recipe that includes some, but not all, of the items in this pantry. The recipe can include some minor items that aren't in the pantry and need to be bought, but these items have to be explicitly labelled as such. It has to be simple enough to be done by an amateur, but not too simple that it becomes boring. Make sure your response is personalised to the items in the pantry, so don't be too generic. Additionally, make sure you try to prioritise the items that are about to expire, if that is possible. The list of items is as follows: ("Canned diced tomatoes (28 oz can, Expiry: March 2026)"), ("Canned chickpeas (15 oz can, Expiry: May 31st, 2024)"), ("Canned cream of chicken soup (10.75 oz can, Expiry: December 2025)"), ("All-purpose flour (5 lb bag, Expiry: November 2024)"), ("White rice (10 lb bag, Expiry: February 2025)"), ("Brown rice (5 lb bag, Expiry: August 2024)"), ("Rolled oats (2 lb container, Expiry: October 2024)"), ("Dried pasta (1 lb bag, Expiry: August 2024, Penne)"), ("Dried pasta (1 lb bag, Expiry: December 2024, Spaghetti)"), ("Dried lentils (1 lb bag, Expiry: September 2024)"), ("Sugar (5 lb bag, Expiry: May 2025)"), ("Salt (2 lb box, Expiry: May 2027)"), ("Baking powder (16 oz can, Expiry: June 2024)"), ("Baking soda (1 lb box, Expiry: May 2026)"), ("Olive oil (1 liter bottle, Expiry: March 2026)"), ("Vegetable oil (1 liter bottle, Expiry: February 2024)"), ("Balsamic vinegar (25.4 fl oz bottle, Expiry: January 2027)"), ("Ketchup (20 oz bottle, Expiry: September 2024)"), ("Mustard (12 oz jar, Expiry: June 15th, 2024)"), ("Soy sauce (15 fl oz bottle, Expiry: September 2025)"), ("Black peppercorns (4 oz jar, Expiry: August 2024)"), ("Dried oregano (1 oz jar, Expiry: May 2024)"), ("Ground cumin (2 oz jar, Expiry: June 2024)"), ("Chili flakes (1 oz jar, Expiry: May 2025)"), ("Italian seasoning (2 oz jar, Expiry: April 2025)"), ("Eggs (1 dozen carton, Expiry: June 11th, 2024)"), ("Butter (1 lb stick, Expiry: June 5th, 2024)"), ("Milk (1 gallon carton, Expiry: May 30th, 2024)").""";
+//TODO: this says that the guys name is khalil which needs to be fixed, and the list of items provided is wrong and dummy data
+>>>>>>> f2d2f39b1d6cdd9692cf5b0016c1e9fe6b38b088
   _asyncQuery() async {
-    List<FoodItem> fetchedItems = await getRecentlyAddedItems(limit: 4);
+    List<FoodItem> fetchedRecentItems = await getRecentlyAddedItems(limit: 4);
+    List<FoodItem> fetchedExpiryItems = await getNearlyExpiredItems(limit: 4);
     var usernameFuture = (await account.get()).name;
     var emailFuture = (await account.get()).email;
     var notificationDaysFuture =
@@ -89,11 +104,17 @@ class _HomePageState extends State<HomePage> {
         email = emailFuture;
         notificationDays = notificationDaysFuture;
         try {
-          _recentlyAddedItems = fetchedItems;
+          _recentlyAddedItems = fetchedRecentItems;
           _recentlyAddedItem1 = _recentlyAddedItems[0]?.toString() ?? "";
           _recentlyAddedItem2 = _recentlyAddedItems[1]?.toString() ?? "";
           _recentlyAddedItem3 = _recentlyAddedItems[2]?.toString() ?? "";
           _recentlyAddedItem4 = _recentlyAddedItems[3]?.toString() ?? "";
+
+          _nearExpiryItems = fetchedExpiryItems;
+          _nearExpiryItem1 = _nearExpiryItems[0]?.toString() ?? "";
+          _nearExpiryItem2 = _nearExpiryItems[1]?.toString() ?? "";
+          _nearExpiryItem3 = _nearExpiryItems[2]?.toString() ?? "";
+          _nearExpiryItem4 = _nearExpiryItems[3]?.toString() ?? "";
         } catch (e) {}
         print(_recentlyAddedItems);
       },
@@ -210,29 +231,29 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Hewwo",
-            style: TextStyle(fontSize: 25),
+            "Near Expiry",
+            style: TextStyle(fontSize: 40),
           ),
           Text(
-            _recentlyAddedItem1 ?? "",
+            _nearExpiryItem1 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem2 ?? "",
+            _nearExpiryItem2 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem3 ?? "",
+            _nearExpiryItem3 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
           ),
           Text(
-            _recentlyAddedItem4 ?? "",
+            _nearExpiryItem4 ?? "",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.homemadeApple(
                 textStyle: const TextStyle(fontSize: 25)),
@@ -244,7 +265,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text(
             "Hewwo",
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 40),
           ),
           Text(
             _recentlyAddedItem1 ?? "",
@@ -414,7 +435,7 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                height: 210,
+                height: 275,
                 // padEnds: false,
                 // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
@@ -458,7 +479,7 @@ class _HomePageState extends State<HomePage> {
               ).toList(),
             ),
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -501,7 +522,7 @@ class _HomePageState extends State<HomePage> {
                 trailing: Text(leaderboardData[2]['exp'].toString()),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
@@ -514,18 +535,8 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      margin:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      child: Text(
-                        'AI',
-                        style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    ),
-                    const SizedBox(height: 95),
                     Container(
                       width: 40,
                       height: 40,
@@ -554,7 +565,18 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return RecipeResponsePage(
+                                FirebaseAI().textWithoutStream(prompt)
+                                    as String); //TODO i think this is wrong.
+                          },
+                        ),
+                      );
+                    },
                     style: ButtonStyle(
                       backgroundColor:
                           WidgetStateProperty.all<Color>(Colors.black),

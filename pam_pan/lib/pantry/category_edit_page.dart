@@ -23,6 +23,8 @@ class _CategoryListPageState extends State<CategoryListPage> {
   _CategoryListPageState();
   List<Map<String, String>> categories = [];
 
+  TextEditingController _categoryNameController = TextEditingController();
+
   @override
   void initState() {
     _asyncQuery();
@@ -96,14 +98,7 @@ Quantity/Amount:
             icon: const Icon(Clarity.plus_circle_solid,
                 size: 30, color: Colors.black),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AddItemPage();
-                  },
-                ),
-              );
+              _showItemAddCatalog(context);
             },
           ),
         ],
@@ -114,41 +109,41 @@ Quantity/Amount:
           itemCount: categories.length,
           itemBuilder: (BuildContext context, int keyIndex) {
             return Card(
-              color: const Color.fromARGB(255, 71, 50, 39),
+              color: const Color.fromARGB(255, 214, 201, 243),
               child: ExpansionTile(
                 enableFeedback: true,
-                iconColor: Colors.white,
+                iconColor: Colors.black,
                 childrenPadding: const EdgeInsets.only(left: 20),
                 title: Text(
                   categories[keyIndex]['name'] ?? "",
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
                 children: <Widget>[
-                  Row(children: [
-                    Column(
-                      children: _buildList(keyIndex),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        //Navigator.push(context, MaterialPageRoute(
-                        //  builder: (context) {
-                        //    print(categories[keyIndex]);
-                        //  },
-                        //));
-                      },
-                      icon: const Icon(Icons.edit),
-                      color: Colors.white,
-                    ),
-                    IconButton(
+                  Center(
+                    child: Row(children: [
+                      //Column(
+                      //  children: _buildList(keyIndex),
+                      //),
+                      IconButton(
                         onPressed: () {
-                          deleteItemById(categories[keyIndex]);
+                          _showItemEditCatalog(
+                              context, categories[keyIndex]['id'] ?? "");
                         },
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ))
-                  ]),
+                        icon: const Icon(Icons.edit),
+                        color: Colors.black,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            deleteCategoryById(categories[keyIndex]['id']);
+                            initState();
+                          },
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.black,
+                          ))
+                    ]),
+                  ),
                 ],
               ),
             );
@@ -156,6 +151,103 @@ Quantity/Amount:
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
+    );
+  }
+
+  _showItemEditCatalog(context, String id) {
+    print(id);
+    showDialog(
+      context: context,
+      builder: (BuildContext builderContext) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  const Center(
+                    child: Text(
+                      "Insert new name",
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  TextField(
+                    decoration: new InputDecoration.collapsed(
+                        hintText: 'Category Name'),
+                    controller: _categoryNameController,
+                  ),
+                  RichText(
+                    textAlign: TextAlign.justify,
+                    text: const TextSpan(
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: Colors.black,
+                            wordSpacing: 1)),
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        await updateCategory(id, _categoryNameController.text);
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      child: const Text("Ok"))
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _showItemAddCatalog(context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext builderContext) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  const Center(
+                    child: Text(
+                      "Insert category name",
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  TextField(
+                    decoration: new InputDecoration.collapsed(
+                        hintText: 'Category Name'),
+                    controller: _categoryNameController,
+                  ),
+                  RichText(
+                    textAlign: TextAlign.justify,
+                    text: const TextSpan(
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: Colors.black,
+                            wordSpacing: 1)),
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        createCategory(_categoryNameController.text);
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      child: const Text("Ok"))
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -22,7 +22,7 @@ class FirebaseAI {
     //or is it Future<String?>
     final prompt = [Content.text(promptText)];
     final response = await model.generateContent(prompt);
-    print(response.text);
+    return response.text;
   }
 
   Future textWithStream(String promptText) async {
