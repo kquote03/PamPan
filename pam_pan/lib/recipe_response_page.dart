@@ -1,7 +1,6 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 
-
 class RecipeResposePage extends StatefulWidget {
   const RecipeResposePage({super.key});
 
@@ -39,7 +38,7 @@ class _RecipeResposePageState extends State<RecipeResposePage> {
               ],
             ),
             BubbleSpecialThree(
-              text: ,
+              text: "",
               color: const Color(0xFFE8E8EE),
               tail: false,
               isSender: false,
