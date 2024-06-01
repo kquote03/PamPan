@@ -58,7 +58,7 @@ class _RecipeResponsePageState extends State<RecipeResponsePage> {
               ],
             ),
             BubbleSpecialThree(
-              text: ,
+              text: widget.aiResponse,
               color: const Color(0xFFE8E8EE),
               tail: false,
               isSender: false,
