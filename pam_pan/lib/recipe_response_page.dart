@@ -62,6 +62,11 @@ class _RecipeResponsePageState extends State<RecipeResponsePage> {
               color: const Color(0xFFE8E8EE),
               tail: false,
               isSender: false,
+              constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(
+                        context,
+                      ).size.width *
+                      0.7),
             ),
           ],
         ),

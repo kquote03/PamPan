@@ -208,14 +208,6 @@ class _HomePageState extends State<HomePage> {
               style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 17, bottom: 4),
-            child: Text(
-              _recentlyAddedItem3 ?? "",
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 17)),
-            ),
-          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -228,6 +220,7 @@ class _HomePageState extends State<HomePage> {
                       textStyle: const TextStyle(fontSize: 17)),
                 ),
               ),
+              const Expanded(child: SizedBox()),
               IconButton(
                 onPressed: () {
                   Navigator.push(
@@ -333,17 +326,19 @@ class _HomePageState extends State<HomePage> {
               style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 18, bottom: 4),
-            child: Text(
-              _recentlyAddedItem4 ?? "",
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 18)),
-            ),
-          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Container(
+                margin: const EdgeInsets.only(left: 17, bottom: 4),
+                child: Text(
+                  _recentlyAddedItem4 ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.lato(
+                      textStyle: const TextStyle(fontSize: 18)),
+                ),
+              ),
+              const Expanded(child: SizedBox()),
               IconButton(
                 onPressed: () {
                   Navigator.push(
@@ -485,7 +480,7 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                height: 220,
+                height: 195,
                 // padEnds: false,
                 // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
