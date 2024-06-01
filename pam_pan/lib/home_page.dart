@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text(
             "Hewwo",
-            style: TextStyle(fontSize: 40),
+            style: TextStyle(fontSize: 25),
           ),
           Text(
             _recentlyAddedItem1,
@@ -244,7 +244,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text(
             "Hewwo",
-            style: TextStyle(fontSize: 40),
+            style: TextStyle(fontSize: 25),
           ),
           Text(
             _recentlyAddedItem1,
@@ -414,7 +414,7 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                height: 275,
+                height: 210,
                 // padEnds: false,
                 // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
@@ -458,7 +458,7 @@ class _HomePageState extends State<HomePage> {
               ).toList(),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -501,13 +501,23 @@ class _HomePageState extends State<HomePage> {
                 trailing: Text(leaderboardData[2]['exp'].toString()),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Container(
+                      margin:
+                          const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                      child: Text(
+                        'AI',
+                        style: GoogleFonts.lato(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(height: 95),
                     Container(
                       width: 40,
                       height: 40,
