@@ -105,7 +105,7 @@ class _PantryState extends State<Pantry> {
           },
           child: Catogeries(
             color: selectedCategories.contains(category['id'])
-                ? const Color.fromARGB(255, 214, 201, 243)
+                ?const Color.fromARGB(255, 220, 209, 244)
                 : Colors.white,
             //TODO: Bringback Nice Text
             text: category['name'] ?? "",

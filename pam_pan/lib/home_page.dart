@@ -356,41 +356,41 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          IconButton(
-            icon:
-                const Icon(Icons.notifications, size: 35, color: Colors.black),
-            onPressed: () {
-              String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
-              LocalNotifications.showPeriodicNotification(
-                title: "Pam got some tips for you!",
-                body: randomTip,
-                payload: randomTip,
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
-            onPressed: () {
-              LocalNotifications.cancelAll();
-            },
-          ),
-          IconButton(
-            icon:
-                const Icon(Icons.notifications, size: 35, color: Colors.black),
-            onPressed: () {
-              sortList(items);
-              for (int i = 0; i < items.length; i++) {
-                LocalNotifications.showScheduleNotification(
-                  id: i,
-                  title: "Uhoh! ${items[i][1]} is about to expire!",
-                  body: "Quick! It will expire on ${items[i][0]}",
-                  payload: "Scheduled payload",
-                  minutes:
-                      daysBetween(DateTime.now(), stringToDate(items[i][0])),
-                );
-              }
-            },
-          ),
+          // IconButton(
+          //   icon:
+          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
+          //   onPressed: () {
+          //     String randomTip = Tips.tips[random.nextInt(Tips.tips.length)][0];
+          //     LocalNotifications.showPeriodicNotification(
+          //       title: "Pam got some tips for you!",
+          //       body: randomTip,
+          //       payload: randomTip,
+          //     );
+          //   },
+          // ),
+          // IconButton(
+          //   icon: const Icon(Icons.cancel, size: 35, color: Colors.black),
+          //   onPressed: () {
+          //     LocalNotifications.cancelAll();
+          //   },
+          // ),
+          // IconButton(
+          //   icon:
+          //       const Icon(Icons.notifications, size: 35, color: Colors.black),
+          //   onPressed: () {
+          //     sortList(items);
+          //     for (int i = 0; i < items.length; i++) {
+          //       LocalNotifications.showScheduleNotification(
+          //         id: i,
+          //         title: "Uhoh! ${items[i][1]} is about to expire!",
+          //         body: "Quick! It will expire on ${items[i][0]}",
+          //         payload: "Scheduled payload",
+          //         minutes:
+          //             daysBetween(DateTime.now(), stringToDate(items[i][0])),
+          //       );
+          //     }
+          //   },
+          // ),
         ],
       ),
       body: SingleChildScrollView(
@@ -474,7 +474,7 @@ class _HomePageState extends State<HomePage> {
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 214, 201, 243),
+                          color:const Color.fromARGB(255, 220, 209, 244),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -510,23 +510,16 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         child: Column(
           children: [
+            const SizedBox(height: 65),
             Container(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.black, // Border color
-                    width: 1.0, // Border width
-                  ),
-                ),
+              margin:
+                  const EdgeInsets.only(top: 20, bottom: 20, left: 5, right: 5),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 220, 209, 244),
+                borderRadius: BorderRadius.circular(16.0),
               ),
-            ),
-            SizedBox(
-              height: 250,
-              child: DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -562,17 +555,19 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(
                                 username ?? "Null",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                               Text(
                                 email ?? "Null",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
@@ -582,78 +577,88 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 10),
                     Text(
                       'Notifications: ${notificationDays?.toString() ?? "NaN"} days before expiry date.',
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontSize: 14,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
             ),
-            const Expanded(child: SizedBox()),
-            ListTile(
-              title: const Text('Records'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const Records();
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Edit Categories'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const CategoryListPage();
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Settings'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text('Help'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const HelpPage();
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text(
-                'Log out',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
+            
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: const Text('Records'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const Records();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Edit Categories'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const CategoryListPage();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Settings'),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: const Text('Help'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const HelpPage();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: const Text(
+                        'Log out',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onTap: () {
+                        account.deleteSession(sessionId: 'current');
+                        while (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const LoginPage();
+                        }));
+                      },
+                    ),
+                  ],
                 ),
               ),
-              onTap: () {
-                account.deleteSession(sessionId: 'current');
-                while (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const LoginPage();
-                }));
-              },
             ),
           ],
         ),
