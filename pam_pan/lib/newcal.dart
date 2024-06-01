@@ -25,7 +25,6 @@ class _NewCalendarState extends State<NewCalendar> {
   final CalendarController _controller = CalendarController();
 
   List<FoodItem> _itemsList = [];
-  _AppointmentDataSource dataSource = _AppointmentDataSource(appointments);
 
   @override
   void dispose() {
@@ -38,6 +37,20 @@ class _NewCalendarState extends State<NewCalendar> {
     setState(
       () {
         _itemsList = fetchedItems;
+        for (int i = 0; i < _itemsList.length; i++) {
+          final Appointment app = Appointment(
+            startTime: stringToDate(_itemsList[i].expiryDate!),
+            endTime: stringToDate(_itemsList[i].expiryDate!),
+            isAllDay: true,
+            color: colours[Random().nextInt(colours.length)],
+            subject: _itemsList[i].toString(),
+          );
+          _getCalendarDataSource().appointments!.add(app);
+          _getCalendarDataSource().notifyListeners(
+            CalendarDataSourceAction.add,
+            <Appointment>[app],
+          );
+        }
       },
     );
   }
@@ -46,7 +59,6 @@ class _NewCalendarState extends State<NewCalendar> {
   void initState() {
     super.initState();
     _asyncQuery();
-    dataSource = _getCalendarDataSource();
   }
 
   List<Color> colours = [
@@ -61,19 +73,34 @@ class _NewCalendarState extends State<NewCalendar> {
     Colors.indigo,
   ];
 
+  // _AppointmentDataSource _getCalendarDataSource() {
+  // for (int i = 0; i < _itemsList.length; i++) {
+  //   appointments.add(
+  //     Appointment(
+  //       startTime: stringToDate(_itemsList[i].expiryDate!),
+  //       endTime: stringToDate(_itemsList[i].expiryDate!),
+  //       isAllDay: true,
+  //       color: colours[Random().nextInt(colours.length)],
+  //       subject: _itemsList[i].toString(),
+  //     ),
+  //   );
+  //   dataSource.notifyListeners(CalendarDataSourceAction.reset, appointments);
+  // }
+
+  //   return _AppointmentDataSource(appointments);
+  // }
+
   _AppointmentDataSource _getCalendarDataSource() {
-    for (int i = 0; i < _itemsList.length; i++) {
-      appointments.add(
-        Appointment(
-          startTime: stringToDate(_itemsList[i].expiryDate!),
-          endTime: stringToDate(_itemsList[i].expiryDate!),
-          isAllDay: true,
-          color: colours[Random().nextInt(colours.length)],
-          subject: _itemsList[i].toString(),
-        ),
-      );
-      dataSource.notifyListeners(CalendarDataSourceAction.reset, appointments);
-    }
+    appointments.add(
+      Appointment(
+        startTime: DateTime.now(),
+        endTime: DateTime.now().add(Duration(minutes: 10)),
+        subject: 'Meeting',
+        color: Colors.blue,
+        startTimeZone: '',
+        endTimeZone: '',
+      ),
+    );
 
     return _AppointmentDataSource(appointments);
   }
@@ -83,6 +110,15 @@ class _NewCalendarState extends State<NewCalendar> {
     // _getCalendarDataSource.appointments!.add(app);
     // _getCalendarDataSource.notifyListeners(
     //     CalendarDataSourceAction.add, <Appointment>[app]);
+    subscription.stream.listen(
+      (response) {
+        setState(
+          () {
+            _asyncQuery();
+          },
+        );
+      },
+    );
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -147,7 +183,7 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
           ),
         ),
-        dataSource: dataSource,
+        dataSource: _getCalendarDataSource(),
       ),
     );
   }

@@ -115,41 +115,42 @@ class _AddItemPage extends State<AddItemPage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-  crossAxisAlignment: CrossAxisAlignment.stretch,
-  children: [
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Item Name', style: GoogleFonts.mukta(fontSize: 17)),
-        const SizedBox(height: 3),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Please enter the name of your item",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Item Name', style: GoogleFonts.mukta(fontSize: 17)),
+                      const SizedBox(height: 3),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Please enter the name of your item",
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(),
+                                ),
+                              ),
+                              validator: (String? value) {
+                                return _itemNameChecker(value)
+                                    ? 'Please enter a valid name'
+                                    : null;
+                              },
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: _controllerItemName,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: _barcodeClick,
+                            icon: const Icon(Icons.barcode_reader),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-                validator: (String? value) {
-                  return _itemNameChecker(value)
-                      ? 'Please enter a valid name'
-                      : null;
-                },
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _controllerItemName,
-              ),
-            ),
-            IconButton(
-              onPressed: _barcodeClick,
-              icon: const Icon(Icons.barcode_reader),
-            ),
-          ],
-        ),
-      ],
-    ),
                   const SizedBox(height: 12),
                   Text('Expiry Date', style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),
@@ -173,9 +174,7 @@ class _AddItemPage extends State<AddItemPage> {
                   const SizedBox(height: 12),
                   Text('Category', style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),
-                 
                   DropdownMenu<String>(
-       
                       menuHeight: 400,
                       width: MediaQuery.of(context).size.width - (16 * 2),
                       controller: _controllerCategory,
@@ -189,18 +188,17 @@ class _AddItemPage extends State<AddItemPage> {
                       style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),
                   DropdownMenu<String>(
-                      width: MediaQuery.of(context).size.width - (16 * 2),
-                      controller: _controllerMeasurement,
-                      dropdownMenuEntries: const [
-                        DropdownMenuEntry(label: 'g', value: 'g'),
-                        DropdownMenuEntry(label: 'kg', value: 'kg'),
-                        DropdownMenuEntry(label: 'ml', value: 'ml'),
-                        DropdownMenuEntry(label: 'l', value: 'l'),
-                        DropdownMenuEntry(label: 'pieces', value: 'pieces'),
-                        
-                      ],
-                      hintText: "Measurement Unit",
-                    ),
+                    width: MediaQuery.of(context).size.width - (16 * 2),
+                    controller: _controllerMeasurement,
+                    dropdownMenuEntries: const [
+                      DropdownMenuEntry(label: 'g', value: 'g'),
+                      DropdownMenuEntry(label: 'kg', value: 'kg'),
+                      DropdownMenuEntry(label: 'ml', value: 'ml'),
+                      DropdownMenuEntry(label: 'l', value: 'l'),
+                      DropdownMenuEntry(label: 'pieces', value: 'pieces'),
+                    ],
+                    hintText: "Measurement Unit",
+                  ),
                   const SizedBox(height: 12),
                   Text('Quantity', style: GoogleFonts.mukta(fontSize: 17)),
                   const SizedBox(height: 3),

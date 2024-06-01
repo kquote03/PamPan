@@ -44,6 +44,7 @@ final subscription = realtime.subscribe([
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
+  List<String> recentlyAddedItems = [];
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -122,6 +123,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(context) {
+    subscription.stream.listen(
+      (response) {
+        setState(
+          () {
+            _asyncQuery();
+          },
+        );
+      },
+    );
     List<Widget> carouselItems = [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
