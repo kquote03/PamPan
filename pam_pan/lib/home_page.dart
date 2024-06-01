@@ -20,6 +20,12 @@ import 'package:home_widget/home_widget.dart';
 import 'package:pam_pan/records.dart';
 import 'bottom_bar.dart';
 
+List<Map<String, dynamic>> leaderboardData = [
+  {'name': 'Obabs Obabs', 'exp': 1000},
+  {'name': 'Jotaro Kujo', 'exp': 999},
+  {'name': 'Killua :D', 'exp': 700}
+];
+
 //Taken from expiry_test
 DateTime stringToDate(String date) {
   return DateTime.parse(date);
@@ -364,47 +370,88 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 50,
             ),
-            CarouselSlider(
-              options: CarouselOptions(
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.95,
-                initialPage: 0,
-                enableInfiniteScroll: false,
-                reverse: false,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                enlargeFactor: 0.2,
-                scrollDirection: Axis.horizontal,
+            Container(
+              margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: Text(
+                'Current Leaderboard',
+                style: GoogleFonts.mukta(
+                    fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              items: [1].map(
-                (i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 214, 201, 243),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(10, 10),
-                              blurStyle: BlurStyle.normal,
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          'text $i',
-                          style: const TextStyle(fontSize: 16.0),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ).toList(),
             ),
+            Card(
+              child: ListTile(
+                tileColor: Colors.amber[50],
+                leading: Text(
+                  '🥇',
+                  style: TextStyle(fontSize: 24),
+                ),
+                title: Text(leaderboardData[0]['name']),
+                trailing: Text(leaderboardData[0]['exp'].toString()),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                tileColor: Colors.grey[50],
+                leading: Text(
+                  '🥈',
+                  style: TextStyle(fontSize: 24),
+                ),
+                title: Text(leaderboardData[1]['name']),
+                trailing: Text(leaderboardData[1]['exp'].toString()),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                tileColor: Colors.brown[50],
+                leading: Text(
+                  '🥉',
+                  style: TextStyle(fontSize: 24),
+                ),
+                title: Text(leaderboardData[2]['name']),
+                trailing: Text(leaderboardData[2]['exp'].toString()),
+              ),
+            ),
+            //CarouselSlider(
+            //  options: CarouselOptions(
+            //    aspectRatio: 16 / 9,
+            //    viewportFraction: 0.95,
+            //    initialPage: 0,
+            //    enableInfiniteScroll: false,
+            //    reverse: false,
+            //    autoPlayCurve: Curves.fastOutSlowIn,
+            //    enlargeCenterPage: true,
+            //    enlargeFactor: 0.2,
+            //    scrollDirection: Axis.horizontal,
+            //  ),
+            //  items: [1].map(
+            //    (i) {
+            //      return Builder(
+            //        builder: (BuildContext context) {
+            //          return Container(
+            //            width: MediaQuery.of(context).size.width,
+            //            margin: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+            //            decoration: BoxDecoration(
+            //              color: const Color.fromARGB(255, 214, 201, 243),
+            //              boxShadow: [
+            //                BoxShadow(
+            //                  color: Colors.grey.withOpacity(0.5),
+            //                  spreadRadius: 5,
+            //                  blurRadius: 7,
+            //                  offset: const Offset(10, 10),
+            //                  blurStyle: BlurStyle.normal,
+            //                ),
+            //              ],
+            //            ),
+            //            child: Text(
+            //              'text $i',
+            //              style: const TextStyle(fontSize: 16.0),
+            //            ),
+            //          );
+            //        },
+            //      );
+            //    },
+            //  ).toList(),
+            //),
             const SizedBox(
               height: 1500,
             ),
