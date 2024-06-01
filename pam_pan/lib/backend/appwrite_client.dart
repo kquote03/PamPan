@@ -133,13 +133,13 @@ Future<List<FoodItem>> getNearlyExpiredItems({int? limit}) async {
 
   for (var i in documents.documents) {
     items.add(FoodItem(
-        itemId: i.data['\$id'],
-        itemName: i.data['name'],
+        itemId: i.data['\$id'] ?? "",
+        itemName: i.data['name'] ?? "",
         expiryDate: DateFormat('yyyy-MM-dd')
-            .format(DateTime.parse(i.data['expiryDate'])),
-        measurementUnit: i.data['measurementUnit'],
-        quantity: i.data['quantity'],
-        categoryName: i.data['categories']['name']));
+            .format(DateTime.parse(i.data['expiryDate'] ?? "")),
+        measurementUnit: i.data['measurementUnit'] ?? "",
+        quantity: i.data['quantity'] ?? "",
+        categoryName: i.data['categories']?['name'] ?? ""));
     print(items);
   }
   return items;
