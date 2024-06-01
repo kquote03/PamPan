@@ -1,5 +1,6 @@
 import 'package:better_open_file/better_open_file.dart';
 import 'package:camerawesome/camerawesome_plugin.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pam_pan/cameraholder.dart';
@@ -38,43 +39,45 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           label: 'Home',
         ),
-        NavigationDestination(
-          icon: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const MapPage();
-                  },
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.location_on,
-              size: 35,
-              color: Colors.black,
+        if (!kIsWeb)
+          NavigationDestination(
+            icon: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const MapPage();
+                    },
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.location_on,
+                size: 35,
+                color: Colors.black,
+              ),
             ),
+            label: 'Map',
           ),
-          label: 'Map',
-        ),
-        NavigationDestination(
-          icon: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Cameraholder();
-              }));
-            },
-            icon: const Icon(
-              Icons.camera_enhance,
-              size: 35,
-              color: Colors.black,
+        if (!kIsWeb)
+          NavigationDestination(
+            icon: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Cameraholder();
+                }));
+              },
+              icon: const Icon(
+                Icons.camera_enhance,
+                size: 35,
+                color: Colors.black,
+              ),
             ),
+            label: 'Camera',
           ),
-          label: 'Camera',
-        ),
         NavigationDestination(
           icon: IconButton(
             icon: const Icon(

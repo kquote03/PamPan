@@ -22,7 +22,7 @@ Future<List<FoodItem>> getItems() async {
           "quantity",
           "expiryDate",
           "measurementUnit",
-          "categories.*",
+          "categories.\$id",
           "\$id"
         ])
       ]);
@@ -40,9 +40,9 @@ Future<List<FoodItem>> getItems() async {
         ),
         measurementUnit: i.data['measurementUnit'],
         quantity: i.data['quantity'],
-        categoryName: i.data['categories']?['name'],
-      ),
-    );
+
+        categoryName: i.data['categories']?["\$id"]));
+
     print(items);
   }
   return items;
@@ -69,17 +69,17 @@ Future<List<FoodItem>> getItemsById(id) async {
   return items;
 }
 
-Future<List<String>> getCategories() async {
+Future<List<Map<String, String>>> getCategories() async {
   var documents = await databases.listDocuments(
       databaseId: '6650884f00137e1b1fcd',
       collectionId: '665089ef003013ad1543',
       queries: [
-        Query.select(["name"])
+        Query.select(["\$id", "name"])
       ]);
 
-  List<String> categoryList = [];
+  List<Map<String, String>> categoryList = [];
   for (var i in documents.documents) {
-    categoryList.add(i.data['name']);
+    categoryList.add({"id": i.data['\$id'], "name": i.data['name']});
   }
   return categoryList;
 }

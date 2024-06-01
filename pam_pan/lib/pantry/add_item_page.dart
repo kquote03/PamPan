@@ -33,7 +33,7 @@ class _AddItemPage extends State<AddItemPage> {
       MultiSelectController();
   final _controllerMeasurement = TextEditingController();
   final TextEditingController _controllerQuantity = TextEditingController();
-  final List<String> categoryList = [];
+  final List<Map<String, String>> categoryList = [];
 
   @override
   void dispose() {
@@ -65,7 +65,7 @@ class _AddItemPage extends State<AddItemPage> {
 
   Future<void> _getCategories() async {
     for (var i in await getCategories()) {
-      categoryList.add(i);
+      categoryList.add({'id': i['\$id'] ?? "", 'name': i['name'] ?? ""});
     }
     // FOR THE RECORD
     // I came accross this solution by TOTAL ACCIDENT
@@ -78,16 +78,16 @@ class _AddItemPage extends State<AddItemPage> {
   }
 
   _getItemsAndSetControllers() async {
-    items = await getItemsById(widget.id);
+    List<FoodItem> items = await getItemsById(widget.id);
     print(items);
-    _controllerItemName.text = items[0]['name'];
-    _controllerExpiryDate.text = items[0]['expiryDate'];
+    _controllerItemName.text = items[0].itemName ?? "";
+    _controllerExpiryDate.text = items[0].expiryDate ?? "";
     try {
-      _controllerCategory.text = items[0]['categories'];
+      _controllerCategory.text = items[0].categoryName ?? "";
     } catch (e) {}
-    _controllerQuantity.text = items[0]['quantity'];
+    _controllerQuantity.text = items[0].quantity?.toString() ?? "";
     try {
-      _controllerMeasurement.text = items[0]['measurementUnit'];
+      _controllerMeasurement.text = items[0].measurementUnit ?? "";
     } catch (e) {}
   }
 
@@ -175,6 +175,7 @@ class _AddItemPage extends State<AddItemPage> {
                   const SizedBox(height: 3),
                   DropdownMenu<String>(
                       menuHeight: 400,
+
                       width: MediaQuery.of(context).size.width - (16 * 2),
                       controller: _controllerCategory,
                       dropdownMenuEntries: categoryList.map((category) {
@@ -269,6 +270,7 @@ class _AddItemPage extends State<AddItemPage> {
                       style: GoogleFonts.mukta(
                         color: Colors.white,
                         fontSize: 17,
+
                       ),
                     ),
                   ),
