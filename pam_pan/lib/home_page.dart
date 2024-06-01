@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:appwrite/appwrite.dart';
@@ -25,9 +26,9 @@ import 'package:pam_pan/records.dart';
 import 'bottom_bar.dart';
 
 List<Map<String, dynamic>> leaderboardData = [
-  {'name': 'Obabs Obabs', 'exp': 1000},
-  {'name': 'Jotaro Kujo', 'exp': 999},
-  {'name': 'Killua :D', 'exp': 700}
+  {'name': 'Mohammed Ahmed', 'exp': 1000},
+  {'name': 'Mariam Kahmees', 'exp': 999},
+  {'name': 'Khalid Abdalla', 'exp': 700}
 ];
 
 //Taken from expiry_test
@@ -64,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   String iOSWidgetName = 'pampan';
   int index = 0;
 
+  String promptText = "";
   String? username;
   String? email;
   String? notificationDays;
@@ -567,9 +569,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return RecipeResponsePage(
-                                FirebaseAI().textWithoutStream(prompt)
-                                    as String); //TODO i think this is wrong.
+                            return RecipeResponsePage();
                           },
                         ),
                       );
@@ -774,4 +774,7 @@ class _HomePageState extends State<HomePage> {
   //     );
   //   }
   // }
+  Future<void> _genAI() async {
+    promptText = await FirebaseAI().textWithoutStream(prompt);
+  }
 }
