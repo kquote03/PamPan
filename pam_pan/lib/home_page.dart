@@ -635,7 +635,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -716,14 +715,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scheduleExpiryNotifications() {
-    sortList(items);
-    for (int i = 0; i < items.length; i++) {
+    sortList(addedItems);
+    for (int i = 0; i < addedItems.length; i++) {
       LocalNotifications.showScheduleNotification(
         id: i,
-        title: "Uhoh! ${items[i][1]} is about to expire!",
-        body: "Quick! It will expire on ${items[i][0]}",
+        title: "Uhoh! ${addedItems[i][1]} is about to expire!",
+        body: "Quick! It will expire on ${addedItems[i][0]}",
         payload: "Scheduled payload",
-        minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
+        minutes: daysBetween(DateTime.now(), stringToDate(addedItems[i][0])),
       );
     }
   }
