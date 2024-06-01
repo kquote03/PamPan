@@ -72,12 +72,17 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image.asset(
-                //   'assets/logo/pampan_logo.png',
-                //   height: 100,
-                //   alignment: Alignment.center,
-                // ),
-                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/logo/pampan_logo.png',
+                      scale: 13,
+                      alignment: Alignment.center,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 50),
                 Text('Email', style: GoogleFonts.mukta(fontSize: 17)),
                 const SizedBox(height: 3),
                 TextFormField(
