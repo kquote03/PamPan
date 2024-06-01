@@ -163,28 +163,24 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Text(
-            _recentlyAddedItem1,
+            "Snickers",
             overflow: TextOverflow.ellipsis,
-             style: GoogleFonts.lato(
-                textStyle: const TextStyle(fontSize: 20)),
+            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
-            _recentlyAddedItem2,
+            "Milk",
             overflow: TextOverflow.ellipsis,
-             style: GoogleFonts.lato(
-                textStyle: const TextStyle(fontSize: 20)),
+            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
-            _recentlyAddedItem3,
+            "Apple",
             overflow: TextOverflow.ellipsis,
-             style: GoogleFonts.lato(
-                textStyle: const TextStyle(fontSize: 20)),
+            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Text(
-            _recentlyAddedItem4,
+            "Ketchup",
             overflow: TextOverflow.ellipsis,
-             style: GoogleFonts.lato(
-                textStyle: const TextStyle(fontSize: 20)),
+            style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 20)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -411,8 +407,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
                 'Pantry View',
-                style: GoogleFonts.lato(
-                    fontWeight: FontWeight.bold, fontSize: 20),
+                style:
+                    GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             CarouselSlider(
@@ -468,8 +464,8 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
               child: Text(
                 'Current Leaderboard',
-                style: GoogleFonts.lato(
-                    fontWeight: FontWeight.bold, fontSize: 20),
+                style:
+                    GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             Card(
