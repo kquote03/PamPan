@@ -114,6 +114,7 @@ class _PantryState extends State<Pantry> {
         );
       },
     ).toList();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -169,6 +170,15 @@ class _PantryState extends State<Pantry> {
             ),
             const SizedBox(
               height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 13.0, left: 10),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: categoriesListMapped,
+                ),
+              ),
             ),
             Column(
               children: currentItems.map((foodItem) {
