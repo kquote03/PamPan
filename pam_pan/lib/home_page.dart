@@ -729,16 +729,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _scheduleExpiryNotifications() {
-    sortList(items);
-    for (int i = 0; i < items.length; i++) {
-      LocalNotifications.showScheduleNotification(
-        id: i,
-        title: "Uhoh! ${items[i][1]} is about to expire!",
-        body: "Quick! It will expire on ${items[i][0]}",
-        payload: "Scheduled payload",
-        minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
-      );
-    }
-  }
+  // void _scheduleExpiryNotifications() {
+  //   sortList(items);
+  //   for (int i = 0; i < items.length; i++) {
+  //     LocalNotifications.showScheduleNotification(
+  //       id: i,
+  //       title: "Uhoh! ${items[i][1]} is about to expire!",
+  //       body: "Quick! It will expire on ${items[i][0]}",
+  //       payload: "Scheduled payload",
+  //       minutes: daysBetween(DateTime.now(), stringToDate(items[i][0])),
+  //     );
+  //   }
+  // }
 }
