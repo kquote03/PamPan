@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
   String? _recentlyAddedItem4;
 
   _asyncQuery() async {
-    List<FoodItem> fetchedItems = await getRecentlyAddedItems(limit: 4);
+    List<FoodItem> fetchedItems = await getNearlyExpiredItems(limit: 4);
     var usernameFuture = (await account.get()).name;
     var emailFuture = (await account.get()).email;
     var notificationDaysFuture =
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text(
             "Hewwo",
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 40),
           ),
           Text(
             _recentlyAddedItem1 ?? "",
@@ -244,7 +244,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text(
             "Hewwo",
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 40),
           ),
           Text(
             _recentlyAddedItem1 ?? "",
@@ -414,7 +414,7 @@ class _HomePageState extends State<HomePage> {
             CarouselSlider(
               carouselController: _carousalController,
               options: CarouselOptions(
-                height: 210,
+                height: 275,
                 // padEnds: false,
                 // aspectRatio: 16 / 9,
                 viewportFraction: 0.95,
@@ -458,7 +458,7 @@ class _HomePageState extends State<HomePage> {
               ).toList(),
             ),
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
             Container(
               margin: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -516,16 +516,6 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      margin:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      child: Text(
-                        'AI',
-                        style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    ),
-                    const SizedBox(height: 95),
                     Container(
                       width: 40,
                       height: 40,
