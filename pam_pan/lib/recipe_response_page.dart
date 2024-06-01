@@ -1,10 +1,15 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 
-class RecipeResponsePage extends StatelessWidget {
-  const RecipeResponsePage(this.aiResponse, {super.key});
-  final String aiResponse;
 
+class RecipeResposePage extends StatefulWidget {
+  const RecipeResposePage({super.key});
+
+  @override
+  State<RecipeResposePage> createState() => _RecipeResposePageState();
+}
+
+class _RecipeResposePageState extends State<RecipeResposePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +39,7 @@ class RecipeResponsePage extends StatelessWidget {
               ],
             ),
             BubbleSpecialThree(
-              text: aiResponse,
+              text: ,
               color: const Color(0xFFE8E8EE),
               tail: false,
               isSender: false,
