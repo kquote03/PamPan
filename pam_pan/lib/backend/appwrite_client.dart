@@ -29,8 +29,7 @@ Future<List<FoodItem>> getItems() async {
   List<FoodItem> items = [];
 
   for (var i in documents.documents) {
-    items.add(
-      FoodItem(
+    items.add(FoodItem(
         itemId: i.data['\$id'],
         itemName: i.data['name'],
         expiryDate: DateFormat('yyyy-MM-dd').format(
@@ -40,7 +39,6 @@ Future<List<FoodItem>> getItems() async {
         ),
         measurementUnit: i.data['measurementUnit'],
         quantity: i.data['quantity'],
-
         categoryName: i.data['categories']?["\$id"]));
 
     print(items);
@@ -113,6 +111,38 @@ void deleteCategoryById(id) async {
       documentId: id);
 }
 
+Future<List<FoodItem>> getRecentlyAddedItems({int? limit}) async {
+  var documents = await databases.listDocuments(
+      databaseId: '6650884f00137e1b1fcd',
+      collectionId: '6650886f0027a739c072',
+      queries: [
+        Query.select([
+          "name",
+          "quantity",
+          "expiryDate",
+          "measurementUnit",
+          "categories.*",
+          "\$id"
+        ]),
+        Query.limit(limit ?? 3),
+        Query.orderDesc('\$createdAt')
+      ]);
+  List<FoodItem> items = [];
+
+  for (var i in documents.documents) {
+    items.add(FoodItem(
+        itemId: i.data['\$id'] ?? "",
+        itemName: i.data['name'] ?? "",
+        expiryDate: DateFormat('yyyy-MM-dd')
+            .format(DateTime.parse(i.data['expiryDate'] ?? "")),
+        measurementUnit: i.data['measurementUnit'] ?? "",
+        quantity: i.data['quantity'] ?? "",
+        categoryName: i.data['categories']?['name'] ?? ""));
+    print(items);
+  }
+  return items;
+}
+
 Future<List<FoodItem>> getNearlyExpiredItems({int? limit}) async {
   var documents = await databases.listDocuments(
       databaseId: '6650884f00137e1b1fcd',
@@ -127,7 +157,7 @@ Future<List<FoodItem>> getNearlyExpiredItems({int? limit}) async {
           "\$id"
         ]),
         Query.limit(limit ?? 3),
-        Query.orderAsc('\$createdAt')
+        Query.orderDesc('\$createdAt')
       ]);
   List<FoodItem> items = [];
 

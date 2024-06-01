@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
   String? _recentlyAddedItem4;
 
   _asyncQuery() async {
-    List<FoodItem> fetchedItems = await getNearlyExpiredItems(limit: 4);
+    List<FoodItem> fetchedItems = await getRecentlyAddedItems(limit: 4);
     var usernameFuture = (await account.get()).name;
     var emailFuture = (await account.get()).email;
     var notificationDaysFuture =
