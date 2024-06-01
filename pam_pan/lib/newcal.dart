@@ -25,6 +25,7 @@ class _NewCalendarState extends State<NewCalendar> {
   final CalendarController _controller = CalendarController();
 
   List<FoodItem> _itemsList = [];
+  _AppointmentDataSource dataSource = _AppointmentDataSource(appointments);
 
   @override
   void dispose() {
@@ -45,6 +46,7 @@ class _NewCalendarState extends State<NewCalendar> {
   void initState() {
     super.initState();
     _asyncQuery();
+    dataSource = _getCalendarDataSource();
   }
 
   List<Color> colours = [
@@ -59,21 +61,28 @@ class _NewCalendarState extends State<NewCalendar> {
     Colors.indigo,
   ];
 
+  _AppointmentDataSource _getCalendarDataSource() {
+    for (int i = 0; i < _itemsList.length; i++) {
+      appointments.add(
+        Appointment(
+          startTime: stringToDate(_itemsList[i].expiryDate!),
+          endTime: stringToDate(_itemsList[i].expiryDate!),
+          isAllDay: true,
+          color: colours[Random().nextInt(colours.length)],
+          subject: _itemsList[i].toString(),
+        ),
+      );
+      dataSource.notifyListeners(CalendarDataSourceAction.reset, appointments);
+    }
+
+    return _AppointmentDataSource(appointments);
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (_itemsList.isNotEmpty) {
-      for (int i = 0; i < _itemsList.length; i++) {
-        appointments.add(
-          Appointment(
-            startTime: stringToDate(_itemsList[i].expiryDate!),
-            endTime: stringToDate(_itemsList[i].expiryDate!),
-            isAllDay: true,
-            color: colours[Random().nextInt(colours.length)],
-            subject: _itemsList[i].toString(),
-          ),
-        );
-      }
-    }
+    // _getCalendarDataSource.appointments!.add(app);
+    // _getCalendarDataSource.notifyListeners(
+    //     CalendarDataSourceAction.add, <Appointment>[app]);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -138,13 +147,9 @@ class _NewCalendarState extends State<NewCalendar> {
             ),
           ),
         ),
-        dataSource: _getCalendarDataSource(),
+        dataSource: dataSource,
       ),
     );
-  }
-
-  _AppointmentDataSource _getCalendarDataSource() {
-    return _AppointmentDataSource(appointments);
   }
 }
 
