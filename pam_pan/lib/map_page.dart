@@ -37,7 +37,7 @@ class _MapPageState extends State<MapPage> {
   static const LatLng _mosque2 = LatLng(24.185565598092026, 55.717358732793436);
 
   Map<PolylineId, Polyline> polylines = {};
-  LatLng _currentP = const LatLng(24.3455155, 54.5368051);
+  LatLng _currentP = const LatLng(24.2005929, 55.6734591);
 
   @override
   void dispose() {
